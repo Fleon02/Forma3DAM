@@ -1,18 +1,14 @@
 package vista;
 
 import java.awt.Color;
-import java.util.Map;
-import modelo.LoginDAO;
-import pojos.Login;
 
-public class VntLogin extends javax.swing.JFrame {
+public class VntLogin1 extends javax.swing.JFrame {
 
     int xMouse, yMouse;
 
-    public VntLogin() {
+    public VntLogin1() {
         initComponents();
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoF.png")).getImage());
-
     }
 
     @SuppressWarnings("unchecked")
@@ -26,13 +22,20 @@ public class VntLogin extends javax.swing.JFrame {
         favicon = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         userLabel = new javax.swing.JLabel();
-        userTxt = new javax.swing.JTextField();
+        txtdniAlumnos = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        passLabel = new javax.swing.JLabel();
-        passTxt = new javax.swing.JPasswordField();
-        jSeparator2 = new javax.swing.JSeparator();
         loginBtn = new javax.swing.JPanel();
         loginBtnTxt = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        txtdniAlumno = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Forma3");
@@ -106,45 +109,26 @@ public class VntLogin extends javax.swing.JFrame {
 
         title.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
         title.setForeground(new java.awt.Color(0, 0, 0));
-        title.setText("INICIAR SESIÓN");
-        bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
+        title.setText("ALUMNOS");
+        bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, -1));
 
         userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel.setForeground(new java.awt.Color(0, 0, 0));
-        userLabel.setText("EMAIL");
-        bg.add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+        userLabel.setText("DNI Alumno");
+        bg.add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 59, 150, 30));
 
-        userTxt.setBackground(new java.awt.Color(0, 0, 0));
-        userTxt.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        userTxt.setForeground(new java.awt.Color(204, 204, 204));
-        userTxt.setText("Ingrese su nombre de usuario");
-        userTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtdniAlumnos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtdniAlumnos.setForeground(new java.awt.Color(204, 204, 204));
+        txtdniAlumnos.setBorder(null);
+        txtdniAlumnos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                userTxtMousePressed(evt);
+                txtdniAlumnosMousePressed(evt);
             }
         });
-        bg.add(userTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 410, 30));
+        bg.add(txtdniAlumnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 60, 240, 30));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        bg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 410, 20));
-
-        passLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        passLabel.setForeground(new java.awt.Color(0, 0, 0));
-        passLabel.setText("CONTRASEÑA");
-        bg.add(passLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
-
-        passTxt.setBackground(new java.awt.Color(0, 0, 0));
-        passTxt.setForeground(new java.awt.Color(204, 204, 204));
-        passTxt.setText("********");
-        passTxt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                passTxtMousePressed(evt);
-            }
-        });
-        bg.add(passTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 410, 30));
-
-        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        bg.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 410, 20));
+        bg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 90, 240, 20));
 
         loginBtn.setBackground(new java.awt.Color(255, 51, 51));
 
@@ -168,24 +152,76 @@ public class VntLogin extends javax.swing.JFrame {
         loginBtn.setLayout(loginBtnLayout);
         loginBtnLayout.setHorizontalGroup(
             loginBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginBtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(loginBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         loginBtnLayout.setVerticalGroup(
             loginBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginBtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(loginBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        bg.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 130, 40));
+        bg.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 360, 130, 40));
+
+        jLabel1.setText("DNI Alumno");
+        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        txtdniAlumno.setToolTipText("");
+        txtdniAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtdniAlumnoActionPerformed(evt);
+            }
+        });
+        bg.add(txtdniAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jLabel6.setText("Curriculum Alumno");
+        bg.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jLabel2.setText("DNI Alumno");
+        bg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jLabel3.setText("Nombre Alumno");
+        bg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jLabel4.setText("Año Alumno");
+        bg.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jLabel5.setText("N. S. S. Alumno");
+        bg.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jLabel7.setText("Ciclo Alumno");
+        bg.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, 210));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 1086, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -216,77 +252,52 @@ public class VntLogin extends javax.swing.JFrame {
         exitTxt.setForeground(Color.black);
     }//GEN-LAST:event_exitTxtMouseExited
 
-    private void loginBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseEntered
-        loginBtn.setBackground(Color.BLACK);
-        loginBtnTxt.setForeground(Color.WHITE);
-    }//GEN-LAST:event_loginBtnTxtMouseEntered
+    private void txtdniAlumnosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtdniAlumnosMousePressed
+        if (txtdniAlumnos.getText().equals("Ingrese su nombre de usuario")) {
+            txtdniAlumnos.setText("");
+            txtdniAlumnos.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtdniAlumnosMousePressed
+
+    private void txtdniAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdniAlumnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdniAlumnoActionPerformed
 
     private void loginBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseExited
         loginBtn.setBackground(new Color(255, 51, 51)); // Restaurar el color original del botón
         loginBtnTxt.setForeground(Color.BLACK); // Restaurar el color original del texto
     }//GEN-LAST:event_loginBtnTxtMouseExited
 
-    private void userTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTxtMousePressed
-        if (userTxt.getText().equals("Ingrese su nombre de usuario")) {
-            userTxt.setText("");
-            userTxt.setForeground(Color.black);
-        }
-        if (String.valueOf(passTxt.getPassword()).isEmpty()) {
-            passTxt.setText("********");
-            passTxt.setForeground(Color.gray);
-        }
-    }//GEN-LAST:event_userTxtMousePressed
-
-    private void passTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passTxtMousePressed
-        if (String.valueOf(passTxt.getPassword()).equals("********")) {
-            passTxt.setText("");
-            passTxt.setForeground(Color.black);
-        }
-        if (userTxt.getText().isEmpty()) {
-            userTxt.setText("Ingrese su nombre de usuario");
-            userTxt.setForeground(Color.gray);
-        }
-    }//GEN-LAST:event_passTxtMousePressed
+    private void loginBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseEntered
+        loginBtn.setBackground(Color.BLACK);
+        loginBtnTxt.setForeground(Color.WHITE);
+    }//GEN-LAST:event_loginBtnTxtMouseEntered
 
     private void loginBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseClicked
-        // Obtener el nombre de usuario y la contraseña ingresados por el usuario
-        String correoUsuario = userTxt.getText();
-        String contrasena = String.valueOf(passTxt.getPassword());
 
-        // Crear una instancia de LoginDAO
-        LoginDAO loginDAO = new LoginDAO();
-
-        Login usuario = loginDAO.iniciarSesion(correoUsuario, contrasena);
-
-        // Verificar si se encontró un usuario con las credenciales proporcionadas
-        if (usuario != null) {
-            // Si se encontró el usuario, mostrar un mensaje de éxito
-            VntPrincipal p = new VntPrincipal(usuario.getNombreUsuario(), usuario.getRol());
-            p.setVisible(true);
-            dispose();
-        } else {
-            // Si no se encontró el usuario, mostrar un mensaje de error
-            javax.swing.JOptionPane.showMessageDialog(this, "Nombre de usuario o contraseña incorrectos", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
-        }
     }//GEN-LAST:event_loginBtnTxtMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JLabel favicon;
     private javax.swing.JPanel header;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel loginBtn;
     private javax.swing.JLabel loginBtnTxt;
-    private javax.swing.JLabel passLabel;
-    private javax.swing.JPasswordField passTxt;
     private javax.swing.JLabel title;
+    private javax.swing.JTextField txtdniAlumno;
+    private javax.swing.JTextField txtdniAlumnos;
     private javax.swing.JLabel userLabel;
-    private javax.swing.JTextField userTxt;
     // End of variables declaration//GEN-END:variables
 }
