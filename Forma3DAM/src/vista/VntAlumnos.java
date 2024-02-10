@@ -1,7 +1,10 @@
 package vista;
 
 import java.awt.Color;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import modelo.AlumnosDAO;
+import pojos.Alumnos;
 
 public class VntAlumnos extends javax.swing.JFrame {
 
@@ -19,6 +22,17 @@ public class VntAlumnos extends javax.swing.JFrame {
     public VntAlumnos() {
         initComponents();
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoF.png")).getImage());
+        List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
+        for (Alumnos a : listaAlumnos) {
+            dtm.addRow(new Object[]{
+                a.getDniAlumno(),
+                a.getNombreAlumno(),
+                a.getYearCurso(),
+                a.getSegSocialAlumno(),
+                a.getCicloAlumno(),
+                a.getCv(),
+                a.getValidez(),});
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -56,6 +70,7 @@ public class VntAlumnos extends javax.swing.JFrame {
         checkbValidez = new javax.swing.JCheckBox();
         btnSubirCV = new javax.swing.JButton();
         btnInsertar = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
 
         jButton2.setBackground(new java.awt.Color(18, 30, 49));
@@ -266,6 +281,11 @@ public class VntAlumnos extends javax.swing.JFrame {
         btnInsertar.setText("Insertar");
         bg.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 410, 120, 40));
 
+        btnInicio.setBackground(new java.awt.Color(18, 30, 49));
+        btnInicio.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnInicio.setText("Volver a Inicio");
+        bg.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 460, 130, 40));
+
         btnActualizar.setBackground(new java.awt.Color(18, 30, 49));
         btnActualizar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnActualizar.setText("Actualizar");
@@ -338,6 +358,7 @@ public class VntAlumnos extends javax.swing.JFrame {
     private javax.swing.JPanel bg;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnInsertar;
     private javax.swing.JButton btnSubirCV;
     private javax.swing.JCheckBox checkbValidez;
