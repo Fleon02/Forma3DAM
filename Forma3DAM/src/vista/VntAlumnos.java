@@ -1,9 +1,6 @@
 package vista;
 
 import java.awt.Color;
-import java.util.Map;
-import modelo.LoginDAO;
-import pojos.Login;
 
 public class VntAlumnos extends javax.swing.JFrame {
 
@@ -12,7 +9,6 @@ public class VntAlumnos extends javax.swing.JFrame {
     public VntAlumnos() {
         initComponents();
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoF.png")).getImage());
-
     }
 
     @SuppressWarnings("unchecked")
@@ -330,7 +326,7 @@ public class VntAlumnos extends javax.swing.JFrame {
     }//GEN-LAST:event_exitTxtMouseExited
 
     private void txtDNIAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDNIAlumnoMousePressed
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_txtDNIAlumnoMousePressed
 
     private void txtNombreAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreAlumnoMousePressed
@@ -349,9 +345,6 @@ public class VntAlumnos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCicloAlumnoMousePressed
 
-    /**
-     * @param args the command line arguments
-     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
     private javax.swing.JButton btnActualizar;
