@@ -1,17 +1,14 @@
 package vista;
 
 import java.awt.Color;
-import javax.swing.table.DefaultTableModel;
 
 public class VntAlumnos extends javax.swing.JFrame {
 
-    DefaultTableModel tmAlumnos = new DefaultTableModel();
     int xMouse, yMouse;
 
     public VntAlumnos() {
         initComponents();
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoF.png")).getImage());
-        tmAlumnos.addColumn(new Object[]{"DNI Alumno", "Nombre Alumno", "Año Alumno", "N. S. S. Alumno", "Ciclo Alumno", "CV Alumno", "Validez"});
     }
 
     @SuppressWarnings("unchecked")
@@ -176,15 +173,6 @@ public class VntAlumnos extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTableAlumnos);
-        if (jTableAlumnos.getColumnModel().getColumnCount() > 0) {
-            jTableAlumnos.getColumnModel().getColumn(0).setHeaderValue("DNI Alumno");
-            jTableAlumnos.getColumnModel().getColumn(1).setHeaderValue("Nombre Alumno");
-            jTableAlumnos.getColumnModel().getColumn(2).setHeaderValue("Año Alumno");
-            jTableAlumnos.getColumnModel().getColumn(3).setHeaderValue("N. S. S. Alumno");
-            jTableAlumnos.getColumnModel().getColumn(4).setHeaderValue("Ciclo Alumno");
-            jTableAlumnos.getColumnModel().getColumn(5).setHeaderValue("CV Alumno");
-            jTableAlumnos.getColumnModel().getColumn(6).setHeaderValue("Validez");
-        }
 
         bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 590, 370));
 
