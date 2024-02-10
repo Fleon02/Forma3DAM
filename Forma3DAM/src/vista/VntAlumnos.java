@@ -8,32 +8,16 @@ import pojos.Alumnos;
 
 public class VntAlumnos extends javax.swing.JFrame {
 
-    DefaultTableModel modeloTabla = new DefaultTableModel();
+    DefaultTableModel mtAlumnos = new DefaultTableModel();
     int xMouse, yMouse;
 
     public VntAlumnos() {
         initComponents();
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoF.png")).getImage());
-        modeloTabla.setColumnIdentifiers(new Object[]{"DNI Alumno", "Nombre Alumno", "Anio Curso", "N. S. S. Alumno", "Ciclo Alumno", "CV Alumno", "Validez"});
-        modeloTabla.setRowCount(0);
+        mtAlumnos.addColumn(new Object[""]);
         List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
         for (Alumnos l : listaAlumnos) {
-            modeloTabla.addRow(new Object[]{
-                l.getDniAlumno(),
-                l.getNombreAlumno(),
-                l.getYearCurso(),
-                l.getSegSocialAlumno(),
-                l.getCicloAlumno(),
-                l.getCv(),
-                l.getValidez(),});
-            System.out.printf(
-                    l.getDniAlumno(),
-                    l.getNombreAlumno(),
-                    l.getYearCurso(),
-                    l.getSegSocialAlumno(),
-                    l.getCicloAlumno(),
-                    l.getCv(),
-                    l.getValidez());
+
         }
     }
 
@@ -52,8 +36,6 @@ public class VntAlumnos extends javax.swing.JFrame {
         userLabel = new javax.swing.JLabel();
         txtDNIAlumno = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableAlumnos = new javax.swing.JTable();
         userLabel1 = new javax.swing.JLabel();
         txtNombreAlumno = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
@@ -73,6 +55,8 @@ public class VntAlumnos extends javax.swing.JFrame {
         btnSubirCV = new javax.swing.JButton();
         btnInsertar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaAlumnos = new javax.swing.JTable();
 
         jButton2.setBackground(new java.awt.Color(18, 30, 49));
         jButton2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -176,11 +160,6 @@ public class VntAlumnos extends javax.swing.JFrame {
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         bg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 90, 210, 20));
 
-        jTableAlumnos.setModel(modeloTabla);
-        jScrollPane1.setViewportView(jTableAlumnos);
-
-        bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 590, 370));
-
         userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel1.setForeground(new java.awt.Color(0, 0, 0));
         userLabel1.setText("Nombre Alumno");
@@ -263,6 +242,7 @@ public class VntAlumnos extends javax.swing.JFrame {
 
         btnBorrar.setBackground(new java.awt.Color(18, 30, 49));
         btnBorrar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnBorrar.setForeground(new java.awt.Color(255, 255, 255));
         btnBorrar.setText("Borrar");
         bg.add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 410, 110, 40));
 
@@ -274,18 +254,26 @@ public class VntAlumnos extends javax.swing.JFrame {
 
         btnSubirCV.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCV.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnSubirCV.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCV.setText("Subir Curriculum");
         bg.add(btnSubirCV, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 305, 210, 40));
 
         btnInsertar.setBackground(new java.awt.Color(18, 30, 49));
         btnInsertar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnInsertar.setForeground(new java.awt.Color(255, 255, 255));
         btnInsertar.setText("Insertar");
         bg.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 410, 120, 40));
 
         btnActualizar.setBackground(new java.awt.Color(18, 30, 49));
         btnActualizar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
         bg.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 410, 130, 40));
+
+        tablaAlumnos.setModel(mtAlumnos);
+        jScrollPane2.setViewportView(tablaAlumnos);
+
+        bg.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 610, 340));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -363,14 +351,14 @@ public class VntAlumnos extends javax.swing.JFrame {
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTable jTableAlumnos;
+    private javax.swing.JTable tablaAlumnos;
     private javax.swing.JLabel title;
     private javax.swing.JTextField txtAnioAlumno;
     private javax.swing.JTextField txtCicloAlumno;
