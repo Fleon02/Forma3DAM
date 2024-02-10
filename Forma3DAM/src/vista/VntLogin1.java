@@ -1,36 +1,34 @@
 package vista;
 
 import java.awt.Color;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
+import modelo.LoginDAO;
+import pojos.Login;
 
-public class VntAlumnos extends javax.swing.JFrame {
+public class VntLogin1 extends javax.swing.JFrame {
 
-    DefaultTableModel tmAlumnos = new DefaultTableModel();
+    DefaultTableModel model = new DefaultTableModel();
     int xMouse, yMouse;
 
-    public VntAlumnos() {
+    public VntLogin1() {
         initComponents();
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoF.png")).getImage());
-        tmAlumnos.addColumn(new Object[]{"DNI Alumno", "Nombre Alumno", "Año Alumno", "N. S. S. Alumno", "Ciclo Alumno", "CV Alumno", "Validez"});
+        model.setColumnIdentifiers(new Object[]{""});
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         bg = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
         exitBtn = new javax.swing.JPanel();
         exitTxt = new javax.swing.JLabel();
         favicon = new javax.swing.JLabel();
-        title = new javax.swing.JLabel();
         userLabel = new javax.swing.JLabel();
         txtDNIAlumno = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableAlumnos = new javax.swing.JTable();
         userLabel1 = new javax.swing.JLabel();
         txtNombreAlumno = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
@@ -50,14 +48,7 @@ public class VntAlumnos extends javax.swing.JFrame {
         btnSubirCV = new javax.swing.JButton();
         btnInsertar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
-
-        jButton2.setBackground(new java.awt.Color(18, 30, 49));
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jButton2.setText("Subir Curriculum");
-
-        jButton4.setBackground(new java.awt.Color(18, 30, 49));
-        jButton4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jButton4.setText("Subir Curriculum");
+        title = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Forma3");
@@ -129,12 +120,6 @@ public class VntAlumnos extends javax.swing.JFrame {
         favicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoF.png"))); // NOI18N
         bg.add(favicon, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 160, 70));
 
-        title.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
-        title.setForeground(new java.awt.Color(0, 0, 0));
-        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("ALUMNOS");
-        bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 72, 170, 40));
-
         userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel.setForeground(new java.awt.Color(0, 0, 0));
         userLabel.setText("DNI Alumno");
@@ -152,41 +137,6 @@ public class VntAlumnos extends javax.swing.JFrame {
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         bg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 90, 210, 20));
-
-        jTableAlumnos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "DNI Alumno", "Nombre Alumno", "Año Alumno", "N. S. S. Alumno", "Ciclo Alumno", "CV Alumno", "Validez"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Boolean.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTableAlumnos);
-        if (jTableAlumnos.getColumnModel().getColumnCount() > 0) {
-            jTableAlumnos.getColumnModel().getColumn(0).setHeaderValue("DNI Alumno");
-            jTableAlumnos.getColumnModel().getColumn(1).setHeaderValue("Nombre Alumno");
-            jTableAlumnos.getColumnModel().getColumn(2).setHeaderValue("Año Alumno");
-            jTableAlumnos.getColumnModel().getColumn(3).setHeaderValue("N. S. S. Alumno");
-            jTableAlumnos.getColumnModel().getColumn(4).setHeaderValue("Ciclo Alumno");
-            jTableAlumnos.getColumnModel().getColumn(5).setHeaderValue("CV Alumno");
-            jTableAlumnos.getColumnModel().getColumn(6).setHeaderValue("Validez");
-        }
-
-        bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 590, 370));
 
         userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -294,18 +244,24 @@ public class VntAlumnos extends javax.swing.JFrame {
         btnActualizar.setText("Actualizar");
         bg.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 410, 130, 40));
 
+        title.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
+        title.setForeground(new java.awt.Color(0, 0, 0));
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("ALUMNOS");
+        bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 72, 170, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 1094, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 1088, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -357,6 +313,9 @@ public class VntAlumnos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCicloAlumnoMousePressed
 
+    /**
+     * @param args the command line arguments
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
     private javax.swing.JButton btnActualizar;
@@ -368,16 +327,12 @@ public class VntAlumnos extends javax.swing.JFrame {
     private javax.swing.JLabel exitTxt;
     private javax.swing.JLabel favicon;
     private javax.swing.JPanel header;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTable jTableAlumnos;
     private javax.swing.JLabel title;
     private javax.swing.JTextField txtAnioAlumno;
     private javax.swing.JTextField txtCicloAlumno;
