@@ -109,13 +109,14 @@ public class VntLogin extends javax.swing.JFrame {
         title.setText("INICIAR SESIÓN");
         bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
 
+        userLabel.setBackground(new java.awt.Color(0, 0, 0));
         userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel.setForeground(new java.awt.Color(0, 0, 0));
         userLabel.setText("EMAIL");
         bg.add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
 
         userTxt.setBackground(new java.awt.Color(0, 0, 0));
-        userTxt.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        userTxt.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         userTxt.setForeground(new java.awt.Color(204, 204, 204));
         userTxt.setText("Ingrese su nombre de usuario");
         userTxt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -125,15 +126,18 @@ public class VntLogin extends javax.swing.JFrame {
         });
         bg.add(userTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 410, 30));
 
+        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         bg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 410, 20));
 
+        passLabel.setBackground(new java.awt.Color(0, 0, 0));
         passLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         passLabel.setForeground(new java.awt.Color(0, 0, 0));
         passLabel.setText("CONTRASEÑA");
         bg.add(passLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
 
         passTxt.setBackground(new java.awt.Color(0, 0, 0));
+        passTxt.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         passTxt.setForeground(new java.awt.Color(204, 204, 204));
         passTxt.setText("********");
         passTxt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -143,6 +147,7 @@ public class VntLogin extends javax.swing.JFrame {
         });
         bg.add(passTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 410, 30));
 
+        jSeparator2.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         bg.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 410, 20));
 
