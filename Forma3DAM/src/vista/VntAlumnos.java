@@ -33,7 +33,7 @@ public class VntAlumnos extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableAlumnos = new javax.swing.JTable();
         userLabel1 = new javax.swing.JLabel();
         txtdniAlumnos1 = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
@@ -177,20 +177,31 @@ public class VntAlumnos extends javax.swing.JFrame {
         jLabel7.setText("Ciclo Alumno");
         bg.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "DNI Alumno", "Nombre Alumno", "Año Alumno", "N. S. S. Alumno", "Título 5", "Título 6", "Título 7"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
 
-        bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 180, 550, 350));
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTableAlumnos);
+
+        bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 150, 600, 380));
 
         userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -399,7 +410,7 @@ public class VntAlumnos extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableAlumnos;
     private javax.swing.JLabel title;
     private javax.swing.JTextField txtdniAlumno;
     private javax.swing.JTextField txtdniAlumnos;
