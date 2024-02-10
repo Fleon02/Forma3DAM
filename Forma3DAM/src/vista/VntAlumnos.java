@@ -5,7 +5,15 @@ import javax.swing.table.DefaultTableModel;
 
 public class VntAlumnos extends javax.swing.JFrame {
 
-    DefaultTableModel dtm = new DefaultTableModel(new Object[]{}, 0);
+    DefaultTableModel dtm = new DefaultTableModel(new Object[]{
+        "DNI Alumno",
+        "Nombre Alumno",
+        "Año Curso",
+        "N. S. S. Alumno",
+        "Ciclo Alumno",
+        "CV",
+        "Validez"
+    }, 0);
     int xMouse, yMouse;
 
     public VntAlumnos() {
@@ -152,28 +160,7 @@ public class VntAlumnos extends javax.swing.JFrame {
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         bg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 90, 210, 20));
 
-        jTableAlumnos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "DNI Alumno", "Nombre Alumno", "Año Alumno", "N. S. S. Alumno", "Ciclo Alumno", "CV Alumno", "Validez"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Boolean.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        jTableAlumnos.setModel(dtm);
         jScrollPane1.setViewportView(jTableAlumnos);
 
         bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 590, 370));
