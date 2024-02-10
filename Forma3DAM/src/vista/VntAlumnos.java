@@ -1,9 +1,11 @@
 package vista;
 
 import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
 
 public class VntAlumnos extends javax.swing.JFrame {
 
+    DefaultTableModel dtm = new DefaultTableModel(new Object[]{}, 0);
     int xMouse, yMouse;
 
     public VntAlumnos() {
