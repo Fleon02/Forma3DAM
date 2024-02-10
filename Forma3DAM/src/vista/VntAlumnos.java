@@ -50,9 +50,9 @@ public class VntAlumnos extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
         btnBorrar = new javax.swing.JButton();
         btnSubirCV = new javax.swing.JButton();
-        btnInsertar = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
-        btnInsertar1 = new javax.swing.JButton();
+        btnInsertar = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -293,20 +293,25 @@ public class VntAlumnos extends javax.swing.JFrame {
         btnSubirCV.setText("Subir Curriculum");
         bg.add(btnSubirCV, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 340, 240, 30));
 
-        btnInsertar.setBackground(new java.awt.Color(18, 30, 49));
-        btnInsertar.setForeground(new java.awt.Color(204, 204, 204));
-        btnInsertar.setText("Insertar");
-        bg.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 490, 120, 30));
+        btnInicio.setBackground(new java.awt.Color(18, 30, 49));
+        btnInicio.setForeground(new java.awt.Color(204, 204, 204));
+        btnInicio.setText("Volver a Inicio");
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
+        bg.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 490, 120, 30));
 
         btnActualizar.setBackground(new java.awt.Color(18, 30, 49));
         btnActualizar.setForeground(new java.awt.Color(204, 204, 204));
         btnActualizar.setText("Actualizar");
         bg.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 440, 120, 30));
 
-        btnInsertar1.setBackground(new java.awt.Color(18, 30, 49));
-        btnInsertar1.setForeground(new java.awt.Color(204, 204, 204));
-        btnInsertar1.setText("Insertar");
-        bg.add(btnInsertar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 440, 120, 30));
+        btnInsertar.setBackground(new java.awt.Color(18, 30, 49));
+        btnInsertar.setForeground(new java.awt.Color(204, 204, 204));
+        btnInsertar.setText("Insertar");
+        bg.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 440, 120, 30));
 
         jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -384,12 +389,18 @@ public class VntAlumnos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtdniAlumnos4MousePressed
 
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        VntPrincipal p = new VntPrincipal("", "");
+        p.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnInicioActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnInsertar;
-    private javax.swing.JButton btnInsertar1;
     private javax.swing.JButton btnSubirCV;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
