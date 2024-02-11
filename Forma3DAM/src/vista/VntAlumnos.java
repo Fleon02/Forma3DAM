@@ -364,6 +364,7 @@ public class VntAlumnos extends javax.swing.JFrame {
         if (txtDNIAlumno.getText() != "" | txtNombreAlumno.getText() != "" | txtAnioAlumno.getText() != ""
                 | txtNSSAlumno.getText() != "" | txtCVAlumno.getText() != "" | txtCVAlumno.getText() != "") {
             new AlumnosDAO().guardaAlumnos(a);
+            JOptionPane.showMessageDialog(txtDNIAlumno, "Alumno/a Insertado/a", "Info", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(txtDNIAlumno, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
