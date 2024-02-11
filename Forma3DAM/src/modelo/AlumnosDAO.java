@@ -25,11 +25,10 @@ public class AlumnosDAO {
         throw new HibernateException("Error en la capa de acceso a datos", he);
     }
 
-    public int guardaAlumnos(Alumnos p) {
-        int id;
+    public Alumnos guardaAlumnos(String text, String text0, String text1, String text2, int i, String text3, String text4) {
+        Alumnos a = null;
         try {
             iniciaOperacion();
-            id = (int) sesion.save(p);
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
@@ -37,7 +36,7 @@ public class AlumnosDAO {
         } finally {
             sesion.close();
         }
-        return id;
+        return a;
     }
 
     public void actualizaAlumnos(Alumnos p) {

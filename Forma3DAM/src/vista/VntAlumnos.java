@@ -359,11 +359,15 @@ public class VntAlumnos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCVAlumnoMousePressed
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(),
-                txtAnioAlumno.getText(), txtNSSAlumno.getText(), checkbValidez.isSelected(), txtCVAlumno.getText(), txtCVAlumno.getText());
+        if (checkbValidez.isSelected()) {
+            new AlumnosDAO().guardaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(),
+                    txtAnioAlumno.getText(), txtNSSAlumno.getText(), 1, txtCVAlumno.getText(), txtCVAlumno.getText());
+        } else {
+            new AlumnosDAO().guardaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(),
+                    txtAnioAlumno.getText(), txtNSSAlumno.getText(), 0, txtCVAlumno.getText(), txtCVAlumno.getText());
+        }
         if (txtDNIAlumno.getText() != "" | txtNombreAlumno.getText() != "" | txtAnioAlumno.getText() != ""
                 | txtNSSAlumno.getText() != "" | txtCVAlumno.getText() != "" | txtCVAlumno.getText() != "") {
-            new AlumnosDAO().guardaAlumnos(a);
             JOptionPane.showMessageDialog(txtDNIAlumno, "Alumno/a Insertado/a", "Info", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(txtDNIAlumno, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
