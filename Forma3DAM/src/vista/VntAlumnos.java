@@ -416,34 +416,46 @@ public class VntAlumnos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCicloAlumnoMousePressed
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        if (checkbValidez.isSelected()) {
-            new AlumnosDAO().guardaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                    txtNSSAlumno.getText(), 1, txtCicloAlumno.getText(), txtCVAlumno.getText());
-            JOptionPane.showMessageDialog(txtDNIAlumno, "Selecionado", "Info", JOptionPane.INFORMATION_MESSAGE);
+        if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
+                && txtNSSAlumno.getText() != "" && txtCicloAlumno.getText() != "" && txtCVAlumno.getText() != "") {
+            if (checkbValidez.isSelected()) {
+                new AlumnosDAO().guardaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
+                        txtNSSAlumno.getText(), 1, txtCicloAlumno.getText(), txtCVAlumno.getText());
+                JOptionPane.showMessageDialog(txtDNIAlumno, "Selecionado", "Info", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                new AlumnosDAO().guardaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
+                        txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), txtCVAlumno.getText());
+                JOptionPane.showMessageDialog(txtDNIAlumno, "No Selecionado", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            cargaTabla();
         } else {
-            new AlumnosDAO().guardaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                    txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), txtCVAlumno.getText());
-            JOptionPane.showMessageDialog(txtDNIAlumno, "No Selecionado", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(txtDNIAlumno, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        cargaTabla();
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if (checkbValidez.isSelected()) {
-            new AlumnosDAO().actualizaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                    txtNSSAlumno.getText(), 1, txtCicloAlumno.getText(), txtCVAlumno.getText());
-            JOptionPane.showMessageDialog(txtDNIAlumno, "Selecionado", "Info", JOptionPane.INFORMATION_MESSAGE);
+        if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
+                && txtNSSAlumno.getText() != "" && txtCicloAlumno.getText() != "" && txtCVAlumno.getText() != "") {
+            if (checkbValidez.isSelected()) {
+                new AlumnosDAO().actualizaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
+                        txtNSSAlumno.getText(), 1, txtCicloAlumno.getText(), txtCVAlumno.getText());
+            } else {
+                new AlumnosDAO().actualizaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
+                        txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), txtCVAlumno.getText());
+            }
+            cargaTabla();
         } else {
-            new AlumnosDAO().actualizaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                    txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), txtCVAlumno.getText());
-            JOptionPane.showMessageDialog(txtDNIAlumno, "No Selecionado", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(txtDNIAlumno, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        cargaTabla();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        new AlumnosDAO().eliminaAlumnos(txtDNIAlumno.getText());
-        cargaTabla();
+        if (txtDNIAlumno.getText() != "") {
+            new AlumnosDAO().eliminaAlumnos(txtDNIAlumno.getText());
+            cargaTabla();
+        } else {
+            JOptionPane.showMessageDialog(txtDNIAlumno, "Seleciona un Alumno", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
