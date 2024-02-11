@@ -9,11 +9,11 @@ import pojos.Alumnos;
 public class VntAlumnos extends javax.swing.JFrame {
 
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
-        "DNI Alumno",
-        "Nombre Alumno",
+        "DNI",
+        "Nombre",
         "Año Curso",
-        "N. S. S. Alumno",
-        "Ciclo Alumno",
+        "N. S. S.",
+        "Ciclo",
         "CV",
         "Validez"
     }, 0);
@@ -49,23 +49,17 @@ public class VntAlumnos extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         userLabel = new javax.swing.JLabel();
         txtDNIAlumno = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableAlumnos = new javax.swing.JTable();
         userLabel1 = new javax.swing.JLabel();
         txtNombreAlumno = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
         userLabel2 = new javax.swing.JLabel();
         txtAnioAlumno = new javax.swing.JTextField();
-        jSeparator3 = new javax.swing.JSeparator();
         userLabel3 = new javax.swing.JLabel();
         txtNSSAlumno = new javax.swing.JTextField();
-        jSeparator4 = new javax.swing.JSeparator();
         userLabel4 = new javax.swing.JLabel();
         txtCicloAlumno = new javax.swing.JTextField();
-        jSeparator5 = new javax.swing.JSeparator();
         userLabel5 = new javax.swing.JLabel();
-        jSeparator6 = new javax.swing.JSeparator();
         btnBorrar = new javax.swing.JButton();
         checkbValidez = new javax.swing.JCheckBox();
         btnSubirCV = new javax.swing.JButton();
@@ -162,8 +156,9 @@ public class VntAlumnos extends javax.swing.JFrame {
         userLabel.setText("DNI Alumno");
         bg.add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 150, 30));
 
+        txtDNIAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtDNIAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtDNIAlumno.setForeground(new java.awt.Color(204, 204, 204));
+        txtDNIAlumno.setForeground(new java.awt.Color(255, 255, 255));
         txtDNIAlumno.setBorder(null);
         txtDNIAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -171,9 +166,6 @@ public class VntAlumnos extends javax.swing.JFrame {
             }
         });
         bg.add(txtDNIAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 60, 210, 30));
-
-        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        bg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 90, 210, 20));
 
         jTableAlumnos.setModel(dtm);
         jScrollPane1.setViewportView(jTableAlumnos);
@@ -185,8 +177,9 @@ public class VntAlumnos extends javax.swing.JFrame {
         userLabel1.setText("Nombre Alumno");
         bg.add(userLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 110, 150, 30));
 
+        txtNombreAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtNombreAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtNombreAlumno.setForeground(new java.awt.Color(204, 204, 204));
+        txtNombreAlumno.setForeground(new java.awt.Color(255, 255, 255));
         txtNombreAlumno.setBorder(null);
         txtNombreAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -195,16 +188,14 @@ public class VntAlumnos extends javax.swing.JFrame {
         });
         bg.add(txtNombreAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 110, 210, 30));
 
-        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        bg.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 140, 210, 20));
-
         userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel2.setForeground(new java.awt.Color(0, 0, 0));
         userLabel2.setText("Año Alumno");
         bg.add(userLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 160, 150, 30));
 
+        txtAnioAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtAnioAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtAnioAlumno.setForeground(new java.awt.Color(204, 204, 204));
+        txtAnioAlumno.setForeground(new java.awt.Color(255, 255, 255));
         txtAnioAlumno.setBorder(null);
         txtAnioAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -213,16 +204,14 @@ public class VntAlumnos extends javax.swing.JFrame {
         });
         bg.add(txtAnioAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 160, 210, 30));
 
-        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
-        bg.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 190, 210, 20));
-
         userLabel3.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel3.setForeground(new java.awt.Color(0, 0, 0));
         userLabel3.setText("N. S. S. Alumno");
         bg.add(userLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 210, 150, 30));
 
+        txtNSSAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtNSSAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtNSSAlumno.setForeground(new java.awt.Color(204, 204, 204));
+        txtNSSAlumno.setForeground(new java.awt.Color(255, 255, 255));
         txtNSSAlumno.setBorder(null);
         txtNSSAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -231,16 +220,14 @@ public class VntAlumnos extends javax.swing.JFrame {
         });
         bg.add(txtNSSAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 210, 210, 30));
 
-        jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
-        bg.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 240, 210, 20));
-
         userLabel4.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel4.setForeground(new java.awt.Color(0, 0, 0));
         userLabel4.setText("Ciclo Alumno");
         bg.add(userLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 150, 30));
 
+        txtCicloAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtCicloAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtCicloAlumno.setForeground(new java.awt.Color(204, 204, 204));
+        txtCicloAlumno.setForeground(new java.awt.Color(255, 255, 255));
         txtCicloAlumno.setBorder(null);
         txtCicloAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -249,19 +236,14 @@ public class VntAlumnos extends javax.swing.JFrame {
         });
         bg.add(txtCicloAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 260, 210, 30));
 
-        jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
-        bg.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 290, 210, 20));
-
         userLabel5.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel5.setForeground(new java.awt.Color(0, 0, 0));
         userLabel5.setText("Curriculum Alumno");
         bg.add(userLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 310, 150, 30));
 
-        jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
-        bg.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 340, 210, 20));
-
         btnBorrar.setBackground(new java.awt.Color(18, 30, 49));
-        btnBorrar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnBorrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnBorrar.setForeground(new java.awt.Color(255, 255, 255));
         btnBorrar.setText("Borrar");
         bg.add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 410, 110, 40));
 
@@ -272,22 +254,26 @@ public class VntAlumnos extends javax.swing.JFrame {
         bg.add(checkbValidez, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 360, -1, -1));
 
         btnSubirCV.setBackground(new java.awt.Color(18, 30, 49));
-        btnSubirCV.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnSubirCV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnSubirCV.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCV.setText("Subir Curriculum");
         bg.add(btnSubirCV, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 305, 210, 40));
 
         btnInsertar.setBackground(new java.awt.Color(18, 30, 49));
-        btnInsertar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnInsertar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnInsertar.setForeground(new java.awt.Color(255, 255, 255));
         btnInsertar.setText("Insertar");
         bg.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 410, 120, 40));
 
         btnInicio.setBackground(new java.awt.Color(18, 30, 49));
-        btnInicio.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnInicio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnInicio.setForeground(new java.awt.Color(255, 255, 255));
         btnInicio.setText("Volver a Inicio");
         bg.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 460, 130, 40));
 
         btnActualizar.setBackground(new java.awt.Color(18, 30, 49));
-        btnActualizar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnActualizar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
         bg.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 410, 130, 40));
 
@@ -369,12 +355,6 @@ public class VntAlumnos extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTable jTableAlumnos;
     private javax.swing.JLabel title;
     private javax.swing.JTextField txtAnioAlumno;
