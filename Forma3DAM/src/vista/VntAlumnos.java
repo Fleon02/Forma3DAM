@@ -1,11 +1,8 @@
 package vista;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
 import modelo.AlumnosDAO;
 import pojos.Alumnos;
 
@@ -25,16 +22,6 @@ public class VntAlumnos extends javax.swing.JFrame {
     public VntAlumnos() {
         initComponents();
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoF.png")).getImage());
-        final TableColumnModel columnModel = jTableAlumnos.getColumnModel();
-        for (int column = 0; column < jTableAlumnos.getColumnCount(); column++) {
-            int width = 50;
-            for (int row = 0; row < jTableAlumnos.getRowCount(); row++) {
-                TableCellRenderer renderer = jTableAlumnos.getCellRenderer(row, column);
-                Component comp = jTableAlumnos.prepareRenderer(renderer, row, column);
-                width = Math.max(comp.getPreferredSize().width + 1, width);
-            }
-            columnModel.getColumn(column).setPreferredWidth(width);
-        }
         List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
         for (Alumnos a : listaAlumnos) {
             dtm.addRow(new Object[]{
@@ -167,7 +154,7 @@ public class VntAlumnos extends javax.swing.JFrame {
         userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel.setForeground(new java.awt.Color(0, 0, 0));
         userLabel.setText("DNI Alumno");
-        bg.add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 150, 30));
+        bg.add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 60, 150, 30));
 
         txtDNIAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtDNIAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -178,17 +165,17 @@ public class VntAlumnos extends javax.swing.JFrame {
                 txtDNIAlumnoMousePressed(evt);
             }
         });
-        bg.add(txtDNIAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 60, 210, 30));
+        bg.add(txtDNIAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 60, 210, 30));
 
         jTableAlumnos.setModel(dtm);
         jScrollPane1.setViewportView(jTableAlumnos);
 
-        bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 590, 370));
+        bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 640, 390));
 
         userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel1.setForeground(new java.awt.Color(0, 0, 0));
         userLabel1.setText("Nombre Alumno");
-        bg.add(userLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 110, 150, 30));
+        bg.add(userLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 110, 150, 30));
 
         txtNombreAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtNombreAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -199,12 +186,12 @@ public class VntAlumnos extends javax.swing.JFrame {
                 txtNombreAlumnoMousePressed(evt);
             }
         });
-        bg.add(txtNombreAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 110, 210, 30));
+        bg.add(txtNombreAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 110, 210, 30));
 
         userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel2.setForeground(new java.awt.Color(0, 0, 0));
         userLabel2.setText("Año Alumno");
-        bg.add(userLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 160, 150, 30));
+        bg.add(userLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 160, 150, 30));
 
         txtAnioAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtAnioAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -215,12 +202,12 @@ public class VntAlumnos extends javax.swing.JFrame {
                 txtAnioAlumnoMousePressed(evt);
             }
         });
-        bg.add(txtAnioAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 160, 210, 30));
+        bg.add(txtAnioAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 160, 210, 30));
 
         userLabel3.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel3.setForeground(new java.awt.Color(0, 0, 0));
         userLabel3.setText("N. S. S. Alumno");
-        bg.add(userLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 210, 150, 30));
+        bg.add(userLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 210, 150, 30));
 
         txtNSSAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtNSSAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -231,12 +218,12 @@ public class VntAlumnos extends javax.swing.JFrame {
                 txtNSSAlumnoMousePressed(evt);
             }
         });
-        bg.add(txtNSSAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 210, 210, 30));
+        bg.add(txtNSSAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 210, 210, 30));
 
         userLabel4.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel4.setForeground(new java.awt.Color(0, 0, 0));
         userLabel4.setText("Ciclo Alumno");
-        bg.add(userLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 150, 30));
+        bg.add(userLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 260, 150, 30));
 
         txtCicloAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtCicloAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -247,48 +234,48 @@ public class VntAlumnos extends javax.swing.JFrame {
                 txtCicloAlumnoMousePressed(evt);
             }
         });
-        bg.add(txtCicloAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 260, 210, 30));
+        bg.add(txtCicloAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 260, 210, 30));
 
         userLabel5.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel5.setForeground(new java.awt.Color(0, 0, 0));
         userLabel5.setText("Curriculum Alumno");
-        bg.add(userLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 310, 150, 30));
+        bg.add(userLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 310, 150, 30));
 
         btnBorrar.setBackground(new java.awt.Color(18, 30, 49));
         btnBorrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnBorrar.setForeground(new java.awt.Color(255, 255, 255));
         btnBorrar.setText("Borrar");
-        bg.add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 410, 110, 40));
+        bg.add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 410, 110, 40));
 
         checkbValidez.setBackground(new java.awt.Color(255, 255, 255));
         checkbValidez.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         checkbValidez.setForeground(new java.awt.Color(0, 0, 0));
         checkbValidez.setText("Validez (Aprobado)");
-        bg.add(checkbValidez, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 360, -1, -1));
+        bg.add(checkbValidez, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 360, -1, -1));
 
         btnSubirCV.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCV.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCV.setText("Subir Curriculum");
-        bg.add(btnSubirCV, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 305, 210, 40));
+        bg.add(btnSubirCV, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 310, 210, 40));
 
         btnInsertar.setBackground(new java.awt.Color(18, 30, 49));
         btnInsertar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnInsertar.setForeground(new java.awt.Color(255, 255, 255));
         btnInsertar.setText("Insertar");
-        bg.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 410, 120, 40));
+        bg.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 410, 120, 40));
 
         btnInicio.setBackground(new java.awt.Color(18, 30, 49));
         btnInicio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnInicio.setForeground(new java.awt.Color(255, 255, 255));
         btnInicio.setText("Volver a Inicio");
-        bg.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 460, 130, 40));
+        bg.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 460, 250, 40));
 
         btnActualizar.setBackground(new java.awt.Color(18, 30, 49));
         btnActualizar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
-        bg.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 410, 130, 40));
+        bg.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 410, 130, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
