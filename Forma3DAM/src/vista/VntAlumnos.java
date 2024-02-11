@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.AlumnosDAO;
 import pojos.Alumnos;
@@ -22,6 +23,7 @@ public class VntAlumnos extends javax.swing.JFrame {
     public VntAlumnos() {
         initComponents();
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoF.png")).getImage());
+        jTableAlumnos.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
         for (Alumnos a : listaAlumnos) {
             dtm.addRow(new Object[]{
