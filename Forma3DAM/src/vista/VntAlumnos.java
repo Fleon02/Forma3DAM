@@ -1,9 +1,11 @@
 package vista;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.util.List;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import modelo.AlumnosDAO;
 import pojos.Alumnos;
 
@@ -23,7 +25,16 @@ public class VntAlumnos extends javax.swing.JFrame {
     public VntAlumnos() {
         initComponents();
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoF.png")).getImage());
-        jTableAlumnos.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        final TableColumnModel columnModel = jTableAlumnos.getColumnModel();
+        for (int column = 0; column < jTableAlumnos.getColumnCount(); column++) {
+            int width = 50;
+            for (int row = 0; row < jTableAlumnos.getRowCount(); row++) {
+                TableCellRenderer renderer = jTableAlumnos.getCellRenderer(row, column);
+                Component comp = jTableAlumnos.prepareRenderer(renderer, row, column);
+                width = Math.max(comp.getPreferredSize().width + 1, width);
+            }
+            columnModel.getColumn(column).setPreferredWidth(width);
+        }
         List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
         for (Alumnos a : listaAlumnos) {
             dtm.addRow(new Object[]{
