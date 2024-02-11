@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.Alumnos;
@@ -25,10 +26,15 @@ public class AlumnosDAO {
         throw new HibernateException("Error en la capa de acceso a datos", he);
     }
 
-    public Alumnos guardaAlumnos(String text, String text0, String text1, String text2, int i, String text3, String text4) {
-        Alumnos a = null;
+    public Alumnos guardaAlumnos(String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, int validez, String cicloAlumno, String CV) {
+        Alumnos alumnos = null;
         try {
             iniciaOperacion();
+            String hql = "INSERT INTO `alumnos`(`dniAlumno`, `nombreAlumno`, `yearCurso`, `segSocialAlumno`, `validez`, `cicloAlumno`, `CV`) "
+                    + "VALUES (" + dniAlumno + "," + nombreAlumno + "," + yearCurso + "," + segSocialAlumno
+                    + "," + validez + "," + cicloAlumno + "," + CV + ")";
+            Query query = sesion.createQuery(hql);
+            alumnos = (Alumnos) query.uniqueResult();
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
@@ -36,7 +42,7 @@ public class AlumnosDAO {
         } finally {
             sesion.close();
         }
-        return a;
+        return alumnos;
     }
 
     public void actualizaAlumnos(Alumnos p) {
