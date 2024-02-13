@@ -1,17 +1,23 @@
 package modelo;
 
+import com.sun.istack.internal.logging.Logger;
 import controlador.HibernateUtil;
+import java.util.logging.Level;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import pojos.Login;
 
 public class LoginDAO {
 
-    private Session sesion;
+    private Session sesion;    
+    private Transaction tx;
 
     private void iniciaOperacion() throws HibernateException {
+        //Logger.getLogger("org.hibernate").setLevel(Level.OFF);
         sesion = HibernateUtil.getSessionFactory().openSession();
+
     }
 
     private void manejaExcepcion(HibernateException he) throws HibernateException {
