@@ -421,11 +421,9 @@ public class VntAlumnos extends javax.swing.JFrame {
             if (checkbValidez.isSelected()) {
                 new AlumnosDAO().guardaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
                         txtNSSAlumno.getText(), 1, txtCicloAlumno.getText(), txtCVAlumno.getText());
-                JOptionPane.showMessageDialog(txtDNIAlumno, "Selecionado", "Info", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 new AlumnosDAO().guardaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
                         txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), txtCVAlumno.getText());
-                JOptionPane.showMessageDialog(txtDNIAlumno, "No Selecionado", "Error", JOptionPane.ERROR_MESSAGE);
             }
             cargaTabla();
         } else {
