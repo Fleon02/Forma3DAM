@@ -47,17 +47,29 @@ public class Menu extends javax.swing.JPanel {
     }
     public void iniciarMenuItem(){
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Alumnos", "Insertar"));
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Dashboard", "Home", "Buttons", "Cards", "Tabs", "Accordions", "Modals"));
     }
     private void addMenu(ModeloMenu menu){
-        panel.add(new MenuItem(menu,getEventoMenu() , event, panel.getComponentCount()));
+        panel.add(new MenuItem(menu,getEventoMenu() , event, panel.getComponentCount()), "h 40!");
     }
     
     private EventoMenu getEventoMenu(){
         return new EventoMenu() {
             @Override
             public boolean menuPresionado(Component com, boolean abierto) {
-                System.out.println("Menu Presionado");
-                return true;
+                if (menuActivar) {
+                    if (mostrarMenu) {
+                        if (abierto) {
+                            new AnimacionMenu(layout, com).abrirMenu();
+                        }else{
+                            new AnimacionMenu(layout, com).cerrarMenu();
+                        }
+                        return true;     
+                    } else {
+                        System.out.println("Mostrar pop up (Menu Cerrado)");
+                    }               
+                }
+                return false;
             }
         };
     }
