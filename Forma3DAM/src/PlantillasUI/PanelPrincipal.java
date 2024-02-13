@@ -1,5 +1,7 @@
 package PlantillasUI;
 
+import vista.VntAlumno;
+
 public class PanelPrincipal extends javax.swing.JPanel {
 
     public PanelPrincipal() {
