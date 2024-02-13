@@ -1,6 +1,9 @@
 package pojos;
 // Generated 09-feb-2024 2:11:34 by Hibernate Tools 4.3.1
 
+import java.io.File;
+
+
 
 
 /**
