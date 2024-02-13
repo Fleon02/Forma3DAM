@@ -290,6 +290,11 @@ public class VntAlumno extends javax.swing.JPanel {
         btnSubirCV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCV.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCV.setText("Subir");
+        btnSubirCV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubirCVActionPerformed(evt);
+            }
+        });
         bg.add(btnSubirCV, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 310, 90, 30));
 
         btnInsertar.setBackground(new java.awt.Color(18, 30, 49));
@@ -443,6 +448,10 @@ public class VntAlumno extends javax.swing.JPanel {
     private void txtCicloAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCicloAlumnoMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCicloAlumnoMousePressed
+
+    private void btnSubirCVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSubirCVActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
