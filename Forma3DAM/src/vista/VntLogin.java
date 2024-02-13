@@ -1,7 +1,6 @@
 package vista;
 
 import java.awt.Color;
-import java.util.Map;
 import modelo.LoginDAO;
 import pojos.Login;
 
