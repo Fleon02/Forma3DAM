@@ -258,7 +258,7 @@ public class VntLogin extends javax.swing.JFrame {
         // Verificar si se encontró un usuario con las credenciales proporcionadas
         if (usuario != null) {
             // Si se encontró el usuario, mostrar un mensaje de éxito
-            VntPrincipal p = new VntPrincipal(usuario.getNombreUsuario(), usuario.getRol());
+            VntPrincipal p = new VntPrincipal();
             p.setVisible(true);
             dispose();
         } else {
