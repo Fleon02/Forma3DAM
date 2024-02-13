@@ -1,5 +1,6 @@
 package vista;
 
+import PlantillasUI.Eventos.EventoMenuSeleccionado;
 import PlantillasUI.Header;
 import PlantillasUI.Menu;
 import PlantillasUI.PanelPrincipal;
@@ -23,6 +24,13 @@ public class VntPrincipal extends javax.swing.JFrame {
         menu = new Menu();
         header = new Header();
         main = new PanelPrincipal();
+        menu.addEvent(new EventoMenuSeleccionado() {
+            @Override
+            public void menuSeleccionado(int indexMenu, int indexSubMenu) {
+                System.out.println("Index Menu : " + indexMenu + " SubMenu Index " + indexSubMenu);
+            }
+        });
+        menu.iniciarMenuItem();
         bg.add(menu, "w 230!, spany 2");
         bg.add(header, "h 50!, wrap");
         bg.add(main, "w 100%, h 100%");
