@@ -2,20 +2,9 @@ package vista;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import modelo.AlumnosDAO;
 
 public class VntAlumnos extends javax.swing.JFrame {
-
-    DefaultTableModel dtm = new DefaultTableModel(new Object[]{
-        "DNI",
-        "Nombre",
-        "Año Curso",
-        "N. S. S.",
-        "Ciclo",
-        "CV",
-        "Validez"
-    }, 0);
     int xMouse, yMouse;
 
     public VntAlumnos() {

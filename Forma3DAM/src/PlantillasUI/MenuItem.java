@@ -58,9 +58,9 @@ public class MenuItem extends javax.swing.JPanel {
         primerItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (menu.getSubMenu().length>0) {
+                if (menu.getSubMenu().length > 0) {
                     System.out.println("Primer Item");
-                    
+
                 }
             }
         });
@@ -96,7 +96,6 @@ public class MenuItem extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

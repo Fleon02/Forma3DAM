@@ -45,14 +45,16 @@ public class Menu extends javax.swing.JPanel {
         panel.setLayout(layout);
 
     }
-    public void iniciarMenuItem(){
-        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Alumnos", "Insertar"));
+
+    public void iniciarMenuItem() {
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/icono.png")), "Alumnos", "Insertar"));
     }
-    private void addMenu(ModeloMenu menu){
-        panel.add(new MenuItem(menu,getEventoMenu() , event, panel.getComponentCount()));
+
+    private void addMenu(ModeloMenu menu) {
+        panel.add(new MenuItem(menu, getEventoMenu(), event, panel.getComponentCount()));
     }
-    
-    private EventoMenu getEventoMenu(){
+
+    private EventoMenu getEventoMenu() {
         return new EventoMenu() {
             @Override
             public boolean menuPresionado(Component com, boolean abierto) {
@@ -110,7 +112,6 @@ public class Menu extends javax.swing.JPanel {
         g2.fillRect(0, 0, getWidth(), getHeight());
         super.paintComponent(g);
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel panel;
