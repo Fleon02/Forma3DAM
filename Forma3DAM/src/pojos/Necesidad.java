@@ -1,5 +1,5 @@
 package pojos;
-// Generated 14-feb-2024 17:49:33 by Hibernate Tools 4.3.1
+// Generated 14-feb-2024 20:16:34 by Hibernate Tools 4.3.1
 
 
 
