@@ -45,7 +45,7 @@ public class VntPrincipal extends javax.swing.JFrame {
                 System.out.println("Index Menu : " + indexMenu + " SubMenu Index " + indexSubMenu);
                 if (indexMenu == 0) {
                     if (indexSubMenu == 0) {
-                        main.showForm(new VntBienvenido());
+                        main.showForm(new VntAlumno());
                     }
                 } else if (indexMenu == 1) {
                     if (indexSubMenu == 0) {
@@ -60,8 +60,8 @@ public class VntPrincipal extends javax.swing.JFrame {
             public void MostrarPopup(Component com) {
                 MenuItem item = (MenuItem) com;
                 PopupMenu popup = new PopupMenu(VntPrincipal.this, item.getIndex(), item.getEventoSeleccionado(), item.getMenu().getSubMenu());
-                int x = VntPrincipal.this.getX()+52;
-                int Y = VntPrincipal.this.getY()+com.getY()+86;
+                int x = VntPrincipal.this.getX() + 52;
+                int Y = VntPrincipal.this.getY() + com.getY() + 86;
                 popup.setLocation(x, Y);
                 popup.setVisible(true);
             }
@@ -145,7 +145,6 @@ public class VntPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane bg;
