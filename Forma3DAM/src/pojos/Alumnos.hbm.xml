@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 09-feb-2024 2:11:34 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojos.Alumnos" table="alumnos" catalog="practicas" optimistic-lock="version">
+        <id name="dniAlumno" type="string">
+            <column name="dniAlumno" length="12" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreAlumno" type="string">
+            <column name="nombreAlumno" length="50" />
+        </property>
+        <property name="yearCurso" type="string">
+            <column name="yearCurso" length="4" />
+        </property>
+        <property name="segSocialAlumno" type="string">
+            <column name="segSocialAlumno" length="20" />
+        </property>
+        <property name="validez" type="java.lang.Boolean">
+            <column name="validez" />
+        </property>
+        <property name="cicloAlumno" type="string">
+            <column name="cicloAlumno" length="20" />
+        </property>
+        <property name="cv" type="string">
+            <column name="CV" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>
