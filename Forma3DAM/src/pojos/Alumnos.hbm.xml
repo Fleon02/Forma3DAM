@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 14-feb-2024 20:24:15 by Hibernate Tools 4.3.1 -->
+<!-- Generated 09-feb-2024 2:11:34 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="pojos.Alumnos" table="alumnos" catalog="practicas" optimistic-lock="version">
         <id name="dniAlumno" type="string">
@@ -23,8 +23,8 @@
         <property name="cicloAlumno" type="string">
             <column name="cicloAlumno" length="20" />
         </property>
-        <property name="cv" type="binary">
-            <column name="CV" />
+        <property name="cv" type="string">
+            <column name="CV" length="20" />
         </property>
     </class>
 </hibernate-mapping>

@@ -45,14 +45,14 @@ Contributor(s):
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/practicas?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
-    <mapping resource="pojos/Login.hbm.xml"/>
-    <mapping resource="pojos/Alumnos.hbm.xml"/>
+    <mapping resource="pojos/Convenio.hbm.xml"/>
     <mapping resource="pojos/Necesidad.hbm.xml"/>
-    <mapping resource="pojos/Practicas.hbm.xml"/>
     <mapping resource="pojos/Beep.hbm.xml"/>
     <mapping resource="pojos/Especial.hbm.xml"/>
-    <mapping resource="pojos/Anexos.hbm.xml"/>
+    <mapping resource="pojos/Practicas.hbm.xml"/>
     <mapping resource="pojos/Empresas.hbm.xml"/>
-    <mapping resource="pojos/Convenio.hbm.xml"/>
+    <mapping resource="pojos/Alumnos.hbm.xml"/>
+    <mapping resource="pojos/Anexos.hbm.xml"/>
+    <mapping resource="pojos/Login.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
