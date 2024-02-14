@@ -11,9 +11,8 @@ public class Principal {
         // Crear una instancia de VntLogin
         FlatLaf.registerCustomDefaultsSource("flat");
         FlatMacLightLaf.setup();
-        
-        VntLogin ventanaPrincipal = new VntLogin();
 
+        VntLogin ventanaPrincipal = new VntLogin();
         // Hacer visible la ventana
         ventanaPrincipal.setVisible(true);
     }
