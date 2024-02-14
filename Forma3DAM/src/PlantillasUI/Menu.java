@@ -14,10 +14,6 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 
-/**
- *
- * @author francisco.leon
- */
 public class Menu extends javax.swing.JPanel {
 
     public boolean isMostrarMenu() {
