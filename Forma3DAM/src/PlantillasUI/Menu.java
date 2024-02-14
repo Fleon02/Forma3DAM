@@ -54,10 +54,11 @@ public class Menu extends javax.swing.JPanel {
 
     public void iniciarMenuItem() {
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/alumnos.png")), "Alumnos", "Insertar", "Actualizar/Borrar"));
-        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/empresa.png")), "Empresas", "Insertar"));
-        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/maleta.png")), "Convenios", "Insertar"));
-        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/maleta.png")), "Necesidad", "Insertar"));
-        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/pc.png")), "Practicas", "Insertar"));
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/empresa.png")), "Empresas", "Insertar", "Actualizar/Borrar"));
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/convenio.png")), "Convenios", "Insertar", "Actualizar/Borrar"));
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/clase.png")), "Necesidad", "Insertar", "Actualizar/Borrar"));
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/pc.png")), "Practicas", "Insertar", "Actualizar/Borrar"));
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/maleta.png")), "Bolsa de Trabajo", "Insertar", "Actualizar/Borrar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/ajustes.png")), "Ajustes", "Cambiar Tema"));
     }
 
