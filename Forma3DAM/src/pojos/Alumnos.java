@@ -1,5 +1,5 @@
 package pojos;
-// Generated 09-feb-2024 2:11:34 by Hibernate Tools 4.3.1
+// Generated 14-feb-2024 20:24:14 by Hibernate Tools 4.3.1
 
 
 
@@ -15,7 +15,7 @@ public class Alumnos  implements java.io.Serializable {
      private String segSocialAlumno;
      private Boolean validez;
      private String cicloAlumno;
-     private String cv;
+     private byte[] cv;
 
     public Alumnos() {
     }
@@ -24,7 +24,7 @@ public class Alumnos  implements java.io.Serializable {
     public Alumnos(String dniAlumno) {
         this.dniAlumno = dniAlumno;
     }
-    public Alumnos(String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, Boolean validez, String cicloAlumno, String cv) {
+    public Alumnos(String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, Boolean validez, String cicloAlumno, byte[] cv) {
        this.dniAlumno = dniAlumno;
        this.nombreAlumno = nombreAlumno;
        this.yearCurso = yearCurso;
@@ -76,11 +76,11 @@ public class Alumnos  implements java.io.Serializable {
     public void setCicloAlumno(String cicloAlumno) {
         this.cicloAlumno = cicloAlumno;
     }
-    public String getCv() {
+    public byte[] getCv() {
         return this.cv;
     }
     
-    public void setCv(String cv) {
+    public void setCv(byte[] cv) {
         this.cv = cv;
     }
 
