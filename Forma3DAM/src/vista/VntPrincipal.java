@@ -3,7 +3,7 @@ package vista;
 import PlantillasUI.Eventos.EventoMenuSeleccionado;
 import PlantillasUI.Header;
 import PlantillasUI.Menu;
-import PlantillasUI.PanelPrincipal;
+import controlador.ControlaForm;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import net.miginfocom.swing.MigLayout;
@@ -16,11 +16,11 @@ public class VntPrincipal extends javax.swing.JFrame {
     private MigLayout layout;
     private Menu menu;
     private Header header;
-    private PanelPrincipal main;
+    private ControlaForm main;
     private Animator animator;
 
     public VntPrincipal() {
-        
+
     }
 
     public VntPrincipal(String nombre, String rol) {
@@ -34,11 +34,21 @@ public class VntPrincipal extends javax.swing.JFrame {
         bg.setLayout(layout);
         menu = new Menu();
         header = new Header();
-        main = new PanelPrincipal();
+        main = new ControlaForm();
         menu.addEvent(new EventoMenuSeleccionado() {
             @Override
             public void menuSeleccionado(int indexMenu, int indexSubMenu) {
                 System.out.println("Index Menu : " + indexMenu + " SubMenu Index " + indexSubMenu);
+                if (indexMenu == 0) {
+                    if (indexSubMenu == 0) {
+                        main.showForm(new VntBienvenido());
+                    }
+                } else if (indexMenu == 1) {
+                    if (indexSubMenu == 0) {
+                        main.showForm(new vntAnexo());
+                    }
+
+                }
             }
         });
         menu.iniciarMenuItem();
@@ -85,6 +95,8 @@ public class VntPrincipal extends javax.swing.JFrame {
         bg = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1366, 783));
+        setPreferredSize(new java.awt.Dimension(1366, 783));
 
         bg.setBackground(new java.awt.Color(245, 245, 245));
         bg.setOpaque(true);
