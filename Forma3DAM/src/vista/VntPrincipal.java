@@ -1,21 +1,36 @@
 package vista;
 
 import PlantillasUI.Eventos.EventoMenuSeleccionado;
+import PlantillasUI.Eventos.EventoMostrarMenuPopup;
 import PlantillasUI.Header;
 import PlantillasUI.Menu;
-import PlantillasUI.PanelPrincipal;
+import PlantillasUI.MenuItem;
+import PlantillasUI.Popups.PopupMenu;
+import controlador.ControlaForm;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import net.miginfocom.swing.MigLayout;
+import org.jdesktop.animation.timing.Animator;
+import org.jdesktop.animation.timing.TimingTarget;
+import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 public class VntPrincipal extends javax.swing.JFrame {
 
     private MigLayout layout;
     private Menu menu;
     private Header header;
-    private PanelPrincipal main;
+    private ControlaForm main;
+    private Animator animator;
 
     public VntPrincipal() {
+
+    }
+
+    public VntPrincipal(String nombre, String rol) {
         initComponents();
         init();
+        header.setDatosUsuario(nombre, rol);
     }
 
     private void init() {
@@ -23,17 +38,74 @@ public class VntPrincipal extends javax.swing.JFrame {
         bg.setLayout(layout);
         menu = new Menu();
         header = new Header();
-        main = new PanelPrincipal();
+        main = new ControlaForm();
         menu.addEvent(new EventoMenuSeleccionado() {
             @Override
             public void menuSeleccionado(int indexMenu, int indexSubMenu) {
                 System.out.println("Index Menu : " + indexMenu + " SubMenu Index " + indexSubMenu);
+                if (indexMenu == 0) {
+                    if (indexSubMenu == 0) {
+                        main.showForm(new VntBienvenido());
+                    }
+                } else if (indexMenu == 1) {
+                    if (indexSubMenu == 0) {
+                        main.showForm(new vntAnexo());
+                    }
+
+                }
+            }
+        });
+        menu.addEventoMostrarPopup(new EventoMostrarMenuPopup() {
+            @Override
+            public void MostrarPopup(Component com) {
+                MenuItem item = (MenuItem) com;
+                PopupMenu popup = new PopupMenu(VntPrincipal.this, item.getIndex(), item.getEventoSeleccionado(), item.getMenu().getSubMenu());
+                int x = VntPrincipal.this.getX()+52;
+                int Y = VntPrincipal.this.getY()+com.getY()+86;
+                popup.setLocation(x, Y);
+                popup.setVisible(true);
             }
         });
         menu.iniciarMenuItem();
         bg.add(menu, "w 230!, spany 2");
         bg.add(header, "h 50!, wrap");
         bg.add(main, "w 100%, h 100%");
+        TimingTarget target = new TimingTargetAdapter() {
+
+            @Override
+            public void timingEvent(float fraction) {
+                double width;
+                if (menu.isMostrarMenu()) {
+                    width = 60 + (170 * (1f - fraction));
+                } else {
+                    width = 60 + (170 * fraction);
+                }
+                layout.setComponentConstraints(menu, "w " + width + "!, spany2");
+                menu.revalidate();
+            }
+
+            public void end() {
+                menu.setMostrarMenu(!menu.isMostrarMenu());
+                menu.setMenuActivar(true);
+            }
+        };
+        animator = new Animator(500, target);
+        animator.setResolution(0);
+        animator.setDeceleration(0.5f);
+        animator.setAcceleration(0.5f);
+        header.addEventoMenu(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!animator.isRunning()) {
+                    animator.start();
+                }
+                menu.setMenuActivar(false);
+                if (menu.isMostrarMenu()) {
+                    menu.ocultarTodosLosMenu();
+                }
+            }
+        });
+        main.showForm(new VntBienvenido());
     }
 
     @SuppressWarnings("unchecked")
@@ -43,6 +115,8 @@ public class VntPrincipal extends javax.swing.JFrame {
         bg = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1366, 783));
+        setPreferredSize(new java.awt.Dimension(1366, 783));
 
         bg.setBackground(new java.awt.Color(245, 245, 245));
         bg.setOpaque(true);
@@ -72,37 +146,6 @@ public class VntPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VntPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VntPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VntPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VntPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VntPrincipal().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane bg;
