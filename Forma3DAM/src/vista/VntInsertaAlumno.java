@@ -1,69 +1,12 @@
 package vista;
 
-import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 import modelo.AlumnosDAO;
-import pojos.Alumnos;
 
-public class VntAlumno extends javax.swing.JPanel {
+public class VntInsertaAlumno extends javax.swing.JPanel {
 
-    DefaultTableModel dtm = new DefaultTableModel(new Object[]{
-        "DNI",
-        "Nombre",
-        "Año Curso",
-        "N. S. S.",
-        "Ciclo",
-        "CV",
-        "Validez"
-    }, 0);
-    int xMouse, yMouse;
-
-    public VntAlumno() {
+    public VntInsertaAlumno() {
         initComponents();
-        cargaTabla();
-        cargaAlumno();
-    }
-
-    public void cargaTabla() {
-        dtm.setRowCount(0);
-        List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
-        for (Alumnos a : listaAlumnos) {
-            dtm.addRow(new Object[]{
-                a.getDniAlumno(),
-                a.getNombreAlumno(),
-                a.getYearCurso(),
-                a.getSegSocialAlumno(),
-                a.getCicloAlumno(),
-                a.getCv(),
-                a.getValidez(),});
-        }
-    }
-
-    public void cargaAlumno() {
-        jTableAlumnos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    int filas = jTableAlumnos.getSelectedRow();
-                    if (filas != -1) {
-                        txtDNIAlumno.setText(jTableAlumnos.getValueAt(filas, 0) + "");
-                        txtNombreAlumno.setText(jTableAlumnos.getValueAt(filas, 1) + "");
-                        txtAnioAlumno.setText(jTableAlumnos.getValueAt(filas, 2) + "");
-                        txtNSSAlumno.setText(jTableAlumnos.getValueAt(filas, 3) + "");
-                        txtCicloAlumno.setText(jTableAlumnos.getValueAt(filas, 4) + "");
-                        txtCVAlumno.setText(jTableAlumnos.getValueAt(filas, 5) + "");
-                        if (jTableAlumnos.getValueAt(filas, 6).equals(true)) {
-                            checkbValidez.setSelected(true);
-                        } else {
-                            checkbValidez.setSelected(false);
-                        }
-                    }
-                }
-            }
-        });
     }
 
     @SuppressWarnings("unchecked")
@@ -75,8 +18,6 @@ public class VntAlumno extends javax.swing.JPanel {
         title = new javax.swing.JLabel();
         userLabel = new javax.swing.JLabel();
         txtDNIAlumno = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableAlumnos = new javax.swing.JTable();
         userLabel1 = new javax.swing.JLabel();
         txtNombreAlumno = new javax.swing.JTextField();
         userLabel2 = new javax.swing.JLabel();
@@ -86,31 +27,31 @@ public class VntAlumno extends javax.swing.JPanel {
         userLabel4 = new javax.swing.JLabel();
         txtCVAlumno = new javax.swing.JTextField();
         userLabel5 = new javax.swing.JLabel();
-        btnBorrar = new javax.swing.JButton();
         checkbValidez = new javax.swing.JCheckBox();
         btnSubirCV = new javax.swing.JButton();
         btnInsertar = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
         txtCicloAlumno = new javax.swing.JTextField();
-        title1 = new javax.swing.JLabel();
+
+        setPreferredSize(new java.awt.Dimension(1070, 530));
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
+        bg.setMinimumSize(new java.awt.Dimension(890, 440));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         favicon.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
         favicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoF.png"))); // NOI18N
-        bg.add(favicon, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 160, 70));
+        bg.add(favicon, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 160, 70));
 
         title.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
         title.setForeground(new java.awt.Color(0, 0, 0));
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Actualizar/Borrar");
-        bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 30, 370, 40));
+        title.setText("INSERTAR ALUMNO");
+        bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 60, 250, 40));
 
         userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel.setForeground(new java.awt.Color(0, 0, 0));
         userLabel.setText("DNI Alumno");
-        bg.add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, 150, 30));
+        bg.add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 150, 30));
 
         txtDNIAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtDNIAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -121,17 +62,12 @@ public class VntAlumno extends javax.swing.JPanel {
                 txtDNIAlumnoMousePressed(evt);
             }
         });
-        bg.add(txtDNIAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 100, 230, 30));
-
-        jTableAlumnos.setModel(dtm);
-        jScrollPane1.setViewportView(jTableAlumnos);
-
-        bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 640, 430));
+        bg.add(txtDNIAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 230, 30));
 
         userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel1.setForeground(new java.awt.Color(0, 0, 0));
         userLabel1.setText("Nombre Alumno");
-        bg.add(userLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 150, 150, 30));
+        bg.add(userLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 150, 150, 30));
 
         txtNombreAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtNombreAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -142,12 +78,12 @@ public class VntAlumno extends javax.swing.JPanel {
                 txtNombreAlumnoMousePressed(evt);
             }
         });
-        bg.add(txtNombreAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 150, 230, 30));
+        bg.add(txtNombreAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 150, 230, 30));
 
         userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel2.setForeground(new java.awt.Color(0, 0, 0));
         userLabel2.setText("Año Alumno");
-        bg.add(userLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 200, 150, 30));
+        bg.add(userLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 150, 30));
 
         txtAnioAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtAnioAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -158,12 +94,12 @@ public class VntAlumno extends javax.swing.JPanel {
                 txtAnioAlumnoMousePressed(evt);
             }
         });
-        bg.add(txtAnioAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 200, 230, 30));
+        bg.add(txtAnioAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 230, 30));
 
         userLabel3.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel3.setForeground(new java.awt.Color(0, 0, 0));
         userLabel3.setText("N. S. S. Alumno");
-        bg.add(userLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 250, 150, 30));
+        bg.add(userLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 210, 150, 30));
 
         txtNSSAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtNSSAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -174,12 +110,12 @@ public class VntAlumno extends javax.swing.JPanel {
                 txtNSSAlumnoMousePressed(evt);
             }
         });
-        bg.add(txtNSSAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 250, 230, 30));
+        bg.add(txtNSSAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 210, 230, 30));
 
         userLabel4.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel4.setForeground(new java.awt.Color(0, 0, 0));
         userLabel4.setText("Ciclo Alumno");
-        bg.add(userLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 300, 150, 30));
+        bg.add(userLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 150, 30));
 
         txtCVAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtCVAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -190,35 +126,24 @@ public class VntAlumno extends javax.swing.JPanel {
                 txtCVAlumnoMousePressed(evt);
             }
         });
-        bg.add(txtCVAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 350, 140, 30));
+        bg.add(txtCVAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 270, 140, 30));
 
         userLabel5.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel5.setForeground(new java.awt.Color(0, 0, 0));
         userLabel5.setText("Curriculum Alumno");
-        bg.add(userLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 350, 150, 30));
-
-        btnBorrar.setBackground(new java.awt.Color(18, 30, 49));
-        btnBorrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnBorrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBorrar.setText("Borrar");
-        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrarActionPerformed(evt);
-            }
-        });
-        bg.add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 450, 110, 40));
+        bg.add(userLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 270, 150, 30));
 
         checkbValidez.setBackground(new java.awt.Color(255, 255, 255));
         checkbValidez.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         checkbValidez.setForeground(new java.awt.Color(0, 0, 0));
         checkbValidez.setText("Validez (Aprobado)");
-        bg.add(checkbValidez, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 400, -1, -1));
+        bg.add(checkbValidez, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, -1, -1));
 
         btnSubirCV.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCV.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCV.setText("Subir");
-        bg.add(btnSubirCV, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 350, 90, 30));
+        bg.add(btnSubirCV, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 270, 90, 30));
 
         btnInsertar.setBackground(new java.awt.Color(18, 30, 49));
         btnInsertar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -229,18 +154,7 @@ public class VntAlumno extends javax.swing.JPanel {
                 btnInsertarActionPerformed(evt);
             }
         });
-        bg.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 450, 120, 40));
-
-        btnActualizar.setBackground(new java.awt.Color(18, 30, 49));
-        btnActualizar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizar.setText("Actualizar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
-        bg.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 450, 130, 40));
+        bg.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 400, 120, 40));
 
         txtCicloAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtCicloAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -251,25 +165,17 @@ public class VntAlumno extends javax.swing.JPanel {
                 txtCicloAlumnoMousePressed(evt);
             }
         });
-        bg.add(txtCicloAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 300, 230, 30));
-
-        title1.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
-        title1.setForeground(new java.awt.Color(0, 0, 0));
-        title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title1.setText("ALUMNOS");
-        bg.add(title1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 170, 40));
+        bg.add(txtCicloAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 230, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 1094, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 1081, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -293,15 +199,6 @@ public class VntAlumno extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCVAlumnoMousePressed
 
-    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        if (txtDNIAlumno.getText() != "") {
-            new AlumnosDAO().eliminaAlumnos(txtDNIAlumno.getText());
-            cargaTabla();
-        } else {
-            JOptionPane.showMessageDialog(txtDNIAlumno, "Seleciona un Alumno", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnBorrarActionPerformed
-
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
         if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
                 && txtNSSAlumno.getText() != "" && txtCicloAlumno.getText() != "" && txtCVAlumno.getText() != "") {
@@ -314,27 +211,11 @@ public class VntAlumno extends javax.swing.JPanel {
                         txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), txtCVAlumno.getText());
                 JOptionPane.showMessageDialog(txtDNIAlumno, "No Selecionado", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            cargaTabla();
+            new VntAlumnos().cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtDNIAlumno, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnInsertarActionPerformed
-
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
-                && txtNSSAlumno.getText() != "" && txtCicloAlumno.getText() != "" && txtCVAlumno.getText() != "") {
-            if (checkbValidez.isSelected()) {
-                new AlumnosDAO().actualizaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                        txtNSSAlumno.getText(), 1, txtCicloAlumno.getText(), txtCVAlumno.getText());
-            } else {
-                new AlumnosDAO().actualizaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                        txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), txtCVAlumno.getText());
-            }
-            cargaTabla();
-        } else {
-            JOptionPane.showMessageDialog(txtDNIAlumno, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void txtCicloAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCicloAlumnoMousePressed
         // TODO add your handling code here:
@@ -342,16 +223,11 @@ public class VntAlumno extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
-    private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnInsertar;
     private javax.swing.JButton btnSubirCV;
     private javax.swing.JCheckBox checkbValidez;
     private javax.swing.JLabel favicon;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableAlumnos;
     private javax.swing.JLabel title;
-    private javax.swing.JLabel title1;
     private javax.swing.JTextField txtAnioAlumno;
     private javax.swing.JTextField txtCVAlumno;
     private javax.swing.JTextField txtCicloAlumno;

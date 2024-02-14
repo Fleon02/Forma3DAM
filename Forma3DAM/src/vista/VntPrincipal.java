@@ -45,10 +45,9 @@ public class VntPrincipal extends javax.swing.JFrame {
                 System.out.println("Index Menu : " + indexMenu + " SubMenu Index " + indexSubMenu);
                 if (indexMenu == 0) {
                     if (indexSubMenu == 0) {
-                        VntAlumnos a = new VntAlumnos();
-                        a.setVisible(true);
+                        main.showForm(new VntInsertaAlumno());
                     } else if (indexSubMenu == 1) {
-                        main.showForm(new VntAlumno());
+                        main.showForm(new VntAlumnos());
                     }
                 } else if (indexMenu == 1) {
                     if (indexSubMenu == 0) {
