@@ -18,6 +18,10 @@ import org.jdesktop.animation.timing.TimingTarget;
  * @author francisco.leon
  */
 public class Menu extends javax.swing.JPanel {
+    
+    public boolean isMostrarMenu() {
+        return mostrarMenu;
+    }
 
     public void addEvent(EventoMenuSeleccionado event) {
         this.event = event;
@@ -29,7 +33,7 @@ public class Menu extends javax.swing.JPanel {
 
     public void setMostrarMenu(boolean mostrarMenu) {
         this.mostrarMenu = mostrarMenu;
-    }
+    } 
 
     private final MigLayout layout;
     private EventoMenuSeleccionado event;
@@ -47,6 +51,10 @@ public class Menu extends javax.swing.JPanel {
     }
     public void iniciarMenuItem(){
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Alumnos", "Insertar"));
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Empresas", "Insertar"));
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Convenios", "Insertar"));
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Necesidad", "Insertar"));
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Practicas", "Insertar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Dashboard", "Home", "Buttons", "Cards", "Tabs", "Accordions", "Modals"));
     }
     private void addMenu(ModeloMenu menu){
@@ -80,17 +88,19 @@ public class Menu extends javax.swing.JPanel {
 
         sp = new javax.swing.JScrollPane();
         panel = new javax.swing.JPanel();
+        perfil1 = new PlantillasUI.Perfil();
 
         sp.setBorder(null);
         sp.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+        panel.setBackground(new java.awt.Color(255, 51, 51));
         panel.setOpaque(false);
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 230, Short.MAX_VALUE)
+            .addGap(0, 312, Short.MAX_VALUE)
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,13 +113,16 @@ public class Menu extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sp)
+            .addComponent(sp, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+            .addComponent(perfil1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(sp, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE))
+                .addComponent(perfil1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sp, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -126,6 +139,7 @@ public class Menu extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel panel;
+    private PlantillasUI.Perfil perfil1;
     private javax.swing.JScrollPane sp;
     // End of variables declaration//GEN-END:variables
 

@@ -37,6 +37,7 @@ public class AnimacionMenu {
                     menuItem.setAlpha(fraction);
                 } else {
                     h = 40 + ((altura - 40) * (1f - fraction));
+                    menuItem.setAlpha(1f - fraction);
                 }
                 layout.setComponentConstraints(menuItem, "h " + h + "!");
                 componente.revalidate();

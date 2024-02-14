@@ -4,7 +4,12 @@ import PlantillasUI.Eventos.EventoMenuSeleccionado;
 import PlantillasUI.Header;
 import PlantillasUI.Menu;
 import PlantillasUI.PanelPrincipal;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import net.miginfocom.swing.MigLayout;
+import org.jdesktop.animation.timing.Animator;
+import org.jdesktop.animation.timing.TimingTarget;
+import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 public class VntPrincipal extends javax.swing.JFrame {
 
@@ -12,10 +17,16 @@ public class VntPrincipal extends javax.swing.JFrame {
     private Menu menu;
     private Header header;
     private PanelPrincipal main;
+    private Animator animator;
 
     public VntPrincipal() {
+        
+    }
+
+    public VntPrincipal(String nombre, String rol) {
         initComponents();
         init();
+        header.setDatosUsuario(nombre, rol);
     }
 
     private void init() {
@@ -34,6 +45,37 @@ public class VntPrincipal extends javax.swing.JFrame {
         bg.add(menu, "w 230!, spany 2");
         bg.add(header, "h 50!, wrap");
         bg.add(main, "w 100%, h 100%");
+        TimingTarget target = new TimingTargetAdapter() {
+
+            @Override
+            public void timingEvent(float fraction) {
+                double width;
+                if (menu.isMostrarMenu()) {
+                    width = 60 + (170 * (1f - fraction));
+                } else {
+                    width = 60 + (170 * fraction);
+                }
+                layout.setComponentConstraints(menu, "w " + width + "!, spany2");
+                menu.revalidate();
+            }
+
+            public void end() {
+                menu.setMostrarMenu(!menu.isMostrarMenu());
+
+            }
+        };
+        animator = new Animator(500, target);
+        animator.setResolution(0);
+        animator.setDeceleration(0.5f);
+        animator.setAcceleration(0.5f);
+        header.addEventoMenu(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!animator.isRunning()) {
+                    animator.start();
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
