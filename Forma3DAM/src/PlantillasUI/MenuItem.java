@@ -28,6 +28,10 @@ public class MenuItem extends javax.swing.JPanel {
     private EventoMenuSeleccionado eventoSeleccionado;
     private int index;
 
+    public ModeloMenu getMenu() {
+        return menu;
+    }
+
     public void setAlpha(float alpha) {
         this.alpha = alpha;
     }
@@ -59,14 +63,14 @@ public class MenuItem extends javax.swing.JPanel {
         this.index = index;
         setAbierto(false);
         setLayout(new MigLayout("wrap, fillx, insets 0", "[fill]", "[fill, 40!]0[fill, 35!]"));
-        MenuButton primerItem = new MenuButton(menu.getIcon(),"         " + menu.getMenuName());
+        MenuButton primerItem = new MenuButton(menu.getIcon(), "         " + menu.getMenuName());
         primerItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (menu.getSubMenu().length > 0) {
                     if (evento.menuPresionado(MenuItem.this, !abierto)) {
-                       abierto = !abierto; 
-                    }   
+                        abierto = !abierto;
+                    }
                 }
                 eventoSeleccionado.menuSeleccionado(index, -1);
             }
@@ -137,7 +141,7 @@ public class MenuItem extends javax.swing.JPanel {
         g2.drawLine(x, (int) (y + ay), x + 4, (int) (y + ay1));
         g2.drawLine(x + 4, (int) (y + ay1), x + 8, (int) (y + ay));
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

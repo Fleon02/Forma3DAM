@@ -1,9 +1,13 @@
 package vista;
 
 import PlantillasUI.Eventos.EventoMenuSeleccionado;
+import PlantillasUI.Eventos.EventoMostrarMenuPopup;
 import PlantillasUI.Header;
 import PlantillasUI.Menu;
+import PlantillasUI.MenuItem;
+import PlantillasUI.Popups.PopupMenu;
 import controlador.ControlaForm;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import net.miginfocom.swing.MigLayout;
@@ -51,6 +55,17 @@ public class VntPrincipal extends javax.swing.JFrame {
                 }
             }
         });
+        menu.addEventoMostrarPopup(new EventoMostrarMenuPopup() {
+            @Override
+            public void MostrarPopup(Component com) {
+                MenuItem item = (MenuItem) com;
+                PopupMenu popup = new PopupMenu(VntPrincipal.this, item.getIndex(), item.getEventoSeleccionado(), item.getMenu().getSubMenu());
+                int x = VntPrincipal.this.getX()+52;
+                int Y = VntPrincipal.this.getY()+com.getY()+86;
+                popup.setLocation(x, Y);
+                popup.setVisible(true);
+            }
+        });
         menu.iniciarMenuItem();
         bg.add(menu, "w 230!, spany 2");
         bg.add(header, "h 50!, wrap");
@@ -71,7 +86,7 @@ public class VntPrincipal extends javax.swing.JFrame {
 
             public void end() {
                 menu.setMostrarMenu(!menu.isMostrarMenu());
-
+                menu.setMenuActivar(true);
             }
         };
         animator = new Animator(500, target);
@@ -83,6 +98,10 @@ public class VntPrincipal extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (!animator.isRunning()) {
                     animator.start();
+                }
+                menu.setMenuActivar(false);
+                if (menu.isMostrarMenu()) {
+                    menu.ocultarTodosLosMenu();
                 }
             }
         });

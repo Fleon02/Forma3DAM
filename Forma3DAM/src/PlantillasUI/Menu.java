@@ -2,6 +2,7 @@ package PlantillasUI;
 
 import PlantillasUI.Eventos.EventoMenu;
 import PlantillasUI.Eventos.EventoMenuSeleccionado;
+import PlantillasUI.Eventos.EventoMostrarMenuPopup;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GradientPaint;
@@ -33,10 +34,15 @@ public class Menu extends javax.swing.JPanel {
 
     public void setMostrarMenu(boolean mostrarMenu) {
         this.mostrarMenu = mostrarMenu;
-    } 
+    }
+    
+    public void addEventoMostrarPopup(EventoMostrarMenuPopup eventoMostrarPopup){
+        this.eventoMostrarPopup = eventoMostrarPopup;
+    }
 
     private final MigLayout layout;
     private EventoMenuSeleccionado event;
+    private EventoMostrarMenuPopup eventoMostrarPopup;
     private boolean menuActivar = true;
     private boolean mostrarMenu = true;
 
@@ -55,7 +61,7 @@ public class Menu extends javax.swing.JPanel {
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Convenios", "Insertar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Necesidad", "Insertar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Practicas", "Insertar"));
-        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Dashboard", "Home", "Buttons", "Cards", "Tabs", "Accordions", "Modals"));
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Ajustes", "Cambiar Tema"));
     }
     private void addMenu(ModeloMenu menu){
         panel.add(new MenuItem(menu,getEventoMenu() , event, panel.getComponentCount()), "h 40!");
@@ -74,7 +80,7 @@ public class Menu extends javax.swing.JPanel {
                         }
                         return true;     
                     } else {
-                        System.out.println("Mostrar pop up (Menu Cerrado)");
+                        eventoMostrarPopup.MostrarPopup(com);
                     }               
                 }
                 return false;
@@ -82,6 +88,15 @@ public class Menu extends javax.swing.JPanel {
         };
     }
 
+    public void ocultarTodosLosMenu(){
+        for (Component com : panel.getComponents()){
+            MenuItem item = (MenuItem) com;
+            if (item.isAbierto()) {
+                new AnimacionMenu(layout, com, 500).cerrarMenu();
+                item.setAbierto(false);
+            }
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
