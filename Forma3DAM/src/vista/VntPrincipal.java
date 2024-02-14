@@ -86,6 +86,7 @@ public class VntPrincipal extends javax.swing.JFrame {
                 }
             }
         });
+        main.showForm(new VntBienvenido());
     }
 
     @SuppressWarnings("unchecked")

@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import modelo.AnexosDAO;
 import pojos.Anexos;
+import raven.toast.Notifications;
 
 /**
  *
@@ -93,10 +94,6 @@ public class vntAnexo extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(542, 542, 542)
-                .addComponent(btnInsertar)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -105,6 +102,10 @@ public class vntAnexo extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1079, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(217, 217, 217))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnInsertar)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,9 +114,9 @@ public class vntAnexo extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(109, 109, 109)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                 .addComponent(btnInsertar)
-                .addGap(80, 80, 80))
+                .addGap(41, 41, 41))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -157,7 +158,7 @@ public class vntAnexo extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Error al insertar el anexo", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
 
@@ -209,7 +210,13 @@ public class vntAnexo extends javax.swing.JPanel {
         String nombreColumna = jTable1.getColumnName(columna);
 
         // Mostrar el mensaje
-        JOptionPane.showMessageDialog(this, "Has pulsado la celda " + fila + " de la columna " + nombreColumna);
+        //JOptionPane.showMessageDialog(this, "Has pulsado la celda " + fila + " de la columna " + nombreColumna);
+        
+        
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+        Notifications.getInstance().setJFrame(frame);
+        Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Has pulsado la celda " + fila + " de la columna " + nombreColumna);
     }
 
 
