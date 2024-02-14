@@ -1,6 +1,8 @@
 package modelo;
 
 import controlador.HibernateUtil;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -11,6 +13,7 @@ public class LoginDAO {
     private Session sesion;
 
     private void iniciaOperacion() throws HibernateException {
+        Logger.getLogger("org.hibernate").setLevel(Level.OFF);
         sesion = HibernateUtil.getSessionFactory().openSession();
     }
 

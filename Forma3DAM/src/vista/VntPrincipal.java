@@ -46,6 +46,9 @@ public class VntPrincipal extends javax.swing.JFrame {
                 if (indexMenu == 0) {
                     if (indexSubMenu == 0) {
                         main.showForm(new VntAlumno());
+                    } else if (indexSubMenu == 1) {
+                        VntAlumnos a = new VntAlumnos();
+                        a.setVisible(true);
                     }
                 } else if (indexMenu == 1) {
                     if (indexSubMenu == 0) {

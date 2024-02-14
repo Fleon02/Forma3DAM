@@ -19,7 +19,7 @@ import org.jdesktop.animation.timing.TimingTarget;
  * @author francisco.leon
  */
 public class Menu extends javax.swing.JPanel {
-    
+
     public boolean isMostrarMenu() {
         return mostrarMenu;
     }
@@ -35,8 +35,8 @@ public class Menu extends javax.swing.JPanel {
     public void setMostrarMenu(boolean mostrarMenu) {
         this.mostrarMenu = mostrarMenu;
     }
-    
-    public void addEventoMostrarPopup(EventoMostrarMenuPopup eventoMostrarPopup){
+
+    public void addEventoMostrarPopup(EventoMostrarMenuPopup eventoMostrarPopup) {
         this.eventoMostrarPopup = eventoMostrarPopup;
     }
 
@@ -55,19 +55,21 @@ public class Menu extends javax.swing.JPanel {
         panel.setLayout(layout);
 
     }
-    public void iniciarMenuItem(){
-        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Alumnos", "Insertar"));
+
+    public void iniciarMenuItem() {
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Alumnos", "Insertar", "Actualizar/Borrar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Empresas", "Insertar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Convenios", "Insertar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Necesidad", "Insertar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Practicas", "Insertar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/1.png")), "Ajustes", "Cambiar Tema"));
     }
-    private void addMenu(ModeloMenu menu){
-        panel.add(new MenuItem(menu,getEventoMenu() , event, panel.getComponentCount()), "h 40!");
+
+    private void addMenu(ModeloMenu menu) {
+        panel.add(new MenuItem(menu, getEventoMenu(), event, panel.getComponentCount()), "h 40!");
     }
-    
-    private EventoMenu getEventoMenu(){
+
+    private EventoMenu getEventoMenu() {
         return new EventoMenu() {
             @Override
             public boolean menuPresionado(Component com, boolean abierto) {
@@ -75,21 +77,21 @@ public class Menu extends javax.swing.JPanel {
                     if (mostrarMenu) {
                         if (abierto) {
                             new AnimacionMenu(layout, com).abrirMenu();
-                        }else{
+                        } else {
                             new AnimacionMenu(layout, com).cerrarMenu();
                         }
-                        return true;     
+                        return true;
                     } else {
                         eventoMostrarPopup.MostrarPopup(com);
-                    }               
+                    }
                 }
                 return false;
             }
         };
     }
 
-    public void ocultarTodosLosMenu(){
-        for (Component com : panel.getComponents()){
+    public void ocultarTodosLosMenu() {
+        for (Component com : panel.getComponents()) {
             MenuItem item = (MenuItem) com;
             if (item.isAbierto()) {
                 new AnimacionMenu(layout, com, 500).cerrarMenu();
@@ -97,6 +99,7 @@ public class Menu extends javax.swing.JPanel {
             }
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -150,7 +153,6 @@ public class Menu extends javax.swing.JPanel {
         g2.fillRect(0, 0, getWidth(), getHeight());
         super.paintComponent(g);
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel panel;
