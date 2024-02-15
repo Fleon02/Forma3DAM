@@ -252,7 +252,19 @@ public class VntRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_passTxtMousePressed
 
     private void registroBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registroBtnTxtMouseClicked
-        System.out.println("Proceso");
+        String nombre = userTxt1.getText();
+        String email = emailTxt.getText();
+        String pass = String.valueOf(passTxt.getPassword());
+
+        // Crear una instancia de la clase LoginDAO
+        LoginDAO loginDAO = new LoginDAO();
+
+        // Crear un nuevo objeto Login con los datos proporcionados por el usuario
+        Login nuevoUsuario = new Login(nombre, email, "rol", null); // El beep se asociará dentro del método
+
+        // Llamar al método registrarUsuario con el usuario y la contraseña
+        loginDAO.registrarUsuario(nuevoUsuario, pass);
+
     }//GEN-LAST:event_registroBtnTxtMouseClicked
 
     private void cancelarBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarBtnTxtMouseClicked
