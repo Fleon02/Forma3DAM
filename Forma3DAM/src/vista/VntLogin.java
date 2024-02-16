@@ -33,6 +33,8 @@ public class VntLogin extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         loginBtn = new javax.swing.JPanel();
         loginBtnTxt = new javax.swing.JLabel();
+        registrarBtn = new javax.swing.JPanel();
+        registroBtnTxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Forma3");
@@ -174,6 +176,37 @@ public class VntLogin extends javax.swing.JFrame {
 
         bg.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 130, 40));
 
+        registrarBtn.setBackground(new java.awt.Color(255, 51, 51));
+
+        registroBtnTxt.setFont(new java.awt.Font("Roboto Condensed", 1, 14)); // NOI18N
+        registroBtnTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        registroBtnTxt.setText("REGISTRARSE");
+        registroBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registroBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                registroBtnTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                registroBtnTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                registroBtnTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout registrarBtnLayout = new javax.swing.GroupLayout(registrarBtn);
+        registrarBtn.setLayout(registrarBtnLayout);
+        registrarBtnLayout.setHorizontalGroup(
+            registrarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(registroBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+        );
+        registrarBtnLayout.setVerticalGroup(
+            registrarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(registroBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        bg.add(registrarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 400, 130, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -267,6 +300,22 @@ public class VntLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loginBtnTxtMouseClicked
 
+    private void registroBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registroBtnTxtMouseClicked
+        VntRegistro r = new VntRegistro();
+        r.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_registroBtnTxtMouseClicked
+
+    private void registroBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registroBtnTxtMouseEntered
+        registrarBtn.setBackground(Color.BLACK);
+        registroBtnTxt.setForeground(Color.WHITE);
+    }//GEN-LAST:event_registroBtnTxtMouseEntered
+
+    private void registroBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registroBtnTxtMouseExited
+        registrarBtn.setBackground(new Color(255, 51, 51)); // Restaurar el color original del botón
+        registroBtnTxt.setForeground(Color.BLACK); // Restaurar el color original del texto
+    }//GEN-LAST:event_registroBtnTxtMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -283,6 +332,8 @@ public class VntLogin extends javax.swing.JFrame {
     private javax.swing.JLabel loginBtnTxt;
     private javax.swing.JLabel passLabel;
     private javax.swing.JPasswordField passTxt;
+    private javax.swing.JPanel registrarBtn;
+    private javax.swing.JLabel registroBtnTxt;
     private javax.swing.JLabel title;
     private javax.swing.JLabel userLabel;
     private javax.swing.JTextField userTxt;
