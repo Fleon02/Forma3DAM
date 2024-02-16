@@ -48,27 +48,15 @@ public class AlumnosDAO {
             iniciaOperacion();
             String hql = "INSERT INTO alumnos(dniAlumno, nombreAlumno, yearCurso, segSocialAlumno, validez, cicloAlumno, CV)"
                     + " VALUES (:dniAlumno,:nombreAlumno,:yearCurso,:segSocialAlumno,:validez,:cicloAlumno,:cv)";
-            int valor = 0;
-            if (cv != null) {
-                valor = sesion.createSQLQuery(hql)
-                        .setParameter("dniAlumno", dniAlumno)
-                        .setParameter("nombreAlumno", nombreAlumno)
-                        .setParameter("yearCurso", yearCurso)
-                        .setParameter("segSocialAlumno", segSocialAlumno)
-                        .setParameter("validez", validez)
-                        .setParameter("cicloAlumno", cicloAlumno)
-                        .setParameter("cv", cv)
-                        .executeUpdate();
-            } else {
-                valor = sesion.createSQLQuery(hql)
-                        .setParameter("dniAlumno", dniAlumno)
-                        .setParameter("nombreAlumno", nombreAlumno)
-                        .setParameter("yearCurso", yearCurso)
-                        .setParameter("segSocialAlumno", segSocialAlumno)
-                        .setParameter("validez", validez)
-                        .setParameter("cicloAlumno", cicloAlumno)
-                        .executeUpdate();
-            }
+            int valor = sesion.createSQLQuery(hql)
+                    .setParameter("dniAlumno", dniAlumno)
+                    .setParameter("nombreAlumno", nombreAlumno)
+                    .setParameter("yearCurso", yearCurso)
+                    .setParameter("segSocialAlumno", segSocialAlumno)
+                    .setParameter("validez", validez)
+                    .setParameter("cicloAlumno", cicloAlumno)
+                    .setParameter("cv", cv)
+                    .executeUpdate();
             if (valor == 1) {
                 JOptionPane.showMessageDialog(parentComponent, "Alumno Insertado", "Info", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -88,27 +76,15 @@ public class AlumnosDAO {
             iniciaOperacion();
             String hql = "UPDATE alumnos dniAlumno=:dniAlumno, nombreAlumno=:nombreAlumno, yearCurso=:yearCurso, "
                     + "segSocialAlumno=:segSocialAlumno, validez=:validez, cicloAlumno=:cicloAlumno, cv=:cv WHERE dniAlumno=:dniAlumno";
-            int valor = 0;
-            if (cv != null) {
-                valor = sesion.createSQLQuery(hql)
-                        .setParameter("dniAlumno", dniAlumno)
-                        .setParameter("nombreAlumno", nombreAlumno)
-                        .setParameter("yearCurso", yearCurso)
-                        .setParameter("segSocialAlumno", segSocialAlumno)
-                        .setParameter("validez", validez)
-                        .setParameter("cicloAlumno", cicloAlumno)
-                        .setParameter("cv", cv)
-                        .executeUpdate();
-            } else {
-                valor = sesion.createSQLQuery(hql)
-                        .setParameter("dniAlumno", dniAlumno)
-                        .setParameter("nombreAlumno", nombreAlumno)
-                        .setParameter("yearCurso", yearCurso)
-                        .setParameter("segSocialAlumno", segSocialAlumno)
-                        .setParameter("validez", validez)
-                        .setParameter("cicloAlumno", cicloAlumno)
-                        .executeUpdate();
-            }
+            int valor = sesion.createSQLQuery(hql)
+                    .setParameter("dniAlumno", dniAlumno)
+                    .setParameter("nombreAlumno", nombreAlumno)
+                    .setParameter("yearCurso", yearCurso)
+                    .setParameter("segSocialAlumno", segSocialAlumno)
+                    .setParameter("validez", validez)
+                    .setParameter("cicloAlumno", cicloAlumno)
+                    .setParameter("cv", cv)
+                    .executeUpdate();
             if (valor == 1) {
                 JOptionPane.showMessageDialog(parentComponent, "Alumno Actualizado", "Info", JOptionPane.INFORMATION_MESSAGE);
             } else {
