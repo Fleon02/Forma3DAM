@@ -82,15 +82,10 @@ public class VntAlumnos extends javax.swing.JPanel {
                         btnBorrar.setEnabled(true);
                     } else {
                         txtDNIAlumno.setEditable(false);
-                        txtDNIAlumno.setEnabled(false);
                         txtNombreAlumno.setEditable(false);
-                        txtNombreAlumno.setEnabled(false);
                         txtAnioAlumno.setEditable(false);
-                        txtAnioAlumno.setEnabled(false);
                         txtNSSAlumno.setEditable(false);
-                        txtNSSAlumno.setEnabled(false);
                         txtCicloAlumno.setEditable(false);
-                        txtCicloAlumno.setEnabled(false);
                     }
                 }
             }
