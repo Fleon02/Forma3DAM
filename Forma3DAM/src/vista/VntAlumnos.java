@@ -1,6 +1,10 @@
 package vista;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -9,6 +13,8 @@ import modelo.AlumnosDAO;
 import pojos.Alumnos;
 
 public class VntAlumnos extends javax.swing.JPanel {
+
+    private byte[] bytesCV;
 
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
         "DNI",
@@ -36,7 +42,7 @@ public class VntAlumnos extends javax.swing.JPanel {
                 a.getYearCurso(),
                 a.getSegSocialAlumno(),
                 a.getCicloAlumno(),
-                a.getCv(),
+                a.getCv().getBytes(),
                 a.getValidez(),});
         }
     }
@@ -199,6 +205,11 @@ public class VntAlumnos extends javax.swing.JPanel {
         btnSubirCV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCV.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCV.setText("Subir");
+        btnSubirCV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubirCVActionPerformed(evt);
+            }
+        });
 
         btnActualizar.setBackground(new java.awt.Color(18, 30, 49));
         btnActualizar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -346,10 +357,6 @@ public class VntAlumnos extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNSSAlumnoMousePressed
 
-    private void txtCVAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCVAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCVAlumnoMousePressed
-
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         if (txtDNIAlumno.getText() != "") {
             new AlumnosDAO().eliminaAlumnos(txtDNIAlumno.getText());
@@ -364,10 +371,10 @@ public class VntAlumnos extends javax.swing.JPanel {
                 && txtNSSAlumno.getText() != "" && txtCicloAlumno.getText() != "" && txtCVAlumno.getText() != "") {
             if (checkbValidez.isSelected()) {
                 new AlumnosDAO().actualizaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                        txtNSSAlumno.getText(), 1, txtCicloAlumno.getText(), txtCVAlumno.getText());
+                        txtNSSAlumno.getText(), 1, txtCicloAlumno.getText(), bytesCV);
             } else {
                 new AlumnosDAO().actualizaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                        txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), txtCVAlumno.getText());
+                        txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), bytesCV);
             }
             cargaTabla();
         } else {
@@ -379,6 +386,32 @@ public class VntAlumnos extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCicloAlumnoMousePressed
 
+    private void btnSubirCVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        int resultado = fileChooser.showOpenDialog(this);
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
+            try {
+                byte[] bytesArchivo = convertirArchivoABytes(archivo);
+                bytesCV = bytesArchivo;
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al leer el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnSubirCVActionPerformed
+
+    private void txtCVAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCVAlumnoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCVAlumnoMousePressed
+
+    private byte[] convertirArchivoABytes(File archivo) throws IOException {
+        byte[] bytesArray = new byte[(int) archivo.length()];
+        FileInputStream fis = new FileInputStream(archivo);
+        fis.read(bytesArray);
+        fis.close();
+        return bytesArray;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBorrar;

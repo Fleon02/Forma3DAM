@@ -53,7 +53,6 @@ public class Menu extends javax.swing.JPanel {
     }
 
     public void iniciarMenuItem() {
-        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/alumnos.png")), "Inicio"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/alumnos.png")), "Alumnos", "Insertar", "Actualizar/Borrar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/empresa.png")), "Empresas", "Insertar", "Actualizar/Borrar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/convenio.png")), "Convenios", "Insertar", "Actualizar/Borrar"));

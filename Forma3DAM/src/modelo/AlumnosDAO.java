@@ -28,7 +28,22 @@ public class AlumnosDAO {
         throw new HibernateException("Error en la capa de acceso a datos", he);
     }
 
-    public void guardaAlumnos(String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, int validez, String cicloAlumno, String cv) {
+    public int guardaAlumnos(Alumnos p) {
+        int id;
+        try {
+            iniciaOperacion();
+            id = (int) sesion.save(p);
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return id;
+    }
+
+    public void guardaAlumnos(String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, int validez, String cicloAlumno, byte[] cv) {
         try {
             iniciaOperacion();
             String hql = "INSERT INTO alumnos(dniAlumno, nombreAlumno, yearCurso, segSocialAlumno, validez, cicloAlumno, CV)"
@@ -56,7 +71,7 @@ public class AlumnosDAO {
         }
     }
 
-    public void actualizaAlumnos(String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, int validez, String cicloAlumno, String cv) {
+    public void actualizaAlumnos(String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, int validez, String cicloAlumno, byte[] cv) {
         try {
             iniciaOperacion();
             String hql = "UPDATE alumnos dniAlumno=:dniAlumno, nombreAlumno=:nombreAlumno, yearCurso=:yearCurso, "
