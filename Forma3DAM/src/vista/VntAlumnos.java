@@ -42,7 +42,7 @@ public class VntAlumnos extends javax.swing.JPanel {
                 a.getYearCurso(),
                 a.getSegSocialAlumno(),
                 a.getCicloAlumno(),
-                a.getCv(),
+                a.getCv().getBytes(),
                 a.getValidez(),});
         }
     }
