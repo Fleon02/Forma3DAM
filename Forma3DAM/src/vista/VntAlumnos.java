@@ -1,6 +1,10 @@
 package vista;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -9,6 +13,8 @@ import modelo.AlumnosDAO;
 import pojos.Alumnos;
 
 public class VntAlumnos extends javax.swing.JPanel {
+
+    private byte[] bytesCV;
 
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
         "DNI",
@@ -30,31 +36,41 @@ public class VntAlumnos extends javax.swing.JPanel {
         dtm.setRowCount(0);
         List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
         for (Alumnos a : listaAlumnos) {
-            dtm.addRow(new Object[]{
-                a.getDniAlumno(),
-                a.getNombreAlumno(),
-                a.getYearCurso(),
-                a.getSegSocialAlumno(),
-                a.getCicloAlumno(),
-                a.getCv(),
-                a.getValidez(),});
+            if (a.getCv() != "") {
+                dtm.addRow(new Object[]{
+                    a.getDniAlumno(),
+                    a.getNombreAlumno(),
+                    a.getYearCurso(),
+                    a.getSegSocialAlumno(),
+                    a.getCicloAlumno(),
+                    "Subido",
+                    a.getValidez(),});
+            } else {
+                dtm.addRow(new Object[]{
+                    a.getDniAlumno(),
+                    a.getNombreAlumno(),
+                    a.getYearCurso(),
+                    a.getSegSocialAlumno(),
+                    a.getCicloAlumno(),
+                    "No Subido",
+                    a.getValidez(),});
+            }
         }
     }
 
     public void cargaAlumno() {
-        jTableAlumnos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        TablaAlumnos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    int filas = jTableAlumnos.getSelectedRow();
+                    int filas = TablaAlumnos.getSelectedRow();
                     if (filas != -1) {
-                        txtDNIAlumno.setText(jTableAlumnos.getValueAt(filas, 0) + "");
-                        txtNombreAlumno.setText(jTableAlumnos.getValueAt(filas, 1) + "");
-                        txtAnioAlumno.setText(jTableAlumnos.getValueAt(filas, 2) + "");
-                        txtNSSAlumno.setText(jTableAlumnos.getValueAt(filas, 3) + "");
-                        txtCicloAlumno.setText(jTableAlumnos.getValueAt(filas, 4) + "");
-                        txtCVAlumno.setText(jTableAlumnos.getValueAt(filas, 5) + "");
-                        if (jTableAlumnos.getValueAt(filas, 6).equals(true)) {
+                        txtDNIAlumno.setText(TablaAlumnos.getValueAt(filas, 0) + "");
+                        txtNombreAlumno.setText(TablaAlumnos.getValueAt(filas, 1) + "");
+                        txtAnioAlumno.setText(TablaAlumnos.getValueAt(filas, 2) + "");
+                        txtNSSAlumno.setText(TablaAlumnos.getValueAt(filas, 3) + "");
+                        txtCicloAlumno.setText(TablaAlumnos.getValueAt(filas, 4) + "");
+                        if (TablaAlumnos.getValueAt(filas, 6).equals(true)) {
                             checkbValidez.setSelected(true);
                         } else {
                             checkbValidez.setSelected(false);
@@ -76,7 +92,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         userLabel = new javax.swing.JLabel();
         txtDNIAlumno = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTableAlumnos1 = new javax.swing.JTable();
+        TablaAlumnos = new javax.swing.JTable();
         userLabel1 = new javax.swing.JLabel();
         txtNombreAlumno = new javax.swing.JTextField();
         userLabel2 = new javax.swing.JLabel();
@@ -84,7 +100,6 @@ public class VntAlumnos extends javax.swing.JPanel {
         userLabel3 = new javax.swing.JLabel();
         txtNSSAlumno = new javax.swing.JTextField();
         userLabel4 = new javax.swing.JLabel();
-        txtCVAlumno = new javax.swing.JTextField();
         userLabel5 = new javax.swing.JLabel();
         btnBorrar = new javax.swing.JButton();
         checkbValidez = new javax.swing.JCheckBox();
@@ -118,8 +133,8 @@ public class VntAlumnos extends javax.swing.JPanel {
             }
         });
 
-        jTableAlumnos1.setModel(dtm);
-        jScrollPane2.setViewportView(jTableAlumnos1);
+        TablaAlumnos.setModel(dtm);
+        jScrollPane2.setViewportView(TablaAlumnos);
 
         userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -167,16 +182,6 @@ public class VntAlumnos extends javax.swing.JPanel {
         userLabel4.setForeground(new java.awt.Color(0, 0, 0));
         userLabel4.setText("Ciclo Alumno");
 
-        txtCVAlumno.setBackground(new java.awt.Color(0, 0, 0));
-        txtCVAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtCVAlumno.setForeground(new java.awt.Color(255, 255, 255));
-        txtCVAlumno.setBorder(null);
-        txtCVAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtCVAlumnoMousePressed(evt);
-            }
-        });
-
         userLabel5.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel5.setForeground(new java.awt.Color(0, 0, 0));
         userLabel5.setText("Curriculum Alumno");
@@ -198,7 +203,12 @@ public class VntAlumnos extends javax.swing.JPanel {
         btnSubirCV.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCV.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirCV.setText("Subir");
+        btnSubirCV.setText("Subir CV");
+        btnSubirCV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubirCVActionPerformed(evt);
+            }
+        });
 
         btnActualizar.setBackground(new java.awt.Color(18, 30, 49));
         btnActualizar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -267,10 +277,8 @@ public class VntAlumnos extends javax.swing.JPanel {
                                     .addComponent(txtCicloAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(txtCVAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(btnSubirCV, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnSubirCV, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(110, 110, 110)
                                     .addComponent(checkbValidez))
@@ -318,7 +326,6 @@ public class VntAlumnos extends javax.swing.JPanel {
                             .addGap(20, 20, 20)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtCVAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnSubirCV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(20, 20, 20)
                             .addComponent(checkbValidez)
@@ -346,10 +353,6 @@ public class VntAlumnos extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNSSAlumnoMousePressed
 
-    private void txtCVAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCVAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCVAlumnoMousePressed
-
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         if (txtDNIAlumno.getText() != "") {
             new AlumnosDAO().eliminaAlumnos(txtDNIAlumno.getText());
@@ -361,13 +364,13 @@ public class VntAlumnos extends javax.swing.JPanel {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
-                && txtNSSAlumno.getText() != "" && txtCicloAlumno.getText() != "" && txtCVAlumno.getText() != "") {
+                && txtNSSAlumno.getText() != "" && txtCicloAlumno.getText() != "") {
             if (checkbValidez.isSelected()) {
                 new AlumnosDAO().actualizaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                        txtNSSAlumno.getText(), 1, txtCicloAlumno.getText(), txtCVAlumno.getText());
+                        txtNSSAlumno.getText(), 1, txtCicloAlumno.getText(), bytesCV);
             } else {
                 new AlumnosDAO().actualizaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                        txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), txtCVAlumno.getText());
+                        txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), bytesCV);
             }
             cargaTabla();
         } else {
@@ -379,7 +382,30 @@ public class VntAlumnos extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCicloAlumnoMousePressed
 
+    private void btnSubirCVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        int resultado = fileChooser.showOpenDialog(this);
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
+            try {
+                byte[] bytesArchivo = convertirArchivoABytes(archivo);
+                bytesCV = bytesArchivo;
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al leer el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnSubirCVActionPerformed
+
+    private byte[] convertirArchivoABytes(File archivo) throws IOException {
+        byte[] bytesArray = new byte[(int) archivo.length()];
+        FileInputStream fis = new FileInputStream(archivo);
+        fis.read(bytesArray);
+        fis.close();
+        return bytesArray;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TablaAlumnos;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnSubirCV;
@@ -388,11 +414,9 @@ public class VntAlumnos extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableAlumnos;
-    private javax.swing.JTable jTableAlumnos1;
     private javax.swing.JLabel title;
     private javax.swing.JLabel title1;
     private javax.swing.JTextField txtAnioAlumno;
-    private javax.swing.JTextField txtCVAlumno;
     private javax.swing.JTextField txtCicloAlumno;
     private javax.swing.JTextField txtDNIAlumno;
     private javax.swing.JTextField txtNSSAlumno;

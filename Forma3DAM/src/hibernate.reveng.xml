@@ -41,13 +41,13 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="practicas"/>
-  <table-filter match-name="anexos"/>
+  <table-filter match-name="login"/>
   <table-filter match-name="empresas"/>
-  <table-filter match-name="especial"/>
-  <table-filter match-name="convenio"/>
-  <table-filter match-name="necesidad"/>
-  <table-filter match-name="practicas"/>
   <table-filter match-name="alumnos"/>
   <table-filter match-name="beep"/>
-  <table-filter match-name="login"/>
+  <table-filter match-name="especial"/>
+  <table-filter match-name="necesidad"/>
+  <table-filter match-name="practicas"/>
+  <table-filter match-name="anexos"/>
+  <table-filter match-name="convenio"/>
 </hibernate-reverse-engineering>
