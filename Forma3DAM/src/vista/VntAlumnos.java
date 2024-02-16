@@ -36,24 +36,26 @@ public class VntAlumnos extends javax.swing.JPanel {
         dtm.setRowCount(0);
         List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
         for (Alumnos a : listaAlumnos) {
-            if (a.getCv() != "") {
-                dtm.addRow(new Object[]{
-                    a.getDniAlumno(),
-                    a.getNombreAlumno(),
-                    a.getYearCurso(),
-                    a.getSegSocialAlumno(),
-                    a.getCicloAlumno(),
-                    "Subido",
-                    a.getValidez(),});
-            } else {
-                dtm.addRow(new Object[]{
-                    a.getDniAlumno(),
-                    a.getNombreAlumno(),
-                    a.getYearCurso(),
-                    a.getSegSocialAlumno(),
-                    a.getCicloAlumno(),
-                    "No Subido",
-                    a.getValidez(),});
+            if (listaAlumnos.size() > 0) {
+                if (a.getCv() != "") {
+                    dtm.addRow(new Object[]{
+                        a.getDniAlumno(),
+                        a.getNombreAlumno(),
+                        a.getYearCurso(),
+                        a.getSegSocialAlumno(),
+                        a.getCicloAlumno(),
+                        "Subido",
+                        a.getValidez(),});
+                } else {
+                    dtm.addRow(new Object[]{
+                        a.getDniAlumno(),
+                        a.getNombreAlumno(),
+                        a.getYearCurso(),
+                        a.getSegSocialAlumno(),
+                        a.getCicloAlumno(),
+                        "No Subido",
+                        a.getValidez(),});
+                }
             }
         }
     }
@@ -75,6 +77,15 @@ public class VntAlumnos extends javax.swing.JPanel {
                         } else {
                             checkbValidez.setSelected(false);
                         }
+                        btnSubirCV.setEnabled(true);
+                        btnActualizar.setEnabled(true);
+                        btnBorrar.setEnabled(true);
+                    } else {
+                        txtDNIAlumno.setEditable(false);
+                        txtNombreAlumno.setEditable(false);
+                        txtAnioAlumno.setEditable(false);
+                        txtNSSAlumno.setEditable(false);
+                        txtCicloAlumno.setEditable(false);
                     }
                 }
             }
@@ -123,6 +134,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         userLabel.setForeground(new java.awt.Color(0, 0, 0));
         userLabel.setText("DNI Alumno");
 
+        txtDNIAlumno.setEditable(false);
         txtDNIAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtDNIAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtDNIAlumno.setForeground(new java.awt.Color(255, 255, 255));
@@ -140,6 +152,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         userLabel1.setForeground(new java.awt.Color(0, 0, 0));
         userLabel1.setText("Nombre Alumno");
 
+        txtNombreAlumno.setEditable(false);
         txtNombreAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtNombreAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtNombreAlumno.setForeground(new java.awt.Color(255, 255, 255));
@@ -154,6 +167,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         userLabel2.setForeground(new java.awt.Color(0, 0, 0));
         userLabel2.setText("Año Alumno");
 
+        txtAnioAlumno.setEditable(false);
         txtAnioAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtAnioAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtAnioAlumno.setForeground(new java.awt.Color(255, 255, 255));
@@ -168,6 +182,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         userLabel3.setForeground(new java.awt.Color(0, 0, 0));
         userLabel3.setText("N. S. S. Alumno");
 
+        txtNSSAlumno.setEditable(false);
         txtNSSAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtNSSAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtNSSAlumno.setForeground(new java.awt.Color(255, 255, 255));
@@ -190,6 +205,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         btnBorrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnBorrar.setForeground(new java.awt.Color(255, 255, 255));
         btnBorrar.setText("Borrar");
+        btnBorrar.setEnabled(false);
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
@@ -204,6 +220,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         btnSubirCV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCV.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCV.setText("Subir CV");
+        btnSubirCV.setEnabled(false);
         btnSubirCV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirCVActionPerformed(evt);
@@ -214,12 +231,14 @@ public class VntAlumnos extends javax.swing.JPanel {
         btnActualizar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
+        btnActualizar.setEnabled(false);
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
             }
         });
 
+        txtCicloAlumno.setEditable(false);
         txtCicloAlumno.setBackground(new java.awt.Color(0, 0, 0));
         txtCicloAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtCicloAlumno.setForeground(new java.awt.Color(255, 255, 255));
