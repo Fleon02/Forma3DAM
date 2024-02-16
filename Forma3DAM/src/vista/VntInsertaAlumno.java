@@ -275,11 +275,9 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
             if (checkbValidez.isSelected()) {
                 new AlumnosDAO().guardaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
                         txtNSSAlumno.getText(), 1, txtCicloAlumno.getText(), new VntInsertaAlumno().getBytesCV());
-                JOptionPane.showMessageDialog(txtDNIAlumno, "Selecionado", "Info", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 new AlumnosDAO().guardaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
                         txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), new VntInsertaAlumno().getBytesCV());
-                JOptionPane.showMessageDialog(txtDNIAlumno, "No Selecionado", "Error", JOptionPane.ERROR_MESSAGE);
             }
             new VntAlumnos().cargaTabla();
         } else {
