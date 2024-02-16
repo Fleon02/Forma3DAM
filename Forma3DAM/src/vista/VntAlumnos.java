@@ -357,10 +357,6 @@ public class VntAlumnos extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNSSAlumnoMousePressed
 
-    private void txtCVAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCVAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCVAlumnoMousePressed
-
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         if (txtDNIAlumno.getText() != "") {
             new AlumnosDAO().eliminaAlumnos(txtDNIAlumno.getText());
@@ -404,6 +400,10 @@ public class VntAlumnos extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnSubirCVActionPerformed
+
+    private void txtCVAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCVAlumnoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCVAlumnoMousePressed
 
     private byte[] convertirArchivoABytes(File archivo) throws IOException {
         byte[] bytesArray = new byte[(int) archivo.length()];
