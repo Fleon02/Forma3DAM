@@ -11,14 +11,6 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
 
     private byte[] bytesCV;
 
-    public byte[] getBytesCV() {
-        return bytesCV;
-    }
-
-    public void setBytesCV(byte[] bytesCV) {
-        this.bytesCV = bytesCV;
-    }
-
     public VntInsertaAlumno() {
         initComponents();
     }
@@ -274,10 +266,10 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
                 && txtNSSAlumno.getText() != "" && txtCicloAlumno.getText() != "" && txtCVAlumno.getText() != "") {
             if (checkbValidez.isSelected()) {
                 new AlumnosDAO().guardaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                        txtNSSAlumno.getText(), 1, txtCicloAlumno.getText(), new VntInsertaAlumno().getBytesCV());
+                        txtNSSAlumno.getText(), 1, txtCicloAlumno.getText(), bytesCV);
             } else {
                 new AlumnosDAO().guardaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                        txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), new VntInsertaAlumno().getBytesCV());
+                        txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), bytesCV);
             }
             new VntAlumnos().cargaTabla();
         } else {
@@ -310,6 +302,14 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
         fis.read(bytesArray);
         fis.close();
         return bytesArray;
+    }
+
+    public byte[] getBytesCV() {
+        return bytesCV;
+    }
+
+    public void setBytesCV(byte[] bytesCV) {
+        this.bytesCV = bytesCV;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInsertar;
