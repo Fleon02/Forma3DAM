@@ -1,5 +1,5 @@
 package pojos;
-// Generated 14-feb-2024 20:16:34 by Hibernate Tools 4.3.1
+// Generated 17-feb-2024 19:37:18 by Hibernate Tools 4.3.1
 
 
 
@@ -10,26 +10,29 @@ public class Convenio  implements java.io.Serializable {
 
 
      private int numConvenio;
+     private Empresas empresas;
      private String idAnexo;
      private String nombreEmpresa;
-     private String cifEmpresa;
      private String responsableFirma;
      private Integer cantAnexos;
+     private byte[] anexoUnoConvenio;
 
     public Convenio() {
     }
 
 	
-    public Convenio(int numConvenio) {
+    public Convenio(int numConvenio, byte[] anexoUnoConvenio) {
         this.numConvenio = numConvenio;
+        this.anexoUnoConvenio = anexoUnoConvenio;
     }
-    public Convenio(int numConvenio, String idAnexo, String nombreEmpresa, String cifEmpresa, String responsableFirma, Integer cantAnexos) {
+    public Convenio(int numConvenio, Empresas empresas, String idAnexo, String nombreEmpresa, String responsableFirma, Integer cantAnexos, byte[] anexoUnoConvenio) {
        this.numConvenio = numConvenio;
+       this.empresas = empresas;
        this.idAnexo = idAnexo;
        this.nombreEmpresa = nombreEmpresa;
-       this.cifEmpresa = cifEmpresa;
        this.responsableFirma = responsableFirma;
        this.cantAnexos = cantAnexos;
+       this.anexoUnoConvenio = anexoUnoConvenio;
     }
    
     public int getNumConvenio() {
@@ -38,6 +41,13 @@ public class Convenio  implements java.io.Serializable {
     
     public void setNumConvenio(int numConvenio) {
         this.numConvenio = numConvenio;
+    }
+    public Empresas getEmpresas() {
+        return this.empresas;
+    }
+    
+    public void setEmpresas(Empresas empresas) {
+        this.empresas = empresas;
     }
     public String getIdAnexo() {
         return this.idAnexo;
@@ -53,13 +63,6 @@ public class Convenio  implements java.io.Serializable {
     public void setNombreEmpresa(String nombreEmpresa) {
         this.nombreEmpresa = nombreEmpresa;
     }
-    public String getCifEmpresa() {
-        return this.cifEmpresa;
-    }
-    
-    public void setCifEmpresa(String cifEmpresa) {
-        this.cifEmpresa = cifEmpresa;
-    }
     public String getResponsableFirma() {
         return this.responsableFirma;
     }
@@ -73,6 +76,13 @@ public class Convenio  implements java.io.Serializable {
     
     public void setCantAnexos(Integer cantAnexos) {
         this.cantAnexos = cantAnexos;
+    }
+    public byte[] getAnexoUnoConvenio() {
+        return this.anexoUnoConvenio;
+    }
+    
+    public void setAnexoUnoConvenio(byte[] anexoUnoConvenio) {
+        this.anexoUnoConvenio = anexoUnoConvenio;
     }
 
 

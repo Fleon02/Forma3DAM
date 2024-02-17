@@ -2,21 +2,20 @@ package modelo;
 
 import controlador.HibernateUtil;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.Anexos;
 
-/**
- *
- * @author francisco.leon
- */
 public class AnexosDAO {
 
     private Session sesion;
 
     private void iniciaOperacion() throws HibernateException {
+        Logger.getLogger("org.hibernate").setLevel(Level.OFF);
         sesion = HibernateUtil.getSessionFactory().openSession();
     }
 
