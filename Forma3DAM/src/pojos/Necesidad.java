@@ -1,5 +1,5 @@
 package pojos;
-// Generated 09-feb-2024 2:11:34 by Hibernate Tools 4.3.1
+// Generated 17-feb-2024 19:37:18 by Hibernate Tools 4.3.1
 
 
 
@@ -10,7 +10,7 @@ public class Necesidad  implements java.io.Serializable {
 
 
      private Integer idNecesidad;
-     private String cifEmpresa;
+     private Empresas empresas;
      private String cicloNecesidad;
      private Integer dam;
      private Integer daw;
@@ -21,8 +21,8 @@ public class Necesidad  implements java.io.Serializable {
     public Necesidad() {
     }
 
-    public Necesidad(String cifEmpresa, String cicloNecesidad, Integer dam, Integer daw, Integer asir, Integer mark, Integer fin) {
-       this.cifEmpresa = cifEmpresa;
+    public Necesidad(Empresas empresas, String cicloNecesidad, Integer dam, Integer daw, Integer asir, Integer mark, Integer fin) {
+       this.empresas = empresas;
        this.cicloNecesidad = cicloNecesidad;
        this.dam = dam;
        this.daw = daw;
@@ -38,12 +38,12 @@ public class Necesidad  implements java.io.Serializable {
     public void setIdNecesidad(Integer idNecesidad) {
         this.idNecesidad = idNecesidad;
     }
-    public String getCifEmpresa() {
-        return this.cifEmpresa;
+    public Empresas getEmpresas() {
+        return this.empresas;
     }
     
-    public void setCifEmpresa(String cifEmpresa) {
-        this.cifEmpresa = cifEmpresa;
+    public void setEmpresas(Empresas empresas) {
+        this.empresas = empresas;
     }
     public String getCicloNecesidad() {
         return this.cicloNecesidad;

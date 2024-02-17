@@ -53,13 +53,15 @@ public class Menu extends javax.swing.JPanel {
     }
 
     public void iniciarMenuItem() {
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/info.png")), "Inicio"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/alumnos.png")), "Alumnos", "Insertar", "Actualizar/Borrar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/empresa.png")), "Empresas", "Insertar", "Actualizar/Borrar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/convenio.png")), "Convenios", "Insertar", "Actualizar/Borrar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/clase.png")), "Necesidad", "Insertar", "Actualizar/Borrar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/pc.png")), "Practicas", "Insertar", "Actualizar/Borrar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/maleta.png")), "Bolsa de Trabajo", "Insertar", "Actualizar/Borrar"));
-        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/ajustes.png")), "Ajustes", "Cambiar Tema"));
+        
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/ajustes.png")), "Configuracion", "Cuentas de Usuario"));
     }
 
     private void addMenu(ModeloMenu menu) {
