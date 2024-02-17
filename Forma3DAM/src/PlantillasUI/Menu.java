@@ -16,6 +16,8 @@ import org.jdesktop.animation.timing.TimingTarget;
 
 public class Menu extends javax.swing.JPanel {
 
+    public Header h;
+
     public boolean isMostrarMenu() {
         return mostrarMenu;
     }
@@ -52,7 +54,7 @@ public class Menu extends javax.swing.JPanel {
 
     }
 
-    public void iniciarMenuItem() {
+    public void iniciarMenuItem(String rol) {
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/info.png")), "Inicio"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/alumnos.png")), "Alumnos", "Insertar", "Actualizar/Borrar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/empresa.png")), "Empresas", "Insertar", "Actualizar/Borrar"));
@@ -60,8 +62,12 @@ public class Menu extends javax.swing.JPanel {
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/clase.png")), "Necesidad", "Insertar", "Actualizar/Borrar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/pc.png")), "Practicas", "Insertar", "Actualizar/Borrar"));
         addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/maleta.png")), "Bolsa de Trabajo", "Insertar", "Actualizar/Borrar"));
-        
-        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/ajustes.png")), "Configuracion", "Cuentas de Usuario"));
+        addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/maleta.png")), "Anexos", "Insertar", "Actualizar/Borrar"));
+
+        // Verificar si el rol es "Admin" y agregar el menú de configuración si es así
+        if (rol.equals("Admin")) {
+            addMenu(new ModeloMenu(new ImageIcon(getClass().getResource("/imagenes/ajustes.png")), "Configuracion", "Cuentas de Usuario"));
+        }
     }
 
     private void addMenu(ModeloMenu menu) {
