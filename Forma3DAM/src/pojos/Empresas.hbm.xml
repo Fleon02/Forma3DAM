@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 09-feb-2024 2:11:34 by Hibernate Tools 4.3.1 -->
+<!-- Generated 17-feb-2024 19:37:18 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="pojos.Empresas" table="empresas" catalog="practicas" optimistic-lock="version">
         <id name="cifEmpresa" type="string">
@@ -21,10 +21,36 @@
             <column name="owner" length="20" />
         </property>
         <property name="tutorPracticas" type="string">
-            <column name="tutorPracticas" length="50" />
+            <column name="tutorPracticas" length="50" unique="true" />
         </property>
         <property name="responsableContratacion" type="string">
             <column name="responsableContratacion" length="50" />
         </property>
+        <set name="practicases" table="practicasempresas" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="tutorPracticas_E" length="50" not-null="true" />
+            </key>
+            <many-to-many entity-name="pojos.Practicas">
+                <column name="tutorPracticas_P" length="50" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="necesidads" table="necesidad" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cifEmpresa" length="20" unique="true" />
+            </key>
+            <one-to-many class="pojos.Necesidad" />
+        </set>
+        <set name="practicases_1" table="practicas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="tutorPracticas" length="20" unique="true" />
+            </key>
+            <one-to-many class="pojos.Practicas" />
+        </set>
+        <set name="convenios" table="convenio" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cifEmpresa" length="20" unique="true" />
+            </key>
+            <one-to-many class="pojos.Convenio" />
+        </set>
     </class>
 </hibernate-mapping>
