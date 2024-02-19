@@ -48,7 +48,6 @@ Contributor(s):
     <mapping resource="pojos/Convenio.hbm.xml"/>
     <mapping resource="pojos/Necesidad.hbm.xml"/>
     <mapping resource="pojos/Beep.hbm.xml"/>
-    <mapping resource="pojos/Especial.hbm.xml"/>
     <mapping resource="pojos/Practicas.hbm.xml"/>
     <mapping resource="pojos/Empresas.hbm.xml"/>
     <mapping resource="pojos/Alumnos.hbm.xml"/>

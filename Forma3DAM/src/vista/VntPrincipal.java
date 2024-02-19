@@ -29,11 +29,10 @@ public class VntPrincipal extends javax.swing.JFrame {
 
     public VntPrincipal(String nombre, String rol) {
         initComponents();
-        init();
-        header.setDatosUsuario(nombre, rol);
+        init(nombre, rol);
     }
 
-    private void init() {
+    private void init(String nombre, String rol) {
         layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
         bg.setLayout(layout);
         menu = new Menu();
@@ -43,15 +42,20 @@ public class VntPrincipal extends javax.swing.JFrame {
             @Override
             public void menuSeleccionado(int indexMenu, int indexSubMenu) {
                 System.out.println("Index Menu : " + indexMenu + " SubMenu Index " + indexSubMenu);
-                if (indexMenu == 0) {
+                if (indexMenu == 1) {
                     if (indexSubMenu == 0) {
                         main.showForm(new VntInsertaAlumno());
                     } else if (indexSubMenu == 1) {
                         main.showForm(new VntAlumnos());
                     }
-                } else if (indexMenu == 1) {
+                } else if (indexMenu == 2) {
                     if (indexSubMenu == 0) {
                         main.showForm(new vntAnexo());
+                    }
+
+                } else if (indexMenu == 0) {
+                    if (indexSubMenu == -1) {
+                        main.showForm(new VntBienvenido());
                     }
 
                 }
@@ -68,7 +72,8 @@ public class VntPrincipal extends javax.swing.JFrame {
                 popup.setVisible(true);
             }
         });
-        menu.iniciarMenuItem();
+        header.setDatosUsuario(nombre, rol);
+        menu.iniciarMenuItem(rol);
         bg.add(menu, "w 230!, spany 2");
         bg.add(header, "h 50!, wrap");
         bg.add(main, "w 100%, h 100%");

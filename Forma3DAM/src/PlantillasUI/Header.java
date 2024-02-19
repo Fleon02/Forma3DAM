@@ -87,6 +87,15 @@ public class Header extends javax.swing.JPanel {
         lbRol.setText(rol);
     }
 
+    public String[] getDatosUsuario() {
+        String nombre = lbNombre.getText();
+        String rol = lbRol.getText();
+        String[] datos = {nombre, rol};
+
+        return datos;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private PlantillasUI.Button btnCerrarSesion;
     private PlantillasUI.Button cmdMenu;
