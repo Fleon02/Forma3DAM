@@ -43,7 +43,7 @@ public class AlumnosDAO {
         return id;
     }
 
-    public void guardaAlumnos(String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, int validez, String cicloAlumno, byte[] cv) {
+    public void guardaAlumno(String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, int validez, String cicloAlumno, byte[] cv) {
         try {
             iniciaOperacion();
             String hql = "INSERT INTO alumnos(dniAlumno, nombreAlumno, yearCurso, segSocialAlumno, validez, cicloAlumno, CV)"
