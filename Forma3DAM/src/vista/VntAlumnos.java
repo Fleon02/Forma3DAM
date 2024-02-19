@@ -17,6 +17,7 @@ public class VntAlumnos extends javax.swing.JPanel {
     private byte[] bytesCV;
 
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
+        "ID",
         "DNI",
         "Nombre",
         "Año Curso",
@@ -38,6 +39,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         for (Alumnos a : listaAlumnos) {
             if (a.getCv() != null) {
                 dtm.addRow(new Object[]{
+                    a.getIdAlumno(),
                     a.getDniAlumno(),
                     a.getNombreAlumno(),
                     a.getYearCurso(),
@@ -47,6 +49,7 @@ public class VntAlumnos extends javax.swing.JPanel {
                     a.getValidez(),});
             } else {
                 dtm.addRow(new Object[]{
+                    a.getIdAlumno(),
                     a.getDniAlumno(),
                     a.getNombreAlumno(),
                     a.getYearCurso(),
