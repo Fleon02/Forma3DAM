@@ -56,7 +56,7 @@ public class VntAlumnos extends javax.swing.JPanel {
                     a.getSegSocialAlumno(),
                     a.getCicloAlumno(),
                     "No Subido",
-                    a.getValidez(),}
+                    a.getValidez(),});
             }
         }
     }
