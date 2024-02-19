@@ -25,12 +25,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         "Ciclo",
         "CV",
         "Validez"
-    }, 0) {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
+    }, 0);
 
     public VntAlumnos() {
         initComponents();
@@ -83,6 +78,15 @@ public class VntAlumnos extends javax.swing.JPanel {
                         } else {
                             checkbValidez.setSelected(false);
                         }
+                        btnSubirCV.setEnabled(true);
+                        btnActualizar.setEnabled(true);
+                        btnBorrar.setEnabled(true);
+                    } else {
+                        txtDNIAlumno.setEditable(false);
+                        txtNombreAlumno.setEditable(false);
+                        txtAnioAlumno.setEditable(false);
+                        txtNSSAlumno.setEditable(false);
+                        txtCicloAlumno.setEditable(false);
                     }
                 }
             }
@@ -202,6 +206,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         btnBorrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnBorrar.setForeground(new java.awt.Color(255, 255, 255));
         btnBorrar.setText("Borrar");
+        btnBorrar.setEnabled(false);
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
@@ -216,6 +221,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         btnSubirCV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCV.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCV.setText("Subir CV");
+        btnSubirCV.setEnabled(false);
         btnSubirCV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirCVActionPerformed(evt);
@@ -226,6 +232,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         btnActualizar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
+        btnActualizar.setEnabled(false);
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
