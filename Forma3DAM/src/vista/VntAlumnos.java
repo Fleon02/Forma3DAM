@@ -36,26 +36,24 @@ public class VntAlumnos extends javax.swing.JPanel {
         dtm.setRowCount(0);
         List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
         for (Alumnos a : listaAlumnos) {
-            if (listaAlumnos.size() > 0) {
-                if (a.getCv() != null) {
-                    dtm.addRow(new Object[]{
-                        a.getDniAlumno(),
-                        a.getNombreAlumno(),
-                        a.getYearCurso(),
-                        a.getSegSocialAlumno(),
-                        a.getCicloAlumno(),
-                        "Subido",
-                        a.getValidez(),});
-                } else {
-                    dtm.addRow(new Object[]{
-                        a.getDniAlumno(),
-                        a.getNombreAlumno(),
-                        a.getYearCurso(),
-                        a.getSegSocialAlumno(),
-                        a.getCicloAlumno(),
-                        "No Subido",
-                        a.getValidez(),});
-                }
+            if (a.getCv() != null) {
+                dtm.addRow(new Object[]{
+                    a.getDniAlumno(),
+                    a.getNombreAlumno(),
+                    a.getYearCurso(),
+                    a.getSegSocialAlumno(),
+                    a.getCicloAlumno(),
+                    "Subido",
+                    a.getValidez(),});
+            } else {
+                dtm.addRow(new Object[]{
+                    a.getDniAlumno(),
+                    a.getNombreAlumno(),
+                    a.getYearCurso(),
+                    a.getSegSocialAlumno(),
+                    a.getCicloAlumno(),
+                    "No Subido",
+                    a.getValidez(),});
             }
         }
     }
