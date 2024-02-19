@@ -71,26 +71,10 @@ public class AlumnosDAO {
         }
     }
 
-    public void actualizaAlumnos(int idAlumno, String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, int validez, String cicloAlumno, byte[] cv) {
+    public void actualizaAlumnos(Alumnos a) {
         try {
             iniciaOperacion();
-            String hql = "UPDATE alumnos dniAlumno=:dniAlumno, nombreAlumno=:nombreAlumno, yearCurso=:yearCurso, "
-                    + "segSocialAlumno=:segSocialAlumno, validez=:validez, cicloAlumno=:cicloAlumno, cv=:cv WHERE idAlumno=:idAlumno";
-            int valor = sesion.createSQLQuery(hql)
-                    .setParameter("dniAlumno", dniAlumno)
-                    .setParameter("nombreAlumno", nombreAlumno)
-                    .setParameter("yearCurso", yearCurso)
-                    .setParameter("segSocialAlumno", segSocialAlumno)
-                    .setParameter("validez", validez)
-                    .setParameter("cicloAlumno", cicloAlumno)
-                    .setParameter("cv", cv)
-                    .setParameter("idAlumno", idAlumno)
-                    .executeUpdate();
-            if (valor == 1) {
-                JOptionPane.showMessageDialog(parentComponent, "Alumno Actualizado", "Info", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(parentComponent, "Alumno No Actualizado", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            sesion.update(a);
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
