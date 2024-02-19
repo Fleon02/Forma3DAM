@@ -55,7 +55,7 @@ public class VntPrincipal extends javax.swing.JFrame {
 
                 } else if (indexMenu == 0) {
                     if (indexSubMenu == -1) {
-                        main.showForm(new VntBienvenido());
+                        main.showForm(new VntBienvenido(nombre));
                     }
 
                 }
@@ -112,7 +112,7 @@ public class VntPrincipal extends javax.swing.JFrame {
                 }
             }
         });
-        main.showForm(new VntBienvenido());
+        main.showForm(new VntBienvenido(nombre));
     }
 
     @SuppressWarnings("unchecked")
