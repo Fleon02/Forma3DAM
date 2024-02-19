@@ -68,16 +68,21 @@ public class VntAlumnos extends javax.swing.JPanel {
                 if (!e.getValueIsAdjusting()) {
                     int filas = TablaAlumnos.getSelectedRow();
                     if (filas != -1) {
-                        txtDNIAlumno.setText(TablaAlumnos.getValueAt(filas, 0) + "");
-                        txtNombreAlumno.setText(TablaAlumnos.getValueAt(filas, 1) + "");
-                        txtAnioAlumno.setText(TablaAlumnos.getValueAt(filas, 2) + "");
-                        txtNSSAlumno.setText(TablaAlumnos.getValueAt(filas, 3) + "");
-                        txtCicloAlumno.setText(TablaAlumnos.getValueAt(filas, 4) + "");
+                        txtDNIAlumno.setText(TablaAlumnos.getValueAt(filas, 1) + "");
+                        txtNombreAlumno.setText(TablaAlumnos.getValueAt(filas, 2) + "");
+                        txtAnioAlumno.setText(TablaAlumnos.getValueAt(filas, 3) + "");
+                        txtNSSAlumno.setText(TablaAlumnos.getValueAt(filas, 4) + "");
+                        txtCicloAlumno.setText(TablaAlumnos.getValueAt(filas, 5) + "");
                         if (TablaAlumnos.getValueAt(filas, 6).equals(true)) {
                             checkbValidez.setSelected(true);
                         } else {
                             checkbValidez.setSelected(false);
                         }
+                        txtDNIAlumno.setEditable(true);
+                        txtNombreAlumno.setEditable(true);
+                        txtAnioAlumno.setEditable(true);
+                        txtNSSAlumno.setEditable(true);
+                        txtCicloAlumno.setEditable(true);
                         btnSubirCV.setEnabled(true);
                         btnActualizar.setEnabled(true);
                         btnBorrar.setEnabled(true);
@@ -127,12 +132,10 @@ public class VntAlumnos extends javax.swing.JPanel {
         favicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoF.png"))); // NOI18N
 
         title.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
-        title.setForeground(new java.awt.Color(0, 0, 0));
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("Actualizar/Borrar");
 
         userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel.setForeground(new java.awt.Color(0, 0, 0));
         userLabel.setText("DNI Alumno");
 
         txtDNIAlumno.setEditable(false);
@@ -150,7 +153,6 @@ public class VntAlumnos extends javax.swing.JPanel {
         jScrollPane2.setViewportView(TablaAlumnos);
 
         userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel1.setForeground(new java.awt.Color(0, 0, 0));
         userLabel1.setText("Nombre Alumno");
 
         txtNombreAlumno.setEditable(false);
@@ -165,7 +167,6 @@ public class VntAlumnos extends javax.swing.JPanel {
         });
 
         userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel2.setForeground(new java.awt.Color(0, 0, 0));
         userLabel2.setText("Año Alumno");
 
         txtAnioAlumno.setEditable(false);
@@ -180,7 +181,6 @@ public class VntAlumnos extends javax.swing.JPanel {
         });
 
         userLabel3.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel3.setForeground(new java.awt.Color(0, 0, 0));
         userLabel3.setText("N. S. S. Alumno");
 
         txtNSSAlumno.setEditable(false);
@@ -195,11 +195,9 @@ public class VntAlumnos extends javax.swing.JPanel {
         });
 
         userLabel4.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel4.setForeground(new java.awt.Color(0, 0, 0));
         userLabel4.setText("Ciclo Alumno");
 
         userLabel5.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel5.setForeground(new java.awt.Color(0, 0, 0));
         userLabel5.setText("Curriculum Alumno");
 
         btnBorrar.setBackground(new java.awt.Color(18, 30, 49));
@@ -214,7 +212,6 @@ public class VntAlumnos extends javax.swing.JPanel {
         });
 
         checkbValidez.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        checkbValidez.setForeground(new java.awt.Color(0, 0, 0));
         checkbValidez.setText("Validez (Aprobado)");
 
         btnSubirCV.setBackground(new java.awt.Color(18, 30, 49));
@@ -251,7 +248,6 @@ public class VntAlumnos extends javax.swing.JPanel {
         });
 
         title1.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
-        title1.setForeground(new java.awt.Color(0, 0, 0));
         title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title1.setText("ALUMNOS");
 
@@ -259,7 +255,10 @@ public class VntAlumnos extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1090, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(694, Short.MAX_VALUE)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 25, Short.MAX_VALUE)
@@ -268,9 +267,7 @@ public class VntAlumnos extends javax.swing.JPanel {
                             .addGap(40, 40, 40)
                             .addComponent(favicon, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(80, 80, 80)
-                            .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(220, 220, 220)
-                            .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(20, 20, 20)
@@ -311,7 +308,10 @@ public class VntAlumnos extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 608, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(505, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -319,8 +319,7 @@ public class VntAlumnos extends javax.swing.JPanel {
                         .addComponent(favicon, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(10, 10, 10)
-                            .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
@@ -386,11 +385,13 @@ public class VntAlumnos extends javax.swing.JPanel {
         if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
                 && txtNSSAlumno.getText() != "" && txtCicloAlumno.getText() != "") {
             if (checkbValidez.isSelected()) {
-                new AlumnosDAO().actualizaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                        txtNSSAlumno.getText(), 1, txtCicloAlumno.getText(), bytesCV);
+                Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
+                        txtNSSAlumno.getText(), Boolean.TRUE, txtCicloAlumno.getText(), bytesCV);
+                new AlumnosDAO().actualizaAlumnos(a);
             } else {
-                new AlumnosDAO().actualizaAlumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                        txtNSSAlumno.getText(), 0, txtCicloAlumno.getText(), bytesCV);
+                Alumnos a2 = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
+                        txtNSSAlumno.getText(), Boolean.FALSE, txtCicloAlumno.getText(), bytesCV);
+                new AlumnosDAO().actualizaAlumnos(a2);
             }
             cargaTabla();
         } else {
