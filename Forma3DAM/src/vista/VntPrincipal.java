@@ -29,12 +29,10 @@ public class VntPrincipal extends javax.swing.JFrame {
 
     public VntPrincipal(String nombre, String rol) {
         initComponents();
-        init();
-        header.setDatosUsuario(nombre, rol);
-        
+        init(nombre, rol);
     }
 
-    private void init() {
+    private void init(String nombre, String rol) {
         layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
         bg.setLayout(layout);
         menu = new Menu();
@@ -57,7 +55,7 @@ public class VntPrincipal extends javax.swing.JFrame {
 
                 } else if (indexMenu == 0) {
                     if (indexSubMenu == -1) {
-                        main.showForm(new VntBienvenido());
+                        main.showForm(new VntBienvenido(nombre, rol));
                     }
 
                 }
@@ -74,7 +72,8 @@ public class VntPrincipal extends javax.swing.JFrame {
                 popup.setVisible(true);
             }
         });
-        menu.iniciarMenuItem();
+        header.setDatosUsuario(nombre, rol);
+        menu.iniciarMenuItem(rol);
         bg.add(menu, "w 230!, spany 2");
         bg.add(header, "h 50!, wrap");
         bg.add(main, "w 100%, h 100%");
@@ -113,7 +112,7 @@ public class VntPrincipal extends javax.swing.JFrame {
                 }
             }
         });
-        main.showForm(new VntBienvenido());
+        main.showForm(new VntBienvenido(nombre, rol));
     }
 
     @SuppressWarnings("unchecked")

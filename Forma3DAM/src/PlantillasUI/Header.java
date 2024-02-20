@@ -35,7 +35,7 @@ public class Header extends javax.swing.JPanel {
         lbRol.setForeground(new java.awt.Color(127, 127, 127));
         lbRol.setText("Rol");
 
-        btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/1.png"))); // NOI18N
+        btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/loginn.png"))); // NOI18N
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarSesionActionPerformed(evt);
@@ -49,7 +49,7 @@ public class Header extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cmdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 494, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 490, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbNombre)
                     .addComponent(lbRol))
@@ -85,6 +85,14 @@ public class Header extends javax.swing.JPanel {
     public void setDatosUsuario(String nombre, String rol) {
         lbNombre.setText(nombre);
         lbRol.setText(rol);
+    }
+
+    public String[] getDatosUsuario() {
+        String nombre = lbNombre.getText();
+        String rol = lbRol.getText();
+        String[] datos = {nombre, rol};
+
+        return datos;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
