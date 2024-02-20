@@ -380,22 +380,6 @@ public class VntAlumnos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDNIAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDNIAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDNIAlumnoMousePressed
-
-    private void txtNombreAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreAlumnoMousePressed
-
-    private void txtAnioAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAnioAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAnioAlumnoMousePressed
-
-    private void txtNSSAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNSSAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNSSAlumnoMousePressed
-
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         if (txtDNIAlumno.getText() != "") {
             new AlumnosDAO().eliminaAlumnos(txtDNIAlumno.getText());
@@ -404,6 +388,30 @@ public class VntAlumnos extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(txtDNIAlumno, "Seleciona un Alumno", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void txtNSSAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNSSAlumnoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNSSAlumnoMousePressed
+
+    private void txtAnioAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAnioAlumnoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnioAlumnoMousePressed
+
+    private void txtNombreAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreAlumnoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreAlumnoMousePressed
+
+    private void txtDNIAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDNIAlumnoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDNIAlumnoMousePressed
+
+    private void txtIDAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDAlumnoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDAlumnoMousePressed
+
+    private void txtCicloAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCicloAlumnoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCicloAlumnoMousePressed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
@@ -425,10 +433,6 @@ public class VntAlumnos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void txtCicloAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCicloAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCicloAlumnoMousePressed
-
     private void btnSubirCVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         int resultado = fileChooser.showOpenDialog(this);
@@ -443,10 +447,6 @@ public class VntAlumnos extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnSubirCVActionPerformed
-
-    private void txtIDAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDAlumnoMousePressed
 
     private byte[] convertirArchivoABytes(File archivo) throws IOException {
         byte[] bytesArray = new byte[(int) archivo.length()];
