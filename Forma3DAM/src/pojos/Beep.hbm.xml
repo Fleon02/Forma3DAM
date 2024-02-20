@@ -4,7 +4,7 @@
 <!-- Generated 17-feb-2024 19:37:18 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="pojos.Beep" table="beep" catalog="practicas" optimistic-lock="version">
-        <id name="idUsuario" type="int">
+        <id name="idUsuario" type="java.lang.Integer">
             <column name="idUsuario" />
             <generator class="foreign">
                 <param name="property">login</param>
