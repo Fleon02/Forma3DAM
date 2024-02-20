@@ -14,14 +14,16 @@ import pojos.Login;
 public class LoginDAO {
 
     private Session sesion;
+    private Transaction tx;
 
     private void iniciaOperacion() throws HibernateException {
         Logger.getLogger("org.hibernate").setLevel(Level.OFF);
         sesion = HibernateUtil.getSessionFactory().openSession();
+        tx = sesion.beginTransaction();
     }
 
     private void manejaExcepcion(HibernateException he) throws HibernateException {
-        sesion.getTransaction().rollback();
+        tx.rollback();
         throw new HibernateException("Error en la capa de acceso a datos", he);
     }
 
@@ -47,20 +49,15 @@ public class LoginDAO {
     }
 
     public void registrarUsuario(Login usuario, String contrasena) {
-        Transaction tx = null;
         try {
             iniciaOperacion();
-            tx = sesion.beginTransaction();
-
             // Crear el objeto Beep con la contraseña y guardarlo
             Beep beep = new Beep();
             beep.setContrasena(contrasena);
             sesion.save(beep);
-
             // Asociar el Beep al usuario y guardar el usuario
             usuario.setBeep(beep);
             sesion.save(usuario);
-
             tx.commit();
             // Mostrar mensaje de éxito
             JOptionPane.showMessageDialog(null, "Usuario registrado correctamente", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
@@ -75,5 +72,4 @@ public class LoginDAO {
             sesion.close();
         }
     }
-
 }

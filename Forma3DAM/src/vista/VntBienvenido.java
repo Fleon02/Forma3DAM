@@ -1,7 +1,5 @@
 package vista;
 
-import javax.swing.border.EmptyBorder;
-
 public class VntBienvenido extends javax.swing.JPanel {
 
     public VntBienvenido(String nombre, String rol) {
