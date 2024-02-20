@@ -1,10 +1,12 @@
 package vista;
 
+import javax.swing.border.EmptyBorder;
+
 public class VntBienvenido extends javax.swing.JPanel {
 
-    public VntBienvenido(String nombre) {
+    public VntBienvenido(String nombre, String rol) {
         initComponents();
-        jLabel1.setText("BIENVENIDO/A A FORMA3 " + nombre);
+        jLabel1.setText("<html><center>BIENVENIDO/A A FORMA3<br><br>" + rol + " " + nombre + "</center></html>");
     }
 
     @SuppressWarnings("unchecked")
@@ -16,6 +18,7 @@ public class VntBienvenido extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
         jLabel1.setForeground(java.awt.Color.red);
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
