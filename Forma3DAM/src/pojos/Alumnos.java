@@ -32,15 +32,13 @@ public class Alumnos implements java.io.Serializable {
         this.cv = cv;
     }
 
-    public Alumnos(Integer idAlumno, String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, Boolean validez, String cicloAlumno, byte[] cv) {
-        this.idAlumno = idAlumno;
+    public Alumnos(String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, Boolean validez, String cicloAlumno) {
         this.dniAlumno = dniAlumno;
         this.nombreAlumno = nombreAlumno;
         this.yearCurso = yearCurso;
         this.segSocialAlumno = segSocialAlumno;
         this.validez = validez;
         this.cicloAlumno = cicloAlumno;
-        this.cv = cv;
     }
 
     public Integer getIdAlumno() {
