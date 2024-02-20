@@ -128,6 +128,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         title1 = new javax.swing.JLabel();
         userLabel6 = new javax.swing.JLabel();
         txtIDAlumno = new javax.swing.JTextField();
+        nombreArchivo = new javax.swing.JLabel();
 
         jTableAlumnos.setModel(dtm);
         jScrollPane1.setViewportView(jTableAlumnos);
@@ -271,6 +272,8 @@ public class VntAlumnos extends javax.swing.JPanel {
             }
         });
 
+        nombreArchivo.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -302,19 +305,24 @@ public class VntAlumnos extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnSubirCV, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(110, 110, 110)
-                            .addComponent(checkbValidez))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(20, 20, 20)
-                            .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10)
-                            .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnSubirCV))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(0, 0, 0)
-                            .addComponent(txtIDAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtIDAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(10, 10, 10)
+                                    .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(90, 90, 90)
+                                    .addComponent(checkbValidez)
+                                    .addGap(26, 26, 26)))))
                     .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,7 +340,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
+                .addContainerGap(62, Short.MAX_VALUE)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,7 +369,9 @@ public class VntAlumnos extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSubirCV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSubirCV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(checkbValidez)
                 .addGap(18, 18, 18)
@@ -419,15 +429,29 @@ public class VntAlumnos extends javax.swing.JPanel {
         if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
                 && txtNSSAlumno.getText() != "" && txtCicloAlumno.getText() != "") {
             if (checkbValidez.isSelected()) {
-                Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                        txtNSSAlumno.getText(), Boolean.TRUE, txtCicloAlumno.getText(), bytesCV);
-                a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
-                new AlumnosDAO().actualizaAlumnos(a);
+                if (nombreArchivo.getText().equalsIgnoreCase("jLabel1")) {
+                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
+                            txtNSSAlumno.getText(), Boolean.TRUE, txtCicloAlumno.getText());
+                    a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
+                    new AlumnosDAO().actualizaAlumnos(a);
+                } else {
+                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
+                            txtNSSAlumno.getText(), Boolean.TRUE, txtCicloAlumno.getText(), bytesCV);
+                    a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
+                    new AlumnosDAO().actualizaAlumnos(a);
+                }
             } else {
-                Alumnos a2 = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                        txtNSSAlumno.getText(), Boolean.FALSE, txtCicloAlumno.getText(), bytesCV);
-                a2.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
-                new AlumnosDAO().actualizaAlumnos(a2);
+                if (nombreArchivo.getText().equalsIgnoreCase("jLabel1")) {
+                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
+                            txtNSSAlumno.getText(), Boolean.FALSE, txtCicloAlumno.getText());
+                    a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
+                    new AlumnosDAO().actualizaAlumnos(a);
+                } else {
+                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
+                            txtNSSAlumno.getText(), Boolean.FALSE, txtCicloAlumno.getText(), bytesCV);
+                    a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
+                    new AlumnosDAO().actualizaAlumnos(a);
+                }
             }
             cargaTabla();
         } else {
@@ -443,6 +467,7 @@ public class VntAlumnos extends javax.swing.JPanel {
             try {
                 byte[] bytesArchivo = convertirArchivoABytes(archivo);
                 bytesCV = bytesArchivo;
+                nombreArchivo.setText(archivo.getName());
             } catch (IOException ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error al leer el archivo", "Error", JOptionPane.ERROR_MESSAGE);
@@ -467,6 +492,7 @@ public class VntAlumnos extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableAlumnos;
+    private javax.swing.JLabel nombreArchivo;
     private javax.swing.JLabel title;
     private javax.swing.JLabel title1;
     private javax.swing.JTextField txtAnioAlumno;
