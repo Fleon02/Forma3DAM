@@ -260,10 +260,15 @@ public class VntRegistro extends javax.swing.JFrame {
         LoginDAO loginDAO = new LoginDAO();
 
         // Crear un nuevo objeto Login con los datos proporcionados por el usuario
-        Login nuevoUsuario = new Login(nombre, email, "rol", null); // El beep se asociará dentro del método
+        Login nuevoUsuario = new Login(nombre, email, "Trabajador", null); // El beep se asociará dentro del método
 
         // Llamar al método registrarUsuario con el usuario y la contraseña
-        loginDAO.registrarUsuario(nuevoUsuario, pass);
+        boolean registro = loginDAO.registrarUsuario(nuevoUsuario, pass);
+        if (registro) {
+            VntLogin l  = new VntLogin();
+            l.setVisible(true);
+            dispose();
+        }
 
     }//GEN-LAST:event_registroBtnTxtMouseClicked
 

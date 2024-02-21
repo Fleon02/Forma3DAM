@@ -5,11 +5,14 @@ import java.awt.Component;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.Alumnos;
+import raven.toast.Notifications;
 
 public class AlumnosDAO {
 
@@ -76,6 +79,7 @@ public class AlumnosDAO {
             iniciaOperacion();
             sesion.update(a);
             tx.commit();
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Alumno Actualizado con exito");
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
@@ -87,12 +91,12 @@ public class AlumnosDAO {
     public void eliminaAlumnos(String dniAlumno) {
         try {
             iniciaOperacion();
-            String hql = "DELETE FROM alumnos WHERE dniAlumno=:dniAlumno";
-            int valor = sesion.createSQLQuery(hql).setParameter("dniAlumno", dniAlumno).executeUpdate();
+            String hql = "UPDATE Alumnos SET idAlumno = -1 WHERE dniAlumno = :dniAlumno";
+            int valor = sesion.createQuery(hql).setParameter("dniAlumno", dniAlumno).executeUpdate();
             if (valor == 1) {
-                JOptionPane.showMessageDialog(parentComponent, "Alumno Borrado", "Info", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(parentComponent, "Alumno Marcado como Borrado", "Info", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(parentComponent, "Alumno No Borrado", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(parentComponent, "Alumno No Encontrado", "Error", JOptionPane.ERROR_MESSAGE);
             }
             tx.commit();
         } catch (HibernateException he) {
