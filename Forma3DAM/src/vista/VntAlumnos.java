@@ -272,7 +272,7 @@ public class VntAlumnos extends javax.swing.JPanel {
             }
         });
 
-        nombreArchivo.setText("jLabel1");
+        nombreArchivo.setText("Archivo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -321,8 +321,7 @@ public class VntAlumnos extends javax.swing.JPanel {
                                     .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(90, 90, 90)
-                                    .addComponent(checkbValidez)
-                                    .addGap(26, 26, 26)))))
+                                    .addComponent(checkbValidez)))))
                     .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -429,7 +428,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
                 && txtNSSAlumno.getText() != "" && txtCicloAlumno.getText() != "") {
             if (checkbValidez.isSelected()) {
-                if (nombreArchivo.getText().equalsIgnoreCase("jLabel1")) {
+                if (nombreArchivo.getText().equalsIgnoreCase("Archivo")) {
                     Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
                             txtNSSAlumno.getText(), Boolean.TRUE, txtCicloAlumno.getText());
                     a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
@@ -441,7 +440,7 @@ public class VntAlumnos extends javax.swing.JPanel {
                     new AlumnosDAO().actualizaAlumnos(a);
                 }
             } else {
-                if (nombreArchivo.getText().equalsIgnoreCase("jLabel1")) {
+                if (nombreArchivo.getText().equalsIgnoreCase("Archivo")) {
                     Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
                             txtNSSAlumno.getText(), Boolean.FALSE, txtCicloAlumno.getText());
                     a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
