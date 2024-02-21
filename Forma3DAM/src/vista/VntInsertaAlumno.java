@@ -140,6 +140,7 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
             }
         });
 
+        nombreArchivo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         nombreArchivo.setText("Archivo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

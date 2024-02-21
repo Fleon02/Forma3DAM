@@ -272,6 +272,8 @@ public class VntAlumnos extends javax.swing.JPanel {
             }
         });
 
+        nombreArchivo.setBackground(new java.awt.Color(0, 0, 0));
+        nombreArchivo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         nombreArchivo.setText("Archivo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
