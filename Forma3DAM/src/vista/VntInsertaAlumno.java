@@ -284,6 +284,7 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
                 byte[] bytesArchivo = convertirArchivoABytes(archivo);
                 bytesCV = bytesArchivo;
                 nombreArchivo.setText(archivo.getName());
+                nombreArchivo.setToolTipText(archivo.getName());
             } catch (IOException ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error al leer el archivo", "Error", JOptionPane.ERROR_MESSAGE);
