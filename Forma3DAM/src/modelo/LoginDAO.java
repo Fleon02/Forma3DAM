@@ -1,6 +1,7 @@
 package modelo;
 
 import controlador.HibernateUtil;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -10,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.Beep;
 import pojos.Login;
+import raven.toast.Notifications;
 
 public class LoginDAO {
 
@@ -25,6 +27,20 @@ public class LoginDAO {
     private void manejaExcepcion(HibernateException he) {
         tx.rollback();
         throw new HibernateException("Error en la capa de acceso a datos", he);
+    }
+
+    public List<Login> obtenListaUsuarios() {
+        List<Login> listaUsuarios = null;
+        try {
+            iniciaOperacion();
+            listaUsuarios = sesion.createQuery("from Login").list();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return listaUsuarios;
     }
 
     public Login iniciarSesion(String correoUsuario, String contrasena) throws HibernateException {
@@ -85,6 +101,20 @@ public class LoginDAO {
             }
         }
         return registroExitoso;
+    }
+
+    public void actualizaUsuario(Login l) {
+        try {
+            iniciaOperacion();
+            sesion.update(l);
+            tx.commit();
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Usuario Actualizado con exito");
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
     }
 
 }
