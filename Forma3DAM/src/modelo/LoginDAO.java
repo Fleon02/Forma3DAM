@@ -117,4 +117,30 @@ public class LoginDAO {
         }
     }
 
+    public void eliminarUsuario(Login usuario) {
+        try {
+            iniciaOperacion();
+
+            // Buscamos el Login en la base de datos para obtener su identificador y luego obtener su Beep asociado
+            Login loginEnDB = (Login) sesion.get(Login.class, usuario.getIdUsuario());
+            if (loginEnDB != null) {
+                Beep beep = loginEnDB.getBeep();
+                if (beep != null) {
+                    // Eliminamos el Beep asociado al Login
+                    sesion.delete(beep);
+                }
+                // Eliminamos el Login
+                sesion.delete(loginEnDB);
+            }
+
+            tx.commit();
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Usuario eliminado con éxito");
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+    }
+
 }

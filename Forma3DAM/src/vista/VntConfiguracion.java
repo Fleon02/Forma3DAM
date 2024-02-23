@@ -316,6 +316,20 @@ public class VntConfiguracion extends javax.swing.JPanel {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        if (txtIDUsuario.getText() != "" && txtNombreUsuario.getText() != "" && txtCorreoUsuario.getText() != ""
+                && cmbRol.getSelectedIndex() != 0) {
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar este usuario?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+            if (respuesta == JOptionPane.YES_OPTION) {
+                Login l = new Login(Integer.parseInt(txtIDUsuario.getText()), txtNombreUsuario.getText(), txtCorreoUsuario.getText(), cmbRol.getSelectedItem().toString());
+                LoginDAO ld = new LoginDAO();
+                System.out.println(l.getRol());
+                ld.eliminarUsuario(l);
+                cargaTabla();
+            }
+        } else {
+            JOptionPane.showMessageDialog(txtIDUsuario, "Escoge un usuario", "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_btnBorrarActionPerformed
 
