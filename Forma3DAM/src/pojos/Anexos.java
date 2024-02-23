@@ -1,5 +1,5 @@
 package pojos;
-// Generated 17-feb-2024 19:37:18 by Hibernate Tools 4.3.1
+// Generated 23-feb-2024 18:13:22 by Hibernate Tools 4.3.1
 
 
 
@@ -16,6 +16,7 @@ public class Anexos  implements java.io.Serializable {
      private String idNecesidad;
      private String dniAlumno;
      private Boolean contratacion;
+     private String calendario;
      private byte[] anexoDosUno;
      private byte[] anexoTres;
      private byte[] anexoCuatro;
@@ -25,13 +26,14 @@ public class Anexos  implements java.io.Serializable {
     public Anexos() {
     }
 
-    public Anexos(String tutorPracticas, String fechaInicio, String fechaFin, String idNecesidad, String dniAlumno, Boolean contratacion, byte[] anexoDosUno, byte[] anexoTres, byte[] anexoCuatro, byte[] anexoDosDos, byte[] anexoOcho) {
+    public Anexos(String tutorPracticas, String fechaInicio, String fechaFin, String idNecesidad, String dniAlumno, Boolean contratacion, String calendario, byte[] anexoDosUno, byte[] anexoTres, byte[] anexoCuatro, byte[] anexoDosDos, byte[] anexoOcho) {
        this.tutorPracticas = tutorPracticas;
        this.fechaInicio = fechaInicio;
        this.fechaFin = fechaFin;
        this.idNecesidad = idNecesidad;
        this.dniAlumno = dniAlumno;
        this.contratacion = contratacion;
+       this.calendario = calendario;
        this.anexoDosUno = anexoDosUno;
        this.anexoTres = anexoTres;
        this.anexoCuatro = anexoCuatro;
@@ -87,6 +89,13 @@ public class Anexos  implements java.io.Serializable {
     
     public void setContratacion(Boolean contratacion) {
         this.contratacion = contratacion;
+    }
+    public String getCalendario() {
+        return this.calendario;
+    }
+    
+    public void setCalendario(String calendario) {
+        this.calendario = calendario;
     }
     public byte[] getAnexoDosUno() {
         return this.anexoDosUno;

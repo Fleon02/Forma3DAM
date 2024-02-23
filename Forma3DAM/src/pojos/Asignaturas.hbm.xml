@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23-feb-2024 18:13:23 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojos.Asignaturas" table="asignaturas" catalog="practicas" optimistic-lock="version">
+        <id name="idAsignatura" type="java.lang.Integer">
+            <column name="idAsignatura" />
+            <generator class="identity" />
+        </id>
+        <property name="nombreAsignatura" type="string">
+            <column name="nombreAsignatura" length="30" />
+        </property>
+        <property name="abreviatura" type="string">
+            <column name="abreviatura" length="20" />
+        </property>
+        <property name="cicloFormativo" type="string">
+            <column name="cicloFormativo" length="20" />
+        </property>
+        <set name="alumnosAsignaturases" table="alumnos_asignaturas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idAsignatura" />
+            </key>
+            <one-to-many class="pojos.AlumnosAsignaturas" />
+        </set>
+    </class>
+</hibernate-mapping>

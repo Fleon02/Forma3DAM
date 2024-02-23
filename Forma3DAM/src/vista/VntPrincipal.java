@@ -52,10 +52,6 @@ public class VntPrincipal extends javax.swing.JFrame {
                     } else if (indexSubMenu == 1) {
                         main.showForm(new VntAlumnos());
                     }
-                } else if (indexMenu == 2) {
-                    if (indexSubMenu == 0) {
-                        main.showForm(new vntAnexo());
-                    }
                 } else if (indexMenu == 8) {
                     if (indexSubMenu == 0) {
                         main.showForm(new VntConfiguracion());
@@ -125,7 +121,7 @@ public class VntPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1366, 783));
-        setPreferredSize(new java.awt.Dimension(1366, 783));
+        setResizable(false);
 
         bg.setBackground(new java.awt.Color(245, 245, 245));
         bg.setOpaque(true);
