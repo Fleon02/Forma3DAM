@@ -1,7 +1,6 @@
 package modelo;
 
 import controlador.HibernateUtil;
-import java.awt.Component;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +13,6 @@ public class AsignaturasDAO {
 
     private Session sesion;
     private Transaction tx;
-    Component parentComponent = null;
 
     private void iniciaOperacion() {
         Logger.getLogger("org.hibernate").setLevel(Level.OFF);

@@ -254,8 +254,8 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNSSAlumnoMousePressed
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
-                && txtNSSAlumno.getText() != "" && cbCicloAlumno.getSelectedIndex() != 0) {
+        if (txtDNIAlumno.getText() != null && txtNombreAlumno.getText() != null && txtAnioAlumno.getText() != null
+                && txtNSSAlumno.getText() != null && cbCicloAlumno.getSelectedIndex() != 0) {
             if (checkbValidez.isSelected()) {
                 Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
                         Integer.parseInt(txtNSSAlumno.getText()), Boolean.TRUE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
