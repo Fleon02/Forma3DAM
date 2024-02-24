@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,6 +16,24 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
 
     public VntInsertaAlumno() {
         initComponents();
+        txtAnioAlumno.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
+        txtNSSAlumno.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -135,7 +155,7 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
 
         cbCicloAlumno.setBackground(new java.awt.Color(0, 0, 0));
         cbCicloAlumno.setForeground(new java.awt.Color(255, 255, 255));
-        cbCicloAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Ciclo", "DAM", "DAW", "ASIR" }));
+        cbCicloAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Ciclo", "DAM", "DAW", "ASIR", "FIN", "MARK" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
