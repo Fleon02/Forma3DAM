@@ -41,7 +41,7 @@ public class VntPrincipal extends javax.swing.JFrame {
         menu.addEvent(new EventoMenuSeleccionado() {
             @Override
             public void menuSeleccionado(int indexMenu, int indexSubMenu) {
-                System.out.println("Index Menu : " + indexMenu + " SubMenu Index " + indexSubMenu);
+                //System.out.println("Index Menu : " + indexMenu + " SubMenu Index " + indexSubMenu);
                 if (indexMenu == 0) {
                     if (indexSubMenu == -1) {
                         main.showForm(new VntBienvenido(nombre, rol));
