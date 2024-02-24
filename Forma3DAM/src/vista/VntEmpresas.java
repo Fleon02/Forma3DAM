@@ -30,7 +30,7 @@ public class VntEmpresas extends javax.swing.JPanel {
 
     public VntEmpresas() {
         initComponents();
-        txtTelefono.addKeyListener(new KeyAdapter() {
+        /*txtTelefono.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
@@ -38,16 +38,7 @@ public class VntEmpresas extends javax.swing.JPanel {
                     e.consume(); // No permite la entrada de caracteres que no sean números
                 }
             }
-        });
-        txtOwner.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
-                    e.consume(); // No permite la entrada de caracteres que no sean números
-                }
-            }
-        });
+        });*/
         TablaEmpresas.setDefaultEditor(Object.class, null);
         cargaTabla();
         cargaEmpresa();
@@ -89,6 +80,8 @@ public class VntEmpresas extends javax.swing.JPanel {
                         txtDireccion.setEditable(true);
                         txtTelefono.setEditable(true);
                         txtOwner.setEditable(true);
+                        txtTutorPracticas.setEditable(true);
+                        txtResponsableContratacion.setEditable(true);
                         btnActualizar.setEnabled(true);
                         btnBorrar.setEnabled(true);
                     } else {

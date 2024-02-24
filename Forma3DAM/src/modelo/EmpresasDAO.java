@@ -29,6 +29,19 @@ public class EmpresasDAO {
         throw new HibernateException("Error en la capa de acceso a datos", he);
     }
 
+    public void guardaEmpresa(Empresas p) {
+        try {
+            iniciaOperacion();
+            sesion.save(p);
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+    }
+
     public int guardaEmpresas(Empresas p) {
         int id;
         try {

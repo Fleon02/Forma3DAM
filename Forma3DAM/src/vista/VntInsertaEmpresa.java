@@ -2,20 +2,15 @@ package vista;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import modelo.EmpresasDAO;
-import pojos.Empresas;
 import pojos.Empresas;
 
 public class VntInsertaEmpresa extends javax.swing.JPanel {
 
     public VntInsertaEmpresa() {
         initComponents();
-        txtDireccion.addKeyListener(new KeyAdapter() {
+        /*txtTelefono.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
@@ -23,16 +18,7 @@ public class VntInsertaEmpresa extends javax.swing.JPanel {
                     e.consume(); // No permite la entrada de caracteres que no sean números
                 }
             }
-        });
-        txtTelefono.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
-                    e.consume(); // No permite la entrada de caracteres que no sean números
-                }
-            }
-        });
+        });*/
     }
 
     @SuppressWarnings("unchecked")
@@ -276,7 +262,7 @@ public class VntInsertaEmpresa extends javax.swing.JPanel {
                 && txtTelefono.getText() != null) {
             Empresas e = new Empresas(txtCIFEmpresa.getText(), txtNombreEmpresa.getText(), txtDireccion.getText(), txtTelefono.getText(),
                     txtOwner.getText(), txtTutorPracticas.getText(), txtResponsableContratacion.getText());
-            new EmpresasDAO().guardaEmpresas(e);
+            new EmpresasDAO().guardaEmpresa(e);
             new VntEmpresas().cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtNombreEmpresa, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
