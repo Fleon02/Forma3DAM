@@ -442,29 +442,15 @@ public class VntAlumnos extends javax.swing.JPanel {
         if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
                 && txtNSSAlumno.getText() != "" && cbCicloAlumno.getSelectedIndex() != 0) {
             if (checkbValidez.isSelected()) {
-                if (nombreArchivo.getText().equalsIgnoreCase("Archivo")) {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
-                            Integer.parseInt(txtNSSAlumno.getText()), Boolean.TRUE, cbCicloAlumno.getSelectedItem().toString());
-                    a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
-                    new AlumnosDAO().actualizaAlumnos(a);
-                } else {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
-                            Integer.parseInt(txtNSSAlumno.getText()), Boolean.TRUE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
-                    a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
-                    new AlumnosDAO().actualizaAlumnos(a);
-                }
+                Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
+                        Integer.parseInt(txtNSSAlumno.getText()), Boolean.TRUE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
+                a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
+                new AlumnosDAO().actualizaAlumnos(a);
             } else {
-                if (nombreArchivo.getText().equalsIgnoreCase("Archivo")) {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
-                            Integer.parseInt(txtNSSAlumno.getText()), Boolean.FALSE, cbCicloAlumno.getSelectedItem().toString());
-                    a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
-                    new AlumnosDAO().actualizaAlumnos(a);
-                } else {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
-                            Integer.parseInt(txtNSSAlumno.getText()), Boolean.FALSE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
-                    a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
-                    new AlumnosDAO().actualizaAlumnos(a);
-                }
+                Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
+                        Integer.parseInt(txtNSSAlumno.getText()), Boolean.FALSE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
+                a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
+                new AlumnosDAO().actualizaAlumnos(a);
             }
             cargaTabla();
         } else {
@@ -500,7 +486,7 @@ public class VntAlumnos extends javax.swing.JPanel {
             }
         }
         JFrame frame = new JFrame("Asignaturas de " + cbCicloAlumno.getSelectedItem().toString());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(new JScrollPane(textArea), BorderLayout.CENTER);
         frame.setSize(500, 500);
         frame.setLocationRelativeTo(null);
