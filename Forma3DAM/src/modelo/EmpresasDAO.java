@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import pojos.Convenio;
 import pojos.Empresas;
 import raven.toast.Notifications;
 
@@ -103,4 +104,21 @@ public class EmpresasDAO {
         }
         return listaEmpresas;
     }
+
+    public String obtenCIF(Empresas empresas) {
+        String cif = null;
+        try {
+            iniciaOperacion();
+            // Obtenemos el CIF de la empresa
+            cif = empresas.getCifEmpresa();
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return cif;
+    }
+
 }

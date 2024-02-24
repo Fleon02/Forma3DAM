@@ -1,5 +1,5 @@
 package pojos;
-// Generated 24-feb-2024 20:05:18 by Hibernate Tools 4.3.1
+// Generated 24-feb-2024 21:20:04 by Hibernate Tools 4.3.1
 
 
 
@@ -21,9 +21,8 @@ public class Convenio  implements java.io.Serializable {
     }
 
 	
-    public Convenio(int numConvenio, byte[] anexoUnoConvenio) {
+    public Convenio(int numConvenio) {
         this.numConvenio = numConvenio;
-        this.anexoUnoConvenio = anexoUnoConvenio;
     }
     public Convenio(Empresas empresas, int numConvenio, String nombreEmpresa, String responsableFirma, Integer cantAnexos, byte[] anexoUnoConvenio) {
        this.empresas = empresas;

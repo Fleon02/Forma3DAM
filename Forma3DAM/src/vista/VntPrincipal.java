@@ -62,6 +62,10 @@ public class VntPrincipal extends javax.swing.JFrame {
                     if (indexSubMenu == 0) {
                         main.showForm(new VntConfiguracion());
                     }
+                } else if (indexMenu == 3) {
+                    if (indexSubMenu == 1) {
+                        main.showForm(new vntConvenios());
+                    }
                 }
             }
         });
