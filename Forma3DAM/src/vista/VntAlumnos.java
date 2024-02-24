@@ -1,16 +1,23 @@
 package vista;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import modelo.AlumnosDAO;
+import modelo.AsignaturasDAO;
 import pojos.Alumnos;
+import pojos.Asignaturas;
 
 public class VntAlumnos extends javax.swing.JPanel {
 
@@ -38,27 +45,30 @@ public class VntAlumnos extends javax.swing.JPanel {
         dtm.setRowCount(0);
         List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
         for (Alumnos a : listaAlumnos) {
-            if (a.getCv() != null) {
-                dtm.addRow(new Object[]{
-                    a.getIdAlumno(),
-                    a.getDniAlumno(),
-                    a.getNombreAlumno(),
-                    a.getYearCurso(),
-                    a.getSegSocialAlumno(),
-                    a.getCicloAlumno(),
-                    "Subido",
-                    a.getValidez(),});
-            } else {
-                dtm.addRow(new Object[]{
-                    a.getIdAlumno(),
-                    a.getDniAlumno(),
-                    a.getNombreAlumno(),
-                    a.getYearCurso(),
-                    a.getSegSocialAlumno(),
-                    a.getCicloAlumno(),
-                    "No Subido",
-                    a.getValidez(),});
+            if (a.getIdAlumno() != -1) {
+                if (a.getCv() != null) {
+                    dtm.addRow(new Object[]{
+                        a.getIdAlumno(),
+                        a.getDniAlumno(),
+                        a.getNombreAlumno(),
+                        a.getYearCurso(),
+                        a.getSegSocialAlumno(),
+                        a.getCicloAlumno(),
+                        "Subido",
+                        a.getValidez(),});
+                } else {
+                    dtm.addRow(new Object[]{
+                        a.getIdAlumno(),
+                        a.getDniAlumno(),
+                        a.getNombreAlumno(),
+                        a.getYearCurso(),
+                        a.getSegSocialAlumno(),
+                        a.getCicloAlumno(),
+                        "No Subido",
+                        a.getValidez(),});
+                }
             }
+
         }
     }
 
@@ -86,6 +96,7 @@ public class VntAlumnos extends javax.swing.JPanel {
                         txtNSSAlumno.setEditable(true);
                         cbCicloAlumno.setEditable(true);
                         btnSubirCV.setEnabled(true);
+                        btnAsignaturas.setEnabled(true);
                         btnActualizar.setEnabled(true);
                         btnBorrar.setEnabled(true);
                     } else {
@@ -129,6 +140,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         txtIDAlumno = new javax.swing.JTextField();
         nombreArchivo = new javax.swing.JLabel();
         cbCicloAlumno = new javax.swing.JComboBox<>();
+        btnAsignaturas = new javax.swing.JButton();
 
         jTableAlumnos.setModel(dtm);
         jScrollPane1.setViewportView(jTableAlumnos);
@@ -269,6 +281,17 @@ public class VntAlumnos extends javax.swing.JPanel {
         cbCicloAlumno.setForeground(new java.awt.Color(255, 255, 255));
         cbCicloAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Ciclo", "DAM", "DAW", "ASIR" }));
 
+        btnAsignaturas.setBackground(new java.awt.Color(18, 30, 49));
+        btnAsignaturas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnAsignaturas.setForeground(new java.awt.Color(255, 255, 255));
+        btnAsignaturas.setText("Ver Asignaturas");
+        btnAsignaturas.setEnabled(false);
+        btnAsignaturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignaturasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -299,15 +322,14 @@ public class VntAlumnos extends javax.swing.JPanel {
                                 .addGap(0, 0, 0)
                                 .addComponent(txtIDAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(10, 10, 10)
-                                        .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(90, 90, 90)
-                                        .addComponent(checkbValidez))))
+                                .addComponent(btnAsignaturas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnActualizar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBorrar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(110, 110, 110)
+                                .addComponent(checkbValidez))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -373,9 +395,10 @@ public class VntAlumnos extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(checkbValidez)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(60, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -421,7 +444,7 @@ public class VntAlumnos extends javax.swing.JPanel {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
-                && txtNSSAlumno.getText() != "" && cbCicloAlumno.getSelectedItem().toString() != "") {
+                && txtNSSAlumno.getText() != "" && cbCicloAlumno.getSelectedIndex() != 0) {
             if (checkbValidez.isSelected()) {
                 if (nombreArchivo.getText().equalsIgnoreCase("Archivo")) {
                     Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
@@ -470,6 +493,25 @@ public class VntAlumnos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSubirCVActionPerformed
 
+    private void btnAsignaturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignaturasActionPerformed
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setFont(new Font("Arial", Font.BOLD, 14));
+        List<Asignaturas> listaAsignaturas = new AsignaturasDAO().obtenListaAsignaturas();
+        for (Asignaturas a : listaAsignaturas) {
+            if (cbCicloAlumno.getSelectedItem().toString().equalsIgnoreCase(a.getCicloFormativo())) {
+                textArea.append("\n" + a.getNombreAsignatura() + " (" + a.getAbreviatura() + ")\n");
+            }
+        }
+        JFrame frame = new JFrame("Asignaturas de " + cbCicloAlumno.getSelectedItem().toString());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(new JScrollPane(textArea), BorderLayout.CENTER);
+        frame.setSize(500, 500);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setVisible(true);
+    }//GEN-LAST:event_btnAsignaturasActionPerformed
+
     private byte[] convertirArchivoABytes(File archivo) throws IOException {
         byte[] bytesArray = new byte[(int) archivo.length()];
         FileInputStream fis = new FileInputStream(archivo);
@@ -480,6 +522,7 @@ public class VntAlumnos extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaAlumnos;
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnAsignaturas;
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnSubirCV;
     private javax.swing.JComboBox<String> cbCicloAlumno;
