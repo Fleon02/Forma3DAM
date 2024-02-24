@@ -41,7 +41,7 @@ public class VntPrincipal extends javax.swing.JFrame {
         menu.addEvent(new EventoMenuSeleccionado() {
             @Override
             public void menuSeleccionado(int indexMenu, int indexSubMenu) {
-                System.out.println("Index Menu : " + indexMenu + " SubMenu Index " + indexSubMenu);
+                //System.out.println("Index Menu : " + indexMenu + " SubMenu Index " + indexSubMenu);
                 if (indexMenu == 0) {
                     if (indexSubMenu == -1) {
                         main.showForm(new VntBienvenido(nombre, rol));
@@ -51,6 +51,12 @@ public class VntPrincipal extends javax.swing.JFrame {
                         main.showForm(new VntInsertaAlumno());
                     } else if (indexSubMenu == 1) {
                         main.showForm(new VntAlumnos());
+                    }
+                } else if (indexMenu == 2) {
+                    if (indexSubMenu == 0) {
+                        main.showForm(new VntInsertaEmpresa());
+                    } else if (indexSubMenu == 1) {
+                        main.showForm(new VntEmpresas());
                     }
                 } else if (indexMenu == 8) {
                     if (indexSubMenu == 0) {
