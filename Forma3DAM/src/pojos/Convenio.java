@@ -1,5 +1,5 @@
 package pojos;
-// Generated 24-feb-2024 18:38:27 by Hibernate Tools 4.3.1
+// Generated 24-feb-2024 20:05:18 by Hibernate Tools 4.3.1
 
 
 
@@ -9,9 +9,9 @@ package pojos;
 public class Convenio  implements java.io.Serializable {
 
 
-     private int numConvenio;
+     private Integer idConvenio;
      private Empresas empresas;
-     private String idAnexo;
+     private int numConvenio;
      private String nombreEmpresa;
      private String responsableFirma;
      private Integer cantAnexos;
@@ -25,22 +25,21 @@ public class Convenio  implements java.io.Serializable {
         this.numConvenio = numConvenio;
         this.anexoUnoConvenio = anexoUnoConvenio;
     }
-    public Convenio(int numConvenio, Empresas empresas, String idAnexo, String nombreEmpresa, String responsableFirma, Integer cantAnexos, byte[] anexoUnoConvenio) {
-       this.numConvenio = numConvenio;
+    public Convenio(Empresas empresas, int numConvenio, String nombreEmpresa, String responsableFirma, Integer cantAnexos, byte[] anexoUnoConvenio) {
        this.empresas = empresas;
-       this.idAnexo = idAnexo;
+       this.numConvenio = numConvenio;
        this.nombreEmpresa = nombreEmpresa;
        this.responsableFirma = responsableFirma;
        this.cantAnexos = cantAnexos;
        this.anexoUnoConvenio = anexoUnoConvenio;
     }
    
-    public int getNumConvenio() {
-        return this.numConvenio;
+    public Integer getIdConvenio() {
+        return this.idConvenio;
     }
     
-    public void setNumConvenio(int numConvenio) {
-        this.numConvenio = numConvenio;
+    public void setIdConvenio(Integer idConvenio) {
+        this.idConvenio = idConvenio;
     }
     public Empresas getEmpresas() {
         return this.empresas;
@@ -49,12 +48,12 @@ public class Convenio  implements java.io.Serializable {
     public void setEmpresas(Empresas empresas) {
         this.empresas = empresas;
     }
-    public String getIdAnexo() {
-        return this.idAnexo;
+    public int getNumConvenio() {
+        return this.numConvenio;
     }
     
-    public void setIdAnexo(String idAnexo) {
-        this.idAnexo = idAnexo;
+    public void setNumConvenio(int numConvenio) {
+        this.numConvenio = numConvenio;
     }
     public String getNombreEmpresa() {
         return this.nombreEmpresa;

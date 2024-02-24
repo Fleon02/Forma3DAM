@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 24-feb-2024 18:38:28 by Hibernate Tools 4.3.1 -->
+<!-- Generated 24-feb-2024 20:05:19 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="pojos.Convenio" table="convenio" catalog="practicas" optimistic-lock="version">
-        <id name="numConvenio" type="int">
-            <column name="numConvenio" />
-            <generator class="assigned" />
+        <id name="idConvenio" type="java.lang.Integer">
+            <column name="idConvenio" />
+            <generator class="identity" />
         </id>
         <many-to-one name="empresas" class="pojos.Empresas" fetch="select">
             <column name="cifEmpresa" unique="true" />
         </many-to-one>
-        <property name="idAnexo" type="string">
-            <column name="idAnexo" length="15" />
+        <property name="numConvenio" type="int">
+            <column name="numConvenio" not-null="true" />
         </property>
         <property name="nombreEmpresa" type="string">
             <column name="nombreEmpresa" length="20" />
