@@ -421,7 +421,7 @@ public class VntAlumnos extends javax.swing.JPanel {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
-                && txtNSSAlumno.getText() != "" && cbCicloAlumno.getSelectedItem().toString() != "") {
+                && txtNSSAlumno.getText() != "" && cbCicloAlumno.getSelectedIndex() != 0) {
             if (checkbValidez.isSelected()) {
                 if (nombreArchivo.getText().equalsIgnoreCase("Archivo")) {
                     Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
