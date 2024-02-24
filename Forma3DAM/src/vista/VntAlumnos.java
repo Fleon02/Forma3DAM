@@ -392,7 +392,9 @@ public class VntAlumnos extends javax.swing.JPanel {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         if (txtDNIAlumno.getText() != "") {
-            new AlumnosDAO().eliminaAlumnos(txtDNIAlumno.getText());
+            Alumnos a = new Alumnos();
+            a.setIdAlumno(-1);
+            new AlumnosDAO().actualizaAlumnos(a);
             cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtDNIAlumno, "Seleciona un Alumno", "Error", JOptionPane.ERROR_MESSAGE);
