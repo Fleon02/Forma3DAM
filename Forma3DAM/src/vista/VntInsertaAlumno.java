@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,6 +16,24 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
 
     public VntInsertaAlumno() {
         initComponents();
+        txtAnioAlumno.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
+        txtNSSAlumno.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -34,8 +54,8 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
         checkbValidez = new javax.swing.JCheckBox();
         btnSubirCV = new javax.swing.JButton();
         btnInsertar = new javax.swing.JButton();
-        txtCicloAlumno = new javax.swing.JTextField();
         nombreArchivo = new javax.swing.JLabel();
+        cbCicloAlumno = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(1078, 608));
 
@@ -130,27 +150,17 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
             }
         });
 
-        txtCicloAlumno.setBackground(new java.awt.Color(0, 0, 0));
-        txtCicloAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtCicloAlumno.setForeground(new java.awt.Color(255, 255, 255));
-        txtCicloAlumno.setBorder(null);
-        txtCicloAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtCicloAlumnoMousePressed(evt);
-            }
-        });
-
         nombreArchivo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         nombreArchivo.setText("Archivo");
+
+        cbCicloAlumno.setBackground(new java.awt.Color(0, 0, 0));
+        cbCicloAlumno.setForeground(new java.awt.Color(255, 255, 255));
+        cbCicloAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Ciclo", "DAM", "DAW", "ASIR", "FIN", "MARK" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(favicon)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(103, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,13 +185,14 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(txtNombreAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtCicloAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbCicloAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(70, 70, 70)
                                 .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(nombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSubirCV))))
+                                .addComponent(btnSubirCV))
+                            .addComponent(favicon)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(checkbValidez)
                         .addGap(327, 327, 327))
@@ -193,9 +204,9 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addComponent(favicon, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombreAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -210,13 +221,13 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
                     .addComponent(txtNSSAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtCicloAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnSubirCV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(nombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(nombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbCicloAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(38, 38, 38)
                 .addComponent(checkbValidez)
                 .addGap(29, 29, 29)
@@ -242,38 +253,22 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNSSAlumnoMousePressed
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
-                && txtNSSAlumno.getText() != "" && txtCicloAlumno.getText() != "") {
+        if (txtDNIAlumno.getText() != null && txtNombreAlumno.getText() != null && txtAnioAlumno.getText() != null
+                && txtNSSAlumno.getText() != null && cbCicloAlumno.getSelectedIndex() != 0) {
             if (checkbValidez.isSelected()) {
-                if (nombreArchivo.getText().equalsIgnoreCase("Archivo")) {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                            txtNSSAlumno.getText(), Boolean.TRUE, txtCicloAlumno.getText());
-                    new AlumnosDAO().guardaAlumnos(a);
-                } else {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                            txtNSSAlumno.getText(), Boolean.TRUE, txtCicloAlumno.getText(), bytesCV);
-                    new AlumnosDAO().guardaAlumnos(a);
-                }
+                Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
+                        Integer.parseInt(txtNSSAlumno.getText()), Boolean.TRUE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
+                new AlumnosDAO().guardaAlumnos(a);
             } else {
-                if (nombreArchivo.getText().equalsIgnoreCase("Archivo")) {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                            txtNSSAlumno.getText(), Boolean.FALSE, txtCicloAlumno.getText());
-                    new AlumnosDAO().guardaAlumnos(a);
-                } else {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                            txtNSSAlumno.getText(), Boolean.FALSE, txtCicloAlumno.getText(), bytesCV);
-                    new AlumnosDAO().guardaAlumnos(a);
-                }
+                Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
+                        Integer.parseInt(txtNSSAlumno.getText()), Boolean.FALSE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
+                new AlumnosDAO().guardaAlumnos(a);
             }
             new VntAlumnos().cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtDNIAlumno, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnInsertarActionPerformed
-
-    private void txtCicloAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCicloAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCicloAlumnoMousePressed
 
     private void btnSubirCVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVActionPerformed
         JFileChooser fileChooser = new JFileChooser();
@@ -310,11 +305,11 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInsertar;
     private javax.swing.JButton btnSubirCV;
+    private javax.swing.JComboBox<String> cbCicloAlumno;
     private javax.swing.JCheckBox checkbValidez;
     private javax.swing.JLabel favicon;
     private javax.swing.JLabel nombreArchivo;
     private javax.swing.JTextField txtAnioAlumno;
-    private javax.swing.JTextField txtCicloAlumno;
     private javax.swing.JTextField txtDNIAlumno;
     private javax.swing.JTextField txtNSSAlumno;
     private javax.swing.JTextField txtNombreAlumno;
