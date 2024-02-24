@@ -424,25 +424,25 @@ public class VntAlumnos extends javax.swing.JPanel {
                 && txtNSSAlumno.getText() != "" && cbCicloAlumno.getSelectedItem().toString() != "") {
             if (checkbValidez.isSelected()) {
                 if (nombreArchivo.getText().equalsIgnoreCase("Archivo")) {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                            txtNSSAlumno.getText(), Boolean.TRUE, cbCicloAlumno.getSelectedItem().toString());
+                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
+                            Integer.parseInt(txtAnioAlumno.getText()), Boolean.TRUE, cbCicloAlumno.getSelectedItem().toString());
                     a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
                     new AlumnosDAO().actualizaAlumnos(a);
                 } else {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                            txtNSSAlumno.getText(), Boolean.TRUE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
+                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
+                            Integer.parseInt(txtAnioAlumno.getText()), Boolean.TRUE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
                     a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
                     new AlumnosDAO().actualizaAlumnos(a);
                 }
             } else {
                 if (nombreArchivo.getText().equalsIgnoreCase("Archivo")) {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                            txtNSSAlumno.getText(), Boolean.FALSE, cbCicloAlumno.getSelectedItem().toString());
+                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
+                            Integer.parseInt(txtAnioAlumno.getText()), Boolean.FALSE, cbCicloAlumno.getSelectedItem().toString());
                     a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
                     new AlumnosDAO().actualizaAlumnos(a);
                 } else {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), txtAnioAlumno.getText(),
-                            txtNSSAlumno.getText(), Boolean.FALSE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
+                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
+                            Integer.parseInt(txtAnioAlumno.getText()), Boolean.FALSE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
                     a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
                     new AlumnosDAO().actualizaAlumnos(a);
                 }
