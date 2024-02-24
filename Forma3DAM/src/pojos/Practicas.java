@@ -1,5 +1,5 @@
 package pojos;
-// Generated 23-feb-2024 18:13:22 by Hibernate Tools 4.3.1
+// Generated 24-feb-2024 18:38:27 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -15,14 +15,14 @@ public class Practicas  implements java.io.Serializable {
      private Empresas empresas;
      private String dniAlumno;
      private String calendario;
-     private String informeSeguimiento;
-     private String informeFinal;
+     private byte[] informeSeguimiento;
+     private byte[] informeFinal;
      private Set empresases = new HashSet(0);
 
     public Practicas() {
     }
 
-    public Practicas(Empresas empresas, String dniAlumno, String calendario, String informeSeguimiento, String informeFinal, Set empresases) {
+    public Practicas(Empresas empresas, String dniAlumno, String calendario, byte[] informeSeguimiento, byte[] informeFinal, Set empresases) {
        this.empresas = empresas;
        this.dniAlumno = dniAlumno;
        this.calendario = calendario;
@@ -59,18 +59,18 @@ public class Practicas  implements java.io.Serializable {
     public void setCalendario(String calendario) {
         this.calendario = calendario;
     }
-    public String getInformeSeguimiento() {
+    public byte[] getInformeSeguimiento() {
         return this.informeSeguimiento;
     }
     
-    public void setInformeSeguimiento(String informeSeguimiento) {
+    public void setInformeSeguimiento(byte[] informeSeguimiento) {
         this.informeSeguimiento = informeSeguimiento;
     }
-    public String getInformeFinal() {
+    public byte[] getInformeFinal() {
         return this.informeFinal;
     }
     
-    public void setInformeFinal(String informeFinal) {
+    public void setInformeFinal(byte[] informeFinal) {
         this.informeFinal = informeFinal;
     }
     public Set getEmpresases() {

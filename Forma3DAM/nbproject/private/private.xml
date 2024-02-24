@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/modelo/AlumnosDAO.java</file>
-            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/vista/VntInsertaAlumno.java</file>
-            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/vista/VntAlumnos.java</file>
-            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/vista/VntPrincipal.java</file>
-            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/modelo/AsignaturasDAO.java</file>
-            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/controlador/Principal.java</file>
-            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/PlantillasUI/Menu.java</file>
+            <file>file:/C:/Users/soraf/Documents/GitHub/Forma3DAM/Forma3DAM/src/vista/VntConfiguracion.java</file>
+            <file>file:/C:/Users/soraf/Documents/GitHub/Forma3DAM/Forma3DAM/src/controlador/Principal.java</file>
+            <file>file:/C:/Users/soraf/Documents/GitHub/Forma3DAM/Forma3DAM/src/vista/vntConvenio.java</file>
+            <file>file:/C:/Users/soraf/Documents/GitHub/Forma3DAM/Forma3DAM/src/vista/VntRegistro.java</file>
         </group>
     </open-files>
 </project-private>
