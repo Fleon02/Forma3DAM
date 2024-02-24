@@ -1,11 +1,16 @@
 package vista;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -489,13 +494,22 @@ public class VntAlumnos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSubirCVActionPerformed
 
     private void btnAsignaturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignaturasActionPerformed
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setFont(new Font("Arial", Font.BOLD, 14));
         List<Asignaturas> listaAsignaturas = new AsignaturasDAO().obtenListaAsignaturas();
         for (Asignaturas a : listaAsignaturas) {
             if (cbCicloAlumno.getSelectedItem().toString().equalsIgnoreCase(a.getCicloFormativo())) {
-                JOptionPane.showMessageDialog(txtDNIAlumno, a.getNombreAsignatura() + " (" + a.getAbreviatura() + ")",
-                        "Asignaturas de " + a.getCicloFormativo(), JOptionPane.INFORMATION_MESSAGE);
+                textArea.append("\n" + a.getNombreAsignatura() + " (" + a.getAbreviatura() + ")\n");
             }
         }
+        JFrame frame = new JFrame("Asignaturas de " + cbCicloAlumno.getSelectedItem().toString());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(new JScrollPane(textArea), BorderLayout.CENTER);
+        frame.setSize(500, 500);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setVisible(true);
     }//GEN-LAST:event_btnAsignaturasActionPerformed
 
     private byte[] convertirArchivoABytes(File archivo) throws IOException {
