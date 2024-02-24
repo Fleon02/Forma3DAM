@@ -85,11 +85,7 @@ public class VntAlumnos extends javax.swing.JPanel {
                         txtAnioAlumno.setText(TablaAlumnos.getValueAt(filas, 3) + "");
                         txtNSSAlumno.setText(TablaAlumnos.getValueAt(filas, 4) + "");
                         cbCicloAlumno.setSelectedItem(TablaAlumnos.getValueAt(filas, 5));
-                        if (TablaAlumnos.getValueAt(filas, 6).equals(true)) {
-                            checkbValidez.setSelected(true);
-                        } else {
-                            checkbValidez.setSelected(false);
-                        }
+                        checkbValidez.setSelected(Boolean.parseBoolean(TablaAlumnos.getValueAt(filas, 7) + ""));
                         txtDNIAlumno.setEditable(true);
                         txtNombreAlumno.setEditable(true);
                         txtAnioAlumno.setEditable(true);
@@ -334,11 +330,11 @@ public class VntAlumnos extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(nombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(nombreArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(2, 2, 2)
                                         .addComponent(btnSubirCV))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(2, 2, 2)
@@ -446,29 +442,15 @@ public class VntAlumnos extends javax.swing.JPanel {
         if (txtDNIAlumno.getText() != "" && txtNombreAlumno.getText() != "" && txtAnioAlumno.getText() != ""
                 && txtNSSAlumno.getText() != "" && cbCicloAlumno.getSelectedIndex() != 0) {
             if (checkbValidez.isSelected()) {
-                if (nombreArchivo.getText().equalsIgnoreCase("Archivo")) {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
-                            Integer.parseInt(txtNSSAlumno.getText()), Boolean.TRUE, cbCicloAlumno.getSelectedItem().toString());
-                    a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
-                    new AlumnosDAO().actualizaAlumnos(a);
-                } else {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
-                            Integer.parseInt(txtNSSAlumno.getText()), Boolean.TRUE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
-                    a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
-                    new AlumnosDAO().actualizaAlumnos(a);
-                }
+                Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
+                        Integer.parseInt(txtNSSAlumno.getText()), Boolean.TRUE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
+                a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
+                new AlumnosDAO().actualizaAlumnos(a);
             } else {
-                if (nombreArchivo.getText().equalsIgnoreCase("Archivo")) {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
-                            Integer.parseInt(txtNSSAlumno.getText()), Boolean.FALSE, cbCicloAlumno.getSelectedItem().toString());
-                    a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
-                    new AlumnosDAO().actualizaAlumnos(a);
-                } else {
-                    Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
-                            Integer.parseInt(txtNSSAlumno.getText()), Boolean.FALSE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
-                    a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
-                    new AlumnosDAO().actualizaAlumnos(a);
-                }
+                Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
+                        Integer.parseInt(txtNSSAlumno.getText()), Boolean.FALSE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
+                a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
+                new AlumnosDAO().actualizaAlumnos(a);
             }
             cargaTabla();
         } else {
@@ -504,7 +486,7 @@ public class VntAlumnos extends javax.swing.JPanel {
             }
         }
         JFrame frame = new JFrame("Asignaturas de " + cbCicloAlumno.getSelectedItem().toString());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(new JScrollPane(textArea), BorderLayout.CENTER);
         frame.setSize(500, 500);
         frame.setLocationRelativeTo(null);
