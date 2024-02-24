@@ -2,6 +2,8 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -36,6 +38,24 @@ public class VntAlumnos extends javax.swing.JPanel {
 
     public VntAlumnos() {
         initComponents();
+        txtAnioAlumno.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
+        txtNSSAlumno.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
         TablaAlumnos.setDefaultEditor(Object.class, null);
         cargaTabla();
         cargaAlumno();
@@ -194,6 +214,11 @@ public class VntAlumnos extends javax.swing.JPanel {
                 txtAnioAlumnoMousePressed(evt);
             }
         });
+        txtAnioAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAnioAlumnoActionPerformed(evt);
+            }
+        });
 
         userLabel3.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel3.setText("N. S. S. Alumno");
@@ -275,7 +300,7 @@ public class VntAlumnos extends javax.swing.JPanel {
 
         cbCicloAlumno.setBackground(new java.awt.Color(0, 0, 0));
         cbCicloAlumno.setForeground(new java.awt.Color(255, 255, 255));
-        cbCicloAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Ciclo", "DAM", "DAW", "ASIR" }));
+        cbCicloAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Ciclo", "DAM", "DAW", "ASIR", "FIN", "MARK" }));
 
         btnAsignaturas.setBackground(new java.awt.Color(18, 30, 49));
         btnAsignaturas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -493,6 +518,10 @@ public class VntAlumnos extends javax.swing.JPanel {
         frame.setResizable(false);
         frame.setVisible(true);
     }//GEN-LAST:event_btnAsignaturasActionPerformed
+
+    private void txtAnioAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnioAlumnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnioAlumnoActionPerformed
 
     private byte[] convertirArchivoABytes(File archivo) throws IOException {
         byte[] bytesArray = new byte[(int) archivo.length()];
