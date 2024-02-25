@@ -48,8 +48,9 @@ public class VntEmpresas extends javax.swing.JPanel {
         dtm.setRowCount(0);
         List<Empresas> listaEmpresas = new EmpresasDAO().obtenListaEmpresas();
         for (Empresas e : listaEmpresas) {
-            if (e.getNombreEmpresa() != null) {
+            if (e.getIdEmpresa() != -1) {
                 dtm.addRow(new Object[]{
+                    e.getIdEmpresa(),
                     e.getNombreEmpresa(),
                     e.getCifEmpresa(),
                     e.getDireccion(),
@@ -69,13 +70,14 @@ public class VntEmpresas extends javax.swing.JPanel {
                 if (!e.getValueIsAdjusting()) {
                     int filas = TablaEmpresas.getSelectedRow();
                     if (filas != -1) {
-                        txtNombreEmpresa.setText(TablaEmpresas.getValueAt(filas, 0) + "");
-                        txtCIFEmpresa.setText(TablaEmpresas.getValueAt(filas, 1) + "");
-                        txtDireccion.setText(TablaEmpresas.getValueAt(filas, 2) + "");
-                        txtTelefono.setText(TablaEmpresas.getValueAt(filas, 3) + "");
-                        txtOwner.setText(TablaEmpresas.getValueAt(filas, 4) + "");
-                        txtTutorPracticas.setText(TablaEmpresas.getValueAt(filas, 5) + "");
-                        txtResponsableContratacion.setText(TablaEmpresas.getValueAt(filas, 6) + "");
+                        txtIDEmpresa.setText(TablaEmpresas.getValueAt(filas, 0) + "");
+                        txtNombreEmpresa.setText(TablaEmpresas.getValueAt(filas, 1) + "");
+                        txtCIFEmpresa.setText(TablaEmpresas.getValueAt(filas, 2) + "");
+                        txtDireccion.setText(TablaEmpresas.getValueAt(filas, 3) + "");
+                        txtTelefono.setText(TablaEmpresas.getValueAt(filas, 4) + "");
+                        txtOwner.setText(TablaEmpresas.getValueAt(filas, 5) + "");
+                        txtTutorPracticas.setText(TablaEmpresas.getValueAt(filas, 6) + "");
+                        txtResponsableContratacion.setText(TablaEmpresas.getValueAt(filas, 7) + "");
                         txtCIFEmpresa.setEditable(true);
                         txtDireccion.setEditable(true);
                         txtTelefono.setEditable(true);
@@ -124,6 +126,8 @@ public class VntEmpresas extends javax.swing.JPanel {
         txtTutorPracticas = new javax.swing.JTextField();
         userLabel5 = new javax.swing.JLabel();
         txtResponsableContratacion = new javax.swing.JTextField();
+        userLabel7 = new javax.swing.JLabel();
+        txtIDEmpresa = new javax.swing.JTextField();
 
         jTableAlumnos.setModel(dtm);
         jScrollPane1.setViewportView(jTableAlumnos);
@@ -269,6 +273,20 @@ public class VntEmpresas extends javax.swing.JPanel {
             }
         });
 
+        userLabel7.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel7.setText("ID Empresa");
+
+        txtIDEmpresa.setEditable(false);
+        txtIDEmpresa.setBackground(new java.awt.Color(0, 0, 0));
+        txtIDEmpresa.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtIDEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        txtIDEmpresa.setBorder(null);
+        txtIDEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtIDEmpresaMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -276,6 +294,10 @@ public class VntEmpresas extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(676, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(txtIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
@@ -330,6 +352,10 @@ public class VntEmpresas extends javax.swing.JPanel {
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
@@ -356,11 +382,11 @@ public class VntEmpresas extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtResponsableContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -408,6 +434,7 @@ public class VntEmpresas extends javax.swing.JPanel {
                 && txtOwner.getText() != null && txtTutorPracticas.getText() != null && txtResponsableContratacion.getText() != null) {
             Empresas e = new Empresas(txtCIFEmpresa.getText(), txtNombreEmpresa.getText(), txtDireccion.getText(), txtTelefono.getText(),
                     txtOwner.getText(), txtTutorPracticas.getText(), txtResponsableContratacion.getText());
+            e.setIdEmpresa(Integer.parseInt(txtIDEmpresa.getText()));
             new EmpresasDAO().actualizaEmpresas(e);
             cargaTabla();
         } else {
@@ -427,13 +454,10 @@ public class VntEmpresas extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtResponsableContratacionMousePressed
 
-    private byte[] convertirArchivoABytes(File archivo) throws IOException {
-        byte[] bytesArray = new byte[(int) archivo.length()];
-        FileInputStream fis = new FileInputStream(archivo);
-        fis.read(bytesArray);
-        fis.close();
-        return bytesArray;
-    }
+    private void txtIDEmpresaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDEmpresaMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDEmpresaMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaEmpresas;
     private javax.swing.JButton btnActualizar;
@@ -446,6 +470,7 @@ public class VntEmpresas extends javax.swing.JPanel {
     private javax.swing.JLabel title1;
     private javax.swing.JTextField txtCIFEmpresa;
     private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtIDEmpresa;
     private javax.swing.JTextField txtNombreEmpresa;
     private javax.swing.JTextField txtOwner;
     private javax.swing.JTextField txtResponsableContratacion;
@@ -458,5 +483,6 @@ public class VntEmpresas extends javax.swing.JPanel {
     private javax.swing.JLabel userLabel4;
     private javax.swing.JLabel userLabel5;
     private javax.swing.JLabel userLabel6;
+    private javax.swing.JLabel userLabel7;
     // End of variables declaration//GEN-END:variables
 }
