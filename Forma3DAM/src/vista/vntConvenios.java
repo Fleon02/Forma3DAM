@@ -28,36 +28,37 @@ import pojos.Empresas;
 public class vntConvenios extends javax.swing.JPanel {
 
     private byte[] bytesCV;
+    private JFrame frame;
 
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
         "ID",
         "Nº Convenio",
         "Nombre",
-        "CIF Empresa",
+        "ID Empresa",
         "ResponsableFirma",
         "Cantidad Anexos",
         "AnexoUnoConvenio"
     }, 0);
 
-    public vntConvenios() {
+    public vntConvenios(JFrame vntPrincipal) {
         initComponents();
         TablaConvenio.setDefaultEditor(Object.class, null);
         cargaTabla();
         cargaConvenios();
+        frame = vntPrincipal;
     }
 
     public void cargaTabla() {
         dtm.setRowCount(0);
         List<Convenio> listaConvenio = new ConvenioDAO().obtenListaConvenios();
         for (Convenio c : listaConvenio) {
-            String CIF = new EmpresasDAO().obtenCIF(c.getEmpresas());
             if (c.getIdConvenio() != -1) {
-                if (c.getAnexoUnoConvenio() != null || c.getAnexoUnoConvenio().length > 0) {
+                if (c.getAnexoUnoConvenio() != null && c.getAnexoUnoConvenio().length > 0) {
                     dtm.addRow(new Object[]{
                         c.getIdConvenio(),
                         c.getNumConvenio(),
                         c.getNombreEmpresa(),
-                        CIF,
+                        c.getEmpresas().getIdEmpresa(),
                         c.getResponsableFirma(),
                         c.getCantAnexos(),
                         "Subido",});
@@ -66,7 +67,7 @@ public class vntConvenios extends javax.swing.JPanel {
                         c.getIdConvenio(),
                         c.getNumConvenio(),
                         c.getNombreEmpresa(),
-                        CIF,
+                        c.getEmpresas().getIdEmpresa(),
                         c.getResponsableFirma(),
                         c.getCantAnexos(),
                         "No Subido",});
@@ -87,12 +88,12 @@ public class vntConvenios extends javax.swing.JPanel {
                         txtIDConvenio.setText(TablaConvenio.getValueAt(filas, 0) + "");
                         txtNumConvenio.setText(TablaConvenio.getValueAt(filas, 1) + "");
                         txtNombreEmpresa.setText(TablaConvenio.getValueAt(filas, 2) + "");
-                        txtCIFEmpresa.setText(TablaConvenio.getValueAt(filas, 3) + "");
-                        txtCantidadAnexos.setText(TablaConvenio.getValueAt(filas, 4) + "");
-                        txtResponsableFirma1.setText(TablaConvenio.getValueAt(filas, 5) + "");
+                        txtIDEmpresa.setText(TablaConvenio.getValueAt(filas, 3) + "");
+                        txtCantidadAnexos.setText(TablaConvenio.getValueAt(filas, 5) + "");
+                        txtResponsableFirma1.setText(TablaConvenio.getValueAt(filas, 4) + "");
                         txtNumConvenio.setEditable(true);
                         txtNombreEmpresa.setEditable(true);
-                        txtCIFEmpresa.setEditable(true);
+                        txtIDEmpresa.setEditable(true);
                         txtCantidadAnexos.setEditable(true);
                         txtResponsableFirma1.setEditable(true);
                         btnSubirAnex.setEnabled(true);
@@ -101,7 +102,7 @@ public class vntConvenios extends javax.swing.JPanel {
                     } else {
                         txtNumConvenio.setEditable(false);
                         txtNombreEmpresa.setEditable(false);
-                        txtCIFEmpresa.setEditable(false);
+                        txtIDEmpresa.setEditable(false);
                         txtCantidadAnexos.setEditable(false);
                         txtResponsableFirma1.setEditable(false);
                     }
@@ -125,7 +126,7 @@ public class vntConvenios extends javax.swing.JPanel {
         userLabel1 = new javax.swing.JLabel();
         txtNombreEmpresa = new javax.swing.JTextField();
         userLabel2 = new javax.swing.JLabel();
-        txtCIFEmpresa = new javax.swing.JTextField();
+        txtIDEmpresa = new javax.swing.JTextField();
         userLabel3 = new javax.swing.JLabel();
         txtCantidadAnexos = new javax.swing.JTextField();
         userLabel4 = new javax.swing.JLabel();
@@ -183,21 +184,21 @@ public class vntConvenios extends javax.swing.JPanel {
         });
 
         userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel2.setText("CIF Empresa");
+        userLabel2.setText("ID Empresa");
 
-        txtCIFEmpresa.setEditable(false);
-        txtCIFEmpresa.setBackground(new java.awt.Color(0, 0, 0));
-        txtCIFEmpresa.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtCIFEmpresa.setForeground(new java.awt.Color(255, 255, 255));
-        txtCIFEmpresa.setBorder(null);
-        txtCIFEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtIDEmpresa.setEditable(false);
+        txtIDEmpresa.setBackground(new java.awt.Color(0, 0, 0));
+        txtIDEmpresa.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtIDEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        txtIDEmpresa.setBorder(null);
+        txtIDEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtCIFEmpresaMousePressed(evt);
+                txtIDEmpresaMousePressed(evt);
             }
         });
-        txtCIFEmpresa.addActionListener(new java.awt.event.ActionListener() {
+        txtIDEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCIFEmpresaActionPerformed(evt);
+                txtIDEmpresaActionPerformed(evt);
             }
         });
 
@@ -295,12 +296,11 @@ public class vntConvenios extends javax.swing.JPanel {
                 .addContainerGap(670, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(txtIDConvenio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(24, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -332,7 +332,7 @@ public class vntConvenios extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCIFEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -357,10 +357,10 @@ public class vntConvenios extends javax.swing.JPanel {
                 .addContainerGap(62, Short.MAX_VALUE)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtIDConvenio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIDConvenio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumConvenio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -370,7 +370,7 @@ public class vntConvenios extends javax.swing.JPanel {
                     .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCIFEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -404,21 +404,32 @@ public class vntConvenios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        if (txtNumConvenio.getText() != null) {
-            new AlumnosDAO().eliminaAlumnos(txtNumConvenio.getText());
-            cargaTabla();
-        } else {
-            JOptionPane.showMessageDialog(txtNumConvenio, "Seleciona un Alumno", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        EmpresasDAO ed = new EmpresasDAO();
+        ConvenioDAO cd = new ConvenioDAO();
+
+        Integer idConvenio = Integer.parseInt(txtIDConvenio.getText());
+        Integer numConvenio = Integer.parseInt(txtNumConvenio.getText());
+        String nombreEmpresa = txtNombreEmpresa.getText();
+        String cifEmpresa = txtIDEmpresa.getText();
+        String responsableFirma = txtResponsableFirma1.getText();
+        Integer cantAnexos = Integer.parseInt(txtCantidadAnexos.getText());
+
+        Empresas e = new Empresas();
+
+        e = ed.obtenerEmpresaPorNombre(nombreEmpresa);
+
+        Convenio c = new Convenio(idConvenio, e, numConvenio, nombreEmpresa, responsableFirma, cantAnexos, bytesCV);
+        cd.eliminarConvenio(c, frame);
+        cargaTabla();
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void txtCantidadAnexosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCantidadAnexosMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCantidadAnexosMousePressed
 
-    private void txtCIFEmpresaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCIFEmpresaMousePressed
+    private void txtIDEmpresaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDEmpresaMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCIFEmpresaMousePressed
+    }//GEN-LAST:event_txtIDEmpresaMousePressed
 
     private void txtNombreEmpresaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreEmpresaMousePressed
         // TODO add your handling code here:
@@ -433,29 +444,82 @@ public class vntConvenios extends javax.swing.JPanel {
     }//GEN-LAST:event_txtIDConvenioMousePressed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        ConvenioDAO cd = new ConvenioDAO();
 
+        // Obtener los datos del formulario
+        Integer idConvenio = Integer.parseInt(txtIDConvenio.getText());
+        Integer numConvenio = Integer.parseInt(txtNumConvenio.getText());
+        String nombreEmpresa = txtNombreEmpresa.getText();
+        String cifEmpresa = txtIDEmpresa.getText();
+        String responsableFirma = txtResponsableFirma1.getText();
+        Integer cantAnexos = Integer.parseInt(txtCantidadAnexos.getText());
+
+        // Obtener la empresa asociada al convenio
+        EmpresasDAO ed = new EmpresasDAO();
+        Empresas e = ed.obtenerEmpresaPorNombre(nombreEmpresa);
+
+        // Crear el objeto Convenio con los datos del formulario
+        Convenio convenio = new Convenio(idConvenio, e, numConvenio, nombreEmpresa, responsableFirma, cantAnexos, bytesCV);
+
+        // Llamar al método para actualizar el convenio
+        cd.actualizarConvenio(convenio, frame);
+
+        // Actualizar la tabla
+        cargaTabla();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnSubirAnexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirAnexActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        int resultado = fileChooser.showOpenDialog(this);
-        if (resultado == JFileChooser.APPROVE_OPTION) {
-            File archivo = fileChooser.getSelectedFile();
-            try {
-                byte[] bytesArchivo = convertirArchivoABytes(archivo);
-                bytesCV = bytesArchivo;
-                nombreArchivo.setText(archivo.getName());
-                nombreArchivo.setToolTipText(archivo.getName());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Error al leer el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+        // Obtener el índice de la fila seleccionada en la tabla
+        int filaSeleccionada = TablaConvenio.getSelectedRow();
+
+        // Verificar si hay una fila seleccionada y si el anexo ya está subido
+        if (filaSeleccionada != -1 && TablaConvenio.getValueAt(filaSeleccionada, 6).equals("Subido")) {
+            // Mostrar un JOptionPane para confirmar la sobrescritura del archivo
+            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un archivo subido. ¿Desea sobreescribirlo?",
+                    "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
+
+            // Verificar la opción seleccionada por el usuario
+            if (opcion == JOptionPane.YES_OPTION) {
+                // El usuario ha confirmado la sobrescritura, procede a subir el nuevo archivo
+                JFileChooser fileChooser = new JFileChooser();
+                int resultado = fileChooser.showOpenDialog(this);
+                if (resultado == JFileChooser.APPROVE_OPTION) {
+                    File archivo = fileChooser.getSelectedFile();
+                    try {
+                        byte[] bytesArchivo = convertirArchivoABytes(archivo);
+                        bytesCV = bytesArchivo;
+                        nombreArchivo.setText(archivo.getName());
+                        nombreArchivo.setToolTipText(archivo.getName());
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(this, "Error al leer el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                // El usuario ha seleccionado no sobrescribir, salir del método
+                return;
+            }
+        } else {
+            JFileChooser fileChooser = new JFileChooser();
+            int resultado = fileChooser.showOpenDialog(this);
+            if (resultado == JFileChooser.APPROVE_OPTION) {
+                File archivo = fileChooser.getSelectedFile();
+                try {
+                    byte[] bytesArchivo = convertirArchivoABytes(archivo);
+                    bytesCV = bytesArchivo;
+                    nombreArchivo.setText(archivo.getName());
+                    nombreArchivo.setToolTipText(archivo.getName());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Error al leer el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }//GEN-LAST:event_btnSubirAnexActionPerformed
 
-    private void txtCIFEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCIFEmpresaActionPerformed
+    private void txtIDEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDEmpresaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCIFEmpresaActionPerformed
+    }//GEN-LAST:event_txtIDEmpresaActionPerformed
 
     private void txtResponsableFirma1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtResponsableFirma1MousePressed
         // TODO add your handling code here:
@@ -480,9 +544,9 @@ public class vntConvenios extends javax.swing.JPanel {
     private javax.swing.JLabel nombreArchivo;
     private javax.swing.JLabel title;
     private javax.swing.JLabel title1;
-    private javax.swing.JTextField txtCIFEmpresa;
     private javax.swing.JTextField txtCantidadAnexos;
     private javax.swing.JTextField txtIDConvenio;
+    private javax.swing.JTextField txtIDEmpresa;
     private javax.swing.JTextField txtNombreEmpresa;
     private javax.swing.JTextField txtNumConvenio;
     private javax.swing.JTextField txtResponsableFirma1;
