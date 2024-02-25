@@ -10,10 +10,12 @@ import java.awt.Component;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import pojos.Empresas;
 import pojos.Necesidad;
 
 /**
@@ -50,5 +52,38 @@ public class NecesidadDAO {
             sesion.close();
         }
         return listaNecesidades;
+    }
+
+    public void actualizarNecesidad(Necesidad n) {        
+        try{
+            iniciaOperacion();
+            sesion.update(n);
+            tx.commit();
+        }catch(HibernateException he){
+            manejaExcepcion(he);
+            throw he;
+        }finally{
+            sesion.close();
+        }        
+    }
+
+    public void eliminaNecesidad(String cifempresa) {
+        Empresas empresas = new Empresas(cifempresa);
+        try {
+            iniciaOperacion();            
+            String hql = "UPDATE Necesidad SET idNecesidad = -1 WHERE empresas = :empresas";
+            int valor = sesion.createQuery(hql).setParameter("empresas", empresas).executeUpdate();
+            if (valor == 1) {
+                JOptionPane.showMessageDialog(parentComponent, "Necesidad Marcada como Borrada", "Info", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(parentComponent, "Necesidad No Marcada como Borrada", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
     }
 }

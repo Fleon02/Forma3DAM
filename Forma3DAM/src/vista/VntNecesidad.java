@@ -38,8 +38,9 @@ public class VntNecesidad extends javax.swing.JPanel {
         initComponents();
         
         
-        
+        TablaNecesidad.setDefaultEditor(Object.class, null);
         cargaTabla();
+        cargaNecesidad();
     }
     
     public void cargaTabla() {
