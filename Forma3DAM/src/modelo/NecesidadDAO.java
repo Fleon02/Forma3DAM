@@ -7,11 +7,14 @@ package modelo;
 
 import controlador.HibernateUtil;
 import java.awt.Component;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import pojos.Necesidad;
 
 /**
  *
@@ -33,5 +36,19 @@ public class NecesidadDAO {
         throw new HibernateException("Error en la capa de acceso a datos", he);
     }
     
-    
+    public List<Necesidad> obtenListaNecesidad(){
+        List<Necesidad> listaNecesidades = null;
+        Query query;
+        try{
+            iniciaOperacion();
+            query = sesion.createQuery("FROM Necesidad");
+            listaNecesidades = query.list();
+        }catch(HibernateException he){
+            manejaExcepcion(he);
+            throw he;
+        }finally{
+            sesion.close();
+        }
+        return listaNecesidades;
+    }
 }

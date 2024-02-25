@@ -5,7 +5,14 @@
  */
 package vista;
 
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import modelo.NecesidadDAO;
+import pojos.Empresas;
+import pojos.Necesidad;
 
 /**
  *
@@ -29,13 +36,70 @@ public class VntNecesidad extends javax.swing.JPanel {
      */
     public VntNecesidad() {
         initComponents();
-    }
-    
-    public void cargaTabla(){
-        dtm.setRowCount(0);
         
+        
+        
+        cargaTabla();
     }
     
+    public void cargaTabla() {
+    dtm.setRowCount(0);
+    List<Necesidad> listaNecesidades = new NecesidadDAO().obtenListaNecesidad();
+    
+    for (Necesidad necesidad : listaNecesidades) {
+        if (necesidad.getIdNecesidad() != null) {
+            dtm.addRow(new Object[]{  
+                necesidad.getIdNecesidad(),
+                necesidad.getEmpresas(),
+                necesidad.getCicloNecesidad(),
+                necesidad.getDam(),
+                necesidad.getDaw(),
+                necesidad.getAsir(),
+                necesidad.getMark(),
+                necesidad.getFin()
+                });  
+            }
+        }
+    }
+    
+    public void cargaNecesidad(){
+        TablaNecesidad.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int filas = TablaNecesidad.getSelectedRow();
+                    if (filas != -1) {
+                        txtIDNecesidad.setText(TablaNecesidad.getValueAt(filas, 0) + "");
+                        txtCIFEmpresa.setText(TablaNecesidad.getValueAt(filas, 1) + "");
+                        txtCicloNecesidad.setText(TablaNecesidad.getValueAt(filas, 2) + "");
+                        txtDAM.setText(TablaNecesidad.getValueAt(filas, 3) + "");
+                        txtDAW.setText(TablaNecesidad.getValueAt(filas, 4) + "");
+                        txtASIR.setText(TablaNecesidad.getValueAt(filas, 5) + "");
+                        txtMARK.setText(TablaNecesidad.getValueAt(filas, 6) + "");
+                        txtFIN.setText(TablaNecesidad.getValueAt(filas, 7) + "");
+                        
+                        txtCIFEmpresa.setEditable(true);
+                        txtCicloNecesidad.setEditable(true);
+                        txtDAM.setEditable(true);
+                        txtDAW.setEditable(true);
+                        txtASIR.setEditable(true);
+                        txtMARK.setEnabled(true);
+                        txtFIN.setEnabled(true);
+                        btnActualizar.setEnabled(true);
+                        btnBorrar.setEnabled(true);
+                    } else {
+                        txtCIFEmpresa.setEditable(false);
+                        txtCicloNecesidad.setEditable(false);
+                        txtDAM.setEditable(false);
+                        txtDAW.setEditable(false);
+                        txtASIR.setEditable(false);
+                        txtMARK.setEditable(false);
+                        txtFIN.setEnabled(false);
+                    }
+                }
+            }
+        });
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,7 +115,7 @@ public class VntNecesidad extends javax.swing.JPanel {
         userLabel = new javax.swing.JLabel();
         txtCIFEmpresa = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        TablaAlumnos = new javax.swing.JTable();
+        TablaNecesidad = new javax.swing.JTable();
         userLabel1 = new javax.swing.JLabel();
         txtCicloNecesidad = new javax.swing.JTextField();
         userLabel2 = new javax.swing.JLabel();
@@ -94,8 +158,8 @@ public class VntNecesidad extends javax.swing.JPanel {
             }
         });
 
-        TablaAlumnos.setModel(dtm);
-        jScrollPane2.setViewportView(TablaAlumnos);
+        TablaNecesidad.setModel(dtm);
+        jScrollPane2.setViewportView(TablaNecesidad);
 
         userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel1.setText("Ciclo Necesidad");
@@ -243,6 +307,14 @@ public class VntNecesidad extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(670, Short.MAX_VALUE)
+                .addComponent(btnAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnActualizar)
+                .addGap(18, 18, 18)
+                .addComponent(btnBorrar)
+                .addContainerGap(12, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -261,17 +333,11 @@ public class VntNecesidad extends javax.swing.JPanel {
                         .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(txtIDNecesidad, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnActualizar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBorrar))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(51, 51, 51)
-                            .addComponent(txtFIN, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
+                            .addComponent(txtFIN))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(51, 51, 51)
@@ -279,13 +345,11 @@ public class VntNecesidad extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(userLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(28, 28, 28)))
+                                .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtDAW, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                                .addComponent(txtASIR)))))
-                .addContainerGap(12, Short.MAX_VALUE))
+                                .addComponent(txtDAW)
+                                .addComponent(txtASIR, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(35, 35, 35))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(40, 65, Short.MAX_VALUE)
@@ -300,7 +364,7 @@ public class VntNecesidad extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(64, Short.MAX_VALUE)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,7 +403,7 @@ public class VntNecesidad extends javax.swing.JPanel {
                         .addGap(2, 2, 2)
                         .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtFIN, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -396,10 +460,29 @@ public class VntNecesidad extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDAWMousePressed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        
+        Empresas cifempresa = new Empresas(txtCIFEmpresa.getText());
+        if (cifempresa != null) {
+            new NecesidadDAO().eliminaNecesidad(cifempresa);
+            cargaTabla();
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleciona una empresa", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        if(txtCIFEmpresa.getText() != null && txtCicloNecesidad.getText() != null && 
+                txtDAM.getText() != null && txtDAW.getText() != null && 
+                txtASIR.getText() != null && txtMARK.getText() != null && 
+                txtFIN.getText() != null){
+            Empresas empresas = new Empresas(txtCIFEmpresa.getText());
+            Necesidad n = new Necesidad(empresas, txtCicloNecesidad.getText(),
+                    Integer.parseInt(txtDAM.getText()), Integer.parseInt(txtDAW.getText()), Integer.parseInt(txtASIR.getText()), Integer.parseInt(txtMARK.getText()),
+                    Integer.parseInt(txtFIN.getText()));
+            new NecesidadDAO().actualizarNecesidad(n);            
+         cargaTabla();   
+        }else{
+            JOptionPane.showMessageDialog(this, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
         
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -425,7 +508,7 @@ public class VntNecesidad extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TablaAlumnos;
+    private javax.swing.JTable TablaNecesidad;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAsignaturas;
     private javax.swing.JButton btnBorrar;
