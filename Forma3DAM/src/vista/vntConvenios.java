@@ -89,12 +89,10 @@ public class vntConvenios extends javax.swing.JPanel {
                         txtNumConvenio.setText(TablaConvenio.getValueAt(filas, 1) + "");
                         txtNombreEmpresa.setText(TablaConvenio.getValueAt(filas, 2) + "");
                         txtIDEmpresa.setText(TablaConvenio.getValueAt(filas, 3) + "");
-                        txtCantidadAnexos.setText(TablaConvenio.getValueAt(filas, 5) + "");
                         txtResponsableFirma1.setText(TablaConvenio.getValueAt(filas, 4) + "");
                         txtNumConvenio.setEditable(true);
                         txtNombreEmpresa.setEditable(true);
                         txtIDEmpresa.setEditable(true);
-                        txtCantidadAnexos.setEditable(true);
                         txtResponsableFirma1.setEditable(true);
                         btnSubirAnex.setEnabled(true);
                         btnActualizar.setEnabled(true);
@@ -103,7 +101,6 @@ public class vntConvenios extends javax.swing.JPanel {
                         txtNumConvenio.setEditable(false);
                         txtNombreEmpresa.setEditable(false);
                         txtIDEmpresa.setEditable(false);
-                        txtCantidadAnexos.setEditable(false);
                         txtResponsableFirma1.setEditable(false);
                     }
                 }
@@ -128,8 +125,6 @@ public class vntConvenios extends javax.swing.JPanel {
         userLabel2 = new javax.swing.JLabel();
         txtIDEmpresa = new javax.swing.JTextField();
         userLabel3 = new javax.swing.JLabel();
-        txtCantidadAnexos = new javax.swing.JTextField();
-        userLabel4 = new javax.swing.JLabel();
         userLabel5 = new javax.swing.JLabel();
         btnBorrar = new javax.swing.JButton();
         btnSubirAnex = new javax.swing.JButton();
@@ -204,20 +199,6 @@ public class vntConvenios extends javax.swing.JPanel {
 
         userLabel3.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel3.setText("R.Firma");
-
-        txtCantidadAnexos.setEditable(false);
-        txtCantidadAnexos.setBackground(new java.awt.Color(0, 0, 0));
-        txtCantidadAnexos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtCantidadAnexos.setForeground(new java.awt.Color(255, 255, 255));
-        txtCantidadAnexos.setBorder(null);
-        txtCantidadAnexos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtCantidadAnexosMousePressed(evt);
-            }
-        });
-
-        userLabel4.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel4.setText("C.Anexos");
 
         userLabel5.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel5.setText("AnexoUno");
@@ -305,22 +286,6 @@ public class vntConvenios extends javax.swing.JPanel {
                         .addContainerGap(24, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(nombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSubirAnex))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(92, 92, 92)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(userLabel4)
-                                    .addComponent(userLabel3))
-                                .addGap(45, 45, 45)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtResponsableFirma1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCantidadAnexos, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(userLabel)
                                 .addGap(18, 18, 18)
@@ -332,7 +297,21 @@ public class vntConvenios extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(userLabel3))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(58, 58, 58)
+                                        .addComponent(txtResponsableFirma1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(nombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnSubirAnex)))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -376,20 +355,20 @@ public class vntConvenios extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtResponsableFirma1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCantidadAnexos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSubirAnex, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(btnSubirAnex, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -412,20 +391,17 @@ public class vntConvenios extends javax.swing.JPanel {
         String nombreEmpresa = txtNombreEmpresa.getText();
         String cifEmpresa = txtIDEmpresa.getText();
         String responsableFirma = txtResponsableFirma1.getText();
-        Integer cantAnexos = Integer.parseInt(txtCantidadAnexos.getText());
+        
 
         Empresas e = new Empresas();
 
         e = ed.obtenerEmpresaPorNombre(nombreEmpresa);
+        int cantAnexos = cd.obtenerCantidadPracticasPorEmpresa(e);
 
         Convenio c = new Convenio(idConvenio, e, numConvenio, nombreEmpresa, responsableFirma, cantAnexos, bytesCV);
         cd.eliminarConvenio(c, frame);
         cargaTabla();
     }//GEN-LAST:event_btnBorrarActionPerformed
-
-    private void txtCantidadAnexosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCantidadAnexosMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCantidadAnexosMousePressed
 
     private void txtIDEmpresaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDEmpresaMousePressed
         // TODO add your handling code here:
@@ -452,11 +428,11 @@ public class vntConvenios extends javax.swing.JPanel {
         String nombreEmpresa = txtNombreEmpresa.getText();
         String cifEmpresa = txtIDEmpresa.getText();
         String responsableFirma = txtResponsableFirma1.getText();
-        Integer cantAnexos = Integer.parseInt(txtCantidadAnexos.getText());
-
         // Obtener la empresa asociada al convenio
         EmpresasDAO ed = new EmpresasDAO();
         Empresas e = ed.obtenerEmpresaPorNombre(nombreEmpresa);
+        
+        int cantAnexos = cd.obtenerCantidadPracticasPorEmpresa(e);
 
         // Crear el objeto Convenio con los datos del formulario
         Convenio convenio = new Convenio(idConvenio, e, numConvenio, nombreEmpresa, responsableFirma, cantAnexos, bytesCV);
@@ -544,7 +520,6 @@ public class vntConvenios extends javax.swing.JPanel {
     private javax.swing.JLabel nombreArchivo;
     private javax.swing.JLabel title;
     private javax.swing.JLabel title1;
-    private javax.swing.JTextField txtCantidadAnexos;
     private javax.swing.JTextField txtIDConvenio;
     private javax.swing.JTextField txtIDEmpresa;
     private javax.swing.JTextField txtNombreEmpresa;
@@ -554,7 +529,6 @@ public class vntConvenios extends javax.swing.JPanel {
     private javax.swing.JLabel userLabel1;
     private javax.swing.JLabel userLabel2;
     private javax.swing.JLabel userLabel3;
-    private javax.swing.JLabel userLabel4;
     private javax.swing.JLabel userLabel5;
     private javax.swing.JLabel userLabel6;
     // End of variables declaration//GEN-END:variables
