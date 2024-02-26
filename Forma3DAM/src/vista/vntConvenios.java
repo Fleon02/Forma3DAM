@@ -42,7 +42,7 @@ public class vntConvenios extends javax.swing.JPanel {
         dtm.setRowCount(0);
         List<Convenio> listaConvenio = new ConvenioDAO().obtenListaConvenios();
         for (Convenio c : listaConvenio) {
-            if (c.getIdConvenio() != -1) {
+            if (c.getIdConvenio() > 0) {
                 if (c.getAnexoUnoConvenio() != null && c.getAnexoUnoConvenio().length > 0) {
                     dtm.addRow(new Object[]{
                         c.getIdConvenio(),
