@@ -5,18 +5,22 @@
         <group>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntLogin.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/modelo/EmpresasDAO.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/pojos/Necesidad.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/pojos/Login.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/controlador/ControlaForm.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntNecesidad.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/controlador/Principal.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/pojos/Practicas.hbm.xml</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntInsertaNecesidad.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/modelo/LoginDAO.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/pojos/Empresas.hbm.xml</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntEmpresas.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/pojos/Convenio.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/pojos/Alumnos.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntPrincipal.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/modelo/NecesidadDAO.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntPracticas.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/pojos/Empresas.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/pojos/Necesidad.hbm.xml</file>
         </group>
     </open-files>
