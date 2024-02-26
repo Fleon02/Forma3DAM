@@ -87,7 +87,19 @@ public class NecesidadDAO {
         }
     }
 
-    public void guardaNecesidad(Necesidad n) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void guardaNecesidad(Necesidad n) {     
+        try
+        {
+            iniciaOperacion();
+            sesion.save(n);
+            tx.commit();
+        } catch (HibernateException he)
+        {
+            manejaExcepcion(he);
+            throw he;
+        } finally
+        {
+            sesion.close();
+        }    
     }
 }

@@ -5,12 +5,15 @@
  */
 package vista;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import modelo.NecesidadDAO;
+import pojos.Anexos;
 import pojos.Empresas;
 import pojos.Necesidad;
 
@@ -71,7 +74,7 @@ public class VntNecesidad extends javax.swing.JPanel {
                     int filas = TablaNecesidad.getSelectedRow();
                     if (filas != -1) {
                         txtIDNecesidad.setText(TablaNecesidad.getValueAt(filas, 0) + "");
-                        txtCIFEmpresa.setText(TablaNecesidad.getValueAt(filas, 1) + "");
+                        txtIDEmpresa.setText(TablaNecesidad.getValueAt(filas, 1) + "");
                         txtCicloNecesidad.setText(TablaNecesidad.getValueAt(filas, 2) + "");
                         txtDAM.setText(TablaNecesidad.getValueAt(filas, 3) + "");
                         txtDAW.setText(TablaNecesidad.getValueAt(filas, 4) + "");
@@ -79,7 +82,7 @@ public class VntNecesidad extends javax.swing.JPanel {
                         txtMARK.setText(TablaNecesidad.getValueAt(filas, 6) + "");
                         txtFIN.setText(TablaNecesidad.getValueAt(filas, 7) + "");
                         
-                        txtCIFEmpresa.setEditable(true);
+                        txtIDEmpresa.setEditable(true);
                         txtCicloNecesidad.setEditable(true);
                         txtDAM.setEditable(true);
                         txtDAW.setEditable(true);
@@ -89,7 +92,7 @@ public class VntNecesidad extends javax.swing.JPanel {
                         btnActualizar.setEnabled(true);
                         btnBorrar.setEnabled(true);
                     } else {
-                        txtCIFEmpresa.setEditable(false);
+                        txtIDEmpresa.setEditable(false);
                         txtCicloNecesidad.setEditable(false);
                         txtDAM.setEditable(false);
                         txtDAW.setEditable(false);
@@ -114,7 +117,7 @@ public class VntNecesidad extends javax.swing.JPanel {
         favicon = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         userLabel = new javax.swing.JLabel();
-        txtCIFEmpresa = new javax.swing.JTextField();
+        txtIDEmpresa = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaNecesidad = new javax.swing.JTable();
         userLabel1 = new javax.swing.JLabel();
@@ -148,14 +151,14 @@ public class VntNecesidad extends javax.swing.JPanel {
         userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel.setText("CIF Empresa");
 
-        txtCIFEmpresa.setEditable(false);
-        txtCIFEmpresa.setBackground(new java.awt.Color(0, 0, 0));
-        txtCIFEmpresa.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtCIFEmpresa.setForeground(new java.awt.Color(255, 255, 255));
-        txtCIFEmpresa.setBorder(null);
-        txtCIFEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtIDEmpresa.setEditable(false);
+        txtIDEmpresa.setBackground(new java.awt.Color(0, 0, 0));
+        txtIDEmpresa.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtIDEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        txtIDEmpresa.setBorder(null);
+        txtIDEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtCIFEmpresaMousePressed(evt);
+                txtIDEmpresaMousePressed(evt);
             }
         });
 
@@ -313,7 +316,7 @@ public class VntNecesidad extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(txtCIFEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -372,7 +375,7 @@ public class VntNecesidad extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCIFEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -432,9 +435,9 @@ public class VntNecesidad extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCIFEmpresaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCIFEmpresaMousePressed
+    private void txtIDEmpresaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDEmpresaMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCIFEmpresaMousePressed
+    }//GEN-LAST:event_txtIDEmpresaMousePressed
 
     private void txtCicloNecesidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCicloNecesidadMousePressed
         // TODO add your handling code here:
@@ -453,24 +456,24 @@ public class VntNecesidad extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDAWMousePressed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        Empresas cifempresa = new Empresas(txtCIFEmpresa.getText());
-        if (txtCIFEmpresa.getText() != null) {
-            new NecesidadDAO().eliminaNecesidad(txtCIFEmpresa.getText());
+        if (txtIDEmpresa.getText() != null) {
+            new NecesidadDAO().eliminaNecesidad(txtIDEmpresa.getText());
             cargaTabla();
-        } else {
+        }else {
             JOptionPane.showMessageDialog(this, "Seleciona una empresa", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if(txtCIFEmpresa.getText() != null && txtCicloNecesidad.getText() != null && 
+        if(txtIDEmpresa.getText() != null && txtCicloNecesidad.getText() != null && 
                 txtDAM.getText() != null && txtDAW.getText() != null && 
                 txtASIR.getText() != null && txtMARK.getText() != null && 
                 txtFIN.getText() != null){
-            Empresas empresas = new Empresas(txtCIFEmpresa.getText());
+            //Set<Anexos> anexosSet = new HashSet<>();
+            Empresas empresas = new Empresas(txtIDEmpresa.getText());
             Necesidad n = new Necesidad(empresas, txtCicloNecesidad.getText(),
                     Integer.parseInt(txtDAM.getText()), Integer.parseInt(txtDAW.getText()), Integer.parseInt(txtASIR.getText()), Integer.parseInt(txtMARK.getText()),
-                    Integer.parseInt(txtFIN.getText()));
+                    Integer.parseInt(txtFIN.getText()), null);
             new NecesidadDAO().actualizarNecesidad(n);            
          cargaTabla();   
         }else{
@@ -511,11 +514,11 @@ public class VntNecesidad extends javax.swing.JPanel {
     private javax.swing.JLabel title;
     private javax.swing.JLabel title1;
     private javax.swing.JTextField txtASIR;
-    private javax.swing.JTextField txtCIFEmpresa;
     private javax.swing.JTextField txtCicloNecesidad;
     private javax.swing.JTextField txtDAM;
     private javax.swing.JTextField txtDAW;
     private javax.swing.JTextField txtFIN;
+    private javax.swing.JTextField txtIDEmpresa;
     private javax.swing.JTextField txtIDNecesidad;
     private javax.swing.JTextField txtMARK;
     private javax.swing.JLabel userLabel;

@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JOptionPane;
+import modelo.EmpresasDAO;
 import modelo.NecesidadDAO;
 import pojos.Anexos;
 import pojos.Empresas;
@@ -91,7 +92,7 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
     private void initComponents() {
 
         userLabel2 = new javax.swing.JLabel();
-        txtCIFEmpresa = new javax.swing.JTextField();
+        txtIDEmpresa = new javax.swing.JTextField();
         userLabel3 = new javax.swing.JLabel();
         txtASIR = new javax.swing.JTextField();
         userLabel4 = new javax.swing.JLabel();
@@ -109,15 +110,15 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
 
         userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        userLabel2.setText("CIF Empresa");
+        userLabel2.setText("ID Empresa");
 
-        txtCIFEmpresa.setBackground(new java.awt.Color(0, 0, 0));
-        txtCIFEmpresa.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtCIFEmpresa.setForeground(new java.awt.Color(255, 255, 255));
-        txtCIFEmpresa.setBorder(null);
-        txtCIFEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtIDEmpresa.setBackground(new java.awt.Color(0, 0, 0));
+        txtIDEmpresa.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtIDEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        txtIDEmpresa.setBorder(null);
+        txtIDEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtCIFEmpresaMousePressed(evt);
+                txtIDEmpresaMousePressed(evt);
             }
         });
 
@@ -235,7 +236,7 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtCIFEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -274,7 +275,7 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCIFEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -306,20 +307,21 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCIFEmpresaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCIFEmpresaMousePressed
+    private void txtIDEmpresaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDEmpresaMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCIFEmpresaMousePressed
+    }//GEN-LAST:event_txtIDEmpresaMousePressed
 
     private void txtASIRMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtASIRMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtASIRMousePressed
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        if (txtCIFEmpresa.getText() != null && txtDAM.getText() != null
+        if (txtIDEmpresa.getText() != null && txtDAM.getText() != null
             && txtDAW.getText() != null  && txtASIR.getText() != null && txtMARK.getText() != null && 
-                txtFIN.getText() != null && cbCiclo.getSelectedIndex() != 0) {
+                txtFIN.getText() != null && cbCiclo.getSelectedIndex() != 0) {            
             Set<Anexos> anexosSet = new HashSet<>();
-            Empresas empresa = new Empresas(txtCIFEmpresa.getText());            
+            
+            Empresas empresa = new EmpresasDAO().obtenEmpresaPorID(txtIDEmpresa.getText());
             Necesidad n = new Necesidad(empresa, String.valueOf(cbCiclo.getSelectedItem()), Integer.parseInt(txtDAM.getText()), 
                     Integer.parseInt(txtDAW.getText()), Integer.parseInt(txtASIR.getText()),
                     Integer.parseInt(txtMARK.getText()), Integer.parseInt(txtFIN.getText()), anexosSet);
@@ -327,7 +329,7 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
         
             new VntNecesidad().cargaTabla();
         } else {
-            JOptionPane.showMessageDialog(txtCIFEmpresa, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(txtIDEmpresa, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnInsertarActionPerformed
 
@@ -353,10 +355,10 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbCiclo;
     private javax.swing.JLabel favicon;
     private javax.swing.JTextField txtASIR;
-    private javax.swing.JTextField txtCIFEmpresa;
     private javax.swing.JTextField txtDAM;
     private javax.swing.JTextField txtDAW;
     private javax.swing.JTextField txtFIN;
+    private javax.swing.JTextField txtIDEmpresa;
     private javax.swing.JTextField txtMARK;
     private javax.swing.JLabel userLabel1;
     private javax.swing.JLabel userLabel2;
