@@ -1,8 +1,6 @@
 package vista;
 
 import java.awt.Component;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -25,12 +23,42 @@ public class VntInsertaPractica extends javax.swing.JPanel {
 
     public VntInsertaPractica() {
         initComponents();
+        cargarDNIAlumno();
+        cargarTutorPracticasEmpresas();
     }
 
-    private void cargarCIFEmpresas() {
+    private void cargarDNIAlumno() {
+        List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
+        DefaultComboBoxModel<Alumnos> model = new DefaultComboBoxModel<>();
+        model.addElement(new Alumnos(null));
+        for (Alumnos a : listaAlumnos) {
+            model.addElement(a);
+        }
+        cbDNIAlumno.setModel(model);
+        cbDNIAlumno.setRenderer(new AlumnosComboBoxRenderer());
+    }
+
+    private static class AlumnosComboBoxRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof Alumnos) {
+                Alumnos a = (Alumnos) value;
+                if (a.getDniAlumno() == null) {
+                    setText("Seleccione DNI de Alumno/a");
+                } else {
+                    setText(a.getDniAlumno());
+                }
+            }
+            return this;
+        }
+    }
+
+    private void cargarTutorPracticasEmpresas() {
         List<Empresas> listaEmpresas = new EmpresasDAO().obtenListaEmpresas();
         DefaultComboBoxModel<Empresas> model = new DefaultComboBoxModel<>();
-        model.addElement(new Empresas(null)); // Opción por defecto
+        model.addElement(new Empresas());
         for (Empresas empresa : listaEmpresas) {
             model.addElement(empresa);
         }
@@ -45,8 +73,8 @@ public class VntInsertaPractica extends javax.swing.JPanel {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (value instanceof Empresas) {
                 Empresas empresa = (Empresas) value;
-                if (empresa.getCifEmpresa() == null) {
-                    setText("Seleccione un Tutor de Practicas");
+                if (empresa.getTutorPracticas() == null) {
+                    setText("Seleccione Tutor/a");
                 } else {
                     setText(empresa.getTutorPracticas());
                 }
@@ -209,11 +237,11 @@ public class VntInsertaPractica extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        if (cbDNIAlumno.getSelectedIndex() != 0 && cbTutorPracticas.getSelectedIndex() != 0 && cbCalendario.getSelectedIndex() != 0) {
+        if (cbCicloAlumno.getSelectedIndex() != 0 && cbTutorPracticas.getSelectedIndex() != 0 && cbCalendario.getSelectedIndex() != 0) {
             Practicas p = new Practicas();
             new VntAlumnos().cargaTabla();
         } else {
-            JOptionPane.showMessageDialog(cbDNIAlumno, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(cbCicloAlumno, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnInsertarActionPerformed
 
