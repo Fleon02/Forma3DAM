@@ -173,6 +173,12 @@ public class VntInsertaConvenio extends javax.swing.JPanel {
         nombreArchivo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         nombreArchivo.setText("Archivo");
 
+        cmbEmpresas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEmpresasActionPerformed(evt);
+            }
+        });
+
         txtResponsable.setBackground(new java.awt.Color(0, 0, 0));
         txtResponsable.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtResponsable.setForeground(new java.awt.Color(255, 255, 255));
@@ -315,6 +321,10 @@ public class VntInsertaConvenio extends javax.swing.JPanel {
     private void txtNEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNEmpresaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNEmpresaActionPerformed
+
+    private void cmbEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpresasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEmpresasActionPerformed
 
     private byte[] convertirArchivoABytes(File archivo) throws IOException {
         byte[] bytesArray = new byte[(int) archivo.length()];

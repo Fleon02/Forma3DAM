@@ -188,7 +188,7 @@ public class VntPracticas extends javax.swing.JPanel {
         jScrollPane2.setViewportView(TablaAlumnos);
 
         userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel1.setText("Nombre Alumno");
+        userLabel1.setText("Tutor Practicas");
 
         txtNombreAlumno.setEditable(false);
         txtNombreAlumno.setBackground(new java.awt.Color(0, 0, 0));
@@ -281,7 +281,7 @@ public class VntPracticas extends javax.swing.JPanel {
         title1.setText("ALUMNOS");
 
         userLabel6.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel6.setText("ID Alumno");
+        userLabel6.setText("ID Practica");
 
         txtIDAlumno.setEditable(false);
         txtIDAlumno.setBackground(new java.awt.Color(0, 0, 0));
@@ -441,22 +441,6 @@ public class VntPracticas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
-    private void txtNSSAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNSSAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNSSAlumnoMousePressed
-
-    private void txtAnioAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAnioAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAnioAlumnoMousePressed
-
-    private void txtNombreAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreAlumnoMousePressed
-
-    private void txtDNIAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDNIAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDNIAlumnoMousePressed
-
     private void txtIDAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDAlumnoMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDAlumnoMousePressed
@@ -517,9 +501,25 @@ public class VntPracticas extends javax.swing.JPanel {
         frame.setVisible(true);
     }//GEN-LAST:event_btnAsignaturasActionPerformed
 
+    private void txtNSSAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNSSAlumnoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNSSAlumnoMousePressed
+
     private void txtAnioAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnioAlumnoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAnioAlumnoActionPerformed
+
+    private void txtAnioAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAnioAlumnoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnioAlumnoMousePressed
+
+    private void txtNombreAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreAlumnoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreAlumnoMousePressed
+
+    private void txtDNIAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDNIAlumnoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDNIAlumnoMousePressed
 
     private byte[] convertirArchivoABytes(File archivo) throws IOException {
         byte[] bytesArray = new byte[(int) archivo.length()];

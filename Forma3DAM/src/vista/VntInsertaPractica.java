@@ -1,13 +1,19 @@
 package vista;
 
+import java.awt.Component;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFileChooser;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import modelo.AlumnosDAO;
+import modelo.EmpresasDAO;
 import pojos.Alumnos;
 import pojos.Empresas;
 import pojos.Practicas;
@@ -19,6 +25,34 @@ public class VntInsertaPractica extends javax.swing.JPanel {
 
     public VntInsertaPractica() {
         initComponents();
+    }
+
+    private void cargarCIFEmpresas() {
+        List<Empresas> listaEmpresas = new EmpresasDAO().obtenListaEmpresas();
+        DefaultComboBoxModel<Empresas> model = new DefaultComboBoxModel<>();
+        model.addElement(new Empresas(null)); // Opción por defecto
+        for (Empresas empresa : listaEmpresas) {
+            model.addElement(empresa);
+        }
+        cbTutorPracticas.setModel(model);
+        cbTutorPracticas.setRenderer(new EmpresasComboBoxRenderer());
+    }
+
+    private static class EmpresasComboBoxRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof Empresas) {
+                Empresas empresa = (Empresas) value;
+                if (empresa.getCifEmpresa() == null) {
+                    setText("Seleccione un Tutor de Practicas");
+                } else {
+                    setText(empresa.getTutorPracticas());
+                }
+            }
+            return this;
+        }
     }
 
     @SuppressWarnings("unchecked")
