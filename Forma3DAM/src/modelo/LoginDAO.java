@@ -36,7 +36,7 @@ public class LoginDAO {
             listaUsuarios = sesion.createQuery("from Login").list();
         } catch (HibernateException he) {
             manejaExcepcion(he);
-            throw he;
+            throw he; 
         } finally {
             sesion.close();
         }
