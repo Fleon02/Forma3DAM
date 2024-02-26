@@ -7,8 +7,11 @@ package vista;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import modelo.NecesidadDAO;
+import pojos.Anexos;
 import pojos.Empresas;
 import pojos.Necesidad;
 
@@ -315,10 +318,11 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
         if (txtCIFEmpresa.getText() != null && txtDAM.getText() != null
             && txtDAW.getText() != null  && txtASIR.getText() != null && txtMARK.getText() != null && 
                 txtFIN.getText() != null && cbCiclo.getSelectedIndex() != 0) {
+            Set<Anexos> anexosSet = new HashSet<>();
             Empresas empresa = new Empresas(txtCIFEmpresa.getText());            
             Necesidad n = new Necesidad(empresa, String.valueOf(cbCiclo.getSelectedItem()), Integer.parseInt(txtDAM.getText()), 
                     Integer.parseInt(txtDAW.getText()), Integer.parseInt(txtASIR.getText()),
-                    Integer.parseInt(txtMARK.getText()), Integer.parseInt(txtFIN.getText()));
+                    Integer.parseInt(txtMARK.getText()), Integer.parseInt(txtFIN.getText()), anexosSet);
                 new NecesidadDAO().guardaNecesidad(n);
         
             new VntNecesidad().cargaTabla();
