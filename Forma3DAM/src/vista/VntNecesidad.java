@@ -457,8 +457,8 @@ public class VntNecesidad extends javax.swing.JPanel {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         Empresas cifempresa = new Empresas(txtCIFEmpresa.getText());
-        if (cifempresa != null) {
-            new NecesidadDAO().eliminaNecesidad(cifempresa);
+        if (txtCIFEmpresa.getText() != null) {
+            new NecesidadDAO().eliminaNecesidad(txtCIFEmpresa.getText());
             cargaTabla();
         } else {
             JOptionPane.showMessageDialog(this, "Seleciona una empresa", "Error", JOptionPane.ERROR_MESSAGE);
