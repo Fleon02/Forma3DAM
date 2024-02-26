@@ -63,7 +63,7 @@ public class EmpresasDAO {
             iniciaOperacion();
             sesion.update(a);
             tx.commit();
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Alumno Actualizado con exito");
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Empresa Actualizado con exito");
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
@@ -78,9 +78,9 @@ public class EmpresasDAO {
             String hql = "UPDATE Empresas SET idEmpresa = -1 WHERE cifEmpresa = :cifEmpresa";
             int valor = sesion.createQuery(hql).setParameter("cifEmpresa", cifEmpresa).executeUpdate();
             if (valor == 1) {
-                JOptionPane.showMessageDialog(parentComponent, "Alumno Marcado como Borrado", "Info", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(parentComponent, "Empresa Marcado como Borrado", "Info", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(parentComponent, "Alumno No Marcado como Borrado", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(parentComponent, "Empresa No Marcado como Borrado", "Error", JOptionPane.ERROR_MESSAGE);
             }
             tx.commit();
         } catch (HibernateException he) {
