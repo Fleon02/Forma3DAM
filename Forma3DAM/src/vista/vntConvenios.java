@@ -1,9 +1,5 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,17 +7,11 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import modelo.AlumnosDAO;
-import modelo.AsignaturasDAO;
 import modelo.ConvenioDAO;
 import modelo.EmpresasDAO;
-import pojos.Alumnos;
-import pojos.Asignaturas;
 import pojos.Convenio;
 import pojos.Empresas;
 
@@ -52,7 +42,7 @@ public class vntConvenios extends javax.swing.JPanel {
         dtm.setRowCount(0);
         List<Convenio> listaConvenio = new ConvenioDAO().obtenListaConvenios();
         for (Convenio c : listaConvenio) {
-            if (c.getIdConvenio() != -1) {
+            if (c.getIdConvenio() > 0) {
                 if (c.getAnexoUnoConvenio() != null && c.getAnexoUnoConvenio().length > 0) {
                     dtm.addRow(new Object[]{
                         c.getIdConvenio(),

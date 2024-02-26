@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26-feb-2024 17:26:48 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojos.Bolsa" table="bolsa" catalog="practicas" optimistic-lock="version">
+        <id name="idBolsa" type="java.lang.Integer">
+            <column name="idBolsa" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="alumnos" class="pojos.Alumnos" fetch="select">
+            <column name="idAlumno" />
+        </many-to-one>
+        <many-to-one name="anexos" class="pojos.Anexos" fetch="select">
+            <column name="idAnexo" />
+        </many-to-one>
+        <property name="beca" type="java.lang.Boolean">
+            <column name="beca" />
+        </property>
+        <property name="bolsa" type="java.lang.Boolean">
+            <column name="bolsa" />
+        </property>
+    </class>
+</hibernate-mapping>

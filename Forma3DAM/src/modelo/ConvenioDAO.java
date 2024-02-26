@@ -62,39 +62,25 @@ public class ConvenioDAO {
         }
     }
 
-    public void eliminarConvenio(Convenio convenio, JFrame jfram) {
-//        try {
-//            iniciaOperacion();
-//            Query query = sesion.createQuery("UPDATE Convenio SET idConvenio = -1 WHERE idConvenio = :id");
-//            query.setParameter("id", convenio.getIdConvenio());
-//            int result = query.executeUpdate();
-//            tx.commit();
-//
-//            if (result > 0) {
-//                Notifications.getInstance().setJFrame(jfram);
-//                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Convenio Marcado como Borrado");
-//            } else {
-//                JOptionPane.showMessageDialog(jfram, "El convenio no se encontró", "Error", JOptionPane.ERROR_MESSAGE);
-//            }
-//        } catch (HibernateException he) {
-//            manejaExcepcion(he);
-//            throw he;
-//        } finally {
-//            sesion.close();
-//        }
-
+    public void eliminarConvenio(Convenio convenio, JFrame jframe) {
         try {
             iniciaOperacion();
-            Query query = sesion.createQuery("DELETE FROM Convenio WHERE idConvenio = :id");
-            query.setParameter("id", convenio.getIdConvenio());
+
+            // Obtener el idConvenio y convertirlo a negativo
+            int idConvenio = convenio.getIdConvenio();
+            int idConvenioNegativo = -idConvenio;
+
+            Query query = sesion.createQuery("UPDATE Convenio SET idConvenio = :idNegativo WHERE idConvenio = :id");
+            query.setParameter("idNegativo", idConvenioNegativo);
+            query.setParameter("id", idConvenio);
             int result = query.executeUpdate();
             tx.commit();
 
             if (result > 0) {
-                Notifications.getInstance().setJFrame(jfram);
-                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Convenio Eliminado con Éxito");
+                Notifications.getInstance().setJFrame(jframe);
+                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Convenio marcado como borrado");
             } else {
-                JOptionPane.showMessageDialog(jfram, "El convenio no se encontró", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(jframe, "El convenio no se encontró", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (HibernateException he) {
             manejaExcepcion(he);
