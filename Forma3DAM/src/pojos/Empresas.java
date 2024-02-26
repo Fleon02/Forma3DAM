@@ -1,5 +1,5 @@
 package pojos;
-// Generated 25-feb-2024 4:55:20 by Hibernate Tools 4.3.1
+// Generated 26-feb-2024 17:26:47 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +19,7 @@ public class Empresas implements java.io.Serializable {
     private String responsableContratacion;
     private Set practicases = new HashSet(0);
     private Set necesidads = new HashSet(0);
-    private Set practicases_1 = new HashSet(0);
+    private Set anexoses = new HashSet(0);
     private Set convenios = new HashSet(0);
 
     public Empresas() {
@@ -29,7 +29,7 @@ public class Empresas implements java.io.Serializable {
         this.cifEmpresa = cifEmpresa;
     }
 
-    public Empresas(String nombreEmpresa, String cifEmpresa, String direccion, String telefono, String owner, String tutorPracticas, String responsableContratacion, Set practicases, Set necesidads, Set practicases_1, Set convenios) {
+    public Empresas(String nombreEmpresa, String cifEmpresa, String direccion, String telefono, String owner, String tutorPracticas, String responsableContratacion, Set practicases, Set necesidads, Set anexoses, Set convenios) {
         this.nombreEmpresa = nombreEmpresa;
         this.cifEmpresa = cifEmpresa;
         this.direccion = direccion;
@@ -39,7 +39,7 @@ public class Empresas implements java.io.Serializable {
         this.responsableContratacion = responsableContratacion;
         this.practicases = practicases;
         this.necesidads = necesidads;
-        this.practicases_1 = practicases_1;
+        this.anexoses = anexoses;
         this.convenios = convenios;
     }
 
@@ -133,12 +133,12 @@ public class Empresas implements java.io.Serializable {
         this.necesidads = necesidads;
     }
 
-    public Set getPracticases_1() {
-        return this.practicases_1;
+    public Set getAnexoses() {
+        return this.anexoses;
     }
 
-    public void setPracticases_1(Set practicases_1) {
-        this.practicases_1 = practicases_1;
+    public void setAnexoses(Set anexoses) {
+        this.anexoses = anexoses;
     }
 
     public Set getConvenios() {

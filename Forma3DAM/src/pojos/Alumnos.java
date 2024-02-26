@@ -1,5 +1,5 @@
 package pojos;
-// Generated 25-feb-2024 4:55:20 by Hibernate Tools 4.3.1
+// Generated 26-feb-2024 17:26:47 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,24 +17,16 @@ public class Alumnos implements java.io.Serializable {
     private Boolean validez;
     private String cicloAlumno;
     private byte[] cv;
+    private Set anexoses = new HashSet(0);
+    private Set bolsas = new HashSet(0);
     private Set alumnosAsignaturases = new HashSet(0);
+    private Set practicases = new HashSet(0);
 
     public Alumnos() {
     }
 
     public Alumnos(String dniAlumno) {
         this.dniAlumno = dniAlumno;
-    }
-
-    public Alumnos(String dniAlumno, String nombreAlumno, Integer yearCurso, Integer segSocialAlumno, Boolean validez, String cicloAlumno, byte[] cv, Set alumnosAsignaturases) {
-        this.dniAlumno = dniAlumno;
-        this.nombreAlumno = nombreAlumno;
-        this.yearCurso = yearCurso;
-        this.segSocialAlumno = segSocialAlumno;
-        this.validez = validez;
-        this.cicloAlumno = cicloAlumno;
-        this.cv = cv;
-        this.alumnosAsignaturases = alumnosAsignaturases;
     }
 
     public Alumnos(String dniAlumno, String nombreAlumno, Integer yearCurso, Integer segSocialAlumno, Boolean validez, String cicloAlumno, byte[] cv) {
@@ -45,6 +37,20 @@ public class Alumnos implements java.io.Serializable {
         this.validez = validez;
         this.cicloAlumno = cicloAlumno;
         this.cv = cv;
+    }
+
+    public Alumnos(String dniAlumno, String nombreAlumno, Integer yearCurso, Integer segSocialAlumno, Boolean validez, String cicloAlumno, byte[] cv, Set anexoses, Set bolsas, Set alumnosAsignaturases, Set practicases) {
+        this.dniAlumno = dniAlumno;
+        this.nombreAlumno = nombreAlumno;
+        this.yearCurso = yearCurso;
+        this.segSocialAlumno = segSocialAlumno;
+        this.validez = validez;
+        this.cicloAlumno = cicloAlumno;
+        this.cv = cv;
+        this.anexoses = anexoses;
+        this.bolsas = bolsas;
+        this.alumnosAsignaturases = alumnosAsignaturases;
+        this.practicases = practicases;
     }
 
     public Integer getIdAlumno() {
@@ -111,12 +117,36 @@ public class Alumnos implements java.io.Serializable {
         this.cv = cv;
     }
 
+    public Set getAnexoses() {
+        return this.anexoses;
+    }
+
+    public void setAnexoses(Set anexoses) {
+        this.anexoses = anexoses;
+    }
+
+    public Set getBolsas() {
+        return this.bolsas;
+    }
+
+    public void setBolsas(Set bolsas) {
+        this.bolsas = bolsas;
+    }
+
     public Set getAlumnosAsignaturases() {
         return this.alumnosAsignaturases;
     }
 
     public void setAlumnosAsignaturases(Set alumnosAsignaturases) {
         this.alumnosAsignaturases = alumnosAsignaturases;
+    }
+
+    public Set getPracticases() {
+        return this.practicases;
+    }
+
+    public void setPracticases(Set practicases) {
+        this.practicases = practicases;
     }
 
 }

@@ -173,6 +173,9 @@ public class VntInsertaConvenio extends javax.swing.JPanel {
         nombreArchivo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         nombreArchivo.setText("Archivo");
 
+        cmbEmpresas.setBackground(new java.awt.Color(0, 0, 0));
+        cmbEmpresas.setForeground(new java.awt.Color(255, 255, 255));
+
         txtResponsable.setBackground(new java.awt.Color(0, 0, 0));
         txtResponsable.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtResponsable.setForeground(new java.awt.Color(255, 255, 255));
