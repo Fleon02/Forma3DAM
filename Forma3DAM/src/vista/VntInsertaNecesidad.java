@@ -169,7 +169,7 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
 
         cbCiclo.setBackground(new java.awt.Color(0, 0, 0));
         cbCiclo.setForeground(new java.awt.Color(255, 255, 255));
-        cbCiclo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Ciclo", "DAM", "DAW", "ASIR", "FIN", "MARK" }));
+        cbCiclo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Ciclo" }));
 
         userLabel5.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -319,15 +319,13 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
         if (txtIDEmpresa.getText() != null && txtDAM.getText() != null
             && txtDAW.getText() != null  && txtASIR.getText() != null && txtMARK.getText() != null && 
                 txtFIN.getText() != null && cbCiclo.getSelectedIndex() != 0) {            
-            Set<Anexos> anexosSet = new HashSet<>();
-            
             Empresas empresa = new EmpresasDAO().obtenEmpresaPorID(txtIDEmpresa.getText());
             Necesidad n = new Necesidad(empresa, String.valueOf(cbCiclo.getSelectedItem()), Integer.parseInt(txtDAM.getText()), 
                     Integer.parseInt(txtDAW.getText()), Integer.parseInt(txtASIR.getText()),
-                    Integer.parseInt(txtMARK.getText()), Integer.parseInt(txtFIN.getText()), anexosSet);
+                    Integer.parseInt(txtMARK.getText()), Integer.parseInt(txtFIN.getText()));
                 new NecesidadDAO().guardaNecesidad(n);
         
-            new VntNecesidad().cargaTabla();
+            //cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtIDEmpresa, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }

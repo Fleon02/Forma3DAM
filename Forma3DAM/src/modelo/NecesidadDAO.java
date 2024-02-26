@@ -40,18 +40,18 @@ public class NecesidadDAO {
     
     public List<Necesidad> obtenListaNecesidad(){
         List<Necesidad> listaNecesidades = null;
-        Query query;
-        try{
-            iniciaOperacion();
-            query = sesion.createQuery("FROM Necesidad");
-            listaNecesidades = query.list();
-        }catch(HibernateException he){
-            manejaExcepcion(he);
-            throw he;
-        }finally{
-            sesion.close();
-        }
-        return listaNecesidades;
+    Query query;
+    try{
+        iniciaOperacion();
+        query = sesion.createQuery("FROM Necesidad n LEFT JOIN FETCH n.empresas");
+        listaNecesidades = query.list();
+    } catch(HibernateException he) {
+        manejaExcepcion(he);
+        throw he;
+    } finally {
+        sesion.close();
+    }
+    return listaNecesidades;
     }
 
     public void actualizarNecesidad(Necesidad n) {        

@@ -272,13 +272,8 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="6">
+          <StringArray count="1">
             <StringItem index="0" value="Selecciona Ciclo"/>
-            <StringItem index="1" value="DAM"/>
-            <StringItem index="2" value="DAW"/>
-            <StringItem index="3" value="ASIR"/>
-            <StringItem index="4" value="FIN"/>
-            <StringItem index="5" value="MARK"/>
           </StringArray>
         </Property>
       </Properties>

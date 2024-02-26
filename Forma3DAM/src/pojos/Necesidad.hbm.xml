@@ -29,7 +29,7 @@
         <property name="fin" type="java.lang.Integer">
             <column name="fin" />
         </property>
-        <set name="anexoses" table="anexos" inverse="true" lazy="true" fetch="select" cascade="all">
+        <set name="anexoses" table="anexos" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="idNecesidad" />
             </key>
