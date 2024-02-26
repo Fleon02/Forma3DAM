@@ -22,7 +22,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace pref="103" max="32767" attributes="0"/>
+              <EmptySpace pref="109" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -33,43 +33,39 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="txtAnioAlumno" min="-2" pref="230" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="cmbEmpresas" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                                   <Component id="userLabel3" min="-2" pref="150" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtNSSAlumno" min="-2" pref="230" max="-2" attributes="0"/>
+                                  <Component id="txtCantidadAnexos" min="-2" pref="230" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="txtDNIAlumno" min="-2" pref="230" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="txtNumConvenio" min="-2" pref="230" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                                   <Component id="userLabel1" min="-2" pref="150" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtNombreAlumno" min="-2" pref="228" max="-2" attributes="0"/>
+                                  <Component id="txtResponsable" min="-2" pref="228" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="cbCicloAlumno" min="-2" pref="230" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                          <Component id="favicon" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="txtNEmpresa" min="-2" pref="228" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                               <Component id="userLabel5" min="-2" pref="150" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="nombreArchivo" min="-2" pref="124" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnSubirCV" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="favicon" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="checkbValidez" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="327" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="btnInsertar" min="-2" pref="120" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="343" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="0" pref="121" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="126" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -80,21 +76,21 @@
               <Component id="favicon" min="-2" pref="187" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtNombreAlumno" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="userLabel1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="txtDNIAlumno" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="txtNumConvenio" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="userLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="txtResponsable" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="userLabel3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="txtAnioAlumno" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="userLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="cmbEmpresas" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="txtNSSAlumno" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="txtCantidadAnexos" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="userLabel5" min="-2" pref="30" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
@@ -103,14 +99,12 @@
                   </Group>
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="userLabel4" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="cbCicloAlumno" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txtNEmpresa" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-              <Component id="checkbValidez" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
               <Component id="btnInsertar" min="-2" pref="40" max="-2" attributes="0"/>
-              <EmptySpace pref="85" max="32767" attributes="0"/>
+              <EmptySpace pref="84" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -131,13 +125,10 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Roboto Light" size="14" style="1"/>
         </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="DNI Alumno"/>
+        <Property name="text" type="java.lang.String" value="Num Convenio"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtDNIAlumno">
+    <Component class="javax.swing.JTextField" name="txtNumConvenio">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
@@ -153,7 +144,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtDNIAlumnoMousePressed"/>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtNumConvenioMousePressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="userLabel1">
@@ -161,13 +152,10 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Roboto Light" size="14" style="1"/>
         </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Nombre Alumno"/>
+        <Property name="text" type="java.lang.String" value="Responsable Firma"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtNombreAlumno">
+    <Component class="javax.swing.JTextField" name="txtNEmpresa">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
@@ -183,7 +171,8 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtNombreAlumnoMousePressed"/>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtNEmpresaMousePressed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNEmpresaActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="userLabel2">
@@ -191,43 +180,18 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Roboto Light" size="14" style="1"/>
         </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="A&#xf1;o Alumno"/>
+        <Property name="text" type="java.lang.String" value="CIF Empresa"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtAnioAlumno">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Roboto" size="12" style="0"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="null"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtAnioAlumnoMousePressed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="userLabel3">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Roboto Light" size="14" style="1"/>
         </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="N. S. S. Alumno"/>
+        <Property name="text" type="java.lang.String" value="Cantidad Anexos"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtNSSAlumno">
+    <Component class="javax.swing.JTextField" name="txtCantidadAnexos">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
@@ -243,7 +207,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtNSSAlumnoMousePressed"/>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtCantidadAnexosMousePressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="userLabel4">
@@ -251,10 +215,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Roboto Light" size="14" style="1"/>
         </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Ciclo Alumno"/>
+        <Property name="text" type="java.lang.String" value="Nombre Empresa"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="userLabel5">
@@ -262,21 +223,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Roboto Light" size="14" style="1"/>
         </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Curriculum Alumno"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="checkbValidez">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="14" style="1"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Validez (Aprobado)"/>
+        <Property name="text" type="java.lang.String" value="Anexo 1"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnSubirCV">
@@ -321,28 +268,34 @@
         <Property name="text" type="java.lang.String" value="Archivo"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbCicloAlumno">
+    <Component class="javax.swing.JComboBox" name="cmbEmpresas">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Empresas&#xa;&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtResponsable">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Roboto" size="12" style="0"/>
+        </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="6">
-            <StringItem index="0" value="Selecciona Ciclo"/>
-            <StringItem index="1" value="DAM"/>
-            <StringItem index="2" value="DAW"/>
-            <StringItem index="3" value="ASIR"/>
-            <StringItem index="4" value="FIN"/>
-            <StringItem index="5" value="MARK"/>
-          </StringArray>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="null"/>
         </Property>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtResponsableMousePressed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

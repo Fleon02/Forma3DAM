@@ -21,7 +21,7 @@ import modelo.AsignaturasDAO;
 import pojos.Alumnos;
 import pojos.Asignaturas;
 
-public class VntAlumnos extends javax.swing.JPanel {
+public class VntPracticas extends javax.swing.JPanel {
 
     private byte[] bytesCV;
 
@@ -36,7 +36,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         "Validez"
     }, 0);
 
-    public VntAlumnos() {
+    public VntPracticas() {
         initComponents();
         txtAnioAlumno.addKeyListener(new KeyAdapter() {
             @Override

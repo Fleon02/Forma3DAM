@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-02-2024 a las 18:36:41
--- Versión del servidor: 10.4.25-MariaDB
--- Versión de PHP: 8.1.10
+-- Tiempo de generación: 23-02-2024 a las 18:02:38
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `practicas`
 --
+CREATE DATABASE IF NOT EXISTS `practicas` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `practicas`;
 
 -- --------------------------------------------------------
 
@@ -36,7 +38,7 @@ CREATE TABLE `alumnos` (
   `validez` tinyint(1) DEFAULT NULL,
   `cicloAlumno` varchar(20) DEFAULT NULL,
   `CV` longblob DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -48,7 +50,7 @@ CREATE TABLE `alumnos_asignaturas` (
   `id_alum_asig` int(4) NOT NULL,
   `idAlumno` int(3) DEFAULT NULL,
   `idAsignatura` int(3) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -70,7 +72,7 @@ CREATE TABLE `anexos` (
   `anexoCuatro` longblob DEFAULT NULL,
   `anexoDosDos` longblob DEFAULT NULL,
   `anexoOcho` longblob DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `anexos`
@@ -88,36 +90,36 @@ INSERT INTO `anexos` (`idAnexo`, `tutorPracticas`, `fechaInicio`, `fechaFin`, `i
 
 CREATE TABLE `asignaturas` (
   `idAsignatura` int(3) NOT NULL,
-  `nombreAsignatura` varchar(60) DEFAULT NULL,
+  `nombreAsignatura` varchar(30) DEFAULT NULL,
   `abreviatura` varchar(20) DEFAULT NULL,
   `cicloFormativo` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `asignaturas`
 --
 
 INSERT INTO `asignaturas` (`idAsignatura`, `nombreAsignatura`, `abreviatura`, `cicloFormativo`) VALUES
-(1, 'Desarrollo de Interfaces', 'D_INT', 'DAM'),
-(2, 'Empresa e Iniciativa Emprendedora', 'EIE', 'DAM'),
-(3, 'Inglés Técnico para Grado Superior', 'INGLES', 'DAM'),
-(4, 'Programación de Servicios y Procesos', 'PSP', 'DAM'),
-(5, 'Programación Multimedia y Dispositivos Móviles', 'MOVILES', 'DAM'),
-(6, 'Sistemas de Gestión Empresarial', 'SGE', 'DAM'),
-(7, 'Acceso a Datos', 'A_DATOS', 'DAM'),
-(8, 'Desarrollo Web en Entorno Cliente', 'ENT_CLIENTE', 'DAW'),
-(9, 'Desarrollo Web en Entorno Servidor', 'ENT_SERVIDOR', 'DAW'),
-(10, 'Despliegue de Aplicaciones Web', 'DESPLIEGUE', 'DAW'),
-(11, 'Diseño de Interfaces Web', 'DISEÑO', 'DAW'),
-(12, 'Empresa e Iniciativa Emprendedora', 'EIE', 'DAW'),
-(13, 'Inglés Técnico para Grado Superior', 'INGLES', 'DAW'),
-(14, 'Administración de Sistemas Gestores de Bases de Datos', 'ASGBBDD', 'ASIR'),
-(15, 'Administración de Sistemas Operativos', 'ASSOO', 'ASIR'),
-(16, 'Empresa e Iniciativa Emprendedora', 'EIE', 'ASIR'),
-(17, 'Implantación de Aplicaciones Web', 'IAWEB', 'ASIR'),
-(18, 'Inglés Técnico para Grado Superior', 'INGLES', 'ASIR'),
-(19, 'Seguridad y Alta Disponibilidad', 'SEG_Y_DAD', 'ASIR'),
-(20, 'Servicios de Red e Internet', 'REDES', 'ASIR');
+(1, 'DESARROLLO DE INTERFACES', 'D_INT', 'DAM'),
+(2, 'EMPRESA E INICIATIVA EMPRENDED', 'EIE', 'DAM'),
+(3, 'INGLÉS TÉCNICO PARA GRADO SUPE', 'INGLES', 'DAM'),
+(4, 'PROGRAMACIÓN DE SERVICIOS Y PR', 'PSP', 'DAM'),
+(5, 'PROGRAMACIÓN MULTIMEDIA Y DISP', 'MOVILES', 'DAM'),
+(6, 'SISTEMAS DE GESTIÓN EMPRESARIA', 'SGE', 'DAM'),
+(7, 'ACCESO A DATOS', 'A_DATOS', 'DAM'),
+(8, 'DESARROLLO WEB ENTORNO CLIENTE', 'ENT_CLIENTE', 'DAW'),
+(9, 'DESARROLLO WEB ENTORNO SERVIDO', 'ENT_SERVIDOR', 'DAW'),
+(10, 'DESPLIEGUE DE APLICACIONES WEB', 'DESPLIEGUE', 'DAW'),
+(11, 'DISEÑO DE INTERFACES WEB ', 'DISEÑO', 'DAW'),
+(12, 'EMPRESA E INICIATIVA EMPRENDED', 'EIE', 'DAW'),
+(13, 'INGLÉS TÉCNICO PARA GRADO SUPE', 'INGLES', 'DAW'),
+(14, 'ADMINISTRACIÓN DE SISTEMAS GES', 'ASGBBDD', 'ASIR'),
+(15, 'ADMINISTRACIÓN DE SISTEMAS OPE', 'ASSOO', 'ASIR'),
+(16, 'EMPRESA E INICIATIVA EMPRENDED', 'EIE', 'ASIR'),
+(17, 'IMPLANTACIÓN DE APLICACIONES W', 'IAWEB', 'ASIR'),
+(18, 'INGLÉS TÉCNICO PARA GRADO SUPE', 'INGLES', 'ASIR'),
+(19, 'SEGURIDAD Y ALTA DISPONIBILIDA', 'SEG_Y_DAD', 'ASIR'),
+(20, 'SERVICIOS DE RED E INTERNET', 'REDES', 'ASIR');
 
 -- --------------------------------------------------------
 
@@ -128,7 +130,7 @@ INSERT INTO `asignaturas` (`idAsignatura`, `nombreAsignatura`, `abreviatura`, `c
 CREATE TABLE `beep` (
   `idUsuario` int(4) NOT NULL,
   `contrasena` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `beep`
@@ -137,8 +139,7 @@ CREATE TABLE `beep` (
 INSERT INTO `beep` (`idUsuario`, `contrasena`) VALUES
 (1, 'Juan232023'),
 (2, 'paco'),
-(3, 'paco'),
-(4, 'paco');
+(3, 'paco');
 
 -- --------------------------------------------------------
 
@@ -154,7 +155,7 @@ CREATE TABLE `convenio` (
   `responsableFirma` varchar(50) DEFAULT NULL,
   `cantAnexos` int(3) DEFAULT NULL,
   `anexoUnoConvenio` longblob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -163,7 +164,6 @@ CREATE TABLE `convenio` (
 --
 
 CREATE TABLE `empresas` (
-  `idEmpresa` int(11) NOT NULL,
   `nombreEmpresa` varchar(20) DEFAULT NULL,
   `cifEmpresa` varchar(20) NOT NULL,
   `direccion` varchar(50) DEFAULT NULL,
@@ -171,7 +171,7 @@ CREATE TABLE `empresas` (
   `owner` varchar(20) DEFAULT NULL,
   `tutorPracticas` varchar(50) DEFAULT NULL,
   `responsableContratacion` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -184,7 +184,7 @@ CREATE TABLE `login` (
   `nombreUsuario` varchar(20) DEFAULT NULL,
   `correoUsuario` varchar(50) DEFAULT NULL,
   `rol` enum('Admin','Trabajador') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `login`
@@ -193,8 +193,7 @@ CREATE TABLE `login` (
 INSERT INTO `login` (`idUsuario`, `nombreUsuario`, `correoUsuario`, `rol`) VALUES
 (1, 'Pacheco', 'pacheco@gmail.com', 'Trabajador'),
 (2, 'Francisco', 'leonmarcosf@gmail.com', 'Admin'),
-(3, 'paco', 'paco', 'Admin'),
-(4, 'Paconator', 'paconator@gmail.com', 'Trabajador');
+(3, 'paco', 'paco', 'Trabajador');
 
 -- --------------------------------------------------------
 
@@ -211,7 +210,7 @@ CREATE TABLE `necesidad` (
   `asir` int(2) DEFAULT NULL,
   `mark` int(2) DEFAULT NULL,
   `fin` int(2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -224,9 +223,9 @@ CREATE TABLE `practicas` (
   `dniAlumno` varchar(12) DEFAULT NULL,
   `tutorPracticas` varchar(50) DEFAULT NULL,
   `calendario` varchar(20) DEFAULT NULL,
-  `informeSeguimiento` longblob DEFAULT NULL,
-  `informeFinal` longblob DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `informeSeguimiento` varchar(50) DEFAULT NULL,
+  `informeFinal` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -237,7 +236,7 @@ CREATE TABLE `practicas` (
 CREATE TABLE `practicasempresas` (
   `tutorPracticas_P` varchar(50) NOT NULL,
   `tutorPracticas_E` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tablas volcadas
@@ -287,7 +286,7 @@ ALTER TABLE `convenio`
 -- Indices de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  ADD PRIMARY KEY (`idEmpresa`),
+  ADD PRIMARY KEY (`cifEmpresa`),
   ADD UNIQUE KEY `cifEmpresa` (`cifEmpresa`),
   ADD UNIQUE KEY `tutorPracticas` (`tutorPracticas`);
 
@@ -347,16 +346,10 @@ ALTER TABLE `asignaturas`
   MODIFY `idAsignatura` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT de la tabla `empresas`
---
-ALTER TABLE `empresas`
-  MODIFY `idEmpresa` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `login`
 --
 ALTER TABLE `login`
-  MODIFY `idUsuario` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idUsuario` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `necesidad`
@@ -368,7 +361,7 @@ ALTER TABLE `necesidad`
 -- AUTO_INCREMENT de la tabla `practicas`
 --
 ALTER TABLE `practicas`
-  MODIFY `idPractica` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idPractica` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas

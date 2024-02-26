@@ -1,15 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17-feb-2024 19:37:18 by Hibernate Tools 4.3.1 -->
+<!-- Generated 25-feb-2024 4:55:20 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="pojos.Empresas" table="empresas" catalog="practicas" optimistic-lock="version">
-        <id name="cifEmpresa" type="string">
-            <column name="cifEmpresa" length="20" />
-            <generator class="assigned" />
+        <id name="idEmpresa" type="java.lang.Integer">
+            <column name="idEmpresa" />
+            <generator class="identity" />
         </id>
         <property name="nombreEmpresa" type="string">
             <column name="nombreEmpresa" length="20" />
+        </property>
+        <property name="cifEmpresa" type="string">
+            <column name="cifEmpresa" length="20" not-null="true" unique="true" />
         </property>
         <property name="direccion" type="string">
             <column name="direccion" length="50" />
@@ -36,19 +39,19 @@
         </set>
         <set name="necesidads" table="necesidad" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="cifEmpresa" length="20" unique="true" />
+                <column name="cifEmpresa" unique="true" />
             </key>
             <one-to-many class="pojos.Necesidad" />
         </set>
         <set name="practicases_1" table="practicas" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="tutorPracticas" length="20" unique="true" />
+                <column name="tutorPracticas" unique="true" />
             </key>
             <one-to-many class="pojos.Practicas" />
         </set>
         <set name="convenios" table="convenio" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="cifEmpresa" length="20" unique="true" />
+                <column name="idEmpresa" not-null="true" />
             </key>
             <one-to-many class="pojos.Convenio" />
         </set>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-02-2024 a las 18:36:41
+-- Tiempo de generación: 25-02-2024 a las 19:18:12
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -38,6 +38,15 @@ CREATE TABLE `alumnos` (
   `CV` longblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `alumnos`
+--
+
+INSERT INTO `alumnos` (`idAlumno`, `dniAlumno`, `nombreAlumno`, `yearCurso`, `segSocialAlumno`, `validez`, `cicloAlumno`, `CV`) VALUES
+(1, '12345678A', 'Juan Pérez', 2023, 2147483647, 1, 'DAM', NULL),
+(2, '87654321B', 'María López', 2022, 2147483647, 1, 'DAW', NULL),
+(3, '45678901C', 'Carlos García', 2023, 2147483647, 1, 'ASIR', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -49,6 +58,32 @@ CREATE TABLE `alumnos_asignaturas` (
   `idAlumno` int(3) DEFAULT NULL,
   `idAsignatura` int(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `alumnos_asignaturas`
+--
+
+INSERT INTO `alumnos_asignaturas` (`id_alum_asig`, `idAlumno`, `idAsignatura`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 1, 6),
+(7, 1, 7),
+(8, 2, 8),
+(9, 2, 9),
+(10, 2, 10),
+(11, 2, 11),
+(12, 2, 12),
+(13, 2, 13),
+(14, 3, 14),
+(15, 3, 15),
+(16, 3, 16),
+(17, 3, 17),
+(18, 3, 18),
+(19, 3, 19),
+(20, 3, 20);
 
 -- --------------------------------------------------------
 
@@ -77,8 +112,9 @@ CREATE TABLE `anexos` (
 --
 
 INSERT INTO `anexos` (`idAnexo`, `tutorPracticas`, `fechaInicio`, `fechaFin`, `idNecesidad`, `dniAlumno`, `contratacion`, `calendario`, `anexoDosUno`, `anexoTres`, `anexoCuatro`, `anexoDosDos`, `anexoOcho`) VALUES
-(2, '23523', '523523', '523523', '5235', '32532', 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, '', '', '', '', '', 0, NULL, NULL, NULL, NULL, NULL, NULL);
+(1, 'Tutor 1', '2023-01-01', '2023-06-30', 'NEC01', '12345678A', 1, 'Calendario 1', NULL, NULL, NULL, NULL, NULL),
+(2, 'Tutor 2', '2023-01-01', '2023-06-30', 'NEC02', '87654321B', 1, 'Calendario 2', NULL, NULL, NULL, NULL, NULL),
+(3, 'Tutor 3', '2023-01-01', '2023-06-30', 'NEC03', '45678901C', 1, 'Calendario 3', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -137,8 +173,7 @@ CREATE TABLE `beep` (
 INSERT INTO `beep` (`idUsuario`, `contrasena`) VALUES
 (1, 'Juan232023'),
 (2, 'paco'),
-(3, 'paco'),
-(4, 'paco');
+(3, 'paco');
 
 -- --------------------------------------------------------
 
@@ -147,14 +182,22 @@ INSERT INTO `beep` (`idUsuario`, `contrasena`) VALUES
 --
 
 CREATE TABLE `convenio` (
-  `numConvenio` int(20) NOT NULL,
-  `idAnexo` varchar(15) DEFAULT NULL,
+  `idConvenio` int(11) NOT NULL,
+  `idEmpresa` int(11) NOT NULL,
+  `numConvenio` int(11) NOT NULL,
   `nombreEmpresa` varchar(20) DEFAULT NULL,
-  `cifEmpresa` varchar(20) DEFAULT NULL,
   `responsableFirma` varchar(50) DEFAULT NULL,
-  `cantAnexos` int(3) DEFAULT NULL,
-  `anexoUnoConvenio` longblob NOT NULL
+  `cantAnexos` int(11) DEFAULT NULL,
+  `anexoUnoConvenio` longblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `convenio`
+--
+
+INSERT INTO `convenio` (`idConvenio`, `idEmpresa`, `numConvenio`, `nombreEmpresa`, `responsableFirma`, `cantAnexos`, `anexoUnoConvenio`) VALUES
+(1, 1, 1001, 'Empresa 1', 'Responsable 1', 1, NULL),
+(3, 3, 1003, 'Empresa 3', 'Responsable 3', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -172,6 +215,15 @@ CREATE TABLE `empresas` (
   `tutorPracticas` varchar(50) DEFAULT NULL,
   `responsableContratacion` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `empresas`
+--
+
+INSERT INTO `empresas` (`idEmpresa`, `nombreEmpresa`, `cifEmpresa`, `direccion`, `telefono`, `owner`, `tutorPracticas`, `responsableContratacion`) VALUES
+(1, 'Empresa 1', '12345678A', 'Dirección 1', '123456789', 'Owner 1', 'Tutor 1', 'Responsable 1'),
+(2, 'Empresa 2', '87654321B', 'Dirección 2', '987654321', 'Owner 2', 'Tutor 2', 'Responsable 2'),
+(3, 'Empresa 3', '45678901C', 'Dirección 3', '987654321', 'Owner 3', 'Tutor 3', 'Responsable 3');
 
 -- --------------------------------------------------------
 
@@ -193,8 +245,7 @@ CREATE TABLE `login` (
 INSERT INTO `login` (`idUsuario`, `nombreUsuario`, `correoUsuario`, `rol`) VALUES
 (1, 'Pacheco', 'pacheco@gmail.com', 'Trabajador'),
 (2, 'Francisco', 'leonmarcosf@gmail.com', 'Admin'),
-(3, 'paco', 'paco', 'Admin'),
-(4, 'Paconator', 'paconator@gmail.com', 'Trabajador');
+(3, 'paco', 'paco', 'Admin');
 
 -- --------------------------------------------------------
 
@@ -280,8 +331,8 @@ ALTER TABLE `beep`
 -- Indices de la tabla `convenio`
 --
 ALTER TABLE `convenio`
-  ADD PRIMARY KEY (`numConvenio`),
-  ADD UNIQUE KEY `cifEmpresa` (`cifEmpresa`);
+  ADD PRIMARY KEY (`idConvenio`),
+  ADD KEY `idEmpresa` (`idEmpresa`);
 
 --
 -- Indices de la tabla `empresas`
@@ -326,13 +377,13 @@ ALTER TABLE `practicasempresas`
 -- AUTO_INCREMENT de la tabla `alumnos`
 --
 ALTER TABLE `alumnos`
-  MODIFY `idAlumno` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAlumno` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `alumnos_asignaturas`
 --
 ALTER TABLE `alumnos_asignaturas`
-  MODIFY `id_alum_asig` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_alum_asig` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `anexos`
@@ -347,10 +398,16 @@ ALTER TABLE `asignaturas`
   MODIFY `idAsignatura` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
+-- AUTO_INCREMENT de la tabla `convenio`
+--
+ALTER TABLE `convenio`
+  MODIFY `idConvenio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `idEmpresa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEmpresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
@@ -391,7 +448,7 @@ ALTER TABLE `beep`
 -- Filtros para la tabla `convenio`
 --
 ALTER TABLE `convenio`
-  ADD CONSTRAINT `convenio_ibfk_1` FOREIGN KEY (`cifEmpresa`) REFERENCES `empresas` (`cifEmpresa`);
+  ADD CONSTRAINT `convenio_ibfk_1` FOREIGN KEY (`idEmpresa`) REFERENCES `empresas` (`idEmpresa`);
 
 --
 -- Filtros para la tabla `necesidad`

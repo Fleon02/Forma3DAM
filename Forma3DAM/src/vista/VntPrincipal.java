@@ -22,6 +22,8 @@ public class VntPrincipal extends javax.swing.JFrame {
     private Header header;
     private ControlaForm main;
     private Animator animator;
+    final VntPrincipal vntPrincipal = this;
+
 
     public VntPrincipal() {
 
@@ -41,7 +43,7 @@ public class VntPrincipal extends javax.swing.JFrame {
         menu.addEvent(new EventoMenuSeleccionado() {
             @Override
             public void menuSeleccionado(int indexMenu, int indexSubMenu) {
-                System.out.println("Index Menu : " + indexMenu + " SubMenu Index " + indexSubMenu);
+                //System.out.println("Index Menu : " + indexMenu + " SubMenu Index " + indexSubMenu);
                 if (indexMenu == 0) {
                     if (indexSubMenu == -1) {
                         main.showForm(new VntBienvenido(nombre, rol));
@@ -54,7 +56,19 @@ public class VntPrincipal extends javax.swing.JFrame {
                     }
                 } else if (indexMenu == 2) {
                     if (indexSubMenu == 0) {
-                        main.showForm(new vntAnexo());
+                        main.showForm(new VntInsertaEmpresa());
+                    } else if (indexSubMenu == 1) {
+                        main.showForm(new VntEmpresas());
+                    }
+                } else if (indexMenu == 8) {
+                    if (indexSubMenu == 0) {
+                        main.showForm(new VntConfiguracion());
+                    }
+                } else if (indexMenu == 3) {
+                    if (indexSubMenu == 1) {
+                        main.showForm(new vntConvenios(vntPrincipal));
+                    }else if (indexSubMenu == 0) {
+                        main.showForm(new VntInsertaConvenio());
                     }
                 }
             }
@@ -121,7 +135,7 @@ public class VntPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1366, 783));
-        setPreferredSize(new java.awt.Dimension(1366, 783));
+        setResizable(false);
 
         bg.setBackground(new java.awt.Color(245, 245, 245));
         bg.setOpaque(true);

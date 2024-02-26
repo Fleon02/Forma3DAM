@@ -9,10 +9,11 @@ import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pojos.Alumnos;
+import pojos.Convenio;
+import pojos.Empresas;
 import raven.toast.Notifications;
 
-public class AlumnosDAO {
+public class EmpresasDAO {
 
     private Session sesion;
     private Transaction tx;
@@ -29,7 +30,20 @@ public class AlumnosDAO {
         throw new HibernateException("Error en la capa de acceso a datos", he);
     }
 
-    public int guardaAlumnos(Alumnos p) {
+    public void guardaEmpresa(Empresas p) {
+        try {
+            iniciaOperacion();
+            sesion.save(p);
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+    }
+
+    public int guardaEmpresas(Empresas p) {
         int id;
         try {
             iniciaOperacion();
@@ -44,35 +58,7 @@ public class AlumnosDAO {
         return id;
     }
 
-    public void guardaAlumno(String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, int validez, String cicloAlumno, byte[] cv) {
-        try {
-            iniciaOperacion();
-            String hql = "INSERT INTO alumnos(dniAlumno, nombreAlumno, yearCurso, segSocialAlumno, validez, cicloAlumno, CV)"
-                    + " VALUES (:dniAlumno,:nombreAlumno,:yearCurso,:segSocialAlumno,:validez,:cicloAlumno,:cv)";
-            int valor = sesion.createSQLQuery(hql)
-                    .setParameter("dniAlumno", dniAlumno)
-                    .setParameter("nombreAlumno", nombreAlumno)
-                    .setParameter("yearCurso", yearCurso)
-                    .setParameter("segSocialAlumno", segSocialAlumno)
-                    .setParameter("validez", validez)
-                    .setParameter("cicloAlumno", cicloAlumno)
-                    .setParameter("cv", cv)
-                    .executeUpdate();
-            if (valor == 1) {
-                JOptionPane.showMessageDialog(parentComponent, "Alumno Insertado", "Info", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(parentComponent, "Alumno No Insertado", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            tx.commit();
-        } catch (HibernateException he) {
-            manejaExcepcion(he);
-            throw he;
-        } finally {
-            sesion.close();
-        }
-    }
-
-    public void actualizaAlumnos(Alumnos a) {
+    public void actualizaEmpresas(Empresas a) {
         try {
             iniciaOperacion();
             sesion.update(a);
@@ -86,11 +72,11 @@ public class AlumnosDAO {
         }
     }
 
-    public void eliminaAlumnos(String dniAlumno) {
+    public void eliminaEmpresas(String cifEmpresa) {
         try {
             iniciaOperacion();
-            String hql = "UPDATE Alumnos SET idAlumno = -1 WHERE dniAlumno = :dniAlumno";
-            int valor = sesion.createQuery(hql).setParameter("dniAlumno", dniAlumno).executeUpdate();
+            String hql = "UPDATE Empresas SET idEmpresa = -1 WHERE cifEmpresa = :cifEmpresa";
+            int valor = sesion.createQuery(hql).setParameter("cifEmpresa", cifEmpresa).executeUpdate();
             if (valor == 1) {
                 JOptionPane.showMessageDialog(parentComponent, "Alumno Marcado como Borrado", "Info", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -105,17 +91,68 @@ public class AlumnosDAO {
         }
     }
 
-    public List<Alumnos> obtenListaAlumnos() {
-        List<Alumnos> listaAlumnos = null;
+    public List<Empresas> obtenListaEmpresas() {
+        List<Empresas> listaEmpresas = null;
         try {
             iniciaOperacion();
-            listaAlumnos = sesion.createQuery("from Alumnos").list();
+            listaEmpresas = sesion.createQuery("from Empresas").list();
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
         } finally {
             sesion.close();
         }
-        return listaAlumnos;
+        return listaEmpresas;
     }
+
+    public String obtenCIF(Empresas empresas) {
+        String cif = null;
+        try {
+            iniciaOperacion();
+            // Obtenemos el CIF de la empresa
+            cif = empresas.getCifEmpresa();
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return cif;
+    }
+
+    public String obtenerNombreEmpresaPorCIF(String cif) {
+        String nombreEmpresa = null;
+        try {
+            iniciaOperacion();
+            // Consulta para obtener el nombre de la empresa dado un CIF
+            nombreEmpresa = (String) sesion.createQuery("select nombreEmpresa from Empresas where cifEmpresa = :cif")
+                    .setParameter("cif", cif)
+                    .uniqueResult();
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return nombreEmpresa;
+    }
+
+    public Empresas obtenerEmpresaPorNombre(String nombreEmpresa) {
+        Empresas empresa = null;
+        try {
+            iniciaOperacion();
+            empresa = (Empresas) sesion.createQuery("FROM Empresas WHERE nombreEmpresa = :nombre")
+                    .setParameter("nombre", nombreEmpresa)
+                    .uniqueResult();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return empresa;
+    }
+
 }

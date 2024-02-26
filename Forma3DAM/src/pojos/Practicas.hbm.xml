@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17-feb-2024 19:37:18 by Hibernate Tools 4.3.1 -->
+<!-- Generated 25-feb-2024 4:55:20 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="pojos.Practicas" table="practicas" catalog="practicas" optimistic-lock="version">
         <id name="idPractica" type="java.lang.Integer">
@@ -9,7 +9,7 @@
             <generator class="identity" />
         </id>
         <many-to-one name="empresas" class="pojos.Empresas" fetch="select">
-            <column name="tutorPracticas" length="20" unique="true" />
+            <column name="tutorPracticas" unique="true" />
         </many-to-one>
         <property name="dniAlumno" type="string">
             <column name="dniAlumno" length="12" />
@@ -17,11 +17,11 @@
         <property name="calendario" type="string">
             <column name="calendario" length="20" />
         </property>
-        <property name="informeSeguimiento" type="string">
-            <column name="informeSeguimiento" length="50" />
+        <property name="informeSeguimiento" type="binary">
+            <column name="informeSeguimiento" />
         </property>
-        <property name="informeFinal" type="string">
-            <column name="informeFinal" length="50" />
+        <property name="informeFinal" type="binary">
+            <column name="informeFinal" />
         </property>
         <set name="empresases" table="practicasempresas" inverse="false" lazy="true" fetch="select">
             <key>

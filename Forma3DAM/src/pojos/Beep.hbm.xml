@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17-feb-2024 19:37:18 by Hibernate Tools 4.3.1 -->
+<!-- Generated 25-feb-2024 4:55:20 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="pojos.Beep" table="beep" catalog="practicas" optimistic-lock="version">
-        <id name="idUsuario" type="java.lang.Integer">
+        <id name="idUsuario" type="int">
             <column name="idUsuario" />
             <generator class="foreign">
                 <param name="property">login</param>
