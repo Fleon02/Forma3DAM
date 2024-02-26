@@ -24,7 +24,6 @@ public class VntPrincipal extends javax.swing.JFrame {
     private Animator animator;
     final VntPrincipal vntPrincipal = this;
 
-
     public VntPrincipal() {
 
     }
@@ -67,8 +66,14 @@ public class VntPrincipal extends javax.swing.JFrame {
                 } else if (indexMenu == 3) {
                     if (indexSubMenu == 1) {
                         main.showForm(new vntConvenios(vntPrincipal));
-                    }else if (indexSubMenu == 0) {
+                    } else if (indexSubMenu == 0) {
                         main.showForm(new VntInsertaConvenio());
+                    }
+                } else if (indexMenu == 7) {
+                    if (indexSubMenu == 1) {
+                        //main.showForm(new vntConvenios(vntPrincipal));
+                    } else if (indexSubMenu == 0) {
+                        main.showForm(new VntInsertaAnexo());
                     }
                 }
             }
