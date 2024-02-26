@@ -86,4 +86,8 @@ public class NecesidadDAO {
             sesion.close();
         }
     }
+
+    public void guardaNecesidad(Necesidad n) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

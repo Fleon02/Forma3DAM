@@ -21,7 +21,7 @@ import pojos.Necesidad;
 public class VntNecesidad extends javax.swing.JPanel {
     
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
-        "IDNecesidad",
+        "IDNECESIDAD",
         "CIF",
         "Ciclo",
         "DAM",
@@ -125,16 +125,16 @@ public class VntNecesidad extends javax.swing.JPanel {
         txtDAW = new javax.swing.JTextField();
         userLabel4 = new javax.swing.JLabel();
         userLabel5 = new javax.swing.JLabel();
-        btnBorrar = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
         title1 = new javax.swing.JLabel();
         userLabel6 = new javax.swing.JLabel();
         txtIDNecesidad = new javax.swing.JTextField();
-        btnAsignaturas = new javax.swing.JButton();
         txtASIR = new javax.swing.JTextField();
         txtMARK = new javax.swing.JTextField();
         userLabel7 = new javax.swing.JLabel();
         txtFIN = new javax.swing.JTextField();
+        btnBorrar = new javax.swing.JButton();
+        btnAsignaturas = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
 
         jPanel1.setAlignmentX(0.0F);
 
@@ -215,28 +215,6 @@ public class VntNecesidad extends javax.swing.JPanel {
         userLabel5.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel5.setText("MARKETING");
 
-        btnBorrar.setBackground(new java.awt.Color(18, 30, 49));
-        btnBorrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnBorrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBorrar.setText("Borrar");
-        btnBorrar.setEnabled(false);
-        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrarActionPerformed(evt);
-            }
-        });
-
-        btnActualizar.setBackground(new java.awt.Color(18, 30, 49));
-        btnActualizar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizar.setText("Actualizar");
-        btnActualizar.setEnabled(false);
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
-
         title1.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
         title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title1.setText("NECESIDAD");
@@ -252,17 +230,6 @@ public class VntNecesidad extends javax.swing.JPanel {
         txtIDNecesidad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 txtIDNecesidadMousePressed(evt);
-            }
-        });
-
-        btnAsignaturas.setBackground(new java.awt.Color(18, 30, 49));
-        btnAsignaturas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnAsignaturas.setForeground(new java.awt.Color(255, 255, 255));
-        btnAsignaturas.setText("Ver Asignaturas");
-        btnAsignaturas.setEnabled(false);
-        btnAsignaturas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAsignaturasActionPerformed(evt);
             }
         });
 
@@ -302,20 +269,45 @@ public class VntNecesidad extends javax.swing.JPanel {
             }
         });
 
+        btnBorrar.setBackground(new java.awt.Color(18, 30, 49));
+        btnBorrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnBorrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBorrar.setText("Borrar");
+        btnBorrar.setEnabled(false);
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
+
+        btnAsignaturas.setBackground(new java.awt.Color(18, 30, 49));
+        btnAsignaturas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnAsignaturas.setForeground(new java.awt.Color(255, 255, 255));
+        btnAsignaturas.setText("Ver Asignaturas");
+        btnAsignaturas.setEnabled(false);
+        btnAsignaturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignaturasActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setBackground(new java.awt.Color(18, 30, 49));
+        btnActualizar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setText("Actualizar");
+        btnActualizar.setEnabled(false);
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(670, Short.MAX_VALUE)
-                .addComponent(btnAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnActualizar)
-                .addGap(18, 18, 18)
-                .addComponent(btnBorrar)
-                .addContainerGap(12, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(745, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -335,6 +327,12 @@ public class VntNecesidad extends javax.swing.JPanel {
                         .addGap(0, 0, 0)
                         .addComponent(txtIDNecesidad, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(btnAsignaturas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnActualizar)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnBorrar))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(51, 51, 51)
@@ -365,7 +363,7 @@ public class VntNecesidad extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(64, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -399,12 +397,11 @@ public class VntNecesidad extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFIN, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                    .addComponent(btnAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -421,7 +418,7 @@ public class VntNecesidad extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -431,7 +428,7 @@ public class VntNecesidad extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(118, 118, 118))
         );
     }// </editor-fold>//GEN-END:initComponents
 
