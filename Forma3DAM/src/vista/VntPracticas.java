@@ -54,16 +54,16 @@ public class VntPracticas extends javax.swing.JPanel {
                 if (a.getInformeSeguimiento() != null) {
                     dtm.addRow(new Object[]{
                         a.getIdPractica(),
-                        a.getDniAlumno(),
-                        a.getEmpresas(),
-                        a.getCalendario(),
+                        a.getAlumnos().getDniAlumno(),
+                        a.getEmpresas().getTutorPracticas(),
+                        a.getAnexos().getCalendario(),
                         "Subido",});
                 } else {
                     dtm.addRow(new Object[]{
                         a.getIdPractica(),
-                        a.getDniAlumno(),
-                        a.getEmpresas(),
-                        a.getCalendario(),
+                        a.getAlumnos().getDniAlumno(),
+                        a.getEmpresas().getTutorPracticas(),
+                        a.getAnexos().getCalendario(),
                         "No Subido",});
                 }
             }
