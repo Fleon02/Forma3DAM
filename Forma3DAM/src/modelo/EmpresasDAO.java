@@ -75,7 +75,7 @@ public class EmpresasDAO {
     public void eliminaEmpresas(String cifEmpresa) {
         try {
             iniciaOperacion();
-            String hql = "UPDATE Empresas SET idAlumno = -1 WHERE cifEmpresa = :cifEmpresa";
+            String hql = "UPDATE Empresas SET idEmpresa = -1 WHERE cifEmpresa = :cifEmpresa";
             int valor = sesion.createQuery(hql).setParameter("cifEmpresa", cifEmpresa).executeUpdate();
             if (valor == 1) {
                 JOptionPane.showMessageDialog(parentComponent, "Alumno Marcado como Borrado", "Info", JOptionPane.INFORMATION_MESSAGE);
