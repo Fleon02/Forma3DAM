@@ -35,7 +35,7 @@
             </key>
             <one-to-many class="pojos.Practicas" />
         </set>
-        <set name="necesidads" table="necesidad" inverse="true" lazy="false" fetch="select">
+        <set name="necesidads" table="necesidad" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="idEmpresa" unique="true" />
             </key>

@@ -52,10 +52,12 @@ public class VntNecesidad extends javax.swing.JPanel {
     List<Necesidad> listaNecesidades = new NecesidadDAO().obtenListaNecesidad();
     
     for (Necesidad necesidad : listaNecesidades) {
+        
         if (necesidad.getIdNecesidad() != null) {
-            dtm.addRow(new Object[]{  
+            String cif = (necesidad.getEmpresas() != null) ? necesidad.getEmpresas().getCifEmpresa(): "";
+            dtm.addRow(new Object[]{                
                 necesidad.getIdNecesidad(),
-                necesidad.getEmpresas(),
+                cif,
                 necesidad.getCicloNecesidad(),
                 necesidad.getDam(),
                 necesidad.getDaw(),
