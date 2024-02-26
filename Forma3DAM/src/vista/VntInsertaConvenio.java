@@ -319,6 +319,10 @@ public class VntInsertaConvenio extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNEmpresaActionPerformed
 
+    private void cmbEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpresasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEmpresasActionPerformed
+
     private byte[] convertirArchivoABytes(File archivo) throws IOException {
         byte[] bytesArray = new byte[(int) archivo.length()];
         FileInputStream fis = new FileInputStream(archivo);
