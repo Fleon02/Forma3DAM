@@ -11,8 +11,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import modelo.AlumnosDAO;
+import modelo.AnexosDAO;
 import modelo.EmpresasDAO;
 import pojos.Alumnos;
+import pojos.Anexos;
 import pojos.Empresas;
 import pojos.Practicas;
 
@@ -25,16 +27,17 @@ public class VntInsertaPractica extends javax.swing.JPanel {
         initComponents();
         cargarDNIAlumno();
         cargarTutorPracticasEmpresas();
+        cargarCalendariosAnexos();
     }
 
     private void cargarDNIAlumno() {
         List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
-        DefaultComboBoxModel<Alumnos> model = new DefaultComboBoxModel<>();
-        model.addElement(new Alumnos(null));
+        DefaultComboBoxModel<Alumnos> modeloDNIA = new DefaultComboBoxModel<>();
+        modeloDNIA.addElement(new Alumnos(null));
         for (Alumnos a : listaAlumnos) {
-            model.addElement(a);
+            modeloDNIA.addElement(a);
         }
-        cbDNIAlumno.setModel(model);
+        cbDNIAlumno.setModel(modeloDNIA);
         cbDNIAlumno.setRenderer(new AlumnosComboBoxRenderer());
     }
 
@@ -45,7 +48,7 @@ public class VntInsertaPractica extends javax.swing.JPanel {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (value instanceof Alumnos) {
                 Alumnos a = (Alumnos) value;
-                if (a.getDniAlumno() == null) {
+                if (a.getIdAlumno() == null) {
                     setText("Seleccione DNI de Alumno/a");
                 } else {
                     setText(a.getDniAlumno());
@@ -83,6 +86,34 @@ public class VntInsertaPractica extends javax.swing.JPanel {
         }
     }
 
+    private void cargarCalendariosAnexos() {
+        List<Anexos> listaAnexos = new AnexosDAO().obtenerAnexos();
+        DefaultComboBoxModel<Anexos> model = new DefaultComboBoxModel<>();
+        model.addElement(new Anexos());
+        for (Anexos anexos : listaAnexos) {
+            model.addElement(anexos);
+        }
+        cbCalendario.setModel(model);
+        cbCalendario.setRenderer(new AnexosComboBoxRenderer());
+    }
+
+    private static class AnexosComboBoxRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof Anexos) {
+                Anexos anexos = (Anexos) value;
+                if (anexos.getCalendario() == null) {
+                    setText("Seleccione Calendario");
+                } else {
+                    setText(anexos.getCalendario());
+                }
+            }
+            return this;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -95,12 +126,12 @@ public class VntInsertaPractica extends javax.swing.JPanel {
         btnSubirCVIF = new javax.swing.JButton();
         btnInsertar = new javax.swing.JButton();
         nombreArchivoIF = new javax.swing.JLabel();
-        cbDNIAlumno = new javax.swing.JComboBox<>();
         cbCalendario = new javax.swing.JComboBox<>();
         cbTutorPracticas = new javax.swing.JComboBox<>();
         btnSubirCVIS = new javax.swing.JButton();
         nombreArchivoIS = new javax.swing.JLabel();
         userLabel6 = new javax.swing.JLabel();
+        cbDNIAlumno = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(1078, 608));
 
@@ -146,6 +177,10 @@ public class VntInsertaPractica extends javax.swing.JPanel {
         nombreArchivoIF.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         nombreArchivoIF.setText("Archivo");
 
+        cbCalendario.setBackground(new java.awt.Color(0, 0, 0));
+
+        cbTutorPracticas.setBackground(new java.awt.Color(0, 0, 0));
+
         btnSubirCVIS.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCVIS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIS.setForeground(new java.awt.Color(255, 255, 255));
@@ -163,38 +198,42 @@ public class VntInsertaPractica extends javax.swing.JPanel {
         userLabel6.setForeground(new java.awt.Color(0, 0, 0));
         userLabel6.setText("Informe Seguimiento");
 
+        cbDNIAlumno.setBackground(new java.awt.Color(0, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(106, Short.MAX_VALUE)
+                .addGap(106, 106, 106)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(favicon)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbCalendario, 0, 230, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cbDNIAlumno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbCalendario, 0, 230, Short.MAX_VALUE))
                                 .addGap(70, 70, 70)
-                                .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(nombreArchivoIS, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSubirCVIS))
-                            .addComponent(favicon, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbDNIAlumno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(71, 71, 71)
-                                .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbTutorPracticas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(nombreArchivoIS, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnSubirCVIS))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbTutorPracticas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(346, 346, 346)))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addGap(118, 118, 118))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,8 +252,8 @@ public class VntInsertaPractica extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbDNIAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbTutorPracticas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbTutorPracticas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbDNIAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -237,11 +276,11 @@ public class VntInsertaPractica extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        if (cbCicloAlumno.getSelectedIndex() != 0 && cbTutorPracticas.getSelectedIndex() != 0 && cbCalendario.getSelectedIndex() != 0) {
+        if (cbDNIAlumno.getSelectedIndex() != 0 && cbTutorPracticas.getSelectedIndex() != 0 && cbCalendario.getSelectedIndex() != 0) {
             Practicas p = new Practicas();
             new VntAlumnos().cargaTabla();
         } else {
-            JOptionPane.showMessageDialog(cbCicloAlumno, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(cbDNIAlumno, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnInsertarActionPerformed
 
@@ -298,10 +337,8 @@ public class VntInsertaPractica extends javax.swing.JPanel {
     private javax.swing.JButton btnInsertar;
     private javax.swing.JButton btnSubirCVIF;
     private javax.swing.JButton btnSubirCVIS;
-    private javax.swing.JComboBox<Empresas
-    > cbCalendario;
-    private javax.swing.JComboBox<Empresas
-    > cbDNIAlumno;
+    private javax.swing.JComboBox<Anexos> cbCalendario;
+    private javax.swing.JComboBox<Alumnos> cbDNIAlumno;
     private javax.swing.JComboBox<Empresas
     > cbTutorPracticas;
     private javax.swing.JLabel favicon;

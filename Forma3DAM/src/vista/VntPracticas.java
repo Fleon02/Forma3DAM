@@ -16,76 +16,55 @@ import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import modelo.AlumnosDAO;
+import modelo.PracticasDAO;
 import modelo.AsignaturasDAO;
+import modelo.PracticasDAO;
 import pojos.Alumnos;
+import pojos.Anexos;
+import pojos.Practicas;
 import pojos.Asignaturas;
+import pojos.Empresas;
 
 public class VntPracticas extends javax.swing.JPanel {
 
-    private byte[] bytesCV;
+    private byte[] bytesIS;
+    private byte[] bytesIF;
 
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
         "ID",
-        "DNI",
-        "Nombre",
-        "Año Curso",
-        "N. S. S.",
-        "Ciclo",
-        "CV",
-        "Validez"
+        "DNI Alumno",
+        "Tutor Practicas",
+        "Calendario",
+        "Informe Seguimiento",
+        "Informe Final"
     }, 0);
 
     public VntPracticas() {
         initComponents();
-        txtAnioAlumno.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
-                    e.consume(); // No permite la entrada de caracteres que no sean números
-                }
-            }
-        });
-        txtNSSAlumno.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
-                    e.consume(); // No permite la entrada de caracteres que no sean números
-                }
-            }
-        });
-        TablaAlumnos.setDefaultEditor(Object.class, null);
+        TablaPracticas.setDefaultEditor(Object.class, null);
         cargaTabla();
         cargaAlumno();
     }
 
     public void cargaTabla() {
         dtm.setRowCount(0);
-        List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
-        for (Alumnos a : listaAlumnos) {
-            if (a.getIdAlumno() != -1) {
-                if (a.getCv() != null) {
+        List<Practicas> listaPracticas = new PracticasDAO().obtenListaPracticas();
+        for (Practicas a : listaPracticas) {
+            if (a.getIdPractica() != -1) {
+                if (a.getInformeSeguimiento() != null) {
                     dtm.addRow(new Object[]{
-                        a.getIdAlumno(),
+                        a.getIdPractica(),
                         a.getDniAlumno(),
-                        a.getNombreAlumno(),
-                        a.getYearCurso(),
-                        a.getSegSocialAlumno(),
-                        a.getCicloAlumno(),
-                        "Subido",
-                        a.getValidez(),});
+                        a.getEmpresas(),
+                        a.getCalendario(),
+                        "Subido",});
                 } else {
                     dtm.addRow(new Object[]{
-                        a.getIdAlumno(),
+                        a.getIdPractica(),
                         a.getDniAlumno(),
-                        a.getNombreAlumno(),
-                        a.getYearCurso(),
-                        a.getSegSocialAlumno(),
-                        a.getCicloAlumno(),
-                        "No Subido",
-                        a.getValidez(),});
+                        a.getEmpresas(),
+                        a.getCalendario(),
+                        "No Subido",});
                 }
             }
 
@@ -93,34 +72,22 @@ public class VntPracticas extends javax.swing.JPanel {
     }
 
     public void cargaAlumno() {
-        TablaAlumnos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        TablaPracticas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    int filas = TablaAlumnos.getSelectedRow();
+                    int filas = TablaPracticas.getSelectedRow();
                     if (filas != -1) {
-                        txtIDAlumno.setText(TablaAlumnos.getValueAt(filas, 0) + "");
-                        txtDNIAlumno.setText(TablaAlumnos.getValueAt(filas, 1) + "");
-                        txtNombreAlumno.setText(TablaAlumnos.getValueAt(filas, 2) + "");
-                        txtAnioAlumno.setText(TablaAlumnos.getValueAt(filas, 3) + "");
-                        txtNSSAlumno.setText(TablaAlumnos.getValueAt(filas, 4) + "");
-                        cbCicloAlumno.setSelectedItem(TablaAlumnos.getValueAt(filas, 5));
-                        checkbValidez.setSelected(Boolean.parseBoolean(TablaAlumnos.getValueAt(filas, 7) + ""));
-                        txtDNIAlumno.setEditable(true);
-                        txtNombreAlumno.setEditable(true);
-                        txtAnioAlumno.setEditable(true);
-                        txtNSSAlumno.setEditable(true);
-                        cbCicloAlumno.setEditable(true);
-                        btnSubirCV.setEnabled(true);
-                        btnAsignaturas.setEnabled(true);
+                        txtIDPractica.setText(TablaPracticas.getValueAt(filas, 0) + "");
+                        cbDNIAlumno.setSelectedItem(TablaPracticas.getValueAt(filas, 1) + "");
+                        cbTutorPracticas.setSelectedItem(TablaPracticas.getValueAt(filas, 2) + "");
+                        cbCalendario.setSelectedItem(TablaPracticas.getValueAt(filas, 3) + "");
                         btnActualizar.setEnabled(true);
                         btnBorrar.setEnabled(true);
                     } else {
-                        txtDNIAlumno.setEditable(false);
-                        txtNombreAlumno.setEditable(false);
-                        txtAnioAlumno.setEditable(false);
-                        txtNSSAlumno.setEditable(false);
-                        cbCicloAlumno.setEditable(false);
+                        cbDNIAlumno.setEditable(false);
+                        cbTutorPracticas.setEditable(false);
+                        cbCalendario.setEditable(false);
                     }
                 }
             }
@@ -135,28 +102,25 @@ public class VntPracticas extends javax.swing.JPanel {
         jTableAlumnos = new javax.swing.JTable();
         favicon = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
-        userLabel = new javax.swing.JLabel();
-        txtDNIAlumno = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        TablaAlumnos = new javax.swing.JTable();
-        userLabel1 = new javax.swing.JLabel();
-        txtNombreAlumno = new javax.swing.JTextField();
-        userLabel2 = new javax.swing.JLabel();
-        txtAnioAlumno = new javax.swing.JTextField();
-        userLabel3 = new javax.swing.JLabel();
-        txtNSSAlumno = new javax.swing.JTextField();
-        userLabel4 = new javax.swing.JLabel();
-        userLabel5 = new javax.swing.JLabel();
+        TablaPracticas = new javax.swing.JTable();
         btnBorrar = new javax.swing.JButton();
-        checkbValidez = new javax.swing.JCheckBox();
-        btnSubirCV = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         title1 = new javax.swing.JLabel();
         userLabel6 = new javax.swing.JLabel();
-        txtIDAlumno = new javax.swing.JTextField();
-        nombreArchivo = new javax.swing.JLabel();
-        cbCicloAlumno = new javax.swing.JComboBox<>();
-        btnAsignaturas = new javax.swing.JButton();
+        txtIDPractica = new javax.swing.JTextField();
+        userLabel = new javax.swing.JLabel();
+        cbDNIAlumno = new javax.swing.JComboBox<>();
+        userLabel1 = new javax.swing.JLabel();
+        cbTutorPracticas = new javax.swing.JComboBox<>();
+        userLabel2 = new javax.swing.JLabel();
+        cbCalendario = new javax.swing.JComboBox<>();
+        btnSubirCVIS = new javax.swing.JButton();
+        nombreArchivoIS = new javax.swing.JLabel();
+        userLabel7 = new javax.swing.JLabel();
+        userLabel5 = new javax.swing.JLabel();
+        btnSubirCVIF = new javax.swing.JButton();
+        nombreArchivoIF = new javax.swing.JLabel();
 
         jTableAlumnos.setModel(dtm);
         jScrollPane1.setViewportView(jTableAlumnos);
@@ -170,75 +134,8 @@ public class VntPracticas extends javax.swing.JPanel {
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("Actualizar/Borrar");
 
-        userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel.setText("DNI Alumno");
-
-        txtDNIAlumno.setEditable(false);
-        txtDNIAlumno.setBackground(new java.awt.Color(0, 0, 0));
-        txtDNIAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtDNIAlumno.setForeground(new java.awt.Color(255, 255, 255));
-        txtDNIAlumno.setBorder(null);
-        txtDNIAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtDNIAlumnoMousePressed(evt);
-            }
-        });
-
-        TablaAlumnos.setModel(dtm);
-        jScrollPane2.setViewportView(TablaAlumnos);
-
-        userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel1.setText("Tutor Practicas");
-
-        txtNombreAlumno.setEditable(false);
-        txtNombreAlumno.setBackground(new java.awt.Color(0, 0, 0));
-        txtNombreAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtNombreAlumno.setForeground(new java.awt.Color(255, 255, 255));
-        txtNombreAlumno.setBorder(null);
-        txtNombreAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtNombreAlumnoMousePressed(evt);
-            }
-        });
-
-        userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel2.setText("Año Alumno");
-
-        txtAnioAlumno.setEditable(false);
-        txtAnioAlumno.setBackground(new java.awt.Color(0, 0, 0));
-        txtAnioAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtAnioAlumno.setForeground(new java.awt.Color(255, 255, 255));
-        txtAnioAlumno.setBorder(null);
-        txtAnioAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtAnioAlumnoMousePressed(evt);
-            }
-        });
-        txtAnioAlumno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAnioAlumnoActionPerformed(evt);
-            }
-        });
-
-        userLabel3.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel3.setText("N. S. S. Alumno");
-
-        txtNSSAlumno.setEditable(false);
-        txtNSSAlumno.setBackground(new java.awt.Color(0, 0, 0));
-        txtNSSAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtNSSAlumno.setForeground(new java.awt.Color(255, 255, 255));
-        txtNSSAlumno.setBorder(null);
-        txtNSSAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtNSSAlumnoMousePressed(evt);
-            }
-        });
-
-        userLabel4.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel4.setText("Ciclo Alumno");
-
-        userLabel5.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel5.setText("Curriculum Alumno");
+        TablaPracticas.setModel(dtm);
+        jScrollPane2.setViewportView(TablaPracticas);
 
         btnBorrar.setBackground(new java.awt.Color(18, 30, 49));
         btnBorrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -248,20 +145,6 @@ public class VntPracticas extends javax.swing.JPanel {
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
-            }
-        });
-
-        checkbValidez.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        checkbValidez.setText("Validez (Aprobado)");
-
-        btnSubirCV.setBackground(new java.awt.Color(18, 30, 49));
-        btnSubirCV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnSubirCV.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirCV.setText("Subir CV");
-        btnSubirCV.setEnabled(false);
-        btnSubirCV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubirCVActionPerformed(evt);
             }
         });
 
@@ -278,93 +161,112 @@ public class VntPracticas extends javax.swing.JPanel {
 
         title1.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
         title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title1.setText("ALUMNOS");
+        title1.setText("PRACTICAS");
 
         userLabel6.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel6.setText("ID Practica");
 
-        txtIDAlumno.setEditable(false);
-        txtIDAlumno.setBackground(new java.awt.Color(0, 0, 0));
-        txtIDAlumno.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtIDAlumno.setForeground(new java.awt.Color(255, 255, 255));
-        txtIDAlumno.setBorder(null);
-        txtIDAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtIDPractica.setEditable(false);
+        txtIDPractica.setBackground(new java.awt.Color(0, 0, 0));
+        txtIDPractica.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtIDPractica.setForeground(new java.awt.Color(255, 255, 255));
+        txtIDPractica.setBorder(null);
+        txtIDPractica.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtIDAlumnoMousePressed(evt);
+                txtIDPracticaMousePressed(evt);
             }
         });
 
-        nombreArchivo.setBackground(new java.awt.Color(0, 0, 0));
-        nombreArchivo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        nombreArchivo.setText("Archivo");
+        userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel.setText("DNI Alumno");
 
-        cbCicloAlumno.setBackground(new java.awt.Color(0, 0, 0));
-        cbCicloAlumno.setForeground(new java.awt.Color(255, 255, 255));
-        cbCicloAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Ciclo", "DAM", "DAW", "ASIR", "FIN", "MARK" }));
+        cbDNIAlumno.setBackground(new java.awt.Color(0, 0, 0));
 
-        btnAsignaturas.setBackground(new java.awt.Color(18, 30, 49));
-        btnAsignaturas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnAsignaturas.setForeground(new java.awt.Color(255, 255, 255));
-        btnAsignaturas.setText("Ver Asignaturas");
-        btnAsignaturas.setEnabled(false);
-        btnAsignaturas.addActionListener(new java.awt.event.ActionListener() {
+        userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel1.setText("Tutor Practicas");
+
+        cbTutorPracticas.setBackground(new java.awt.Color(0, 0, 0));
+
+        userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel2.setText("Calendario");
+
+        cbCalendario.setBackground(new java.awt.Color(0, 0, 0));
+
+        btnSubirCVIS.setBackground(new java.awt.Color(18, 30, 49));
+        btnSubirCVIS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnSubirCVIS.setForeground(new java.awt.Color(255, 255, 255));
+        btnSubirCVIS.setText("Subir CV");
+        btnSubirCVIS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAsignaturasActionPerformed(evt);
+                btnSubirCVISActionPerformed(evt);
             }
         });
+
+        nombreArchivoIS.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        nombreArchivoIS.setText("Archivo");
+
+        userLabel7.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel7.setText("Informe Seguimiento");
+
+        userLabel5.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel5.setText("Informe Final");
+
+        btnSubirCVIF.setBackground(new java.awt.Color(18, 30, 49));
+        btnSubirCVIF.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnSubirCVIF.setForeground(new java.awt.Color(255, 255, 255));
+        btnSubirCVIF.setText("Subir CV");
+        btnSubirCVIF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubirCVIFActionPerformed(evt);
+            }
+        });
+
+        nombreArchivoIF.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        nombreArchivoIF.setText("Archivo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(676, Short.MAX_VALUE)
+                .addContainerGap(681, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, 0)
-                            .addComponent(txtDNIAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, 0)
-                            .addComponent(txtNombreAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, 0)
-                            .addComponent(txtAnioAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(userLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, 0)
-                            .addComponent(txtNSSAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, 0)
-                            .addComponent(txtIDAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(btnAsignaturas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnActualizar)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnBorrar))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(110, 110, 110)
-                            .addComponent(checkbValidez))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(nombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnSubirCV))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(2, 2, 2)
-                                    .addComponent(cbCicloAlumno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                            .addComponent(nombreArchivoIS, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnSubirCVIS))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbTutorPracticas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(userLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(userLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                                .addGap(12, 12, 12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbDNIAlumno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtIDPractica)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbCalendario, 0, 230, Short.MAX_VALUE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(nombreArchivoIF, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnSubirCVIF))))
+                .addContainerGap(13, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 25, Short.MAX_VALUE)
@@ -382,42 +284,40 @@ public class VntPracticas extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(62, Short.MAX_VALUE)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIDAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtIDPractica, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDNIAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbDNIAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombreAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbTutorPracticas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAnioAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                    .addComponent(cbCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(userLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNSSAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbCicloAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSubirCV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSubirCVIS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nombreArchivoIS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(checkbValidez)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSubirCVIF, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nombreArchivoIF, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(60, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -433,93 +333,63 @@ public class VntPracticas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        if (txtDNIAlumno.getText() != null) {
-            new AlumnosDAO().eliminaAlumnos(txtDNIAlumno.getText());
+        if (txtIDPractica.getText() != null) {
+            new PracticasDAO().eliminaPracticas(txtIDPractica.getText());
             cargaTabla();
         } else {
-            JOptionPane.showMessageDialog(txtDNIAlumno, "Seleciona un Alumno", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(txtIDPractica, "Seleciona un Alumno", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
-    private void txtIDAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDAlumnoMousePressed
+    private void txtIDPracticaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDPracticaMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDAlumnoMousePressed
+    }//GEN-LAST:event_txtIDPracticaMousePressed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if (txtDNIAlumno.getText() != null && txtNombreAlumno.getText() != null && txtAnioAlumno.getText() != null
-                && txtNSSAlumno.getText() != null && cbCicloAlumno.getSelectedIndex() != 0) {
-            if (checkbValidez.isSelected()) {
-                Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
-                        Integer.parseInt(txtNSSAlumno.getText()), Boolean.TRUE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
-                a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
-                new AlumnosDAO().actualizaAlumnos(a);
-            } else {
-                Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
-                        Integer.parseInt(txtNSSAlumno.getText()), Boolean.FALSE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
-                a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
-                new AlumnosDAO().actualizaAlumnos(a);
-            }
+        if (txtIDPractica.getText() != null && cbDNIAlumno.getSelectedIndex() != 0 && cbDNIAlumno.getSelectedIndex() != 0
+                && cbDNIAlumno.getSelectedIndex() != 0) {
+            Practicas a = new Practicas();
+            a.setIdPractica(Integer.parseInt(txtIDPractica.getText()));
+            new PracticasDAO().actualizaPracticas(a);
             cargaTabla();
         } else {
-            JOptionPane.showMessageDialog(txtDNIAlumno, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(txtIDPractica, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void btnSubirCVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVActionPerformed
+    private void btnSubirCVISActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVISActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         int resultado = fileChooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivo = fileChooser.getSelectedFile();
             try {
                 byte[] bytesArchivo = convertirArchivoABytes(archivo);
-                bytesCV = bytesArchivo;
-                nombreArchivo.setText(archivo.getName());
-                nombreArchivo.setToolTipText(archivo.getName());
+                bytesIS = bytesArchivo;
+                nombreArchivoIS.setText(archivo.getName());
+                nombreArchivoIS.setToolTipText(archivo.getName());
             } catch (IOException ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error al leer el archivo", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_btnSubirCVActionPerformed
+    }//GEN-LAST:event_btnSubirCVISActionPerformed
 
-    private void btnAsignaturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignaturasActionPerformed
-        JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-        textArea.setFont(new Font("Arial", Font.BOLD, 14));
-        List<Asignaturas> listaAsignaturas = new AsignaturasDAO().obtenListaAsignaturas();
-        for (Asignaturas a : listaAsignaturas) {
-            if (cbCicloAlumno.getSelectedItem().toString().equalsIgnoreCase(a.getCicloFormativo())) {
-                textArea.append("\n" + a.getNombreAsignatura() + " (" + a.getAbreviatura() + ")\n");
+    private void btnSubirCVIFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVIFActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        int resultado = fileChooser.showOpenDialog(this);
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
+            try {
+                byte[] bytesArchivo = convertirArchivoABytes(archivo);
+                bytesIF = bytesArchivo;
+                nombreArchivoIF.setText(archivo.getName());
+                nombreArchivoIF.setToolTipText(archivo.getName());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al leer el archivo", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        JFrame frame = new JFrame("Asignaturas de " + cbCicloAlumno.getSelectedItem().toString());
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.getContentPane().add(new JScrollPane(textArea), BorderLayout.CENTER);
-        frame.setSize(500, 500);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setVisible(true);
-    }//GEN-LAST:event_btnAsignaturasActionPerformed
-
-    private void txtNSSAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNSSAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNSSAlumnoMousePressed
-
-    private void txtAnioAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnioAlumnoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAnioAlumnoActionPerformed
-
-    private void txtAnioAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAnioAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAnioAlumnoMousePressed
-
-    private void txtNombreAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreAlumnoMousePressed
-
-    private void txtDNIAlumnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDNIAlumnoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDNIAlumnoMousePressed
+    }//GEN-LAST:event_btnSubirCVIFActionPerformed
 
     private byte[] convertirArchivoABytes(File archivo) throws IOException {
         byte[] bytesArray = new byte[(int) archivo.length()];
@@ -529,31 +399,29 @@ public class VntPracticas extends javax.swing.JPanel {
         return bytesArray;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TablaAlumnos;
+    private javax.swing.JTable TablaPracticas;
     private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnAsignaturas;
     private javax.swing.JButton btnBorrar;
-    private javax.swing.JButton btnSubirCV;
-    private javax.swing.JComboBox<String> cbCicloAlumno;
-    private javax.swing.JCheckBox checkbValidez;
+    private javax.swing.JButton btnSubirCVIF;
+    private javax.swing.JButton btnSubirCVIS;
+    private javax.swing.JComboBox<Anexos> cbCalendario;
+    private javax.swing.JComboBox<Alumnos> cbDNIAlumno;
+    private javax.swing.JComboBox<Empresas
+    > cbTutorPracticas;
     private javax.swing.JLabel favicon;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableAlumnos;
-    private javax.swing.JLabel nombreArchivo;
+    private javax.swing.JLabel nombreArchivoIF;
+    private javax.swing.JLabel nombreArchivoIS;
     private javax.swing.JLabel title;
     private javax.swing.JLabel title1;
-    private javax.swing.JTextField txtAnioAlumno;
-    private javax.swing.JTextField txtDNIAlumno;
-    private javax.swing.JTextField txtIDAlumno;
-    private javax.swing.JTextField txtNSSAlumno;
-    private javax.swing.JTextField txtNombreAlumno;
+    private javax.swing.JTextField txtIDPractica;
     private javax.swing.JLabel userLabel;
     private javax.swing.JLabel userLabel1;
     private javax.swing.JLabel userLabel2;
-    private javax.swing.JLabel userLabel3;
-    private javax.swing.JLabel userLabel4;
     private javax.swing.JLabel userLabel5;
     private javax.swing.JLabel userLabel6;
+    private javax.swing.JLabel userLabel7;
     // End of variables declaration//GEN-END:variables
 }
