@@ -464,16 +464,22 @@ public class VntNecesidad extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if(txtIDEmpresa.getText() != null && txtCicloNecesidad.getText() != null && 
-                txtDAM.getText() != null && txtDAW.getText() != null && 
-                txtASIR.getText() != null && txtMARK.getText() != null && 
-                txtFIN.getText() != null){
+        if(!txtIDEmpresa.getText().isEmpty() && !txtDAM.getText().isEmpty()
+    && !txtDAW.getText().isEmpty() && !txtASIR.getText().isEmpty() && !txtMARK.getText().isEmpty() && 
+    !txtFIN.getText().isEmpty() && !txtCicloNecesidad.getText().isEmpty()){
             //Set<Anexos> anexosSet = new HashSet<>();
            Empresas empresa = new EmpresasDAO().obtenEmpresaPorID(txtIDEmpresa.getText());
-            Necesidad n = new Necesidad(empresa, txtCicloNecesidad.getText(),
-                    Integer.parseInt(txtDAM.getText()), Integer.parseInt(txtDAW.getText()), Integer.parseInt(txtASIR.getText()), Integer.parseInt(txtMARK.getText()),
-                    Integer.parseInt(txtFIN.getText()), null);
-            new NecesidadDAO().actualizarNecesidad(n);            
+           NecesidadDAO necesidadDAO = new NecesidadDAO();
+           int idNecesidad = Integer.parseInt(txtIDNecesidad.getText());
+           Necesidad n = necesidadDAO.obtenerNecesidadPorId(idNecesidad);
+            n.setEmpresas(empresa);
+            n.setCicloNecesidad(txtCicloNecesidad.getText());
+            n.setDam(Integer.parseInt(txtDAM.getText()));
+            n.setDaw(Integer.parseInt(txtDAW.getText()));
+            n.setAsir(Integer.parseInt(txtASIR.getText()));
+            n.setMark(Integer.parseInt(txtMARK.getText()));
+            n.setFin(Integer.parseInt(txtFIN.getText()));
+            necesidadDAO.actualizarNecesidad(n);            
          cargaTabla();  
         }else{
             JOptionPane.showMessageDialog(this, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);

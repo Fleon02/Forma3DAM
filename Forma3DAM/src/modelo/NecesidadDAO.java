@@ -102,4 +102,23 @@ public class NecesidadDAO {
             sesion.close();
         }    
     }
+    
+    public Necesidad obtenerNecesidadPorId(int id) {
+        Necesidad n = null;
+        Query query;
+    try
+        {
+            iniciaOperacion();
+           query = sesion.createQuery("FROM Necesidad where idNecesidad = :necesidad").setParameter("necesidad", id);
+            n = (Necesidad) query.uniqueResult();
+        } catch (HibernateException he)
+        {
+            manejaExcepcion(he);
+            throw he;
+        } finally
+        {
+            sesion.close();
+        }
+    return n;
+    }
 }

@@ -31,7 +31,8 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
                     e.consume(); // No permite la entrada de caracteres que no sean números
                 }
             }
@@ -40,7 +41,8 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
                     e.consume(); // No permite la entrada de caracteres que no sean números
                 }
             }
@@ -49,7 +51,8 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
                     e.consume(); // No permite la entrada de caracteres que no sean números
                 }
             }
@@ -58,7 +61,8 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
                     e.consume(); // No permite la entrada de caracteres que no sean números
                 }
             }
@@ -67,17 +71,21 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
                     e.consume(); // No permite la entrada de caracteres que no sean números
                 }
             }
-        });        
+        });
         cargaCiclo();
-        
+
     }
-    
-    private void cargaCiclo(){
-        String[] opciones = {"Marzo", "Septiembre"};
+
+    private void cargaCiclo() {
+        String[] opciones =
+        {
+            "Marzo", "Septiembre"
+        };
         cbCiclo.addItem(opciones[0]);
         cbCiclo.addItem(opciones[1]);
     }
@@ -316,17 +324,19 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
     }//GEN-LAST:event_txtASIRMousePressed
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        if (txtIDEmpresa.getText() != null && txtDAM.getText() != null
-            && txtDAW.getText() != null  && txtASIR.getText() != null && txtMARK.getText() != null && 
-                txtFIN.getText() != null && cbCiclo.getSelectedIndex() != 0) {            
+        if (!txtIDEmpresa.getText().isEmpty() && !txtDAM.getText().isEmpty()
+                && !txtDAW.getText().isEmpty() && !txtASIR.getText().isEmpty() && !txtMARK.getText().isEmpty()
+                && !txtFIN.getText().isEmpty() && cbCiclo.getSelectedIndex() != 0)
+        {
             Empresas empresa = new EmpresasDAO().obtenEmpresaPorID(txtIDEmpresa.getText());
-            Necesidad n = new Necesidad(empresa, String.valueOf(cbCiclo.getSelectedItem()), Integer.parseInt(txtDAM.getText()), 
+            Necesidad n = new Necesidad(empresa, String.valueOf(cbCiclo.getSelectedItem()), Integer.parseInt(txtDAM.getText()),
                     Integer.parseInt(txtDAW.getText()), Integer.parseInt(txtASIR.getText()),
                     Integer.parseInt(txtMARK.getText()), Integer.parseInt(txtFIN.getText()));
-                new NecesidadDAO().guardaNecesidad(n);
-        
+            new NecesidadDAO().guardaNecesidad(n);
+            JOptionPane.showMessageDialog(null, "Necesidad Insertada", "Inserccion con Exito", JOptionPane.INFORMATION_MESSAGE);
             //cargaTabla();
-        } else {
+        } else
+        {
             JOptionPane.showMessageDialog(txtIDEmpresa, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnInsertarActionPerformed

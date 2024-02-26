@@ -157,12 +157,12 @@ public class EmpresasDAO {
 
     public Empresas obtenEmpresaPorID(String text) {
         Empresas e = null;
-        int idEmpresa = Integer.parseInt(text);
+        //int idEmpresa = Integer.parseInt(text);
         try {
             iniciaOperacion();
             // Consulta para obtener el nombre de la empresa dado un CIF
-            e= (Empresas) sesion.createQuery("from Empresas where idEmpresa = :idEmpresa")
-                    .setParameter("idEmpresa", idEmpresa)
+            e= (Empresas) sesion.createQuery("from Empresas where cifEmpresa = :cifEmpresa")
+                    .setParameter("cifEmpresa", text)
                     .uniqueResult();
             tx.commit();
         } catch (HibernateException he) {
