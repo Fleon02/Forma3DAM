@@ -78,6 +78,7 @@ public class VntEmpresas extends javax.swing.JPanel {
                         txtOwner.setText(TablaEmpresas.getValueAt(filas, 5) + "");
                         txtTutorPracticas.setText(TablaEmpresas.getValueAt(filas, 6) + "");
                         txtResponsableContratacion.setText(TablaEmpresas.getValueAt(filas, 7) + "");
+                        txtNombreEmpresa.setEditable(true);
                         txtCIFEmpresa.setEditable(true);
                         txtDireccion.setEditable(true);
                         txtTelefono.setEditable(true);

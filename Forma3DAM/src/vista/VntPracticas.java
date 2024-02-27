@@ -1,10 +1,6 @@
 package vista;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Font;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,24 +8,18 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import modelo.AlumnosDAO;
 import modelo.AnexosDAO;
-import modelo.PracticasDAO;
-import modelo.AsignaturasDAO;
 import modelo.EmpresasDAO;
 import modelo.PracticasDAO;
 import pojos.Alumnos;
 import pojos.Anexos;
 import pojos.Practicas;
-import pojos.Asignaturas;
 import pojos.Empresas;
 
 public class VntPracticas extends javax.swing.JPanel {
@@ -40,6 +30,7 @@ public class VntPracticas extends javax.swing.JPanel {
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
         "ID",
         "DNI Alumno",
+        "CIF Empresa",
         "Tutor Practicas",
         "Calendario",
         "Informe Seguimiento",
@@ -69,6 +60,7 @@ public class VntPracticas extends javax.swing.JPanel {
                         dtm.addRow(new Object[]{
                             a.getIdPractica(),
                             al.getDniAlumno(),
+                            e.getCifEmpresa(),
                             e.getTutorPracticas(),
                             an.getCalendario(),
                             "Subido",
@@ -77,6 +69,7 @@ public class VntPracticas extends javax.swing.JPanel {
                         dtm.addRow(new Object[]{
                             a.getIdPractica(),
                             al.getDniAlumno(),
+                            e.getCifEmpresa(),
                             e.getTutorPracticas(),
                             an.getCalendario(),
                             "Subido",
@@ -87,6 +80,7 @@ public class VntPracticas extends javax.swing.JPanel {
                         dtm.addRow(new Object[]{
                             a.getIdPractica(),
                             al.getDniAlumno(),
+                            e.getCifEmpresa(),
                             e.getTutorPracticas(),
                             an.getCalendario(),
                             "No Subido",
@@ -95,6 +89,7 @@ public class VntPracticas extends javax.swing.JPanel {
                         dtm.addRow(new Object[]{
                             a.getIdPractica(),
                             al.getDniAlumno(),
+                            e.getCifEmpresa(),
                             e.getTutorPracticas(),
                             an.getCalendario(),
                             "No Subido",
@@ -335,7 +330,7 @@ public class VntPracticas extends javax.swing.JPanel {
         btnSubirCVIS.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCVIS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIS.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirCVIS.setText("Subir CV");
+        btnSubirCVIS.setText("Subir I. S.");
         btnSubirCVIS.setEnabled(false);
         btnSubirCVIS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -355,7 +350,7 @@ public class VntPracticas extends javax.swing.JPanel {
         btnSubirCVIF.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCVIF.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIF.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirCVIF.setText("Subir CV");
+        btnSubirCVIF.setText("Subir I. F.");
         btnSubirCVIF.setEnabled(false);
         btnSubirCVIF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -371,7 +366,7 @@ public class VntPracticas extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(681, Short.MAX_VALUE)
+                .addContainerGap(680, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -382,33 +377,33 @@ public class VntPracticas extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnSubirCVIS))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbTutorPracticas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(userLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(userLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                                .addGap(12, 12, 12)
+                                .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cbDNIAlumno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtIDPractica)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbCalendario, 0, 230, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbTutorPracticas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbCalendario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(nombreArchivoIF, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnSubirCVIF))))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 25, Short.MAX_VALUE)
