@@ -1,5 +1,5 @@
 package pojos;
-// Generated 26-feb-2024 17:26:47 by Hibernate Tools 4.3.1
+// Generated 27-feb-2024 2:36:57 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +17,6 @@ public class Alumnos implements java.io.Serializable {
     private Boolean validez;
     private String cicloAlumno;
     private byte[] cv;
-    private Set anexoses = new HashSet(0);
     private Set bolsas = new HashSet(0);
     private Set alumnosAsignaturases = new HashSet(0);
     private Set practicases = new HashSet(0);
@@ -39,7 +38,7 @@ public class Alumnos implements java.io.Serializable {
         this.cv = cv;
     }
 
-    public Alumnos(String dniAlumno, String nombreAlumno, Integer yearCurso, Integer segSocialAlumno, Boolean validez, String cicloAlumno, byte[] cv, Set anexoses, Set bolsas, Set alumnosAsignaturases, Set practicases) {
+    public Alumnos(String dniAlumno, String nombreAlumno, Integer yearCurso, Integer segSocialAlumno, Boolean validez, String cicloAlumno, byte[] cv, Set bolsas, Set alumnosAsignaturases, Set practicases) {
         this.dniAlumno = dniAlumno;
         this.nombreAlumno = nombreAlumno;
         this.yearCurso = yearCurso;
@@ -47,7 +46,6 @@ public class Alumnos implements java.io.Serializable {
         this.validez = validez;
         this.cicloAlumno = cicloAlumno;
         this.cv = cv;
-        this.anexoses = anexoses;
         this.bolsas = bolsas;
         this.alumnosAsignaturases = alumnosAsignaturases;
         this.practicases = practicases;
@@ -115,14 +113,6 @@ public class Alumnos implements java.io.Serializable {
 
     public void setCv(byte[] cv) {
         this.cv = cv;
-    }
-
-    public Set getAnexoses() {
-        return this.anexoses;
-    }
-
-    public void setAnexoses(Set anexoses) {
-        this.anexoses = anexoses;
     }
 
     public Set getBolsas() {

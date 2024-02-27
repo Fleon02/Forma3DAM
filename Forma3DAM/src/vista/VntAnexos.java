@@ -1,0 +1,479 @@
+package vista;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import modelo.AnexosDAO;
+import modelo.EmpresasDAO;
+import pojos.Anexos;
+import pojos.Empresas;
+
+public class VntAnexos extends javax.swing.JPanel {
+
+    private byte[] bytes2_1;
+    private byte[] bytes2_2;
+    private byte[] bytes3;
+    private byte[] bytes4;
+    private byte[] bytes8;
+
+    DefaultTableModel dtm = new DefaultTableModel(new Object[]{
+        "ID",
+        "FechaInicio",
+        "FechaFin",
+        "IDNecesidad",
+        "Tutor",
+        "Contratacion",
+        "Anexo2.1",
+        "Anexo2.2",
+        "Anexo3",
+        "Anexo4",
+        "Anexo8",}, 0);
+
+    public VntAnexos() {
+        initComponents();
+
+        TablaEmpresas.setDefaultEditor(Object.class, null);
+        cargaTabla();
+        cargaEmpresa();
+    }
+
+    public void cargaTabla() {
+        dtm.setRowCount(0);
+        List<Anexos> listaAnexos = new AnexosDAO().obtenListaAnexos();
+        for (Anexos a : listaAnexos) {
+            if (a.getIdAnexo() > 0) {
+                String estadoAnexo2_1 = (a.getAnexoDosUno()!= null && a.getAnexoDosUno().length > 0) ? "Subido" : "No Subido";
+                String estadoAnexo2_2 = (a.getAnexoDosDos()!= null && a.getAnexoDosDos().length > 0) ? "Subido" : "No Subido";
+                String estadoAnexo3 = (a.getAnexoTres()!= null && a.getAnexoTres().length > 0) ? "Subido" : "No Subido";
+                String estadoAnexo4 = (a.getAnexoCuatro()!= null && a.getAnexoCuatro().length > 0) ? "Subido" : "No Subido";
+                String estadoAnexo8 = (a.getAnexoOcho()!= null && a.getAnexoOcho().length > 0) ? "Subido" : "No Subido";
+                dtm.addRow(new Object[]{
+                    a.getIdAnexo(),
+                    a.getFechaInicio(),
+                    a.getFechaFin(),
+                    a.getNecesidad().getIdNecesidad(),
+                    a.getEmpresas().getTutorPracticas(),
+                    a.getContratacion(),
+                    a.getCalendario(),
+                    estadoAnexo2_1,
+                    estadoAnexo2_2,
+                    estadoAnexo3,
+                    estadoAnexo4,
+                    estadoAnexo8,});
+            }
+
+        }
+    }
+
+    public void cargaEmpresa() {
+
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableAlumnos = new javax.swing.JTable();
+        favicon = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TablaEmpresas = new javax.swing.JTable();
+        btnBorrar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        title1 = new javax.swing.JLabel();
+        userLabel6 = new javax.swing.JLabel();
+        nombreArchivo3 = new javax.swing.JLabel();
+        btnSubirA3 = new javax.swing.JButton();
+        userLabel7 = new javax.swing.JLabel();
+        nombreArchivo4 = new javax.swing.JLabel();
+        btnSubirA4 = new javax.swing.JButton();
+        userLabel9 = new javax.swing.JLabel();
+        nombreArchivo2_2 = new javax.swing.JLabel();
+        btnSubirA2_2 = new javax.swing.JButton();
+        btnSubirA2_1 = new javax.swing.JButton();
+        nombreArchivo2_1 = new javax.swing.JLabel();
+        userLabel5 = new javax.swing.JLabel();
+        nombreArchivo8 = new javax.swing.JLabel();
+        btnSubirA8 = new javax.swing.JButton();
+        userLabel8 = new javax.swing.JLabel();
+        ckbContratacion = new javax.swing.JCheckBox();
+
+        jTableAlumnos.setModel(dtm);
+        jScrollPane1.setViewportView(jTableAlumnos);
+
+        setAlignmentX(0.0F);
+
+        favicon.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
+        favicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoF.png"))); // NOI18N
+
+        title.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("Actualizar/Borrar");
+
+        TablaEmpresas.setModel(dtm);
+        jScrollPane2.setViewportView(TablaEmpresas);
+
+        btnBorrar.setBackground(new java.awt.Color(18, 30, 49));
+        btnBorrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnBorrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBorrar.setText("Borrar");
+        btnBorrar.setEnabled(false);
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setBackground(new java.awt.Color(18, 30, 49));
+        btnActualizar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setText("Actualizar");
+        btnActualizar.setEnabled(false);
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        title1.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
+        title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title1.setText("Anexos");
+
+        userLabel6.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel6.setText("Anexo 3");
+
+        nombreArchivo3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        nombreArchivo3.setText("Archivo");
+
+        btnSubirA3.setBackground(new java.awt.Color(18, 30, 49));
+        btnSubirA3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnSubirA3.setForeground(new java.awt.Color(255, 255, 255));
+        btnSubirA3.setText("Subir CV");
+        btnSubirA3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubirA3ActionPerformed(evt);
+            }
+        });
+
+        userLabel7.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel7.setText("Anexo 4");
+
+        nombreArchivo4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        nombreArchivo4.setText("Archivo");
+
+        btnSubirA4.setBackground(new java.awt.Color(18, 30, 49));
+        btnSubirA4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnSubirA4.setForeground(new java.awt.Color(255, 255, 255));
+        btnSubirA4.setText("Subir CV");
+        btnSubirA4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubirA4ActionPerformed(evt);
+            }
+        });
+
+        userLabel9.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel9.setText("Anexo 2.2");
+
+        nombreArchivo2_2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        nombreArchivo2_2.setText("Archivo");
+
+        btnSubirA2_2.setBackground(new java.awt.Color(18, 30, 49));
+        btnSubirA2_2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnSubirA2_2.setForeground(new java.awt.Color(255, 255, 255));
+        btnSubirA2_2.setText("Subir CV");
+        btnSubirA2_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubirA2_2ActionPerformed(evt);
+            }
+        });
+
+        btnSubirA2_1.setBackground(new java.awt.Color(18, 30, 49));
+        btnSubirA2_1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnSubirA2_1.setForeground(new java.awt.Color(255, 255, 255));
+        btnSubirA2_1.setText("Subir CV");
+        btnSubirA2_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubirA2_1ActionPerformed(evt);
+            }
+        });
+
+        nombreArchivo2_1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        nombreArchivo2_1.setText("Archivo");
+
+        userLabel5.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel5.setText("Anexo 2.1");
+
+        nombreArchivo8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        nombreArchivo8.setText("Archivo");
+
+        btnSubirA8.setBackground(new java.awt.Color(18, 30, 49));
+        btnSubirA8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnSubirA8.setForeground(new java.awt.Color(255, 255, 255));
+        btnSubirA8.setText("Subir CV");
+        btnSubirA8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubirA8ActionPerformed(evt);
+            }
+        });
+
+        userLabel8.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel8.setText("Anexo 8");
+
+        ckbContratacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ckbContratacion.setText("Contratacion");
+        ckbContratacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckbContratacionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(436, 436, 436)
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1053, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(520, 520, 520)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(nombreArchivo2_1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnSubirA2_1))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(userLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(nombreArchivo2_2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnSubirA2_2))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(userLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(nombreArchivo8, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnSubirA8))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nombreArchivo4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSubirA4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nombreArchivo3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSubirA3))
+                            .addComponent(ckbContratacion))))
+                .addContainerGap(25, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(40, 65, Short.MAX_VALUE)
+                    .addComponent(favicon, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(80, 80, 80)
+                    .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 615, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombreArchivo3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSubirA3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombreArchivo4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSubirA4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(userLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombreArchivo2_2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSubirA2_2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombreArchivo2_1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSubirA2_1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreArchivo8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSubirA8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(ckbContratacion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 24, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(favicon, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(0, 516, Short.MAX_VALUE)))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnSubirA3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA3ActionPerformed
+        subirArchivo("anexo3");
+    }//GEN-LAST:event_btnSubirA3ActionPerformed
+
+    private void btnSubirA4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA4ActionPerformed
+        subirArchivo("anexo4");
+    }//GEN-LAST:event_btnSubirA4ActionPerformed
+
+    private void btnSubirA2_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA2_2ActionPerformed
+        subirArchivo("anexo2_2");
+    }//GEN-LAST:event_btnSubirA2_2ActionPerformed
+
+    private void btnSubirA2_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA2_1ActionPerformed
+        subirArchivo("anexo2_1");
+    }//GEN-LAST:event_btnSubirA2_1ActionPerformed
+
+    private void btnSubirA8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA8ActionPerformed
+        subirArchivo("anexo8");
+    }//GEN-LAST:event_btnSubirA8ActionPerformed
+
+    private void ckbContratacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbContratacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ckbContratacionActionPerformed
+
+    private void subirArchivo(String tipoAnexo) {
+        JFileChooser fileChooser = new JFileChooser();
+        int resultado = fileChooser.showOpenDialog(this);
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
+            try {
+                byte[] bytesArchivo = convertirArchivoABytes(archivo);
+                // Asignar los bytes al campo correspondiente según el tipo de anexo
+                switch (tipoAnexo) {
+                    case "anexo2_1":
+                        bytes2_1 = bytesArchivo;
+                        break;
+                    case "anexo2_2":
+                        bytes2_2 = bytesArchivo;
+                        break;
+                    case "anexo3":
+                        bytes3 = bytesArchivo;
+                        break;
+                    case "anexo4":
+                        bytes4 = bytesArchivo;
+                        break;
+                    case "anexo8":
+                        bytes8 = bytesArchivo;
+                        break;
+                    default:
+                        break;
+                }
+                // Actualizar el nombre del archivo en la interfaz gráfica
+                actualizarNombreArchivo(tipoAnexo, archivo.getName());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al leer el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void actualizarNombreArchivo(String tipoAnexo, String nombreArchivo) {
+        switch (tipoAnexo) {
+            case "anexo2_1":
+                nombreArchivo2_1.setText(nombreArchivo);
+                break;
+            case "anexo2_2":
+                nombreArchivo2_2.setText(nombreArchivo);
+                break;
+            case "anexo3":
+                nombreArchivo3.setText(nombreArchivo);
+                break;
+            case "anexo4":
+                nombreArchivo4.setText(nombreArchivo);
+                break;
+            case "anexo8":
+                nombreArchivo8.setText(nombreArchivo);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private byte[] convertirArchivoABytes(File archivo) throws IOException {
+        byte[] bytesArray = new byte[(int) archivo.length()];
+        FileInputStream fis = new FileInputStream(archivo);
+        fis.read(bytesArray);
+        fis.close();
+        return bytesArray;
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TablaEmpresas;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnSubirA2_1;
+    private javax.swing.JButton btnSubirA2_2;
+    private javax.swing.JButton btnSubirA3;
+    private javax.swing.JButton btnSubirA4;
+    private javax.swing.JButton btnSubirA8;
+    private javax.swing.JCheckBox ckbContratacion;
+    private javax.swing.JLabel favicon;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableAlumnos;
+    private javax.swing.JLabel nombreArchivo2_1;
+    private javax.swing.JLabel nombreArchivo2_2;
+    private javax.swing.JLabel nombreArchivo3;
+    private javax.swing.JLabel nombreArchivo4;
+    private javax.swing.JLabel nombreArchivo8;
+    private javax.swing.JLabel title;
+    private javax.swing.JLabel title1;
+    private javax.swing.JLabel userLabel5;
+    private javax.swing.JLabel userLabel6;
+    private javax.swing.JLabel userLabel7;
+    private javax.swing.JLabel userLabel8;
+    private javax.swing.JLabel userLabel9;
+    // End of variables declaration//GEN-END:variables
+}
