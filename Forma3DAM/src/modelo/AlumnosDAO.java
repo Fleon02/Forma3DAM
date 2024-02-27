@@ -72,6 +72,20 @@ public class AlumnosDAO {
         }
     }
 
+    public Alumnos obtenAlumnos(int id) {
+        Alumnos p = null;
+        try {
+            iniciaOperacion();
+            p = (Alumnos) sesion.get(Alumnos.class, id);
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return p;
+    }
+
     public void actualizaAlumnos(Alumnos a) {
         try {
             iniciaOperacion();

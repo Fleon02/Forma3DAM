@@ -61,23 +61,47 @@ public class VntPracticas extends javax.swing.JPanel {
         List<Practicas> listaPracticas = new PracticasDAO().obtenListaPracticas();
         for (Practicas a : listaPracticas) {
             if (a.getIdPractica() > 0) {
+                Alumnos al = new AlumnosDAO().obtenAlumnos(a.getAlumnos().getIdAlumno());
+                Empresas e = new EmpresasDAO().obtenEmpresas(a.getEmpresas().getIdEmpresa());
+                Anexos an = new AnexosDAO().obtenAnexos(a.getAnexos().getIdAnexo());
                 if (a.getInformeSeguimiento() != null) {
-                    dtm.addRow(new Object[]{
-                        a.getIdPractica(),
-                        a.getAlumnos().getDniAlumno(),
-                        a.getEmpresas().getTutorPracticas(),
-                        a.getAnexos().getCalendario(),
-                        "Subido",});
+                    if (a.getInformeFinal() != null) {
+                        dtm.addRow(new Object[]{
+                            a.getIdPractica(),
+                            al.getDniAlumno(),
+                            e.getTutorPracticas(),
+                            an.getCalendario(),
+                            "Subido",
+                            "Subido",});
+                    } else {
+                        dtm.addRow(new Object[]{
+                            a.getIdPractica(),
+                            al.getDniAlumno(),
+                            e.getTutorPracticas(),
+                            an.getCalendario(),
+                            "Subido",
+                            "No Subido",});
+                    }
                 } else {
-                    dtm.addRow(new Object[]{
-                        a.getIdPractica(),
-                        a.getAlumnos().getDniAlumno(),
-                        a.getEmpresas().getTutorPracticas(),
-                        a.getAnexos().getCalendario(),
-                        "No Subido",});
+                    if (a.getInformeFinal() != null) {
+                        dtm.addRow(new Object[]{
+                            a.getIdPractica(),
+                            al.getDniAlumno(),
+                            e.getTutorPracticas(),
+                            an.getCalendario(),
+                            "No Subido",
+                            "Subido",});
+                    } else {
+                        dtm.addRow(new Object[]{
+                            a.getIdPractica(),
+                            al.getDniAlumno(),
+                            e.getTutorPracticas(),
+                            an.getCalendario(),
+                            "No Subido",
+                            "No Subido",});
+                    }
                 }
             }
-
         }
     }
 
