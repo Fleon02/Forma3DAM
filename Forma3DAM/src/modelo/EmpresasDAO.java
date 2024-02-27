@@ -58,6 +58,20 @@ public class EmpresasDAO {
         return id;
     }
 
+    public Empresas obtenEmpresas(int id) {
+        Empresas p = null;
+        try {
+            iniciaOperacion();
+            p = (Empresas) sesion.get(Empresas.class, id);
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return p;
+    }
+
     public void actualizaEmpresas(Empresas a) {
         try {
             iniciaOperacion();
@@ -212,5 +226,6 @@ public class EmpresasDAO {
         }
         return e;
     }
+
 
 }

@@ -27,6 +27,20 @@ public class AnexosDAO {
         throw new HibernateException("Error en la capa de acceso a datos", he);
     }
 
+    public Anexos obtenAnexos(int id) {
+        Anexos p = null;
+        try {
+            iniciaOperacion();
+            p = (Anexos) sesion.get(Anexos.class, id);
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return p;
+    }
+
     public List<Anexos> obtenerAnexos() throws HibernateException {
         List<Anexos> listaAnexos = null;
         try {
