@@ -1,5 +1,6 @@
 package vista;
 
+import com.toedter.calendar.JDateChooser;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,19 +9,29 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import modelo.AlumnosDAO;
+import modelo.AnexosDAO;
 import modelo.ConvenioDAO;
 import modelo.EmpresasDAO;
 import org.hibernate.HibernateException;
 import pojos.Alumnos;
+import pojos.Anexos;
 import pojos.Convenio;
 import pojos.Empresas;
+import pojos.Necesidad;
 
 public class VntInsertaAnexo extends javax.swing.JPanel {
 
@@ -33,23 +44,17 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
     public VntInsertaAnexo() {
         initComponents();
         cargarCIFEmpresas();
+        cargarIDNecesidad();
         btnInsertar.setEnabled(false);
-        txtNEmpresa.setEditable(false);
-        cmbEmpresas.addActionListener(new ActionListener() {
+        cmbEmpresa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (cmbEmpresas.getSelectedIndex() == 0) {
+                if (cmbEmpresa.getSelectedIndex() == 0) {
                     // Si se selecciona el primer elemento, desactivar el botón Insertar
                     btnInsertar.setEnabled(false);
-                    txtNEmpresa.setText("");
                 } else {
                     // Si se selecciona otro elemento, activar el botón Insertar
                     btnInsertar.setEnabled(true);
-                    // Obtener el objeto Empresas seleccionado
-                    Empresas empresa = (Empresas) cmbEmpresas.getSelectedItem();
-                    if (empresa != null) {
-                        txtNEmpresa.setText(empresa.getNombreEmpresa());
-                    }
                 }
             }
         });
@@ -63,8 +68,20 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
         for (Empresas empresa : listaEmpresas) {
             model.addElement(empresa);
         }
-        cmbEmpresas.setModel(model);
-        cmbEmpresas.setRenderer(new EmpresasComboBoxRenderer());
+        cmbEmpresa.setModel(model);
+        cmbEmpresa.setRenderer(new EmpresasComboBoxRenderer());
+    }
+
+    private void cargarIDNecesidad() {
+        AnexosDAO ad = new AnexosDAO();
+        List<Necesidad> listaNecesidad = ad.obtenListaNecesidad();
+        DefaultComboBoxModel<Necesidad> model = new DefaultComboBoxModel<>();
+        model.addElement(new Necesidad(null)); // Opción por defecto
+        for (Necesidad n : listaNecesidad) {
+            model.addElement(n);
+        }
+        cmbNecesidad.setModel(model);
+        cmbNecesidad.setRenderer(new NecesidadComboBoxRenderer());
     }
 
     @SuppressWarnings("unchecked")
@@ -73,20 +90,14 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
 
         favicon = new javax.swing.JLabel();
         userLabel = new javax.swing.JLabel();
-        txtNumConvenio = new javax.swing.JTextField();
         userLabel1 = new javax.swing.JLabel();
-        txtNEmpresa = new javax.swing.JTextField();
         userLabel2 = new javax.swing.JLabel();
-        userLabel4 = new javax.swing.JLabel();
         userLabel5 = new javax.swing.JLabel();
         btnSubirA2_1 = new javax.swing.JButton();
         btnInsertar = new javax.swing.JButton();
         nombreArchivo2_1 = new javax.swing.JLabel();
-        cmbEmpresas = new javax.swing.JComboBox<>();
-        txtResponsable = new javax.swing.JTextField();
-        userLabel3 = new javax.swing.JLabel();
-        cmbAlumnos = new javax.swing.JComboBox<>();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        cmbEmpresa = new javax.swing.JComboBox<>();
+        ckbContratacion = new javax.swing.JCheckBox();
         userLabel6 = new javax.swing.JLabel();
         nombreArchivo3 = new javax.swing.JLabel();
         btnSubirA3 = new javax.swing.JButton();
@@ -99,6 +110,11 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
         userLabel9 = new javax.swing.JLabel();
         nombreArchivo2_2 = new javax.swing.JLabel();
         btnSubirA2_2 = new javax.swing.JButton();
+        fechaInicio = new com.toedter.calendar.JDateChooser();
+        fechaFin = new com.toedter.calendar.JDateChooser();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        cmbNecesidad = new javax.swing.JComboBox<>();
+        userLabel3 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1078, 608));
 
@@ -108,39 +124,11 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
         userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel.setText("FechaInicio");
 
-        txtNumConvenio.setBackground(new java.awt.Color(0, 0, 0));
-        txtNumConvenio.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtNumConvenio.setForeground(new java.awt.Color(255, 255, 255));
-        txtNumConvenio.setBorder(null);
-        txtNumConvenio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtNumConvenioMousePressed(evt);
-            }
-        });
-
         userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel1.setText("TutorPracticas");
-
-        txtNEmpresa.setBackground(new java.awt.Color(0, 0, 0));
-        txtNEmpresa.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtNEmpresa.setForeground(new java.awt.Color(255, 255, 255));
-        txtNEmpresa.setBorder(null);
-        txtNEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtNEmpresaMousePressed(evt);
-            }
-        });
-        txtNEmpresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNEmpresaActionPerformed(evt);
-            }
-        });
+        userLabel1.setText("Necesidad");
 
         userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel2.setText("FechaFin");
-
-        userLabel4.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel4.setText("Nombre Empresa");
 
         userLabel5.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel5.setText("Anexo 2.1");
@@ -168,30 +156,14 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
         nombreArchivo2_1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         nombreArchivo2_1.setText("Archivo");
 
-        cmbEmpresas.setBackground(new java.awt.Color(0, 0, 0));
-        cmbEmpresas.setForeground(new java.awt.Color(255, 255, 255));
+        cmbEmpresa.setBackground(new java.awt.Color(0, 0, 0));
+        cmbEmpresa.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtResponsable.setBackground(new java.awt.Color(0, 0, 0));
-        txtResponsable.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtResponsable.setForeground(new java.awt.Color(255, 255, 255));
-        txtResponsable.setBorder(null);
-        txtResponsable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtResponsableMousePressed(evt);
-            }
-        });
-
-        userLabel3.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel3.setText("Alumno");
-
-        cmbAlumnos.setBackground(new java.awt.Color(0, 0, 0));
-        cmbAlumnos.setForeground(new java.awt.Color(255, 255, 255));
-
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jCheckBox1.setText("Contratacion");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        ckbContratacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ckbContratacion.setText("Contratacion");
+        ckbContratacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                ckbContratacionActionPerformed(evt);
             }
         });
 
@@ -259,13 +231,66 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
             }
         });
 
+        cmbNecesidad.setBackground(new java.awt.Color(0, 0, 0));
+        cmbNecesidad.setForeground(new java.awt.Color(255, 255, 255));
+
+        userLabel3.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel3.setText("TutorPracticas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(73, Short.MAX_VALUE)
+                .addContainerGap(67, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(175, 175, 175)
+                                .addComponent(favicon))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(58, 58, 58)
+                                        .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(userLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(nombreArchivo8, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnSubirA8))
+                                    .addComponent(cmbEmpresa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(userLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(129, 129, 129)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ckbContratacion)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(nombreArchivo2_1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnSubirA2_1))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(userLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(nombreArchivo2_2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnSubirA2_2))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cmbNecesidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                        .addGap(0, 96, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -280,56 +305,7 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
                                 .addComponent(nombreArchivo3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnSubirA3)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(userLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(nombreArchivo8, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSubirA8))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(175, 175, 175)
-                                .addComponent(favicon))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(userLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(42, 42, 42)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtNumConvenio, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(2, 2, 2))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cmbEmpresas, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cmbAlumnos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(129, 129, 129)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jCheckBox1)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtNEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(nombreArchivo2_1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(btnSubirA2_1))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(userLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(nombreArchivo2_2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(btnSubirA2_2))))))
-                        .addGap(0, 103, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,30 +314,28 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(favicon, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNumConvenio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbEmpresas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(userLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30))
+                        .addGap(26, 26, 26)
+                        .addComponent(favicon, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
-                        .addGap(18, 18, 18)))
+                        .addContainerGap()
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbNecesidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -389,27 +363,61 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
                             .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(nombreArchivo2_1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSubirA2_1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ckbContratacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNumConvenioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNumConvenioMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNumConvenioMousePressed
-
-    private void txtNEmpresaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNEmpresaMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNEmpresaMousePressed
-
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
+        AnexosDAO ad = new AnexosDAO();
+        EmpresasDAO ed = new EmpresasDAO();
         byte[] anexoDosUnoConvenio = bytes2_1; // Obtener los bytes del anexo 2.1
         byte[] anexoDosDosConvenio = bytes2_2; // Obtener los bytes del anexo 2.2
         byte[] anexoTresConvenio = bytes3;   // Obtener los bytes del anexo 3
         byte[] anexoCuatroConvenio = bytes4; // Obtener los bytes del anexo 4
         byte[] anexoOchoConvenio = bytes8;   // Obtener los bytes del anexo 8
 
+        Date fechaDate = fechaInicio.getDate();
+        Date fechaFinDate = fechaFin.getDate();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd MMMM yyyy");
+
+        String fechaFormateada = formatoFecha.format(fechaDate);
+        String fechaFinFormateada = formatoFecha.format(fechaFinDate);
+
+        SimpleDateFormat formatoMes = new SimpleDateFormat("MMMM", new Locale("es", "ES"));
+
+        String calendario = formatoMes.format(fechaDate); // Obtener el nombre del mes
+
+        boolean contratacion = ckbContratacion.isSelected();
+        
+        Empresas e = new Empresas();
+        
+        e = (Empresas)cmbEmpresa.getSelectedItem();
+        
+        Necesidad n = new Necesidad();
+        
+        n = (Necesidad) cmbNecesidad.getSelectedItem();
+        
+        Anexos a = new Anexos();
+        
+        a.setEmpresas(e);
+        a.setNecesidad(n);
+        a.setFechaInicio(fechaFormateada);
+        a.setFechaFin(fechaFinFormateada);
+        a.setContratacion(contratacion);
+        a.setCalendario(calendario);
+        a.setAnexoDosUno(anexoDosUnoConvenio);
+        a.setAnexoDosDos(anexoDosDosConvenio);
+        a.setAnexoTres(anexoTresConvenio);
+        a.setAnexoCuatro(anexoCuatroConvenio);
+        a.setAnexoOcho(anexoOchoConvenio);
+
+        System.out.println("Objeto Anexos creado: " + a.toString());
+        
+        ad.guardaAnexo(a);
 
     }//GEN-LAST:event_btnInsertarActionPerformed
 
@@ -417,17 +425,9 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
         subirArchivo("anexo2_1");
     }//GEN-LAST:event_btnSubirA2_1ActionPerformed
 
-    private void txtResponsableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtResponsableMousePressed
+    private void ckbContratacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbContratacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtResponsableMousePressed
-
-    private void txtNEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNEmpresaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNEmpresaActionPerformed
-
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_ckbContratacionActionPerformed
 
     private void btnSubirA3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA3ActionPerformed
         subirArchivo("anexo3");
@@ -445,7 +445,7 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
         subirArchivo("anexo2_2");
     }//GEN-LAST:event_btnSubirA2_2ActionPerformed
 
-   private void subirArchivo(String tipoAnexo) {
+    private void subirArchivo(String tipoAnexo) {
         JFileChooser fileChooser = new JFileChooser();
         int resultado = fileChooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
@@ -511,7 +511,6 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
         return bytesArray;
     }
 
-    // Clase EmpresasComboBoxRenderer como clase interna estática
 // Clase EmpresasComboBoxRenderer como clase interna estática
     private static class EmpresasComboBoxRenderer extends DefaultListCellRenderer {
 
@@ -523,7 +522,25 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
                 if (empresa.getCifEmpresa() == null) {
                     setText("Seleccione un CIF Empresa");
                 } else {
-                    setText(empresa.getIdEmpresa() + " -  " + empresa.getCifEmpresa());
+                    setText(empresa.getNombreEmpresa() + " -  " + empresa.getTutorPracticas());
+                }
+            }
+            return this;
+        }
+    }
+
+    // Clase EmpresasComboBoxRenderer como clase interna estática
+    private static class NecesidadComboBoxRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof Necesidad) {
+                Necesidad Necesidad = (Necesidad) value;
+                if (Necesidad.getIdNecesidad() == null) {
+                    setText("Seleccione un ID Necesidad");
+                } else {
+                    setText(Necesidad.getIdNecesidad() + "");
                 }
             }
             return this;
@@ -537,25 +554,23 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
     private javax.swing.JButton btnSubirA3;
     private javax.swing.JButton btnSubirA4;
     private javax.swing.JButton btnSubirA8;
+    private javax.swing.JCheckBox ckbContratacion;
     private javax.swing.JComboBox<Empresas
-    > cmbAlumnos;
-    private javax.swing.JComboBox<Empresas
-    > cmbEmpresas;
+    > cmbEmpresa;
+    private javax.swing.JComboBox<Necesidad> cmbNecesidad;
     private javax.swing.JLabel favicon;
-    private javax.swing.JCheckBox jCheckBox1;
+    private com.toedter.calendar.JDateChooser fechaFin;
+    private com.toedter.calendar.JDateChooser fechaInicio;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel nombreArchivo2_1;
     private javax.swing.JLabel nombreArchivo2_2;
     private javax.swing.JLabel nombreArchivo3;
     private javax.swing.JLabel nombreArchivo4;
     private javax.swing.JLabel nombreArchivo8;
-    private javax.swing.JTextField txtNEmpresa;
-    private javax.swing.JTextField txtNumConvenio;
-    private javax.swing.JTextField txtResponsable;
     private javax.swing.JLabel userLabel;
     private javax.swing.JLabel userLabel1;
     private javax.swing.JLabel userLabel2;
     private javax.swing.JLabel userLabel3;
-    private javax.swing.JLabel userLabel4;
     private javax.swing.JLabel userLabel5;
     private javax.swing.JLabel userLabel6;
     private javax.swing.JLabel userLabel7;

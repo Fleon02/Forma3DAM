@@ -9,14 +9,17 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.Anexos;
+import pojos.Necesidad;
 
 public class AnexosDAO {
 
     private Session sesion;
+    private Transaction tx;
 
     private void iniciaOperacion() throws HibernateException {
         Logger.getLogger("org.hibernate").setLevel(Level.OFF);
         sesion = HibernateUtil.getSessionFactory().openSession();
+        tx = sesion.beginTransaction();
     }
 
     private void manejaExcepcion(HibernateException he) throws HibernateException {
@@ -61,4 +64,54 @@ public class AnexosDAO {
             }
         }
     }
+
+    public List<Necesidad> obtenListaNecesidad() {
+
+        List<Necesidad> listaNecesidad = null;
+        try {
+            iniciaOperacion();
+            listaNecesidad = sesion.createQuery("from Necesidad").list();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            // Cerrar la sesión aquí solo si no se produce una excepción
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
+        }
+        return listaNecesidad;
+
+    }
+
+    public void guardaAnexo(Anexos a) {
+        try {
+            iniciaOperacion();
+            sesion.save(a);
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+    }
+
+    public List<Anexos> obtenListaAnexos() {
+        List<Anexos> listaAnexos = null;
+        try {
+            iniciaOperacion();
+            Query query = sesion.createQuery("FROM Anexos a JOIN FETCH a.empresas JOIN FETCH a.necesidad");
+            listaAnexos = query.list();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
+        }
+        return listaAnexos;
+    }
+
 }

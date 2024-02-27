@@ -65,7 +65,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         dtm.setRowCount(0);
         List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
         for (Alumnos a : listaAlumnos) {
-            if (a.getIdAlumno() != -1) {
+            if (a.getIdAlumno() >0) {
                 if (a.getCv() != null) {
                     dtm.addRow(new Object[]{
                         a.getIdAlumno(),
