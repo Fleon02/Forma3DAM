@@ -1,5 +1,5 @@
 package pojos;
-// Generated 27-feb-2024 2:36:57 by Hibernate Tools 4.3.1
+// Generated 27-feb-2024 19:04:12 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +20,7 @@ public class Empresas implements java.io.Serializable {
     private Set practicases = new HashSet(0);
     private Set necesidads = new HashSet(0);
     private Set anexoses = new HashSet(0);
+    private Set bolsas = new HashSet(0);
     private Set convenios = new HashSet(0);
 
     public Empresas() {
@@ -39,7 +40,7 @@ public class Empresas implements java.io.Serializable {
         this.responsableContratacion = responsableContratacion;
     }
 
-    public Empresas(String nombreEmpresa, String cifEmpresa, String direccion, String telefono, String owner, String tutorPracticas, String responsableContratacion, Set practicases, Set necesidads, Set anexoses, Set convenios) {
+    public Empresas(String nombreEmpresa, String cifEmpresa, String direccion, String telefono, String owner, String tutorPracticas, String responsableContratacion, Set practicases, Set necesidads, Set anexoses, Set bolsas, Set convenios) {
         this.nombreEmpresa = nombreEmpresa;
         this.cifEmpresa = cifEmpresa;
         this.direccion = direccion;
@@ -50,6 +51,7 @@ public class Empresas implements java.io.Serializable {
         this.practicases = practicases;
         this.necesidads = necesidads;
         this.anexoses = anexoses;
+        this.bolsas = bolsas;
         this.convenios = convenios;
     }
 
@@ -139,6 +141,14 @@ public class Empresas implements java.io.Serializable {
 
     public void setAnexoses(Set anexoses) {
         this.anexoses = anexoses;
+    }
+
+    public Set getBolsas() {
+        return this.bolsas;
+    }
+
+    public void setBolsas(Set bolsas) {
+        this.bolsas = bolsas;
     }
 
     public Set getConvenios() {

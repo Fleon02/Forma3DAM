@@ -1,5 +1,5 @@
 package pojos;
-// Generated 27-feb-2024 2:36:57 by Hibernate Tools 4.3.1
+// Generated 27-feb-2024 19:04:12 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,32 +21,32 @@ public class Necesidad implements java.io.Serializable {
 
     public Necesidad() {
     }
-
-    public Necesidad(Integer idNecesidad) {
+    
+    public Necesidad(Integer idNecesidad){
         this.idNecesidad = idNecesidad;
     }
 
-    public Necesidad(Empresas empresas, String cicloNecesidad, Integer dam, Integer daw, Integer asir, Integer mark, Integer fin, Set anexoses) {
-       this.empresas = empresas;
-       this.cicloNecesidad = cicloNecesidad;
-       this.dam = dam;
-       this.daw = daw;
-       this.asir = asir;
-       this.mark = mark;
-       this.fin = fin;
-       this.anexoses = anexoses;
-    }
-    
     public Necesidad(Empresas empresas, String cicloNecesidad, Integer dam, Integer daw, Integer asir, Integer mark, Integer fin) {
-       this.empresas = empresas;
-       this.cicloNecesidad = cicloNecesidad;
-       this.dam = dam;
-       this.daw = daw;
-       this.asir = asir;
-       this.mark = mark;
-       this.fin = fin;       
+        this.empresas = empresas;
+        this.cicloNecesidad = cicloNecesidad;
+        this.dam = dam;
+        this.daw = daw;
+        this.asir = asir;
+        this.mark = mark;
+        this.fin = fin;
     }
-   
+
+    public Necesidad(Empresas empresas, String cicloNecesidad, Integer dam, Integer daw, Integer asir, Integer mark, Integer fin, Set anexoses) {
+        this.empresas = empresas;
+        this.cicloNecesidad = cicloNecesidad;
+        this.dam = dam;
+        this.daw = daw;
+        this.asir = asir;
+        this.mark = mark;
+        this.fin = fin;
+        this.anexoses = anexoses;
+    }
+
     public Integer getIdNecesidad() {
         return this.idNecesidad;
     }
