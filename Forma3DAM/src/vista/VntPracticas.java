@@ -355,7 +355,8 @@ public class VntPracticas extends javax.swing.JPanel {
         btnSubirCVIF.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCVIF.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIF.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirCVIF.setText("Subir CV");
+        btnSubirCVIF.setText("Subir I. F.");
+        btnSubirCVIF.setActionCommand("Subir I. F.");
         btnSubirCVIF.setEnabled(false);
         btnSubirCVIF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
