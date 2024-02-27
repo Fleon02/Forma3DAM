@@ -298,7 +298,7 @@ public class VntPracticas extends javax.swing.JPanel {
 
         txtIDPractica.setEditable(false);
         txtIDPractica.setBackground(new java.awt.Color(0, 0, 0));
-        txtIDPractica.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtIDPractica.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         txtIDPractica.setForeground(new java.awt.Color(255, 255, 255));
         txtIDPractica.setBorder(null);
         txtIDPractica.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -311,16 +311,19 @@ public class VntPracticas extends javax.swing.JPanel {
         userLabel.setText("DNI Alumno");
 
         cbDNIAlumno.setBackground(new java.awt.Color(0, 0, 0));
+        cbDNIAlumno.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
         userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel1.setText("Tutor Practicas");
 
         cbTutorPracticas.setBackground(new java.awt.Color(0, 0, 0));
+        cbTutorPracticas.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
         userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel2.setText("Calendario");
 
         cbCalendario.setBackground(new java.awt.Color(0, 0, 0));
+        cbCalendario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
         btnSubirCVIS.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCVIS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N

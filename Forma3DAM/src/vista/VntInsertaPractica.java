@@ -191,8 +191,10 @@ public class VntInsertaPractica extends javax.swing.JPanel {
         nombreArchivoIF.setText("Archivo");
 
         cbCalendario.setBackground(new java.awt.Color(0, 0, 0));
+        cbCalendario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
         cbTutorPracticas.setBackground(new java.awt.Color(0, 0, 0));
+        cbTutorPracticas.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
         btnSubirCVIS.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCVIS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -211,6 +213,7 @@ public class VntInsertaPractica extends javax.swing.JPanel {
         userLabel6.setText("Informe Seguimiento");
 
         cbDNIAlumno.setBackground(new java.awt.Color(0, 0, 0));
+        cbDNIAlumno.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
         userLabel7.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel7.setText("Horario Entrada");
