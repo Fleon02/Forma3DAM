@@ -60,7 +60,7 @@ public class VntPracticas extends javax.swing.JPanel {
         dtm.setRowCount(0);
         List<Practicas> listaPracticas = new PracticasDAO().obtenListaPracticas();
         for (Practicas a : listaPracticas) {
-            if (a.getIdPractica() != -1) {
+            if (a.getIdPractica() > 0) {
                 if (a.getInformeSeguimiento() != null) {
                     dtm.addRow(new Object[]{
                         a.getIdPractica(),
@@ -125,7 +125,11 @@ public class VntPracticas extends javax.swing.JPanel {
                 if (a.getIdAlumno() == null) {
                     setText("Seleccione DNI de Alumno/a");
                 } else {
-                    setText(a.getDniAlumno());
+                    if (a.getIdAlumno() > 0) {
+                        setText(a.getIdAlumno() + " - " + a.getDniAlumno());
+                    } else {
+                        setText("");
+                    }
                 }
             }
             return this;
@@ -153,7 +157,11 @@ public class VntPracticas extends javax.swing.JPanel {
                 if (empresa.getTutorPracticas() == null) {
                     setText("Seleccione Tutor/a");
                 } else {
-                    setText(empresa.getTutorPracticas());
+                    if (empresa.getIdEmpresa() > 0) {
+                        setText(empresa.getIdEmpresa() + " - " + empresa.getTutorPracticas());
+                    } else {
+                        setText("");
+                    }
                 }
             }
             return this;
@@ -181,7 +189,11 @@ public class VntPracticas extends javax.swing.JPanel {
                 if (anexos.getCalendario() == null) {
                     setText("Seleccione Calendario");
                 } else {
-                    setText(anexos.getCalendario());
+                    if (anexos.getIdAnexo() > 0) {
+                        setText(anexos.getIdAnexo() + " - " + anexos.getCalendario());
+                    } else {
+                        setText("");
+                    }
                 }
             }
             return this;
