@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -8,16 +9,22 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import modelo.AlumnosDAO;
+import modelo.AnexosDAO;
 import modelo.PracticasDAO;
 import modelo.AsignaturasDAO;
+import modelo.EmpresasDAO;
 import modelo.PracticasDAO;
 import pojos.Alumnos;
 import pojos.Anexos;
@@ -43,7 +50,10 @@ public class VntPracticas extends javax.swing.JPanel {
         initComponents();
         TablaPracticas.setDefaultEditor(Object.class, null);
         cargaTabla();
-        cargaAlumno();
+        cargaPracticas();
+        cargarDNIAlumno();
+        cargarTutorPracticasEmpresas();
+        cargarCalendariosAnexos();
     }
 
     public void cargaTabla() {
@@ -71,7 +81,7 @@ public class VntPracticas extends javax.swing.JPanel {
         }
     }
 
-    public void cargaAlumno() {
+    public void cargaPracticas() {
         TablaPracticas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -92,6 +102,90 @@ public class VntPracticas extends javax.swing.JPanel {
                 }
             }
         });
+    }
+
+    private void cargarDNIAlumno() {
+        List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
+        DefaultComboBoxModel<Alumnos> modeloDNIA = new DefaultComboBoxModel<>();
+        modeloDNIA.addElement(new Alumnos(null));
+        for (Alumnos a : listaAlumnos) {
+            modeloDNIA.addElement(a);
+        }
+        cbDNIAlumno.setModel(modeloDNIA);
+        cbDNIAlumno.setRenderer(new AlumnosComboBoxRenderer());
+    }
+
+    private static class AlumnosComboBoxRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof Alumnos) {
+                Alumnos a = (Alumnos) value;
+                if (a.getIdAlumno() == null) {
+                    setText("Seleccione DNI de Alumno/a");
+                } else {
+                    setText(a.getDniAlumno());
+                }
+            }
+            return this;
+        }
+    }
+
+    private void cargarTutorPracticasEmpresas() {
+        List<Empresas> listaEmpresas = new EmpresasDAO().obtenListaEmpresas();
+        DefaultComboBoxModel<Empresas> model = new DefaultComboBoxModel<>();
+        model.addElement(new Empresas());
+        for (Empresas empresa : listaEmpresas) {
+            model.addElement(empresa);
+        }
+        cbTutorPracticas.setModel(model);
+        cbTutorPracticas.setRenderer(new EmpresasComboBoxRenderer());
+    }
+
+    private static class EmpresasComboBoxRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof Empresas) {
+                Empresas empresa = (Empresas) value;
+                if (empresa.getTutorPracticas() == null) {
+                    setText("Seleccione Tutor/a");
+                } else {
+                    setText(empresa.getTutorPracticas());
+                }
+            }
+            return this;
+        }
+    }
+
+    private void cargarCalendariosAnexos() {
+        List<Anexos> listaAnexos = new AnexosDAO().obtenerAnexos();
+        DefaultComboBoxModel<Anexos> model = new DefaultComboBoxModel<>();
+        model.addElement(new Anexos());
+        for (Anexos anexos : listaAnexos) {
+            model.addElement(anexos);
+        }
+        cbCalendario.setModel(model);
+        cbCalendario.setRenderer(new AnexosComboBoxRenderer());
+    }
+
+    private static class AnexosComboBoxRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof Anexos) {
+                Anexos anexos = (Anexos) value;
+                if (anexos.getCalendario() == null) {
+                    setText("Seleccione Calendario");
+                } else {
+                    setText(anexos.getCalendario());
+                }
+            }
+            return this;
+        }
     }
 
     @SuppressWarnings("unchecked")
