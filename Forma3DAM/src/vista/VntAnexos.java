@@ -14,6 +14,7 @@ import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -33,6 +34,7 @@ public class VntAnexos extends javax.swing.JPanel {
     private byte[] bytes3;
     private byte[] bytes4;
     private byte[] bytes8;
+    private JFrame frame;
 
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
         "ID",
@@ -47,8 +49,9 @@ public class VntAnexos extends javax.swing.JPanel {
         "Anexo4",
         "Anexo8",}, 0);
 
-    public VntAnexos() {
+    public VntAnexos(JFrame vntPrincipal) {
         initComponents();
+        frame = vntPrincipal;
 
         TablaAnexos.setDefaultEditor(Object.class, null);
         cargaTabla();
@@ -133,6 +136,12 @@ public class VntAnexos extends javax.swing.JPanel {
                         fechaInicio.setDate(fechaInicioTransformada);
                         fechaFin.setDate(fechaFinTransformada);
 
+                        btnActualizar.setEnabled(true);
+                        btnBorrar.setEnabled(true);
+
+                    } else {
+                        btnActualizar.setEnabled(false);
+                        btnBorrar.setEnabled(false);
                     }
                 }
             }
@@ -526,6 +535,18 @@ public class VntAnexos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        AnexosDAO ad = new AnexosDAO();
+        int filas = TablaAnexos.getSelectedRow();
+        String idAnexo = TablaAnexos.getValueAt(filas, 0) + "";
+
+        Anexos a = new Anexos();
+
+        a = ad.obtenAnexoPorID(Integer.parseInt(idAnexo));
+
+        ad.eliminaAnexo(a, frame);
+        
+        TablaAnexos.clearSelection();
+        cargaTabla();
 
     }//GEN-LAST:event_btnBorrarActionPerformed
 

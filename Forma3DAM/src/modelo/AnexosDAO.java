@@ -4,12 +4,15 @@ import controlador.HibernateUtil;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.Anexos;
 import pojos.Necesidad;
+import raven.toast.Notifications;
 
 public class AnexosDAO {
 
@@ -111,6 +114,34 @@ public class AnexosDAO {
         }
     }
 
+    public void eliminaAnexo(Anexos a, JFrame jframe) {
+        try {
+            iniciaOperacion();
+
+            // Obtener el idConvenio y convertirlo a negativo
+            int idAnexo = a.getIdAnexo();
+            int idAnexoNegativo = -idAnexo;
+
+            Query query = sesion.createQuery("UPDATE Anexos SET idAnexo = :idNegativo WHERE idAnexo = :id");
+            query.setParameter("idNegativo", idAnexoNegativo);
+            query.setParameter("id", idAnexo);
+            int result = query.executeUpdate();
+            tx.commit();
+
+            if (result > 0) {
+                Notifications.getInstance().setJFrame(jframe);
+                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Anexo marcado como borrado");
+            } else {
+                JOptionPane.showMessageDialog(jframe, "El Anexo no se encontró", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+    }
+
     public List<Anexos> obtenListaAnexos() {
         List<Anexos> listaAnexos = null;
         try {
@@ -126,6 +157,24 @@ public class AnexosDAO {
             }
         }
         return listaAnexos;
+    }
+
+    public Anexos obtenAnexoPorID(int idAnexo) {
+        Anexos a = null;
+        try {
+            iniciaOperacion();
+            // Consulta para obtener el nombre de la empresa dado un CIF
+            a = (Anexos) sesion.createQuery("from Anexos where idAnexo = :cifEmpresa")
+                    .setParameter("cifEmpresa", idAnexo)
+                    .uniqueResult();
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return a;
     }
 
 }
