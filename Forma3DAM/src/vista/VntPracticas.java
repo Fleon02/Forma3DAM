@@ -116,12 +116,13 @@ public class VntPracticas extends javax.swing.JPanel {
                         cbDNIAlumno.setSelectedItem(TablaPracticas.getValueAt(filas, 1) + "");
                         cbTutorPracticas.setSelectedItem(TablaPracticas.getValueAt(filas, 2) + "");
                         cbCalendario.setSelectedItem(TablaPracticas.getValueAt(filas, 3) + "");
+                        cbDNIAlumno.setEnabled(true);
+                        cbTutorPracticas.setEnabled(true);
+                        cbCalendario.setEnabled(true);
                         btnActualizar.setEnabled(true);
                         btnBorrar.setEnabled(true);
-                    } else {
-                        cbDNIAlumno.setEditable(false);
-                        cbTutorPracticas.setEditable(false);
-                        cbCalendario.setEditable(false);
+                        btnSubirCVIS.setEnabled(true);
+                        btnSubirCVIF.setEnabled(true);
                     }
                 }
             }
@@ -312,23 +313,30 @@ public class VntPracticas extends javax.swing.JPanel {
 
         cbDNIAlumno.setBackground(new java.awt.Color(0, 0, 0));
         cbDNIAlumno.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cbDNIAlumno.setForeground(new java.awt.Color(255, 255, 255));
+        cbDNIAlumno.setEnabled(false);
 
         userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel1.setText("Tutor Practicas");
 
         cbTutorPracticas.setBackground(new java.awt.Color(0, 0, 0));
         cbTutorPracticas.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cbTutorPracticas.setForeground(new java.awt.Color(255, 255, 255));
+        cbTutorPracticas.setEnabled(false);
 
         userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel2.setText("Calendario");
 
         cbCalendario.setBackground(new java.awt.Color(0, 0, 0));
         cbCalendario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cbCalendario.setForeground(new java.awt.Color(255, 255, 255));
+        cbCalendario.setEnabled(false);
 
         btnSubirCVIS.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCVIS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIS.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCVIS.setText("Subir CV");
+        btnSubirCVIS.setEnabled(false);
         btnSubirCVIS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirCVISActionPerformed(evt);
@@ -348,6 +356,7 @@ public class VntPracticas extends javax.swing.JPanel {
         btnSubirCVIF.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIF.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCVIF.setText("Subir CV");
+        btnSubirCVIF.setEnabled(false);
         btnSubirCVIF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirCVIFActionPerformed(evt);

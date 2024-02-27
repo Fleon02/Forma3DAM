@@ -65,7 +65,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         dtm.setRowCount(0);
         List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
         for (Alumnos a : listaAlumnos) {
-            if (a.getIdAlumno() >0) {
+            if (a.getIdAlumno() > 0) {
                 if (a.getCv() != null) {
                     dtm.addRow(new Object[]{
                         a.getIdAlumno(),
@@ -110,17 +110,12 @@ public class VntAlumnos extends javax.swing.JPanel {
                         txtNombreAlumno.setEditable(true);
                         txtAnioAlumno.setEditable(true);
                         txtNSSAlumno.setEditable(true);
-                        cbCicloAlumno.setEditable(true);
+                        cbCicloAlumno.setEnabled(true);
+                        checkbValidez.setEnabled(true);
                         btnSubirCV.setEnabled(true);
                         btnAsignaturas.setEnabled(true);
                         btnActualizar.setEnabled(true);
                         btnBorrar.setEnabled(true);
-                    } else {
-                        txtDNIAlumno.setEditable(false);
-                        txtNombreAlumno.setEditable(false);
-                        txtAnioAlumno.setEditable(false);
-                        txtNSSAlumno.setEditable(false);
-                        cbCicloAlumno.setEditable(false);
                     }
                 }
             }
@@ -253,6 +248,7 @@ public class VntAlumnos extends javax.swing.JPanel {
 
         checkbValidez.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         checkbValidez.setText("Validez (Aprobado)");
+        checkbValidez.setEnabled(false);
 
         btnSubirCV.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -301,6 +297,7 @@ public class VntAlumnos extends javax.swing.JPanel {
         cbCicloAlumno.setBackground(new java.awt.Color(0, 0, 0));
         cbCicloAlumno.setForeground(new java.awt.Color(255, 255, 255));
         cbCicloAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Ciclo", "DAM", "DAW", "ASIR", "FIN", "MARK" }));
+        cbCicloAlumno.setEnabled(false);
 
         btnAsignaturas.setBackground(new java.awt.Color(18, 30, 49));
         btnAsignaturas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
