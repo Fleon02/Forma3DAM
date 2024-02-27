@@ -24,18 +24,6 @@ public class Anexos implements java.io.Serializable {
     private Set bolsas = new HashSet(0);
     private Set practicases = new HashSet(0);
 
-    @Override
-    public String toString() {
-        return "Anexos{"
-                + "empresas=" + empresas
-                + ", necesidad=" + necesidad
-                + ", fechaInicio='" + fechaInicio + '\''
-                + ", fechaFin='" + fechaFin + '\''
-                + ", contratacion=" + contratacion
-                + ", calendario='" + calendario + '\''
-                + '}';
-    }
-
     public Anexos() {
     }
 

@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -8,16 +9,22 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import modelo.AlumnosDAO;
+import modelo.AnexosDAO;
 import modelo.PracticasDAO;
 import modelo.AsignaturasDAO;
+import modelo.EmpresasDAO;
 import modelo.PracticasDAO;
 import pojos.Alumnos;
 import pojos.Anexos;
@@ -43,35 +50,62 @@ public class VntPracticas extends javax.swing.JPanel {
         initComponents();
         TablaPracticas.setDefaultEditor(Object.class, null);
         cargaTabla();
-        cargaAlumno();
+        cargaPracticas();
+        cargarDNIAlumno();
+        cargarTutorPracticasEmpresas();
+        cargarCalendariosAnexos();
     }
 
     public void cargaTabla() {
         dtm.setRowCount(0);
         List<Practicas> listaPracticas = new PracticasDAO().obtenListaPracticas();
         for (Practicas a : listaPracticas) {
-            if (a.getIdPractica() != -1) {
+            if (a.getIdPractica() > 0) {
+                Alumnos al = new AlumnosDAO().obtenAlumnos(a.getAlumnos().getIdAlumno());
+                Empresas e = new EmpresasDAO().obtenEmpresas(a.getEmpresas().getIdEmpresa());
+                Anexos an = new AnexosDAO().obtenAnexos(a.getAnexos().getIdAnexo());
                 if (a.getInformeSeguimiento() != null) {
-                    dtm.addRow(new Object[]{
-                        a.getIdPractica(),
-                        a.getAlumnos().getDniAlumno(),
-                        a.getEmpresas().getTutorPracticas(),
-                        a.getAnexos().getCalendario(),
-                        "Subido",});
+                    if (a.getInformeFinal() != null) {
+                        dtm.addRow(new Object[]{
+                            a.getIdPractica(),
+                            al.getDniAlumno(),
+                            e.getTutorPracticas(),
+                            an.getCalendario(),
+                            "Subido",
+                            "Subido",});
+                    } else {
+                        dtm.addRow(new Object[]{
+                            a.getIdPractica(),
+                            al.getDniAlumno(),
+                            e.getTutorPracticas(),
+                            an.getCalendario(),
+                            "Subido",
+                            "No Subido",});
+                    }
                 } else {
-                    dtm.addRow(new Object[]{
-                        a.getIdPractica(),
-                        a.getAlumnos().getDniAlumno(),
-                        a.getEmpresas().getTutorPracticas(),
-                        a.getAnexos().getCalendario(),
-                        "No Subido",});
+                    if (a.getInformeFinal() != null) {
+                        dtm.addRow(new Object[]{
+                            a.getIdPractica(),
+                            al.getDniAlumno(),
+                            e.getTutorPracticas(),
+                            an.getCalendario(),
+                            "No Subido",
+                            "Subido",});
+                    } else {
+                        dtm.addRow(new Object[]{
+                            a.getIdPractica(),
+                            al.getDniAlumno(),
+                            e.getTutorPracticas(),
+                            an.getCalendario(),
+                            "No Subido",
+                            "No Subido",});
+                    }
                 }
             }
-
         }
     }
 
-    public void cargaAlumno() {
+    public void cargaPracticas() {
         TablaPracticas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -82,16 +116,113 @@ public class VntPracticas extends javax.swing.JPanel {
                         cbDNIAlumno.setSelectedItem(TablaPracticas.getValueAt(filas, 1) + "");
                         cbTutorPracticas.setSelectedItem(TablaPracticas.getValueAt(filas, 2) + "");
                         cbCalendario.setSelectedItem(TablaPracticas.getValueAt(filas, 3) + "");
+                        cbDNIAlumno.setEnabled(true);
+                        cbTutorPracticas.setEnabled(true);
+                        cbCalendario.setEnabled(true);
                         btnActualizar.setEnabled(true);
                         btnBorrar.setEnabled(true);
-                    } else {
-                        cbDNIAlumno.setEditable(false);
-                        cbTutorPracticas.setEditable(false);
-                        cbCalendario.setEditable(false);
+                        btnSubirCVIS.setEnabled(true);
+                        btnSubirCVIF.setEnabled(true);
                     }
                 }
             }
         });
+    }
+
+    private void cargarDNIAlumno() {
+        List<Alumnos> listaAlumnos = new AlumnosDAO().obtenListaAlumnos();
+        DefaultComboBoxModel<Alumnos> modeloDNIA = new DefaultComboBoxModel<>();
+        modeloDNIA.addElement(new Alumnos(null));
+        for (Alumnos a : listaAlumnos) {
+            modeloDNIA.addElement(a);
+        }
+        cbDNIAlumno.setModel(modeloDNIA);
+        cbDNIAlumno.setRenderer(new AlumnosComboBoxRenderer());
+    }
+
+    private static class AlumnosComboBoxRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof Alumnos) {
+                Alumnos a = (Alumnos) value;
+                if (a.getIdAlumno() == null) {
+                    setText("Seleccione DNI de Alumno/a");
+                } else {
+                    if (a.getIdAlumno() > 0) {
+                        setText(a.getIdAlumno() + " - " + a.getDniAlumno());
+                    } else {
+                        setText("");
+                    }
+                }
+            }
+            return this;
+        }
+    }
+
+    private void cargarTutorPracticasEmpresas() {
+        List<Empresas> listaEmpresas = new EmpresasDAO().obtenListaEmpresas();
+        DefaultComboBoxModel<Empresas> model = new DefaultComboBoxModel<>();
+        model.addElement(new Empresas());
+        for (Empresas empresa : listaEmpresas) {
+            model.addElement(empresa);
+        }
+        cbTutorPracticas.setModel(model);
+        cbTutorPracticas.setRenderer(new EmpresasComboBoxRenderer());
+    }
+
+    private static class EmpresasComboBoxRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof Empresas) {
+                Empresas empresa = (Empresas) value;
+                if (empresa.getTutorPracticas() == null) {
+                    setText("Seleccione Tutor/a");
+                } else {
+                    if (empresa.getIdEmpresa() > 0) {
+                        setText(empresa.getIdEmpresa() + " - " + empresa.getTutorPracticas());
+                    } else {
+                        setText("");
+                    }
+                }
+            }
+            return this;
+        }
+    }
+
+    private void cargarCalendariosAnexos() {
+        List<Anexos> listaAnexos = new AnexosDAO().obtenerAnexos();
+        DefaultComboBoxModel<Anexos> model = new DefaultComboBoxModel<>();
+        model.addElement(new Anexos());
+        for (Anexos anexos : listaAnexos) {
+            model.addElement(anexos);
+        }
+        cbCalendario.setModel(model);
+        cbCalendario.setRenderer(new AnexosComboBoxRenderer());
+    }
+
+    private static class AnexosComboBoxRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof Anexos) {
+                Anexos anexos = (Anexos) value;
+                if (anexos.getCalendario() == null) {
+                    setText("Seleccione Calendario");
+                } else {
+                    if (anexos.getIdAnexo() > 0) {
+                        setText(anexos.getIdAnexo() + " - " + anexos.getCalendario());
+                    } else {
+                        setText("");
+                    }
+                }
+            }
+            return this;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -168,7 +299,7 @@ public class VntPracticas extends javax.swing.JPanel {
 
         txtIDPractica.setEditable(false);
         txtIDPractica.setBackground(new java.awt.Color(0, 0, 0));
-        txtIDPractica.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtIDPractica.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         txtIDPractica.setForeground(new java.awt.Color(255, 255, 255));
         txtIDPractica.setBorder(null);
         txtIDPractica.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -181,21 +312,31 @@ public class VntPracticas extends javax.swing.JPanel {
         userLabel.setText("DNI Alumno");
 
         cbDNIAlumno.setBackground(new java.awt.Color(0, 0, 0));
+        cbDNIAlumno.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cbDNIAlumno.setForeground(new java.awt.Color(255, 255, 255));
+        cbDNIAlumno.setEnabled(false);
 
         userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel1.setText("Tutor Practicas");
 
         cbTutorPracticas.setBackground(new java.awt.Color(0, 0, 0));
+        cbTutorPracticas.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cbTutorPracticas.setForeground(new java.awt.Color(255, 255, 255));
+        cbTutorPracticas.setEnabled(false);
 
         userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel2.setText("Calendario");
 
         cbCalendario.setBackground(new java.awt.Color(0, 0, 0));
+        cbCalendario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cbCalendario.setForeground(new java.awt.Color(255, 255, 255));
+        cbCalendario.setEnabled(false);
 
         btnSubirCVIS.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCVIS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIS.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCVIS.setText("Subir CV");
+        btnSubirCVIS.setEnabled(false);
         btnSubirCVIS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirCVISActionPerformed(evt);
@@ -215,6 +356,7 @@ public class VntPracticas extends javax.swing.JPanel {
         btnSubirCVIF.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIF.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCVIF.setText("Subir CV");
+        btnSubirCVIF.setEnabled(false);
         btnSubirCVIF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirCVIFActionPerformed(evt);

@@ -58,6 +58,20 @@ public class EmpresasDAO {
         return id;
     }
 
+    public Empresas obtenEmpresas(int id) {
+        Empresas p = null;
+        try {
+            iniciaOperacion();
+            p = (Empresas) sesion.get(Empresas.class, id);
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return p;
+    }
+
     public void actualizaEmpresas(Empresas a) {
         try {
             iniciaOperacion();
@@ -161,7 +175,7 @@ public class EmpresasDAO {
         try {
             iniciaOperacion();
             // Consulta para obtener el nombre de la empresa dado un CIF
-            e= (Empresas) sesion.createQuery("from Empresas where cifEmpresa = :cifEmpresa")
+            e = (Empresas) sesion.createQuery("from Empresas where cifEmpresa = :cifEmpresa")
                     .setParameter("cifEmpresa", text)
                     .uniqueResult();
             tx.commit();
@@ -173,7 +187,5 @@ public class EmpresasDAO {
         }
         return e;
     }
-
-    
 
 }
