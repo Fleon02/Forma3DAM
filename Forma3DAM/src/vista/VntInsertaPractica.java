@@ -202,7 +202,6 @@ public class VntInsertaPractica extends javax.swing.JPanel {
         userLabel7.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel7.setText("Horario Entrada");
 
-        txtHorarioEntrada.setEditable(false);
         txtHorarioEntrada.setBackground(new java.awt.Color(0, 0, 0));
         txtHorarioEntrada.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtHorarioEntrada.setForeground(new java.awt.Color(255, 255, 255));
@@ -213,7 +212,6 @@ public class VntInsertaPractica extends javax.swing.JPanel {
             }
         });
 
-        txtHorarioSalida.setEditable(false);
         txtHorarioSalida.setBackground(new java.awt.Color(0, 0, 0));
         txtHorarioSalida.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtHorarioSalida.setForeground(new java.awt.Color(255, 255, 255));
