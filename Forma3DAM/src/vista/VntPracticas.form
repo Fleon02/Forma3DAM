@@ -424,7 +424,6 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Subir I. F."/>
-        <Property name="actionCommand" type="java.lang.String" value="Subir I. F."/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>

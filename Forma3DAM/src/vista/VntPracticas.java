@@ -40,6 +40,7 @@ public class VntPracticas extends javax.swing.JPanel {
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
         "ID",
         "DNI Alumno",
+        "CIF Empresa",
         "Tutor Practicas",
         "Calendario",
         "Informe Seguimiento",
@@ -69,6 +70,7 @@ public class VntPracticas extends javax.swing.JPanel {
                         dtm.addRow(new Object[]{
                             a.getIdPractica(),
                             al.getDniAlumno(),
+                            e.getCifEmpresa(),
                             e.getTutorPracticas(),
                             an.getCalendario(),
                             "Subido",
@@ -77,6 +79,7 @@ public class VntPracticas extends javax.swing.JPanel {
                         dtm.addRow(new Object[]{
                             a.getIdPractica(),
                             al.getDniAlumno(),
+                            e.getCifEmpresa(),
                             e.getTutorPracticas(),
                             an.getCalendario(),
                             "Subido",
@@ -87,6 +90,7 @@ public class VntPracticas extends javax.swing.JPanel {
                         dtm.addRow(new Object[]{
                             a.getIdPractica(),
                             al.getDniAlumno(),
+                            e.getCifEmpresa(),
                             e.getTutorPracticas(),
                             an.getCalendario(),
                             "No Subido",
@@ -95,6 +99,7 @@ public class VntPracticas extends javax.swing.JPanel {
                         dtm.addRow(new Object[]{
                             a.getIdPractica(),
                             al.getDniAlumno(),
+                            e.getCifEmpresa(),
                             e.getTutorPracticas(),
                             an.getCalendario(),
                             "No Subido",
@@ -356,7 +361,6 @@ public class VntPracticas extends javax.swing.JPanel {
         btnSubirCVIF.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIF.setForeground(new java.awt.Color(255, 255, 255));
         btnSubirCVIF.setText("Subir I. F.");
-        btnSubirCVIF.setActionCommand("Subir I. F.");
         btnSubirCVIF.setEnabled(false);
         btnSubirCVIF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
