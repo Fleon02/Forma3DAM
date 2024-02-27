@@ -27,16 +27,26 @@ public class Necesidad implements java.io.Serializable {
     }
 
     public Necesidad(Empresas empresas, String cicloNecesidad, Integer dam, Integer daw, Integer asir, Integer mark, Integer fin, Set anexoses) {
-        this.empresas = empresas;
-        this.cicloNecesidad = cicloNecesidad;
-        this.dam = dam;
-        this.daw = daw;
-        this.asir = asir;
-        this.mark = mark;
-        this.fin = fin;
-        this.anexoses = anexoses;
+       this.empresas = empresas;
+       this.cicloNecesidad = cicloNecesidad;
+       this.dam = dam;
+       this.daw = daw;
+       this.asir = asir;
+       this.mark = mark;
+       this.fin = fin;
+       this.anexoses = anexoses;
     }
-
+    
+    public Necesidad(Empresas empresas, String cicloNecesidad, Integer dam, Integer daw, Integer asir, Integer mark, Integer fin) {
+       this.empresas = empresas;
+       this.cicloNecesidad = cicloNecesidad;
+       this.dam = dam;
+       this.daw = daw;
+       this.asir = asir;
+       this.mark = mark;
+       this.fin = fin;       
+    }
+   
     public Integer getIdNecesidad() {
         return this.idNecesidad;
     }
