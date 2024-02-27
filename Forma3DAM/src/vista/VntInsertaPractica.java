@@ -4,6 +4,10 @@ import java.awt.Component;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
@@ -24,8 +28,14 @@ public class VntInsertaPractica extends javax.swing.JPanel {
     private byte[] bytesIS;
     private byte[] bytesIF;
 
-    public VntInsertaPractica() {
+    public VntInsertaPractica() throws ParseException {
         initComponents();
+        DateFormat formatoOrigen = new SimpleDateFormat("HHmm");
+        DateFormat formatoDestino = new SimpleDateFormat("HH:mm");
+        Date fecha = formatoOrigen.parse("0700");
+        String fechaFormato = formatoDestino.format(fecha);
+        txtHorarioEntrada.setText(fechaFormato);
+        txtHorarioSalida.setText(fechaFormato);
         cargarDNIAlumno();
         cargarTutorPracticasEmpresas();
         cargarCalendariosAnexos();
@@ -275,7 +285,9 @@ public class VntInsertaPractica extends javax.swing.JPanel {
                                     .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(favicon)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(favicon)
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(cbDNIAlumno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
