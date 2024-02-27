@@ -115,7 +115,7 @@ public class AnexosDAO {
         List<Anexos> listaAnexos = null;
         try {
             iniciaOperacion();
-            Query query = sesion.createQuery("FROM Anexos a JOIN FETCH a.empresas JOIN FETCH a.necesidad");
+            Query query = sesion.createQuery("FROM Anexos a JOIN FETCH a.empresas JOIN FETCH a.necesidad ORDER BY idAnexo ASC");
             listaAnexos = query.list();
         } catch (HibernateException he) {
             manejaExcepcion(he);

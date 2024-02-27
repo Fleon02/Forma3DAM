@@ -1,5 +1,5 @@
 package pojos;
-// Generated 27-feb-2024 2:36:57 by Hibernate Tools 4.3.1
+// Generated 27-feb-2024 19:04:12 by Hibernate Tools 4.3.1
 
 
 
@@ -11,16 +11,16 @@ public class Bolsa  implements java.io.Serializable {
 
      private Integer idBolsa;
      private Alumnos alumnos;
-     private Anexos anexos;
+     private Empresas empresas;
      private Boolean beca;
      private Boolean bolsa;
 
     public Bolsa() {
     }
 
-    public Bolsa(Alumnos alumnos, Anexos anexos, Boolean beca, Boolean bolsa) {
+    public Bolsa(Alumnos alumnos, Empresas empresas, Boolean beca, Boolean bolsa) {
        this.alumnos = alumnos;
-       this.anexos = anexos;
+       this.empresas = empresas;
        this.beca = beca;
        this.bolsa = bolsa;
     }
@@ -39,12 +39,12 @@ public class Bolsa  implements java.io.Serializable {
     public void setAlumnos(Alumnos alumnos) {
         this.alumnos = alumnos;
     }
-    public Anexos getAnexos() {
-        return this.anexos;
+    public Empresas getEmpresas() {
+        return this.empresas;
     }
     
-    public void setAnexos(Anexos anexos) {
-        this.anexos = anexos;
+    public void setEmpresas(Empresas empresas) {
+        this.empresas = empresas;
     }
     public Boolean getBeca() {
         return this.beca;
