@@ -1,5 +1,5 @@
 package pojos;
-// Generated 27-feb-2024 2:36:57 by Hibernate Tools 4.3.1
+// Generated 27-feb-2024 19:04:12 by Hibernate Tools 4.3.1
 
 
 
@@ -11,7 +11,8 @@ public class Beep  implements java.io.Serializable {
 
      private int idUsuario;
      private Login login;
-     private String contrasena;
+     private String hashContrasena;
+     private String salt;
 
     public Beep() {
     }
@@ -20,9 +21,10 @@ public class Beep  implements java.io.Serializable {
     public Beep(Login login) {
         this.login = login;
     }
-    public Beep(Login login, String contrasena) {
+    public Beep(Login login, String hashContrasena, String salt) {
        this.login = login;
-       this.contrasena = contrasena;
+       this.hashContrasena = hashContrasena;
+       this.salt = salt;
     }
    
     public int getIdUsuario() {
@@ -39,12 +41,19 @@ public class Beep  implements java.io.Serializable {
     public void setLogin(Login login) {
         this.login = login;
     }
-    public String getContrasena() {
-        return this.contrasena;
+    public String getHashContrasena() {
+        return this.hashContrasena;
     }
     
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setHashContrasena(String hashContrasena) {
+        this.hashContrasena = hashContrasena;
+    }
+    public String getSalt() {
+        return this.salt;
+    }
+    
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
 

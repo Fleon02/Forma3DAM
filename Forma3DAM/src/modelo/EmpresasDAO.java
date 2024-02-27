@@ -161,7 +161,7 @@ public class EmpresasDAO {
         try {
             iniciaOperacion();
             // Consulta para obtener el nombre de la empresa dado un CIF
-            e= (Empresas) sesion.createQuery("from Empresas where cifEmpresa = :cifEmpresa")
+            e = (Empresas) sesion.createQuery("from Empresas where cifEmpresa = :cifEmpresa")
                     .setParameter("cifEmpresa", text)
                     .uniqueResult();
             tx.commit();
@@ -174,6 +174,43 @@ public class EmpresasDAO {
         return e;
     }
 
-    
+    public Empresas obtenEmpresaPorID2(String text) {
+        Empresas e = null;
+        int idEmpresa = Integer.parseInt(text);
+        try {
+            iniciaOperacion();
+            // Consulta para obtener el nombre de la empresa dado un CIF
+            e = (Empresas) sesion.createQuery("from Empresas where idEmpresa = :cifEmpresa")
+                    .setParameter("cifEmpresa", idEmpresa)
+                    .uniqueResult();
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return e;
+    }
+
+    public Empresas obtenEmpresaPorTutor(String tutor) {
+        Empresas e = null;
+        try {
+            iniciaOperacion();
+            // Consulta para obtener el nombre de la empresa dado un CIF
+            e = (Empresas) sesion.createQuery("from Empresas where tutorPracticas = :cifEmpresa")
+                    .setParameter("cifEmpresa", tutor)
+                    .uniqueResult();
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
+        }
+        return e;
+    }
 
 }

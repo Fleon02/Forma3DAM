@@ -3,6 +3,7 @@ package vista;
 import java.awt.Color;
 import java.util.Map;
 import modelo.LoginDAO;
+import modelo.PasswordEncoder;
 import pojos.Login;
 
 public class VntRegistro extends javax.swing.JFrame {
@@ -255,6 +256,12 @@ public class VntRegistro extends javax.swing.JFrame {
         String nombre = userTxt1.getText();
         String email = emailTxt.getText();
         String pass = String.valueOf(passTxt.getPassword());
+        String salt = PasswordEncoder.generateSalt();
+        System.out.println(salt);
+        
+        String hashContrasena = PasswordEncoder.encodePassword(pass, salt);
+        
+        
 
         // Crear una instancia de la clase LoginDAO
         LoginDAO loginDAO = new LoginDAO();
@@ -262,8 +269,8 @@ public class VntRegistro extends javax.swing.JFrame {
         // Crear un nuevo objeto Login con los datos proporcionados por el usuario
         Login nuevoUsuario = new Login(nombre, email, "Trabajador", null); // El beep se asociará dentro del método
 
-        // Llamar al método registrarUsuario con el usuario y la contraseña
-        boolean registro = loginDAO.registrarUsuario(nuevoUsuario, pass);
+//         Llamar al método registrarUsuario con el usuario y la contraseña
+        boolean registro = loginDAO.registrarUsuario(nuevoUsuario, hashContrasena, salt);
         if (registro) {
             VntLogin l  = new VntLogin();
             l.setVisible(true);

@@ -1,5 +1,5 @@
 package pojos;
-// Generated 27-feb-2024 2:36:57 by Hibernate Tools 4.3.1
+// Generated 27-feb-2024 19:04:12 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,20 +21,7 @@ public class Anexos implements java.io.Serializable {
     private byte[] anexoCuatro;
     private byte[] anexoDosDos;
     private byte[] anexoOcho;
-    private Set bolsas = new HashSet(0);
     private Set practicases = new HashSet(0);
-
-    @Override
-    public String toString() {
-        return "Anexos{"
-                + "empresas=" + empresas
-                + ", necesidad=" + necesidad
-                + ", fechaInicio='" + fechaInicio + '\''
-                + ", fechaFin='" + fechaFin + '\''
-                + ", contratacion=" + contratacion
-                + ", calendario='" + calendario + '\''
-                + '}';
-    }
 
     public Anexos() {
     }
@@ -57,7 +44,7 @@ public class Anexos implements java.io.Serializable {
         this.anexoOcho = anexoOcho;
     }
 
-    public Anexos(Empresas empresas, Necesidad necesidad, String fechaInicio, String fechaFin, Boolean contratacion, String calendario, byte[] anexoDosUno, byte[] anexoTres, byte[] anexoCuatro, byte[] anexoDosDos, byte[] anexoOcho, Set bolsas, Set practicases) {
+    public Anexos(Empresas empresas, Necesidad necesidad, String fechaInicio, String fechaFin, Boolean contratacion, String calendario, byte[] anexoDosUno, byte[] anexoTres, byte[] anexoCuatro, byte[] anexoDosDos, byte[] anexoOcho, Set practicases) {
         this.empresas = empresas;
         this.necesidad = necesidad;
         this.fechaInicio = fechaInicio;
@@ -69,7 +56,6 @@ public class Anexos implements java.io.Serializable {
         this.anexoCuatro = anexoCuatro;
         this.anexoDosDos = anexoDosDos;
         this.anexoOcho = anexoOcho;
-        this.bolsas = bolsas;
         this.practicases = practicases;
     }
 
@@ -167,14 +153,6 @@ public class Anexos implements java.io.Serializable {
 
     public void setAnexoOcho(byte[] anexoOcho) {
         this.anexoOcho = anexoOcho;
-    }
-
-    public Set getBolsas() {
-        return this.bolsas;
-    }
-
-    public void setBolsas(Set bolsas) {
-        this.bolsas = bolsas;
     }
 
     public Set getPracticases() {
