@@ -170,7 +170,7 @@ public class VntInsertaPractica extends javax.swing.JPanel {
         btnSubirCVIF.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCVIF.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIF.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirCVIF.setText("Subir CV");
+        btnSubirCVIF.setText("Subir I. F.");
         btnSubirCVIF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirCVIFActionPerformed(evt);
@@ -201,7 +201,7 @@ public class VntInsertaPractica extends javax.swing.JPanel {
         btnSubirCVIS.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCVIS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIS.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirCVIS.setText("Subir CV");
+        btnSubirCVIS.setText("Subir I. S.");
         btnSubirCVIS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirCVISActionPerformed(evt);
@@ -264,11 +264,11 @@ public class VntInsertaPractica extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(userLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtHorarioSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(6, 6, 6)
+                                .addComponent(txtHorarioSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -279,7 +279,7 @@ public class VntInsertaPractica extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(cbDNIAlumno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(cbCalendario, 0, 230, Short.MAX_VALUE))
+                                            .addComponent(cbCalendario, 0, 224, Short.MAX_VALUE))
                                         .addGap(70, 70, 70)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
