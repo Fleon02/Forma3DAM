@@ -65,7 +65,13 @@ public class VntPrincipal extends javax.swing.JFrame {
                     } else if (indexSubMenu == 1) {
                         main.showForm(new vntConvenios(vntPrincipal));
                     }
-                } else if (indexMenu == 5) {
+                } else if (indexMenu == 4) {
+                    if (indexSubMenu == 0) {
+                        main.showForm(new VntInsertaNecesidad());
+                    } else if (indexSubMenu == 1) {
+                        main.showForm(new VntNecesidad());
+                    }
+                }else if (indexMenu == 5) {
                     if (indexSubMenu == 0) {
                         main.showForm(new VntInsertaPractica());
                     } else if (indexSubMenu == 1) {
@@ -75,6 +81,19 @@ public class VntPrincipal extends javax.swing.JFrame {
                     if (indexSubMenu == 0) {
                         main.showForm(new VntConfiguracion());
                     }
+                } else if (indexMenu == 3) {
+                    if (indexSubMenu == 1) {
+                        main.showForm(new vntConvenios(vntPrincipal));
+                    } else if (indexSubMenu == 0) {
+                        main.showForm(new VntInsertaConvenio());
+                    }
+                } else if (indexMenu == 7) {
+                    if (indexSubMenu == 1) {
+                        main.showForm(new VntAnexos());
+                    } else if (indexSubMenu == 0) {
+                        main.showForm(new VntInsertaAnexo());
+                    }
+
                 }
             }
         });

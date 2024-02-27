@@ -1,5 +1,5 @@
 package pojos;
-// Generated 26-feb-2024 17:26:47 by Hibernate Tools 4.3.1
+// Generated 27-feb-2024 2:36:57 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,6 +29,16 @@ public class Empresas implements java.io.Serializable {
         this.cifEmpresa = cifEmpresa;
     }
 
+    public Empresas(String nombreEmpresa, String cifEmpresa, String direccion, String telefono, String owner, String tutorPracticas, String responsableContratacion) {
+        this.nombreEmpresa = nombreEmpresa;
+        this.cifEmpresa = cifEmpresa;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.owner = owner;
+        this.tutorPracticas = tutorPracticas;
+        this.responsableContratacion = responsableContratacion;
+    }
+
     public Empresas(String nombreEmpresa, String cifEmpresa, String direccion, String telefono, String owner, String tutorPracticas, String responsableContratacion, Set practicases, Set necesidads, Set anexoses, Set convenios) {
         this.nombreEmpresa = nombreEmpresa;
         this.cifEmpresa = cifEmpresa;
@@ -41,16 +51,6 @@ public class Empresas implements java.io.Serializable {
         this.necesidads = necesidads;
         this.anexoses = anexoses;
         this.convenios = convenios;
-    }
-
-    public Empresas(String nombreEmpresa, String cifEmpresa, String direccion, String telefono, String owner, String tutorPracticas, String responsableContratacion) {
-        this.nombreEmpresa = nombreEmpresa;
-        this.cifEmpresa = cifEmpresa;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.owner = owner;
-        this.tutorPracticas = tutorPracticas;
-        this.responsableContratacion = responsableContratacion;
     }
 
     public Integer getIdEmpresa() {
