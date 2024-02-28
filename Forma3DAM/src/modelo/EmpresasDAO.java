@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.Convenio;
@@ -226,6 +227,66 @@ public class EmpresasDAO {
         }
         return e;
     }
+    
+    public List<Empresas> obtenListaEmpresasEnNecesidad() {
+        List<Empresas> listaEmpresas = null;
+        Query query;
+        try {
+            iniciaOperacion();
+            String hql = "SELECT DISTINCT e FROM pojos.Empresas e JOIN e.necesidads n";
+            query = sesion.createQuery(hql);
+            listaEmpresas = query.list();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return listaEmpresas;
+    }
+    
+    private boolean empresaNecesitaAlumnoDelCiclo(Empresas empresa, String ciclo) {
+        String cicloLowerCase = ciclo.toLowerCase();
+        Empresas empresaConNecesidades = new EmpresasDAO().obtenEmpresaPorID(String.valueOf(empresa.getIdEmpresa()));
+
+        if (empresaConNecesidades != null) {
+            List<Object[]> listaNecesidades = new NecesidadDAO().obtenNecesidadesDeEmpresa(empresaConNecesidades);
+
+        for (Object[] necesidad : listaNecesidades) {            
+            switch (cicloLowerCase) {
+                case "dam":
+                    if ((Integer) necesidad[1] > 0) {
+                        return true; 
+                    }
+                    break;
+                case "daw":
+                    if ((Integer) necesidad[2] > 0) {
+                        return true; 
+                    }
+                    break;
+                case "asir":
+                    if ((Integer) necesidad[3] > 0) {
+                        return true;
+                    }
+                    break;
+                case "mark":
+                    if ((Integer) necesidad[4] > 0) {
+                        return true;
+                    }
+                    break;
+                case "fin":
+                    if ((Integer) necesidad[5] > 0) {
+                        return true; 
+                    }
+                    break;
+                
+            }
+        }
+    }
+
+    return false;
+   
+}
 
 
 }
