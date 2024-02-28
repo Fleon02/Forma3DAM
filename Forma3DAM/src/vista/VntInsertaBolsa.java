@@ -12,8 +12,10 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import modelo.AlumnosDAO;
+import modelo.BolsaDAO;
 import modelo.EmpresasDAO;
 import pojos.Alumnos;
+import pojos.Bolsa;
 import pojos.Empresas;
 
 /**
@@ -28,8 +30,17 @@ public class VntInsertaBolsa extends javax.swing.JPanel {
     public VntInsertaBolsa() {
         initComponents();
         cargarDNIAlumnos();
+        cargarMetodos();
     }
     
+    private void cargarMetodos() {
+    DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+    model.addElement("Seleccione un método");
+    model.addElement("Beca");
+    model.addElement("Trabajador");
+    cbMetodo.setModel(model);
+    cbMetodo.setSelectedIndex(0);
+    }
     
     private void cargarDNIAlumnos() {
         AlumnosDAO aDAO = new AlumnosDAO();
@@ -130,7 +141,21 @@ public class VntInsertaBolsa extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
+        Alumnos alumnoSeleccionado = (Alumnos) cbAlumnos.getSelectedItem();
+        String modalidadSeleccionada = (String) cbMetodo.getSelectedItem();
         
+        if (alumnoSeleccionado != null && !"beca".equals(modalidadSeleccionada.toLowerCase())){
+            Bolsa b = new Bolsa(alumnoSeleccionado, true, false);
+            BolsaDAO bDAO = new BolsaDAO();
+            bDAO.guardaEnBolsa(b);
+        }else if(alumnoSeleccionado != null && !"trabajador".equals(modalidadSeleccionada.toLowerCase())){
+            Bolsa b = new Bolsa(alumnoSeleccionado, false, true);
+            BolsaDAO bDAO = new BolsaDAO();
+            bDAO.guardaEnBolsa(b);
+        }else if(alumnoSeleccionado != null && !"seleccione un método".equals(modalidadSeleccionada.toLowerCase())){
+            //notificacion de que seleccione         
+        }
+            
     }//GEN-LAST:event_btnInsertarActionPerformed
     
     private static class AlumnosComboBoxRenderer extends DefaultListCellRenderer {

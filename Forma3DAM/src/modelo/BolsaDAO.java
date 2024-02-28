@@ -14,6 +14,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.Alumnos;
+import pojos.Bolsa;
 
 /**
  *
@@ -53,4 +54,21 @@ public class BolsaDAO {
         }
         return listaAlumnos;
     }
+    
+    public void guardaEnBolsa(Bolsa b) {
+        try
+        {
+            iniciaOperacion();
+            sesion.save(b);
+            tx.commit();
+        } catch (HibernateException he)
+        {
+            manejaExcepcion(he);
+            throw he;
+        } finally
+        {
+            sesion.close();
+        }
+    }
+    
 }
