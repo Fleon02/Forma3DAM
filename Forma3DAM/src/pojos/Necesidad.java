@@ -1,5 +1,5 @@
 package pojos;
-// Generated 27-feb-2024 19:04:12 by Hibernate Tools 4.3.1
+// Generated 28-feb-2024 17:10:15 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,8 +21,8 @@ public class Necesidad implements java.io.Serializable {
 
     public Necesidad() {
     }
-    
-    public Necesidad(Integer idNecesidad){
+
+    public Necesidad(Integer idNecesidad) {
         this.idNecesidad = idNecesidad;
     }
 

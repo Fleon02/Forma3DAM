@@ -78,7 +78,6 @@ public class VntAnexos extends javax.swing.JPanel {
                     a.getNecesidad().getIdNecesidad(),
                     a.getEmpresas().getTutorPracticas(),
                     a.getContratacion(),
-                    a.getCalendario(),
                     estadoAnexo2_1,
                     estadoAnexo2_2,
                     estadoAnexo3,
@@ -135,6 +134,12 @@ public class VntAnexos extends javax.swing.JPanel {
 
                         fechaInicio.setDate(fechaInicioTransformada);
                         fechaFin.setDate(fechaFinTransformada);
+
+                        if (contratacion.equalsIgnoreCase("true")) {
+                            ckbContratacion.setSelected(true);
+                        } else {
+                            ckbContratacion.setSelected(false);
+                        }
 
                         btnActualizar.setEnabled(true);
                         btnBorrar.setEnabled(true);
@@ -544,7 +549,7 @@ public class VntAnexos extends javax.swing.JPanel {
         a = ad.obtenAnexoPorID(Integer.parseInt(idAnexo));
 
         ad.eliminaAnexo(a, frame);
-        
+
         TablaAnexos.clearSelection();
         cargaTabla();
 
@@ -555,22 +560,92 @@ public class VntAnexos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnSubirA3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA3ActionPerformed
+        int filaSeleccionada = TablaAnexos.getSelectedRow();
+        if (filaSeleccionada != -1 && TablaAnexos.getValueAt(filaSeleccionada, 8).equals("Subido")) {
+            // Mostrar un JOptionPane para confirmar la sobrescritura del archivo
+            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo3 subido. ¿Desea sobreescribirlo?",
+                    "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
+
+            // Verificar la opción seleccionada por el usuario
+            if (opcion == JOptionPane.YES_OPTION) {
+                subirArchivo("anexo3");
+            } else {
+                // El usuario ha seleccionado no sobrescribir, salir del método
+                return;
+            }
+        }
         subirArchivo("anexo3");
     }//GEN-LAST:event_btnSubirA3ActionPerformed
 
     private void btnSubirA4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA4ActionPerformed
+        int filaSeleccionada = TablaAnexos.getSelectedRow();
+        if (filaSeleccionada != -1 && TablaAnexos.getValueAt(filaSeleccionada, 9).equals("Subido")) {
+            // Mostrar un JOptionPane para confirmar la sobrescritura del archivo
+            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo4 subido. ¿Desea sobreescribirlo?",
+                    "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
+
+            // Verificar la opción seleccionada por el usuario
+            if (opcion == JOptionPane.YES_OPTION) {
+                subirArchivo("anexo4");
+            } else {
+                // El usuario ha seleccionado no sobrescribir, salir del método
+                return;
+            }
+        }
         subirArchivo("anexo4");
     }//GEN-LAST:event_btnSubirA4ActionPerformed
 
     private void btnSubirA2_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA2_2ActionPerformed
+        int filaSeleccionada = TablaAnexos.getSelectedRow();
+        if (filaSeleccionada != -1 && TablaAnexos.getValueAt(filaSeleccionada, 7).equals("Subido")) {
+            // Mostrar un JOptionPane para confirmar la sobrescritura del archivo
+            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo2_2 subido. ¿Desea sobreescribirlo?",
+                    "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
+
+            // Verificar la opción seleccionada por el usuario
+            if (opcion == JOptionPane.YES_OPTION) {
+                subirArchivo("anexo2_2");
+            } else {
+                // El usuario ha seleccionado no sobrescribir, salir del método
+                return;
+            }
+        }
         subirArchivo("anexo2_2");
     }//GEN-LAST:event_btnSubirA2_2ActionPerformed
 
     private void btnSubirA2_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA2_1ActionPerformed
+        int filaSeleccionada = TablaAnexos.getSelectedRow();
+        if (filaSeleccionada != -1 && TablaAnexos.getValueAt(filaSeleccionada, 6).equals("Subido")) {
+            // Mostrar un JOptionPane para confirmar la sobrescritura del archivo
+            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo2_1 subido. ¿Desea sobreescribirlo?",
+                    "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
+
+            // Verificar la opción seleccionada por el usuario
+            if (opcion == JOptionPane.YES_OPTION) {
+                subirArchivo("anexo2_1");
+            } else {
+                // El usuario ha seleccionado no sobrescribir, salir del método
+                return;
+            }
+        }
         subirArchivo("anexo2_1");
     }//GEN-LAST:event_btnSubirA2_1ActionPerformed
 
     private void btnSubirA8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA8ActionPerformed
+        int filaSeleccionada = TablaAnexos.getSelectedRow();
+        if (filaSeleccionada != -1 && TablaAnexos.getValueAt(filaSeleccionada, 10).equals("Subido")) {
+            // Mostrar un JOptionPane para confirmar la sobrescritura del archivo
+            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo 8 subido. ¿Desea sobreescribirlo?",
+                    "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
+
+            // Verificar la opción seleccionada por el usuario
+            if (opcion == JOptionPane.YES_OPTION) {
+                subirArchivo("anexo8");
+            } else {
+                // El usuario ha seleccionado no sobrescribir, salir del método
+                return;
+            }
+        }
         subirArchivo("anexo8");
     }//GEN-LAST:event_btnSubirA8ActionPerformed
 
