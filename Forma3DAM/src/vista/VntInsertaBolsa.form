@@ -34,7 +34,7 @@
                               <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                               <Component id="userLabel1" min="-2" pref="150" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Component id="cbCiclo" min="-2" pref="230" max="-2" attributes="0"/>
+                              <Component id="cbMetodo" min="-2" pref="230" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="1" pref="74" max="32767" attributes="0"/>
@@ -52,7 +52,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="userLabel1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="userLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="cbCiclo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="cbMetodo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="cbAlumnos" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="216" max="32767" attributes="0"/>
@@ -112,7 +112,7 @@
         <Property name="text" type="java.lang.String" value="Modalidad"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbCiclo">
+    <Component class="javax.swing.JComboBox" name="cbMetodo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
@@ -122,7 +122,7 @@
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="1">
-            <StringItem index="0" value="Selecciona Ciclo"/>
+            <StringItem index="0" value="Seleccione metodo"/>
           </StringArray>
         </Property>
       </Properties>

@@ -9,6 +9,7 @@ import java.awt.Component;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import modelo.AlumnosDAO;
 import modelo.EmpresasDAO;
@@ -41,6 +42,8 @@ public class VntInsertaBolsa extends javax.swing.JPanel {
         cbAlumnos.setModel(model);
         cbAlumnos.setRenderer(new VntInsertaBolsa.AlumnosComboBoxRenderer());
     }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,7 +57,7 @@ public class VntInsertaBolsa extends javax.swing.JPanel {
         favicon = new javax.swing.JLabel();
         userLabel = new javax.swing.JLabel();
         userLabel1 = new javax.swing.JLabel();
-        cbCiclo = new javax.swing.JComboBox<>();
+        cbMetodo = new javax.swing.JComboBox<>();
         cbAlumnos = new javax.swing.JComboBox<>();
 
         btnInsertar.setBackground(new java.awt.Color(18, 30, 49));
@@ -78,9 +81,9 @@ public class VntInsertaBolsa extends javax.swing.JPanel {
         userLabel1.setForeground(new java.awt.Color(0, 0, 0));
         userLabel1.setText("Modalidad");
 
-        cbCiclo.setBackground(new java.awt.Color(0, 0, 0));
-        cbCiclo.setForeground(new java.awt.Color(255, 255, 255));
-        cbCiclo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Ciclo" }));
+        cbMetodo.setBackground(new java.awt.Color(0, 0, 0));
+        cbMetodo.setForeground(new java.awt.Color(255, 255, 255));
+        cbMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione metodo" }));
 
         cbAlumnos.setBackground(new java.awt.Color(0, 0, 0));
         cbAlumnos.setForeground(new java.awt.Color(255, 255, 255));
@@ -106,7 +109,7 @@ public class VntInsertaBolsa extends javax.swing.JPanel {
                                 .addGap(71, 71, 71)
                                 .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
-                                .addComponent(cbCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cbMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(1, 74, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -118,7 +121,7 @@ public class VntInsertaBolsa extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
                 .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,7 +153,7 @@ public class VntInsertaBolsa extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInsertar;
     private javax.swing.JComboBox<Alumnos> cbAlumnos;
-    private javax.swing.JComboBox<String> cbCiclo;
+    private javax.swing.JComboBox<String> cbMetodo;
     private javax.swing.JLabel favicon;
     private javax.swing.JLabel userLabel;
     private javax.swing.JLabel userLabel1;
