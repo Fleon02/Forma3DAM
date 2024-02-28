@@ -6,6 +6,7 @@
 package vista;
 
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -41,40 +42,48 @@ public class VntBolsa extends javax.swing.JPanel {
         initComponents();
         cargaTabla();
         cargaBolsa();
+        cargarMetodos();
         
     }
     
-    
-    public void cargaTabla(){
-        dtm.setRowCount(0);
-        List<Bolsa> listaBolsa = new BolsaDAO().obtenListaBolsa();
-        for (Bolsa bolsa : listaBolsa)
-        {
-            if(bolsa.getIdBolsa() != null &&  bolsa.getIdBolsa()>0 ){
-                
-                Alumnos alumno = new AlumnosDAO().obtenAlumnosPorID(bolsa.getAlumnos().getIdAlumno());
-                
-                if (alumno != null && alumno.getIdAlumno() > 0){
-                    int iD_bolsa = bolsa.getIdBolsa();
-                    int idAl = alumno.getIdAlumno();
-                    String nombre = alumno.getNombreAlumno();
-                    String dni = alumno.getDniAlumno();
-                    int ss = alumno.getSegSocialAlumno();
-                    String metodo = evaluaMetodo(bolsa.getBeca(), bolsa.getBolsa());
-                    dtm.addRow(new Object[]
-                    {
-                        iD_bolsa,
-                        idAl,
-                        nombre,
-                        dni,
-                        ss,
-                        metodo
-                    });  
-                }
-                
-            }
-        }        
+    private void cargarMetodos() {
+    DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+    model.addElement("Seleccione un método");
+    model.addElement("Beca");
+    model.addElement("Trabajador");
+    cbMetodo.setModel(model);
+    cbMetodo.setSelectedIndex(0);
     }
+    
+    
+    public void cargaTabla() {
+    dtm.setRowCount(0);
+    List<Bolsa> listaBolsa = new BolsaDAO().obtenListaBolsa();
+    for (Bolsa bolsa : listaBolsa) {
+        if (bolsa.getIdBolsa() != null && bolsa.getIdBolsa() > 0) {
+
+            Alumnos alumno = new AlumnosDAO().obtenAlumnosPorID(bolsa.getAlumnos().getIdAlumno());
+
+            if (alumno != null && alumno.getIdAlumno() > 0) {
+                int iD_bolsa = bolsa.getIdBolsa();
+                int idAl = alumno.getIdAlumno();
+                String nombre = alumno.getNombreAlumno();
+                String dni = alumno.getDniAlumno();
+                int ss = alumno.getSegSocialAlumno();
+                String metodo = evaluaMetodo(bolsa.getBeca(), bolsa.getBolsa());
+
+                dtm.addRow(new Object[]{
+                    iD_bolsa,
+                    idAl,
+                    nombre,
+                    dni,
+                    ss,
+                    metodo
+                });
+            }
+        }
+    }
+}
     
     public void cargaBolsa(){
         TablaBolsa.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -88,14 +97,14 @@ public class VntBolsa extends javax.swing.JPanel {
                         txtNombreAlumno.setText(TablaBolsa.getValueAt(filas, 2) + "");
                         txtDNIAlumno.setText(TablaBolsa.getValueAt(filas, 3) + "");                        
                         txtSegSocial.setText(TablaBolsa.getValueAt(filas, 4) + "");
-                        txtMetodo.setText(TablaBolsa.getValueAt(filas, 5) + "");
+                        cbMetodo.setSelectedItem(TablaBolsa.getValueAt(filas, 5));
                         
                         
                         txtNombreAlumno.setEditable(true);
                         txtDNIAlumno.setEditable(true);
                         txtIDAl.setEditable(true);
                         txtSegSocial.setEditable(true);
-                        txtMetodo.setEditable(true);                        
+                        cbMetodo.setEditable(true);                        
                         btnActualizar.setEnabled(true);
                         btnBorrar.setEnabled(true);
                     } else {
@@ -103,7 +112,7 @@ public class VntBolsa extends javax.swing.JPanel {
                         txtDNIAlumno.setEditable(false);
                         txtIDAl.setEditable(false);
                         txtSegSocial.setEditable(false);
-                        txtMetodo.setEditable(false);
+                        cbMetodo.setEditable(false);
                         
                     }
                 }
@@ -131,13 +140,13 @@ public class VntBolsa extends javax.swing.JPanel {
         userLabel3 = new javax.swing.JLabel();
         txtIDAl = new javax.swing.JTextField();
         userLabel4 = new javax.swing.JLabel();
-        txtMetodo = new javax.swing.JTextField();
         userLabel5 = new javax.swing.JLabel();
         txtSegSocial = new javax.swing.JTextField();
         btnActualizar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         userLabel6 = new javax.swing.JLabel();
         txtIDBolsa = new javax.swing.JTextField();
+        cbMetodo = new javax.swing.JComboBox<>();
 
         TablaBolsa.setModel(dtm);
         TablaBolsa.setToolTipText("");
@@ -192,17 +201,6 @@ public class VntBolsa extends javax.swing.JPanel {
         userLabel4.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel4.setText("Metodo");
 
-        txtMetodo.setEditable(false);
-        txtMetodo.setBackground(new java.awt.Color(0, 0, 0));
-        txtMetodo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtMetodo.setForeground(new java.awt.Color(255, 255, 255));
-        txtMetodo.setBorder(null);
-        txtMetodo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtMetodoMousePressed(evt);
-            }
-        });
-
         userLabel5.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel5.setText("Seg. Social");
 
@@ -253,6 +251,10 @@ public class VntBolsa extends javax.swing.JPanel {
             }
         });
 
+        cbMetodo.setBackground(new java.awt.Color(0, 0, 0));
+        cbMetodo.setForeground(new java.awt.Color(255, 255, 255));
+        cbMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione metodo" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -275,11 +277,10 @@ public class VntBolsa extends javax.swing.JPanel {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(userLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtNombreAlumno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtDNIAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtDNIAlumno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(userLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -287,7 +288,7 @@ public class VntBolsa extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -330,9 +331,9 @@ public class VntBolsa extends javax.swing.JPanel {
                             .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSegSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -353,16 +354,34 @@ public class VntBolsa extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDAlMousePressed
 
-    private void txtMetodoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMetodoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMetodoMousePressed
-
     private void txtSegSocialMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSegSocialMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSegSocialMousePressed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-       
+        if (txtIDBolsa.getText() != null && !txtIDBolsa.getText().isEmpty()) {
+        int idBolsa = Integer.parseInt(txtIDBolsa.getText());
+        Bolsa bolsa = new BolsaDAO().obtenBolsaPorID(idBolsa);
+
+        if (bolsa != null) {
+            // Update the selected method in the entity Bolsa
+            String selectedMetodo = (String) cbMetodo.getSelectedItem();
+            boolean isBeca = selectedMetodo.equals("Beca");
+            boolean isTrabajador = selectedMetodo.equals("Trabajador");
+            
+            bolsa.setBeca(isBeca);
+            bolsa.setBolsa(isTrabajador);
+
+            // Update the entity Bolsa in the database
+            new BolsaDAO().actualizaBolsa(bolsa);
+
+            cargaTabla();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró la Bolsa con ID: " + idBolsa, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecciona una Bolsa para actualizar", "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -396,12 +415,12 @@ public class VntBolsa extends javax.swing.JPanel {
     private javax.swing.JTable TablaBolsa;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBorrar;
+    private javax.swing.JComboBox<String> cbMetodo;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel title1;
     private javax.swing.JTextField txtDNIAlumno;
     private javax.swing.JTextField txtIDAl;
     private javax.swing.JTextField txtIDBolsa;
-    private javax.swing.JTextField txtMetodo;
     private javax.swing.JTextField txtNombreAlumno;
     private javax.swing.JTextField txtSegSocial;
     private javax.swing.JLabel userLabel1;
@@ -413,14 +432,12 @@ public class VntBolsa extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private String evaluaMetodo(Boolean beca, Boolean bolsa) {
-        String metodo = "";
-        if(beca.toString().toLowerCase().equals("true")){
-            metodo="beca";
-        }else if(bolsa.toString().toLowerCase().equals("true")){
-            metodo="trabajador";
-        }else if(bolsa.toString().toLowerCase().equals("false") && beca.toString().toLowerCase().equals("false")){
-            //Algo ha ido mal
-        }
-        return metodo;
+    if (beca != null && beca) {
+        return "Beca";
+    } else if (bolsa != null && bolsa) {
+        return "Trabajador";
+    } else {
+        return "Sin método";
     }
+}
 }
