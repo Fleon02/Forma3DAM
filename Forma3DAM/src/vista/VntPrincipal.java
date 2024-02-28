@@ -30,6 +30,7 @@ public class VntPrincipal extends javax.swing.JFrame {
 
     public VntPrincipal(String nombre, String rol) {
         initComponents();
+        setTitle("FORMA 3");
         init(nombre, rol);
     }
 
