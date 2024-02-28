@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFileChooser;
@@ -28,14 +30,18 @@ public class VntInsertaPractica extends javax.swing.JPanel {
     private byte[] bytesIS;
     private byte[] bytesIF;
 
-    public VntInsertaPractica() throws ParseException {
+    public VntInsertaPractica() {
         initComponents();
-        DateFormat formatoOrigen = new SimpleDateFormat("HHmm");
-        DateFormat formatoDestino = new SimpleDateFormat("HH:mm");
-        Date fecha = formatoOrigen.parse("0700");
-        String fechaFormato = formatoDestino.format(fecha);
-        txtHorarioEntrada.setText(fechaFormato);
-        txtHorarioSalida.setText(fechaFormato);
+        try {
+            DateFormat formatoOrigen = new SimpleDateFormat("HHmm");
+            DateFormat formatoDestino = new SimpleDateFormat("HH:mm");
+            Date fecha = formatoOrigen.parse("0700");
+            String fechaFormato = formatoDestino.format(fecha);
+            txtHorarioEntrada.setText(fechaFormato);
+            txtHorarioSalida.setText(fechaFormato);
+        } catch (ParseException ex) {
+            Logger.getLogger(VntInsertaPractica.class.getName()).log(Level.SEVERE, null, ex);
+        }
         cargarDNIAlumno();
         cargarTutorPracticasEmpresas();
         cargarCalendariosAnexos();
