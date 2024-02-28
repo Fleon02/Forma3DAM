@@ -70,5 +70,52 @@ public class BolsaDAO {
             sesion.close();
         }
     }
+
+    public List<Bolsa> obtenListaBolsa() {
+        List<Bolsa> listaBolsa = null;
+        try {
+            iniciaOperacion();
+            listaBolsa = sesion.createQuery("from Bolsa").list();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return listaBolsa;
+    }
+
+    public void eliminaBolsa(String idBolsa) {
+        
+    }
+
+    public Bolsa obtenBolsaPorID(int idBolsa) {
+        Bolsa b = null;
+    try {
+        iniciaOperacion();
+        b = (Bolsa) sesion.get(Bolsa.class, idBolsa);
+    } catch (HibernateException he) {
+        manejaExcepcion(he);
+        throw he;
+    } finally {
+        if (sesion != null && sesion.isOpen()) {
+            sesion.close();
+        }
+    }
+    return b;
+    }
+
+    public void actualizaBolsa(Bolsa bolsa) {
+        try {
+        iniciaOperacion();
+        sesion.update(bolsa);
+        tx.commit();
+    } catch (HibernateException he) {
+        manejaExcepcion(he);
+        throw he;
+    } finally {
+        sesion.close();
+    }
+    }
     
 }

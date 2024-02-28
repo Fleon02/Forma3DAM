@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.Alumnos;
@@ -31,21 +32,25 @@ public class AlumnosDAO {
 
     public int guardaAlumnos(Alumnos p) {
         int id;
-        try {
+        try
+        {
             iniciaOperacion();
             id = (int) sesion.save(p);
             tx.commit();
-        } catch (HibernateException he) {
+        } catch (HibernateException he)
+        {
             manejaExcepcion(he);
             throw he;
-        } finally {
+        } finally
+        {
             sesion.close();
         }
         return id;
     }
 
     public void guardaAlumno(String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, int validez, String cicloAlumno, byte[] cv) {
-        try {
+        try
+        {
             iniciaOperacion();
             String hql = "INSERT INTO alumnos(dniAlumno, nombreAlumno, yearCurso, segSocialAlumno, validez, cicloAlumno, CV)"
                     + " VALUES (:dniAlumno,:nombreAlumno,:yearCurso,:segSocialAlumno,:validez,:cicloAlumno,:cv)";
@@ -58,78 +63,116 @@ public class AlumnosDAO {
                     .setParameter("cicloAlumno", cicloAlumno)
                     .setParameter("cv", cv)
                     .executeUpdate();
-            if (valor == 1) {
+            if (valor == 1)
+            {
                 JOptionPane.showMessageDialog(parentComponent, "Alumno Insertado", "Info", JOptionPane.INFORMATION_MESSAGE);
-            } else {
+            } else
+            {
                 JOptionPane.showMessageDialog(parentComponent, "Alumno No Insertado", "Error", JOptionPane.ERROR_MESSAGE);
             }
             tx.commit();
-        } catch (HibernateException he) {
+        } catch (HibernateException he)
+        {
             manejaExcepcion(he);
             throw he;
-        } finally {
+        } finally
+        {
             sesion.close();
         }
     }
 
     public Alumnos obtenAlumnos(int id) {
         Alumnos p = null;
-        try {
+        try
+        {
             iniciaOperacion();
             p = (Alumnos) sesion.get(Alumnos.class, id);
-        } catch (HibernateException he) {
+        } catch (HibernateException he)
+        {
             manejaExcepcion(he);
             throw he;
-        } finally {
+        } finally
+        {
             sesion.close();
         }
         return p;
     }
 
     public void actualizaAlumnos(Alumnos a) {
-        try {
+        try
+        {
             iniciaOperacion();
             sesion.update(a);
             tx.commit();
             Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Alumno Actualizado con exito");
-        } catch (HibernateException he) {
+        } catch (HibernateException he)
+        {
             manejaExcepcion(he);
             throw he;
-        } finally {
+        } finally
+        {
             sesion.close();
         }
     }
 
     public void eliminaAlumnos(String dniAlumno) {
-        try {
+        try
+        {
             iniciaOperacion();
             String hql = "UPDATE Alumnos SET idAlumno = -idAlumno WHERE dniAlumno = :dniAlumno";
             int valor = sesion.createQuery(hql).setParameter("dniAlumno", dniAlumno).executeUpdate();
-            if (valor == 1) {
+            if (valor == 1)
+            {
                 JOptionPane.showMessageDialog(parentComponent, "Alumno Marcado como Borrado", "Info", JOptionPane.INFORMATION_MESSAGE);
-            } else {
+            } else
+            {
                 JOptionPane.showMessageDialog(parentComponent, "Alumno No Marcado como Borrado", "Error", JOptionPane.ERROR_MESSAGE);
             }
             tx.commit();
-        } catch (HibernateException he) {
+        } catch (HibernateException he)
+        {
             manejaExcepcion(he);
             throw he;
-        } finally {
+        } finally
+        {
             sesion.close();
         }
     }
 
     public List<Alumnos> obtenListaAlumnos() {
         List<Alumnos> listaAlumnos = null;
-        try {
+        try
+        {
             iniciaOperacion();
             listaAlumnos = sesion.createQuery("from Alumnos").list();
-        } catch (HibernateException he) {
+        } catch (HibernateException he)
+        {
             manejaExcepcion(he);
             throw he;
-        } finally {
+        } finally
+        {
             sesion.close();
         }
         return listaAlumnos;
+    }
+
+    public Alumnos obtenAlumnosPorID(Integer idAlumno) {        
+        Alumnos a;
+        Query query;
+        try{
+            iniciaOperacion();
+            String hql = "from Alumnos where idAlumno = :idAlumno";
+            query = sesion.createQuery(hql).setParameter("idAlumno", idAlumno);
+            a = (Alumnos) query.uniqueResult();
+        } catch (HibernateException he){
+            manejaExcepcion(he);
+            throw he;
+        } finally{
+            if (sesion != null && sesion.isOpen())
+            {
+                sesion.close();
+            }
+        }
+        return a;
     }
 }
