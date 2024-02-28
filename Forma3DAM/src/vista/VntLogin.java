@@ -3,6 +3,8 @@ package vista;
 import java.awt.Color;
 import java.util.Map;
 import modelo.LoginDAO;
+import modelo.PasswordEncoder;
+import pojos.Beep;
 import pojos.Login;
 
 public class VntLogin extends javax.swing.JFrame {
@@ -286,17 +288,27 @@ public class VntLogin extends javax.swing.JFrame {
         // Crear una instancia de LoginDAO
         LoginDAO loginDAO = new LoginDAO();
 
-        Login usuario = loginDAO.iniciarSesion(correoUsuario, contrasena);
+        Login usuario = loginDAO.iniciarSesion(correoUsuario);
 
         // Verificar si se encontró un usuario con las credenciales proporcionadas
         if (usuario != null) {
-            // Si se encontró el usuario, mostrar un mensaje de éxito
-            VntPrincipal p = new VntPrincipal(usuario.getNombreUsuario(), usuario.getRol());
-            p.setVisible(true);
-            dispose();
+            Beep beep = usuario.getBeep();
+            String hash = beep.getHashContrasena();
+            String salt = beep.getSalt();
+
+            String comprobante = PasswordEncoder.encodePassword(contrasena, salt);
+
+            if (hash.equals(comprobante)) {
+                VntPrincipal p = new VntPrincipal(usuario.getNombreUsuario(), usuario.getRol());
+                p.setVisible(true);
+                dispose();
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Nombre de usuario o contraseña incorrectos", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+
         } else {
             // Si no se encontró el usuario, mostrar un mensaje de error
-            javax.swing.JOptionPane.showMessageDialog(this, "Nombre de usuario o contraseña incorrectos", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "Usuario no existe", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_loginBtnTxtMouseClicked
 

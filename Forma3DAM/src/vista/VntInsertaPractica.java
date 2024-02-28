@@ -4,6 +4,10 @@ import java.awt.Component;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
@@ -13,6 +17,7 @@ import javax.swing.JOptionPane;
 import modelo.AlumnosDAO;
 import modelo.AnexosDAO;
 import modelo.EmpresasDAO;
+import modelo.PracticasDAO;
 import pojos.Alumnos;
 import pojos.Anexos;
 import pojos.Empresas;
@@ -23,8 +28,14 @@ public class VntInsertaPractica extends javax.swing.JPanel {
     private byte[] bytesIS;
     private byte[] bytesIF;
 
-    public VntInsertaPractica() {
+    public VntInsertaPractica() throws ParseException {
         initComponents();
+        DateFormat formatoOrigen = new SimpleDateFormat("HHmm");
+        DateFormat formatoDestino = new SimpleDateFormat("HH:mm");
+        Date fecha = formatoOrigen.parse("0700");
+        String fechaFormato = formatoDestino.format(fecha);
+        txtHorarioEntrada.setText(fechaFormato);
+        txtHorarioSalida.setText(fechaFormato);
         cargarDNIAlumno();
         cargarTutorPracticasEmpresas();
         cargarCalendariosAnexos();
@@ -51,7 +62,11 @@ public class VntInsertaPractica extends javax.swing.JPanel {
                 if (a.getIdAlumno() == null) {
                     setText("Seleccione DNI de Alumno/a");
                 } else {
-                    setText(a.getDniAlumno());
+                    if (a.getIdAlumno() > 0) {
+                        setText(a.getIdAlumno() + " - " + a.getDniAlumno());
+                    } else {
+                        setText("");
+                    }
                 }
             }
             return this;
@@ -79,7 +94,11 @@ public class VntInsertaPractica extends javax.swing.JPanel {
                 if (empresa.getTutorPracticas() == null) {
                     setText("Seleccione Tutor/a");
                 } else {
-                    setText(empresa.getTutorPracticas());
+                    if (empresa.getIdEmpresa() > 0) {
+                        setText(empresa.getIdEmpresa() + " - " + empresa.getTutorPracticas());
+                    } else {
+                        setText("");
+                    }
                 }
             }
             return this;
@@ -107,7 +126,11 @@ public class VntInsertaPractica extends javax.swing.JPanel {
                 if (anexos.getCalendario() == null) {
                     setText("Seleccione Calendario");
                 } else {
-                    setText(anexos.getCalendario());
+                    if (anexos.getIdAnexo() > 0) {
+                        setText(anexos.getIdAnexo() + " - " + anexos.getCalendario());
+                    } else {
+                        setText("");
+                    }
                 }
             }
             return this;
@@ -157,7 +180,7 @@ public class VntInsertaPractica extends javax.swing.JPanel {
         btnSubirCVIF.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCVIF.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIF.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirCVIF.setText("Subir CV");
+        btnSubirCVIF.setText("Subir I. F.");
         btnSubirCVIF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirCVIFActionPerformed(evt);
@@ -178,13 +201,17 @@ public class VntInsertaPractica extends javax.swing.JPanel {
         nombreArchivoIF.setText("Archivo");
 
         cbCalendario.setBackground(new java.awt.Color(0, 0, 0));
+        cbCalendario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cbCalendario.setForeground(new java.awt.Color(255, 255, 255));
 
         cbTutorPracticas.setBackground(new java.awt.Color(0, 0, 0));
+        cbTutorPracticas.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cbTutorPracticas.setForeground(new java.awt.Color(255, 255, 255));
 
         btnSubirCVIS.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCVIS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIS.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirCVIS.setText("Subir CV");
+        btnSubirCVIS.setText("Subir I. S.");
         btnSubirCVIS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirCVISActionPerformed(evt);
@@ -198,11 +225,12 @@ public class VntInsertaPractica extends javax.swing.JPanel {
         userLabel6.setText("Informe Seguimiento");
 
         cbDNIAlumno.setBackground(new java.awt.Color(0, 0, 0));
+        cbDNIAlumno.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cbDNIAlumno.setForeground(new java.awt.Color(255, 255, 255));
 
         userLabel7.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel7.setText("Horario Entrada");
 
-        txtHorarioEntrada.setEditable(false);
         txtHorarioEntrada.setBackground(new java.awt.Color(0, 0, 0));
         txtHorarioEntrada.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtHorarioEntrada.setForeground(new java.awt.Color(255, 255, 255));
@@ -213,7 +241,6 @@ public class VntInsertaPractica extends javax.swing.JPanel {
             }
         });
 
-        txtHorarioSalida.setEditable(false);
         txtHorarioSalida.setBackground(new java.awt.Color(0, 0, 0));
         txtHorarioSalida.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtHorarioSalida.setForeground(new java.awt.Color(255, 255, 255));
@@ -247,22 +274,24 @@ public class VntInsertaPractica extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(userLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtHorarioSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(6, 6, 6)
+                                .addComponent(txtHorarioSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(favicon)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(favicon)
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(cbDNIAlumno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(cbCalendario, 0, 230, Short.MAX_VALUE))
+                                            .addComponent(cbCalendario, 0, 224, Short.MAX_VALUE))
                                         .addGap(70, 70, 70)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -302,12 +331,13 @@ public class VntInsertaPractica extends javax.swing.JPanel {
                         .addComponent(btnSubirCVIS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(nombreArchivoIS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(userLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtHorarioSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtHorarioSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -322,11 +352,12 @@ public class VntInsertaPractica extends javax.swing.JPanel {
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
         if (cbDNIAlumno.getSelectedIndex() != 0 && cbTutorPracticas.getSelectedIndex() != 0 && cbCalendario.getSelectedIndex() != 0) {
-            Alumnos a = (Alumnos) cbDNIAlumno.getSelectedItem();
+            Alumnos al = (Alumnos) cbDNIAlumno.getSelectedItem();
             Anexos an = (Anexos) cbCalendario.getSelectedItem();
             Empresas e = (Empresas) cbTutorPracticas.getSelectedItem();
-            Practicas p = new Practicas(a, an, e, bytesIS, bytesIF, txtHorarioEntrada.getText(), txtHorarioSalida.getText());
-            new VntAlumnos().cargaTabla();
+            Practicas p = new Practicas(al, an, e, bytesIS, bytesIF, txtHorarioEntrada.getText(), txtHorarioSalida.getText());
+            new PracticasDAO().guardaPracticas(p);
+            new VntPracticas().cargaTabla();
         } else {
             JOptionPane.showMessageDialog(cbDNIAlumno, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }

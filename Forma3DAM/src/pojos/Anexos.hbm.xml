@@ -1,16 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26-feb-2024 17:26:48 by Hibernate Tools 4.3.1 -->
+<!-- Generated 27-feb-2024 19:04:12 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="pojos.Anexos" table="anexos" catalog="practicas" optimistic-lock="version">
         <id name="idAnexo" type="java.lang.Integer">
             <column name="idAnexo" />
             <generator class="identity" />
         </id>
-        <many-to-one name="alumnos" class="pojos.Alumnos" fetch="select">
-            <column name="idAlumno" />
-        </many-to-one>
         <many-to-one name="empresas" class="pojos.Empresas" fetch="select">
             <column name="idEmpresa" not-null="true" />
         </many-to-one>
@@ -44,12 +41,6 @@
         <property name="anexoOcho" type="binary">
             <column name="anexoOcho" />
         </property>
-        <set name="bolsas" table="bolsa" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="idAnexo" />
-            </key>
-            <one-to-many class="pojos.Bolsa" />
-        </set>
         <set name="practicases" table="practicas" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="idAnexo" />

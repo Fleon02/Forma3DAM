@@ -72,6 +72,20 @@ public class AlumnosDAO {
         }
     }
 
+    public Alumnos obtenAlumnos(int id) {
+        Alumnos p = null;
+        try {
+            iniciaOperacion();
+            p = (Alumnos) sesion.get(Alumnos.class, id);
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return p;
+    }
+
     public void actualizaAlumnos(Alumnos a) {
         try {
             iniciaOperacion();
@@ -89,7 +103,7 @@ public class AlumnosDAO {
     public void eliminaAlumnos(String dniAlumno) {
         try {
             iniciaOperacion();
-            String hql = "UPDATE Alumnos SET idAlumno = -1 WHERE dniAlumno = :dniAlumno";
+            String hql = "UPDATE Alumnos SET idAlumno = -idAlumno WHERE dniAlumno = :dniAlumno";
             int valor = sesion.createQuery(hql).setParameter("dniAlumno", dniAlumno).executeUpdate();
             if (valor == 1) {
                 JOptionPane.showMessageDialog(parentComponent, "Alumno Marcado como Borrado", "Info", JOptionPane.INFORMATION_MESSAGE);

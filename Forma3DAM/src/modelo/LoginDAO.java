@@ -43,15 +43,14 @@ public class LoginDAO {
         return listaUsuarios;
     }
 
-    public Login iniciarSesion(String correoUsuario, String contrasena) throws HibernateException {
+    public Login iniciarSesion(String correoUsuario) throws HibernateException {
         Login usuario = null;
         try {
             iniciaOperacion();
             // Modificar la consulta HQL para unir la tabla Login con la tabla Beep y filtrar por la contraseña
-            String hql = "FROM Login l JOIN FETCH l.beep b WHERE l.correoUsuario = :correoUsuario AND b.contrasena = :contrasena";
+            String hql = "FROM Login l JOIN FETCH l.beep b WHERE l.correoUsuario = :correoUsuario";
             Query query = sesion.createQuery(hql);
             query.setParameter("correoUsuario", correoUsuario);
-            query.setParameter("contrasena", contrasena);
             usuario = (Login) query.uniqueResult();
         } catch (HibernateException he) {
             manejaExcepcion(he);
@@ -64,7 +63,7 @@ public class LoginDAO {
         return usuario;
     }
 
-    public Boolean registrarUsuario(Login usuario, String contrasena) {
+    public Boolean registrarUsuario(Login usuario, String hashcontrasena, String salt) {
         boolean registroExitoso;
         try {
             // Iniciamos la transacción
@@ -72,7 +71,8 @@ public class LoginDAO {
 
             // Creamos el objeto Beep con la contraseña y lo guardamos
             Beep beep = new Beep();
-            beep.setContrasena(contrasena);
+            beep.setHashContrasena(hashcontrasena);
+            beep.setSalt(salt);
             beep.setLogin(usuario);
             sesion.save(beep);
 

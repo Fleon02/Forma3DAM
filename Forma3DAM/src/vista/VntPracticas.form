@@ -41,7 +41,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace pref="681" max="32767" attributes="0"/>
+              <EmptySpace pref="680" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="title" alignment="0" min="-2" pref="396" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
@@ -53,31 +53,32 @@
                           <Component id="btnSubirCVIS" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="userLabel1" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="cbTutorPracticas" max="32767" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnActualizar" min="-2" pref="192" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnBorrar" max="32767" attributes="0"/>
+                              <Component id="btnBorrar" pref="195" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="userLabel" max="32767" attributes="0"/>
                                   <Component id="userLabel6" pref="150" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="cbDNIAlumno" max="32767" attributes="0"/>
                                   <Component id="txtIDPractica" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="userLabel2" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="cbCalendario" pref="230" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="userLabel2" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="userLabel1" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cbTutorPracticas" max="32767" attributes="0"/>
+                                  <Component id="cbCalendario" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -89,7 +90,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="13" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
@@ -275,7 +276,7 @@
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Roboto" size="12" style="0"/>
+          <Font name="Roboto" size="12" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -301,6 +302,13 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="12" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Alumnos&gt;"/>
@@ -319,9 +327,16 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="12" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Empresas&#xa;&gt;"/>
@@ -340,9 +355,16 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="12" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Anexos&gt;"/>
@@ -359,7 +381,8 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Subir CV"/>
+        <Property name="text" type="java.lang.String" value="Subir I. S."/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubirCVISActionPerformed"/>
@@ -400,7 +423,8 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Subir CV"/>
+        <Property name="text" type="java.lang.String" value="Subir I. F."/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubirCVIFActionPerformed"/>

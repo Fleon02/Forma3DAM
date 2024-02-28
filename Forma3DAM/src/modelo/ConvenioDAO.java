@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.Alumnos;
 import pojos.Convenio;
+import pojos.Empresas;
 import raven.toast.Notifications;
 
 public class ConvenioDAO {
@@ -116,6 +117,22 @@ public class ConvenioDAO {
 
             Notifications.getInstance().setJFrame(jframe);
             Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Convenio actualizado con éxito");
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+    }
+
+    public int obtenerCantidadPracticasPorEmpresa(Empresas empresa) {
+        try {
+            iniciaOperacion();
+            Query query = sesion.createQuery("SELECT COUNT(*) FROM Practicas p WHERE p.empresas.idEmpresa = :idEmpresa");
+
+            query.setParameter("idEmpresa", empresa.getIdEmpresa());
+            Long count = (Long) query.uniqueResult();
+            return count != null ? count.intValue() : 0;
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;

@@ -23,6 +23,7 @@ import pojos.Necesidad;
  * @author Usuario
  */
 public class NecesidadDAO {
+
     private Session sesion;
     private Transaction tx;
     Component parentComponent = null;
@@ -37,40 +38,40 @@ public class NecesidadDAO {
         tx.rollback();
         throw new HibernateException("Error en la capa de acceso a datos", he);
     }
-    
-    public List<Necesidad> obtenListaNecesidad(){
+
+    public List<Necesidad> obtenListaNecesidad() {
         List<Necesidad> listaNecesidades = null;
-    Query query;
-    try{
-        iniciaOperacion();
-        query = sesion.createQuery("FROM Necesidad n LEFT JOIN FETCH n.empresas");
-        listaNecesidades = query.list();
-    } catch(HibernateException he) {
-        manejaExcepcion(he);
-        throw he;
-    } finally {
-        sesion.close();
-    }
-    return listaNecesidades;
+        Query query;
+        try {
+            iniciaOperacion();
+            query = sesion.createQuery("FROM Necesidad n LEFT JOIN FETCH n.empresas");
+            listaNecesidades = query.list();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return listaNecesidades;
     }
 
-    public void actualizarNecesidad(Necesidad n) {        
-        try{
+    public void actualizarNecesidad(Necesidad n) {
+        try {
             iniciaOperacion();
             sesion.update(n);
             tx.commit();
-        }catch(HibernateException he){
+        } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
-        }finally{
+        } finally {
             sesion.close();
-        }        
+        }
     }
 
     public void eliminaNecesidad(String cifempresa) {
         Empresas empresas = new Empresas(cifempresa);
         try {
-            iniciaOperacion();            
+            iniciaOperacion();
             String hql = "UPDATE Necesidad SET idNecesidad = -1 WHERE empresas = :empresas";
             int valor = sesion.createQuery(hql).setParameter("empresas", empresas).executeUpdate();
             if (valor == 1) {
@@ -87,38 +88,35 @@ public class NecesidadDAO {
         }
     }
 
-    public void guardaNecesidad(Necesidad n) {     
-        try
-        {
+    public void guardaNecesidad(Necesidad n) {
+        try {
             iniciaOperacion();
             sesion.save(n);
             tx.commit();
-        } catch (HibernateException he)
-        {
+        } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
-        } finally
-        {
+        } finally {
             sesion.close();
-        }    
+        }
     }
-    
+
     public Necesidad obtenerNecesidadPorId(int id) {
         Necesidad n = null;
         Query query;
-    try
-        {
+        try {
             iniciaOperacion();
-           query = sesion.createQuery("FROM Necesidad where idNecesidad = :necesidad").setParameter("necesidad", id);
+            query = sesion.createQuery("FROM Necesidad where idNecesidad = :necesidad").setParameter("necesidad", id);
             n = (Necesidad) query.uniqueResult();
-        } catch (HibernateException he)
-        {
+        } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
-        } finally
-        {
-            sesion.close();
+        } finally {
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
         }
-    return n;
+        return n;
     }
+
 }
