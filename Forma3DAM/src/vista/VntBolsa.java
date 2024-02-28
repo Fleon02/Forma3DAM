@@ -7,51 +7,78 @@ package vista;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import modelo.AlumnosDAO;
+import modelo.BolsaDAO;
 import modelo.EmpresasDAO;
+import pojos.Alumnos;
 import pojos.Empresas;
 
 /**
  *
- * @author antoniojose.castillo
+ * @author Usuario
  */
-public class VntBolsa extends javax.swing.JFrame {
+public class VntBolsa extends javax.swing.JPanel {
     
- //modelo tabla empresas
- DefaultTableModel defaultTablaEmpresas = new DefaultTableModel(new Object[]{
-        "IDEmpresa",
-     "NumConvenio",
-        "NombreEmpresa",
+    DefaultTableModel dte = new DefaultTableModel(new Object[]{        
+        "Empresa",
         "CIF",
         "Direccion",
         "Telefono",
-        "Owner"        
+        "Owner"
     }, 0);
     
-    
-    //modelo tabla alumnos
-    DefaultTableModel defaultTablaAlumnos = new DefaultTableModel(new Object[]{
-        "IDAlumno",
+    DefaultTableModel dta = new DefaultTableModel(new Object[]{        
         "DNI",
         "Nombre",
-        "AñoCurso",
-        "SS",
-        "CicloFormativo"        
+        "Año Curso",
+        "N. S. S.",
+        "Ciclo"
     }, 0);
     
-    
+    /**
+     * Creates new form VntBolsa
+     */
     public VntBolsa() {
         initComponents();
+        cargaTablaAlumnos();
+        cargaTablaEmpresa();
     }
     
-    public void cargaTabla(){
-        defaultTablaEmpresas.setRowCount(0);
-        List<Empresas> listaEmpresas = new EmpresasDAO().obtenListaEmpresas();
-        for (Empresas empresa : listaEmpresas)
-        {
-            //Continuar
+    
+    public void cargaTablaAlumnos() {
+        dta.setRowCount(0);
+        List<Alumnos> listaAlumnos = new BolsaDAO().obtenListaAlumnosConInformeFinal();
+        for (Alumnos a : listaAlumnos) {
+            if (a.getIdAlumno() > 0) {                
+                    dta.addRow(new Object[]{
+                        
+                        a.getDniAlumno(),
+                        a.getNombreAlumno(),
+                        a.getYearCurso(),
+                        a.getSegSocialAlumno(),
+                        a.getCicloAlumno(),});
+                
+            }
+
         }
     }
+    
+    public void cargaTablaEmpresa() {
+        dte.setRowCount(0);
+        List<Empresas> listaEmpresas = new EmpresasDAO().obtenListaEmpresasEnNecesidad();
+        for (Empresas e : listaEmpresas) {
+            if (e.getIdEmpresa() != -1) {
+                dte.addRow(new Object[]{
+                    e.getNombreEmpresa(),
+                    e.getCifEmpresa(),
+                    e.getDireccion(),
+                    e.getTelefono(),
+                    e.getOwner()
+                    ,});
+            }
 
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,39 +88,24 @@ public class VntBolsa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        favicon = new javax.swing.JLabel();
-        title = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        TablaBolsaEmpresas = new javax.swing.JTable();
-        title1 = new javax.swing.JLabel();
-        btnBorrar = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
+        TablaAlumnos = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        TablaBolsaAlumnos = new javax.swing.JTable();
+        TablaEmpresas = new javax.swing.JTable();
+        btnBorrar = new javax.swing.JButton();
+        title1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        TablaAlumnos.setModel(dta);
+        TablaAlumnos.setToolTipText("");
+        jScrollPane2.setViewportView(TablaAlumnos);
 
-        jPanel1.setAlignmentX(0.0F);
-
-        favicon.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
-        favicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoF.png"))); // NOI18N
-
-        title.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
-        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Actualizar/Borrar");
-
-        TablaBolsaEmpresas.setModel(defaultTablaEmpresas);
-        jScrollPane2.setViewportView(TablaBolsaEmpresas);
-
-        title1.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
-        title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title1.setText("BOLSA DE TRABAJO");
+        TablaEmpresas.setModel(dte);
+        jScrollPane3.setViewportView(TablaEmpresas);
 
         btnBorrar.setBackground(new java.awt.Color(18, 30, 49));
         btnBorrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnBorrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBorrar.setText("Borrar");
+        btnBorrar.setText("LINK");
         btnBorrar.setEnabled(false);
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,119 +113,57 @@ public class VntBolsa extends javax.swing.JFrame {
             }
         });
 
-        btnActualizar.setBackground(new java.awt.Color(18, 30, 49));
-        btnActualizar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizar.setText("Conectar");
-        btnActualizar.setEnabled(false);
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
+        title1.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
+        title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title1.setText("BOLSA DE TRABAJO");
 
-        TablaBolsaAlumnos.setModel(defaultTablaAlumnos);
-        jScrollPane3.setViewportView(TablaBolsaAlumnos);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(btnActualizar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(btnBorrar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(400, 400, 400)
-                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(126, Short.MAX_VALUE)
-                    .addComponent(favicon, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 948, Short.MAX_VALUE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
-                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(favicon, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 486, Short.MAX_VALUE)))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(492, 492, 492))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(150, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(261, 261, 261))))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-       
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-       
+    
     }//GEN-LAST:event_btnBorrarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TablaBolsaAlumnos;
-    private javax.swing.JTable TablaBolsaEmpresas;
-    private javax.swing.JButton btnActualizar;
+    private javax.swing.JTable TablaAlumnos;
+    private javax.swing.JTable TablaEmpresas;
     private javax.swing.JButton btnBorrar;
-    private javax.swing.JLabel favicon;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel title;
     private javax.swing.JLabel title1;
     // End of variables declaration//GEN-END:variables
 }
