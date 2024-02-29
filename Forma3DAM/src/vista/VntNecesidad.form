@@ -43,39 +43,35 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="735" max="32767" attributes="0"/>
+                  <EmptySpace pref="744" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="title" alignment="0" min="-2" pref="396" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="btnAsignaturas" max="32767" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnActualizar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnBorrar" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="userLabel7" max="32767" attributes="0"/>
+                              <Component id="userLabel5" pref="118" max="32767" attributes="0"/>
+                              <Component id="userLabel3" max="32767" attributes="0"/>
+                              <Component id="userLabel2" max="32767" attributes="0"/>
+                              <Component id="userLabel4" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="userLabel7" max="32767" attributes="0"/>
-                                  <Component id="userLabel5" pref="118" max="32767" attributes="0"/>
-                                  <Component id="userLabel3" max="32767" attributes="0"/>
-                                  <Component id="userLabel2" max="32767" attributes="0"/>
-                                  <Component id="userLabel4" max="32767" attributes="0"/>
+                          <EmptySpace min="32" pref="32" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="btnActualizar" pref="133" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnBorrar" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="32" pref="32" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="txtDAW" max="32767" attributes="0"/>
-                                          <Component id="txtASIR" min="-2" pref="230" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="txtDAM" alignment="1" min="-2" pref="230" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="txtMARK" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="txtMARK" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtDAW" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtASIR" alignment="0" pref="230" max="32767" attributes="0"/>
+                                  <Component id="txtDAM" alignment="0" pref="230" max="32767" attributes="0"/>
                                   <Component id="txtFIN" max="32767" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace min="0" pref="52" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="title" alignment="0" min="-2" pref="396" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="userLabel6" max="32767" attributes="0"/>
@@ -92,7 +88,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
@@ -158,7 +154,6 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnBorrar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="btnActualizar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="btnAsignaturas" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -467,24 +462,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnAsignaturas">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="31" green="1e" red="12" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Ver Asignaturas"/>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAsignaturasActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnActualizar">
