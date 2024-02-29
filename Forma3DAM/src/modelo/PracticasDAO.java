@@ -42,6 +42,20 @@ public class PracticasDAO {
         return id;
     }
 
+    public Practicas obtenPracticas(int id) {
+        Practicas p = null;
+        try {
+            iniciaOperacion();
+            p = (Practicas) sesion.get(Practicas.class, id);
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return p;
+    }
+
     public void actualizaPracticas(Practicas a) {
         try {
             iniciaOperacion();
