@@ -12,6 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.Alumnos;
+import pojos.Anexos;
 import pojos.Convenio;
 import pojos.Empresas;
 import raven.toast.Notifications;
@@ -139,6 +140,24 @@ public class ConvenioDAO {
         } finally {
             sesion.close();
         }
+    }
+
+    public Convenio obtenConvenioPorID(int idConvenio) {
+        Convenio c = null;
+        try {
+            iniciaOperacion();
+            // Consulta para obtener el nombre de la empresa dado un CIF
+            c = (Convenio) sesion.createQuery("from Convenio where idConvenio = :cifEmpresa")
+                    .setParameter("cifEmpresa", idConvenio)
+                    .uniqueResult();
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return c;
     }
 
 }

@@ -14,6 +14,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.AlumnosDAO;
 import modelo.ConvenioDAO;
 import modelo.EmpresasDAO;
@@ -129,7 +130,7 @@ public class VntInsertaConvenio extends javax.swing.JPanel {
         btnSubirCV.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCV.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirCV.setText("Subir CV");
+        btnSubirCV.setText("Subir A1");
         btnSubirCV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirCVActionPerformed(evt);
@@ -151,6 +152,11 @@ public class VntInsertaConvenio extends javax.swing.JPanel {
 
         cmbEmpresas.setBackground(new java.awt.Color(0, 0, 0));
         cmbEmpresas.setForeground(new java.awt.Color(255, 255, 255));
+        cmbEmpresas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEmpresasActionPerformed(evt);
+            }
+        });
 
         txtResponsable.setBackground(new java.awt.Color(0, 0, 0));
         txtResponsable.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -167,7 +173,7 @@ public class VntInsertaConvenio extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+                .addContainerGap(78, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -196,7 +202,7 @@ public class VntInsertaConvenio extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtNEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(favicon))
-                .addGap(0, 121, Short.MAX_VALUE))
+                .addGap(0, 120, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(434, 434, 434)
                 .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,13 +264,28 @@ public class VntInsertaConvenio extends javax.swing.JPanel {
 
         convenioDAO.guardaConvenio(convenio);
         JOptionPane.showMessageDialog(null, "Convenio Insertado", "Inserccion con Exitoso", JOptionPane.INFORMATION_MESSAGE);
+
+        nombreArchivo.setText("Archivo");
+        bytesCV = null;
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnSubirCVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVActionPerformed
         JFileChooser fileChooser = new JFileChooser();
+
+        // Filtro para archivos .docx
+        FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos DOCX", "docx");
+
+        // Añadir el filtro de archivos .docx al file chooser
+        fileChooser.addChoosableFileFilter(docxFilter);
+        fileChooser.setFileFilter(docxFilter);
+
         int resultado = fileChooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivo = fileChooser.getSelectedFile();
+            if (!archivo.getName().toLowerCase().endsWith(".docx")) {
+                JOptionPane.showMessageDialog(this, "Solo se permiten archivos DOCX", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si el archivo no es .docx
+            }
             try {
                 byte[] bytesArchivo = convertirArchivoABytes(archivo);
                 bytesCV = bytesArchivo;

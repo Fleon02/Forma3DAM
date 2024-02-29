@@ -3,8 +3,11 @@ package vista;
 import java.awt.Component;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,6 +22,8 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import modelo.AnexosDAO;
 import modelo.EmpresasDAO;
@@ -58,6 +63,27 @@ public class VntAnexos extends javax.swing.JPanel {
         cargarCIFEmpresas();
         cargarIDNecesidad();
         cargaAnexos();
+
+        TablaAnexos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int fila = TablaAnexos.rowAtPoint(e.getPoint());
+                int columna = TablaAnexos.columnAtPoint(e.getPoint());
+
+                // Verificar si se ha hecho clic en una celda de anexo
+                if ((columna == 6 || columna == 7 || columna == 8 || columna == 9 || columna == 10)
+                        && "Subido".equals(TablaAnexos.getValueAt(fila, columna))) {
+                    int opcion = JOptionPane.showConfirmDialog(frame,
+                            "¿Desea descargar el archivo?",
+                            "Descargar Archivo",
+                            JOptionPane.YES_NO_OPTION);
+                    if (opcion == JOptionPane.YES_OPTION) {
+                        descargarArchivo(fila, columna);
+                        System.out.println("Pruebaaaaaaaa");
+                    }
+                }
+            }
+        });
 
     }
 
@@ -278,7 +304,7 @@ public class VntAnexos extends javax.swing.JPanel {
         btnSubirA3.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirA3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirA3.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirA3.setText("Subir CV");
+        btnSubirA3.setText("Subir A3");
         btnSubirA3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirA3ActionPerformed(evt);
@@ -294,7 +320,7 @@ public class VntAnexos extends javax.swing.JPanel {
         btnSubirA4.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirA4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirA4.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirA4.setText("Subir CV");
+        btnSubirA4.setText("Subir A4");
         btnSubirA4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirA4ActionPerformed(evt);
@@ -310,7 +336,7 @@ public class VntAnexos extends javax.swing.JPanel {
         btnSubirA2_2.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirA2_2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirA2_2.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirA2_2.setText("Subir CV");
+        btnSubirA2_2.setText("Subir A2.2");
         btnSubirA2_2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirA2_2ActionPerformed(evt);
@@ -320,7 +346,7 @@ public class VntAnexos extends javax.swing.JPanel {
         btnSubirA2_1.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirA2_1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirA2_1.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirA2_1.setText("Subir CV");
+        btnSubirA2_1.setText("Subir A2.1");
         btnSubirA2_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirA2_1ActionPerformed(evt);
@@ -339,7 +365,7 @@ public class VntAnexos extends javax.swing.JPanel {
         btnSubirA8.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirA8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirA8.setForeground(new java.awt.Color(255, 255, 255));
-        btnSubirA8.setText("Subir CV");
+        btnSubirA8.setText("Subir A8");
         btnSubirA8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubirA8ActionPerformed(evt);
@@ -556,8 +582,66 @@ public class VntAnexos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        AnexosDAO ad = new AnexosDAO();
+        EmpresasDAO ed = new EmpresasDAO();
 
+        int filas = TablaAnexos.getSelectedRow();
+
+        Integer id = Integer.parseInt(TablaAnexos.getValueAt(filas, 0) + "");
+        System.out.println(id);
+
+        Date fInicio = fechaInicio.getDate();
+        Date fFin = fechaFin.getDate();
+
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd MMMM yyyy");
+
+        String fechaFormateada = formatoFecha.format(fInicio);
+        String fechaFinFormateada = formatoFecha.format(fFin);
+        SimpleDateFormat formatoMes = new SimpleDateFormat("MMMM", new Locale("es", "ES"));
+
+        String calendario = formatoMes.format(fInicio); // Obtener el nombre del mes
+
+        Empresas e = new Empresas();
+        Necesidad n = new Necesidad();
+
+        e = (Empresas) cmbEmpresa.getSelectedItem();
+        n = (Necesidad) cmbNecesidad.getSelectedItem();
+
+        Boolean contratacion = ckbContratacion.isSelected();
+
+        Anexos a = new Anexos();
+
+        a.setEmpresas(e);
+        a.setNecesidad(n);
+        a.setFechaInicio(fechaFormateada);
+        a.setFechaFin(fechaFinFormateada);
+        a.setContratacion(contratacion);
+        a.setCalendario(calendario);
+        a.setAnexoDosUno(bytes2_1);
+        a.setAnexoDosDos(bytes2_2);
+        a.setAnexoTres(bytes3);
+        a.setAnexoCuatro(bytes4);
+        a.setAnexoOcho(bytes8);
+        a.setIdAnexo(id);
+
+        ad.actualizarAnexos(a, frame);
+        cargaTabla();
+
+        // Reiniciar los campos de bytes después de la actualización
+        bytes2_1 = null;
+        bytes2_2 = null;
+        bytes3 = null;
+        bytes4 = null;
+        bytes8 = null;
+
+        // Limpiar los nombres de archivo en la interfaz gráfica
+        nombreArchivo2_1.setText("Archivo ");
+        nombreArchivo2_2.setText("Archivo ");
+        nombreArchivo3.setText("Archivo ");
+        nombreArchivo4.setText("Archivo ");
+        nombreArchivo8.setText("Archivo ");
     }//GEN-LAST:event_btnActualizarActionPerformed
+
 
     private void btnSubirA3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA3ActionPerformed
         int filaSeleccionada = TablaAnexos.getSelectedRow();
@@ -573,8 +657,10 @@ public class VntAnexos extends javax.swing.JPanel {
                 // El usuario ha seleccionado no sobrescribir, salir del método
                 return;
             }
+        } else {
+            subirArchivo("anexo3");
         }
-        subirArchivo("anexo3");
+
     }//GEN-LAST:event_btnSubirA3ActionPerformed
 
     private void btnSubirA4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA4ActionPerformed
@@ -591,8 +677,10 @@ public class VntAnexos extends javax.swing.JPanel {
                 // El usuario ha seleccionado no sobrescribir, salir del método
                 return;
             }
+        } else {
+            subirArchivo("anexo4");
         }
-        subirArchivo("anexo4");
+
     }//GEN-LAST:event_btnSubirA4ActionPerformed
 
     private void btnSubirA2_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA2_2ActionPerformed
@@ -609,8 +697,10 @@ public class VntAnexos extends javax.swing.JPanel {
                 // El usuario ha seleccionado no sobrescribir, salir del método
                 return;
             }
+        } else {
+            subirArchivo("anexo2_2");
         }
-        subirArchivo("anexo2_2");
+
     }//GEN-LAST:event_btnSubirA2_2ActionPerformed
 
     private void btnSubirA2_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA2_1ActionPerformed
@@ -627,8 +717,10 @@ public class VntAnexos extends javax.swing.JPanel {
                 // El usuario ha seleccionado no sobrescribir, salir del método
                 return;
             }
+        } else {
+            subirArchivo("anexo2_1");
         }
-        subirArchivo("anexo2_1");
+
     }//GEN-LAST:event_btnSubirA2_1ActionPerformed
 
     private void btnSubirA8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA8ActionPerformed
@@ -645,8 +737,10 @@ public class VntAnexos extends javax.swing.JPanel {
                 // El usuario ha seleccionado no sobrescribir, salir del método
                 return;
             }
+        } else {
+            subirArchivo("anexo8");
         }
-        subirArchivo("anexo8");
+
     }//GEN-LAST:event_btnSubirA8ActionPerformed
 
     private void ckbContratacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbContratacionActionPerformed
@@ -655,9 +749,31 @@ public class VntAnexos extends javax.swing.JPanel {
 
     private void subirArchivo(String tipoAnexo) {
         JFileChooser fileChooser = new JFileChooser();
+
+        // Filtro para archivos .docx
+        FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos DOCX", "docx");
+
+        // Añadir el filtro de archivos .docx al file chooser
+        fileChooser.addChoosableFileFilter(docxFilter);
+
+        // Establecer el filtro por defecto como el de archivos .docx
+        fileChooser.setFileFilter(docxFilter);
+
+        // Establecer el título del diálogo de selección de archivos
+        fileChooser.setDialogTitle("Elige un archivo DOCX");
+
         int resultado = fileChooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivo = fileChooser.getSelectedFile();
+            String nombreArchivo = archivo.getName();
+            String extension = nombreArchivo.substring(nombreArchivo.lastIndexOf(".") + 1).toLowerCase();
+
+            // Verificar si la extensión del archivo es .docx
+            if (!extension.equals("docx")) {
+                JOptionPane.showMessageDialog(this, "Solo se permiten archivos DOCX", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si el archivo no es .docx
+            }
+
             try {
                 byte[] bytesArchivo = convertirArchivoABytes(archivo);
                 // Asignar los bytes al campo correspondiente según el tipo de anexo
@@ -681,7 +797,7 @@ public class VntAnexos extends javax.swing.JPanel {
                         break;
                 }
                 // Actualizar el nombre del archivo en la interfaz gráfica
-                actualizarNombreArchivo(tipoAnexo, archivo.getName());
+                actualizarNombreArchivo(tipoAnexo, nombreArchivo);
             } catch (IOException ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error al leer el archivo", "Error", JOptionPane.ERROR_MESSAGE);
@@ -753,6 +869,81 @@ public class VntAnexos extends javax.swing.JPanel {
         cmbNecesidad.setModel(model);
         cmbNecesidad.setRenderer(new NecesidadComboBoxRenderer());
     }
+
+    private void descargarArchivo(int fila, int columna) {
+        AnexosDAO anexosDAO = new AnexosDAO();
+        int idAnexo = (int) TablaAnexos.getValueAt(fila, 0);
+        Anexos anexo = anexosDAO.obtenAnexoPorID(idAnexo);
+        byte[] archivo = null;
+
+        // Obtener el archivo correspondiente según la columna seleccionada
+        switch (columna) {
+            case 6:
+                archivo = anexo.getAnexoDosUno();
+                break;
+            case 7:
+                archivo = anexo.getAnexoDosDos();
+                break;
+            case 8:
+                archivo = anexo.getAnexoTres();
+                break;
+            case 9:
+                archivo = anexo.getAnexoCuatro();
+                break;
+            case 10:
+                archivo = anexo.getAnexoOcho();
+                break;
+            default:
+                break;
+        }
+
+        // Guardar el archivo en disco
+        if (archivo != null) {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar archivo");
+
+            // Filtro para archivos .docx
+            FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos DOCX", "docx");
+
+            // Añadir el filtro de archivos .docx al file chooser
+            fileChooser.addChoosableFileFilter(docxFilter);
+            
+            fileChooser.setFileFilter(docxFilter);
+
+            int seleccion = fileChooser.showSaveDialog(frame);
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                String nombreArchivo = selectedFile.getName();
+
+                // Obtener el filtro seleccionado por el usuario como un FileFilter
+                FileFilter filtroSeleccionado = fileChooser.getFileFilter();
+
+                // Obtener la descripción del filtro seleccionado
+                String descripcionFiltro = filtroSeleccionado.getDescription();
+
+                // Obtener la extensión del archivo a partir de la descripción del filtro seleccionado
+                String extensionFiltro = "docx";
+
+                // Verificar si el nombre del archivo termina con la extensión correcta
+                if (!nombreArchivo.toLowerCase().endsWith("." + extensionFiltro)) {
+                    // Agregar la extensión correcta al nombre del archivo
+                    nombreArchivo += "." + extensionFiltro;
+                    selectedFile = new File(selectedFile.getParent(), nombreArchivo);
+                }
+
+                try (FileOutputStream fos = new FileOutputStream(selectedFile)) {
+                    fos.write(archivo);
+                    JOptionPane.showMessageDialog(frame, "Archivo descargado exitosamente", "Descarga Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(frame, "Error al guardar el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(frame, "No se ha encontrado el archivo asociado", "Archivo no encontrado", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaAnexos;
