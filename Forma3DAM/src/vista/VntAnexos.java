@@ -1,6 +1,8 @@
 package vista;
 
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -638,7 +640,6 @@ public class VntAnexos extends javax.swing.JPanel {
         nombreArchivo8.setText("Archivo ");
     }//GEN-LAST:event_btnActualizarActionPerformed
 
-
     private void btnSubirA3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA3ActionPerformed
         int filaSeleccionada = TablaAnexos.getSelectedRow();
         if (filaSeleccionada != -1 && TablaAnexos.getValueAt(filaSeleccionada, 8).equals("Subido")) {
@@ -903,7 +904,7 @@ public class VntAnexos extends javax.swing.JPanel {
 
             // Añadir el filtro de archivos .docx al file chooser
             fileChooser.addChoosableFileFilter(docxFilter);
-            
+
             fileChooser.setFileFilter(docxFilter);
 
             int seleccion = fileChooser.showSaveDialog(frame);
@@ -939,7 +940,6 @@ public class VntAnexos extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(frame, "No se ha encontrado el archivo asociado", "Archivo no encontrado", JOptionPane.WARNING_MESSAGE);
         }
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaAnexos;
