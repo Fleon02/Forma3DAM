@@ -55,7 +55,6 @@ public class VntAnexos extends javax.swing.JPanel {
     public VntAnexos(JFrame vntPrincipal) {
         initComponents();
         frame = vntPrincipal;
-
         TablaAnexos.setDefaultEditor(Object.class, null);
         cargaTabla();
         cargarCIFEmpresas();
