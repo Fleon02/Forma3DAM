@@ -143,9 +143,33 @@ public class VntPracticas extends javax.swing.JPanel {
                     int filas = TablaPracticas.getSelectedRow();
                     if (filas != -1) {
                         txtIDPractica.setText(TablaPracticas.getValueAt(filas, 0) + "");
-                        cbDNIAlumno.setSelectedItem(TablaPracticas.getValueAt(filas, 1) + "");
-                        cbTutorPracticas.setSelectedItem(TablaPracticas.getValueAt(filas, 2) + "");
-                        cbCalendario.setSelectedItem(TablaPracticas.getValueAt(filas, 3) + "");
+                        Alumnos a = new AlumnosDAO().obtenAlumnosPorDNI(TablaPracticas.getValueAt(filas, 1) + "");
+                        int idAlumno = a.getIdAlumno();
+                        for (int i = 1; i < cbDNIAlumno.getItemCount(); i++) {
+                            Alumnos alumnos = (Alumnos) cbDNIAlumno.getItemAt(i);
+                            if (alumnos != null && alumnos.getIdAlumno() == idAlumno) {
+                                cbDNIAlumno.setSelectedIndex(i);
+                                break;
+                            }
+                        }
+                        Empresas em = new EmpresasDAO().obtenEmpresaPorTutor(TablaPracticas.getValueAt(filas, 3) + "");
+                        int idEmpresa = em.getIdEmpresa();
+                        for (int j = 1; j < cbTutorPracticas.getItemCount(); j++) {
+                            Empresas empresa = (Empresas) cbTutorPracticas.getItemAt(j);
+                            if (empresa != null && empresa.getIdEmpresa() == idEmpresa) {
+                                cbTutorPracticas.setSelectedIndex(j);
+                                break;
+                            }
+                        }
+                        Anexos an = new AnexosDAO().obtenAnexoPorCalendario(TablaPracticas.getValueAt(filas, 4) + "");
+                        int idAnexo = an.getIdAnexo();
+                        for (int k = 1; k < cbCalendario.getItemCount(); k++) {
+                            Anexos anexos = (Anexos) cbCalendario.getItemAt(k);
+                            if (anexos != null && anexos.getIdAnexo() == idAnexo) {
+                                cbCalendario.setSelectedIndex(k);
+                                break;
+                            }
+                        }
                         txtHorarioEntrada.setText(TablaPracticas.getValueAt(filas, 7) + "");
                         txtHorarioSalida.setText(TablaPracticas.getValueAt(filas, 8) + "");
                         cbDNIAlumno.setEnabled(true);

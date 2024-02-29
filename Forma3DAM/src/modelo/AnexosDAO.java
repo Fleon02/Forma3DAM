@@ -140,11 +140,7 @@ public class AnexosDAO {
     public void actualizarAnexos(Anexos anexo, JFrame jframe) {
         try {
             iniciaOperacion();
-
-            // Obtener el anexo existente desde la base de datos
             Anexos anexoExistente = (Anexos) sesion.load(Anexos.class, anexo.getIdAnexo());
-
-
             if (anexo.getAnexoDosUno() == null || anexo.getAnexoDosUno().length == 0) {
                 System.out.println("nulo");
                 anexo.setAnexoDosUno(anexoExistente.getAnexoDosUno());
@@ -165,11 +161,8 @@ public class AnexosDAO {
                 System.out.println("nulo");
                 anexo.setAnexoOcho(anexoExistente.getAnexoOcho());
             }
-
-            // Actualizar el anexo existente en la base de datos
             sesion.merge(anexo);
             tx.commit();
-
             Notifications.getInstance().setJFrame(jframe);
             Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Anexos actualizados con éxito");
         } catch (HibernateException he) {
@@ -201,7 +194,22 @@ public class AnexosDAO {
         Anexos a = null;
         try {
             iniciaOperacion();
-            a = (Anexos) sesion.createQuery("from Anexos where idAnexo = :cifEmpresa").setParameter("cifEmpresa", idAnexo).uniqueResult();
+            a = (Anexos) sesion.createQuery("from Anexos where idAnexo=:idAnexo").setParameter("idAnexo", idAnexo).uniqueResult();
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return a;
+    }
+
+    public Anexos obtenAnexoPorCalendario(String calendario) {
+        Anexos a = null;
+        try {
+            iniciaOperacion();
+            a = (Anexos) sesion.createQuery("from Anexos where calendario=:calendario").setParameter("calendario", calendario).uniqueResult();
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
