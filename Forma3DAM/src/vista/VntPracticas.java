@@ -52,7 +52,7 @@ public class VntPracticas extends javax.swing.JPanel {
         cargaPracticas();
         cargarDNIAlumno();
         cargarTutorPracticasEmpresas();
-        //cargarCalendariosAnexos();
+        cargarCalendariosAnexos();
         TablaPracticas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -161,7 +161,15 @@ public class VntPracticas extends javax.swing.JPanel {
                                 break;
                             }
                         }
-                        cbCalendario.setSelectedItem(TablaPracticas.getValueAt(filas, 4) + "");
+                        Anexos an = new AnexosDAO().obtenAnexoPorCalendario(TablaPracticas.getValueAt(filas, 4) + "");
+                        int idAnexo = an.getIdAnexo();
+                        for (int j = 1; j < cbCalendario.getItemCount(); j++) {
+                            Anexos anexos = (Anexos) cbCalendario.getItemAt(j);
+                            if (anexos != null && anexos.getIdAnexo() == idAnexo) {
+                                cbCalendario.setSelectedIndex(j);
+                                break;
+                            }
+                        }
                         txtHorarioEntrada.setText(TablaPracticas.getValueAt(filas, 7) + "");
                         txtHorarioSalida.setText(TablaPracticas.getValueAt(filas, 8) + "");
                         cbDNIAlumno.setEnabled(true);
@@ -241,12 +249,12 @@ public class VntPracticas extends javax.swing.JPanel {
         }
     }
 
-    /*private void cargarCalendariosAnexos() {
+    private void cargarCalendariosAnexos() {
         List<Anexos> listaAnexos = new AnexosDAO().obtenerAnexos();
         DefaultComboBoxModel<Anexos> model = new DefaultComboBoxModel<>();
         model.addElement(new Anexos());
-        for (Anexos practicas : listaAnexos) {
-            model.addElement(practicas);
+        for (Anexos anexos : listaAnexos) {
+            model.addElement(anexos);
         }
         cbCalendario.setModel(model);
         cbCalendario.setRenderer(new AnexosComboBoxRenderer());
@@ -258,12 +266,12 @@ public class VntPracticas extends javax.swing.JPanel {
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (value instanceof Anexos) {
-                Anexos practicas = (Anexos) value;
-                if (practicas.getCalendario() == null) {
+                Anexos anexos = (Anexos) value;
+                if (anexos.getCalendario() == null) {
                     setText("Seleccione Calendario");
                 } else {
-                    if (practicas.getIdAnexo() > 0) {
-                        setText(practicas.getIdAnexo() + " - " + practicas.getCalendario());
+                    if (anexos.getIdAnexo() > 0) {
+                        setText(anexos.getCalendario() + " (" + anexos.getFechaInicio() + ")");
                     } else {
                         setText("");
                     }
@@ -271,7 +279,8 @@ public class VntPracticas extends javax.swing.JPanel {
             }
             return this;
         }
-    }*/
+    }
+
     private void descargarArchivo(int fila, int columna) {
         int idPractica = (int) TablaPracticas.getValueAt(fila, 0);
         Practicas practica = new PracticasDAO().obtenPracticas(idPractica);
@@ -483,9 +492,8 @@ public class VntPracticas extends javax.swing.JPanel {
         });
 
         cbCalendario.setBackground(new java.awt.Color(0, 0, 0));
+        cbCalendario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         cbCalendario.setForeground(new java.awt.Color(255, 255, 255));
-        cbCalendario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Calendario", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "septiembre", "octubre", "noviembre", "diciembre" }));
-        cbCalendario.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -554,7 +562,7 @@ public class VntPracticas extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
+                .addContainerGap(77, Short.MAX_VALUE)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -598,7 +606,7 @@ public class VntPracticas extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -715,7 +723,7 @@ public class VntPracticas extends javax.swing.JPanel {
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnSubirCVIF;
     private javax.swing.JButton btnSubirCVIS;
-    private javax.swing.JComboBox<String> cbCalendario;
+    private javax.swing.JComboBox<Anexos> cbCalendario;
     private javax.swing.JComboBox<Alumnos> cbDNIAlumno;
     private javax.swing.JComboBox<Empresas
     > cbTutorPracticas;

@@ -134,7 +134,7 @@ public class VntInsertaPractica extends javax.swing.JPanel {
                     setText("Seleccione Calendario");
                 } else {
                     if (anexos.getIdAnexo() > 0) {
-                        setText(anexos.getIdAnexo() + " - " + anexos.getCalendario());
+                        setText(anexos.getCalendario() + " (" + anexos.getFechaInicio() + ")");
                     } else {
                         setText("");
                     }
