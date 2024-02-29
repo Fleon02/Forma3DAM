@@ -222,7 +222,7 @@ public class VntNecesidad extends javax.swing.JPanel {
 
         title1.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
         title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title1.setText("NECESIDAD");
+        title1.setText("NECESIDADES");
 
         userLabel6.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel6.setText("ID Necesidad");
@@ -342,8 +342,8 @@ public class VntNecesidad extends javax.swing.JPanel {
                     .addGap(40, 65, Short.MAX_VALUE)
                     .addComponent(favicon, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(80, 80, 80)
-                    .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 615, Short.MAX_VALUE))
+                    .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 611, Short.MAX_VALUE))
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 538, Short.MAX_VALUE)))

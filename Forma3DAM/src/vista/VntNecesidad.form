@@ -94,9 +94,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="40" pref="65" max="32767" attributes="0"/>
                       <Component id="favicon" min="-2" pref="160" max="-2" attributes="0"/>
-                      <EmptySpace min="80" pref="80" max="-2" attributes="0"/>
-                      <Component id="title1" min="-2" pref="170" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="615" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="title1" min="-2" pref="217" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="611" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jScrollPane2" min="-2" pref="638" max="-2" attributes="0"/>
@@ -347,7 +347,7 @@
               <Font name="Roboto Black" size="24" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="NECESIDAD"/>
+            <Property name="text" type="java.lang.String" value="NECESIDADES"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="userLabel6">
