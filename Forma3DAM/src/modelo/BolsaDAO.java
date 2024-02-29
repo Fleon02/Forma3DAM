@@ -9,6 +9,7 @@ import controlador.HibernateUtil;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -86,7 +87,28 @@ public class BolsaDAO {
     }
 
     public void eliminaBolsa(String idBolsa) {
-        
+        try
+        {
+            int bolsaId = Integer.parseInt(idBolsa);
+            iniciaOperacion();
+            String hql = "UPDATE Bolsa SET idBolsa = -idBolsa WHERE idBolsa = :idBolsa";
+            int valor = sesion.createQuery(hql).setParameter("idBolsa", bolsaId).executeUpdate();
+            if (valor == 1)
+            {
+                //JOptionPane.showMessageDialog(parentComponent, "Alumno Marcado como Borrado", "Info", JOptionPane.INFORMATION_MESSAGE);
+            } else
+            {
+                //JOptionPane.showMessageDialog(parentComponent, "Alumno No Marcado como Borrado", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            tx.commit();
+        } catch (HibernateException he)
+        {
+            manejaExcepcion(he);
+            throw he;
+        } finally
+        {
+            sesion.close();
+        }
     }
 
     public Bolsa obtenBolsaPorID(int idBolsa) {
@@ -116,6 +138,24 @@ public class BolsaDAO {
     } finally {
         sesion.close();
     }
+    }
+    
+    public void refresh(Bolsa bolsa) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            session.refresh(bolsa);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace(); // Handle or log the exception as needed
+        } finally {
+            if (session.isOpen()) {
+                session.close();
+            }
+        }
     }
     
 }
