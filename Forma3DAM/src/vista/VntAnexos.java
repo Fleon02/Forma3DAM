@@ -18,6 +18,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
@@ -64,19 +65,21 @@ public class VntAnexos extends javax.swing.JPanel {
         TablaAnexos.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int fila = TablaAnexos.rowAtPoint(e.getPoint());
-                int columna = TablaAnexos.columnAtPoint(e.getPoint());
+                if (SwingUtilities.isRightMouseButton(e)) { // Verificar si se ha hecho clic derecho
+                    int fila = TablaAnexos.rowAtPoint(e.getPoint());
+                    int columna = TablaAnexos.columnAtPoint(e.getPoint());
 
-                // Verificar si se ha hecho clic en una celda de anexo
-                if ((columna == 6 || columna == 7 || columna == 8 || columna == 9 || columna == 10)
-                        && "Subido".equals(TablaAnexos.getValueAt(fila, columna))) {
-                    int opcion = JOptionPane.showConfirmDialog(frame,
-                            "¿Desea descargar el archivo?",
-                            "Descargar Archivo",
-                            JOptionPane.YES_NO_OPTION);
-                    if (opcion == JOptionPane.YES_OPTION) {
-                        descargarArchivo(fila, columna);
-                        System.out.println("Pruebaaaaaaaa");
+                    // Verificar si se ha hecho clic en una celda de anexo
+                    if ((columna == 6 || columna == 7 || columna == 8 || columna == 9 || columna == 10)
+                            && "Subido".equals(TablaAnexos.getValueAt(fila, columna))) {
+                        int opcion = JOptionPane.showConfirmDialog(frame,
+                                "¿Desea descargar el archivo?",
+                                "Descargar Archivo",
+                                JOptionPane.YES_NO_OPTION);
+                        if (opcion == JOptionPane.YES_OPTION) {
+                            descargarArchivo(fila, columna);
+                            System.out.println("Pruebaaaaaaaa");
+                        }
                     }
                 }
             }
