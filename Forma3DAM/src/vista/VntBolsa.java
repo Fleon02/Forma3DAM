@@ -25,8 +25,9 @@ import pojos.Empresas;
  * @author Usuario
  */
 public class VntBolsa extends javax.swing.JPanel {
-    
-    DefaultTableModel dtm = new DefaultTableModel(new Object[]{
+
+    DefaultTableModel dtm = new DefaultTableModel(new Object[]
+    {
         "ID_BOLSA",
         "ID_ALUMNO",
         "NOMBRE",
@@ -34,7 +35,7 @@ public class VntBolsa extends javax.swing.JPanel {
         "SEG_SOCIAL",
         "METODO"
     }, 0);
-    
+
     /**
      * Creates new form VntBolsa
      */
@@ -43,84 +44,88 @@ public class VntBolsa extends javax.swing.JPanel {
         cargaTabla();
         cargaBolsa();
         cargarMetodos();
-        
+
     }
-    
+
     private void cargarMetodos() {
-    DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-    model.addElement("Seleccione un método");
-    model.addElement("Beca");
-    model.addElement("Trabajador");
-    cbMetodo.setModel(model);
-    cbMetodo.setSelectedIndex(0);
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        model.addElement("Seleccione un método");
+        model.addElement("Beca");
+        model.addElement("Trabajador");
+        cbMetodo.setModel(model);
+        cbMetodo.setSelectedIndex(0);
     }
-    
-    
+
     public void cargaTabla() {
-    dtm.setRowCount(0);
-    List<Bolsa> listaBolsa = new BolsaDAO().obtenListaBolsa();
-    for (Bolsa bolsa : listaBolsa) {
-        if (bolsa.getIdBolsa() != null && bolsa.getIdBolsa() > 0) {
+        dtm.setRowCount(0);
+        List<Bolsa> listaBolsa = new BolsaDAO().obtenListaBolsa();
+        for (Bolsa bolsa : listaBolsa)
+        {
+            if (bolsa.getIdBolsa() != null && bolsa.getIdBolsa() > 0)
+            {
 
-            Alumnos alumno = new AlumnosDAO().obtenAlumnosPorID(bolsa.getAlumnos().getIdAlumno());
+                Alumnos alumno = new AlumnosDAO().obtenAlumnosPorID(bolsa.getAlumnos().getIdAlumno());
 
-            if (alumno != null && alumno.getIdAlumno() > 0) {
-                int iD_bolsa = bolsa.getIdBolsa();
-                int idAl = alumno.getIdAlumno();
-                String nombre = alumno.getNombreAlumno();
-                String dni = alumno.getDniAlumno();
-                int ss = alumno.getSegSocialAlumno();
-                String metodo = evaluaMetodo(bolsa.getBeca(), bolsa.getBolsa());
+                if (alumno != null && alumno.getIdAlumno() > 0)
+                {
+                    int iD_bolsa = bolsa.getIdBolsa();
+                    int idAl = alumno.getIdAlumno();
+                    String nombre = alumno.getNombreAlumno();
+                    String dni = alumno.getDniAlumno();
+                    int ss = alumno.getSegSocialAlumno();
+                    String metodo = evaluaMetodo(bolsa.getBeca(), bolsa.getBolsa());
 
-                dtm.addRow(new Object[]{
-                    iD_bolsa,
-                    idAl,
-                    nombre,
-                    dni,
-                    ss,
-                    metodo
-                });
+                    dtm.addRow(new Object[]
+                    {
+                        iD_bolsa,
+                        idAl,
+                        nombre,
+                        dni,
+                        ss,
+                        metodo
+                    });
+                }
             }
         }
     }
-}
-    
-    public void cargaBolsa(){
+
+    public void cargaBolsa() {
         TablaBolsa.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
+                if (!e.getValueIsAdjusting())
+                {
                     int filas = TablaBolsa.getSelectedRow();
-                    if (filas != -1) {
+                    if (filas != -1)
+                    {
                         txtIDBolsa.setText(TablaBolsa.getValueAt(filas, 0) + "");
                         txtIDAl.setText(TablaBolsa.getValueAt(filas, 1) + "");
                         txtNombreAlumno.setText(TablaBolsa.getValueAt(filas, 2) + "");
-                        txtDNIAlumno.setText(TablaBolsa.getValueAt(filas, 3) + "");                        
+                        txtDNIAlumno.setText(TablaBolsa.getValueAt(filas, 3) + "");
                         txtSegSocial.setText(TablaBolsa.getValueAt(filas, 4) + "");
                         cbMetodo.setSelectedItem(TablaBolsa.getValueAt(filas, 5));
-                        
-                        
+
                         txtNombreAlumno.setEditable(true);
                         txtDNIAlumno.setEditable(true);
                         txtIDAl.setEditable(true);
                         txtSegSocial.setEditable(true);
-                        cbMetodo.setEditable(true);                        
+                        cbMetodo.setEditable(true);
                         btnActualizar.setEnabled(true);
                         btnBorrar.setEnabled(true);
-                    } else {
+                    } else
+                    {
                         txtNombreAlumno.setEditable(false);
                         txtDNIAlumno.setEditable(false);
                         txtIDAl.setEditable(false);
                         txtSegSocial.setEditable(false);
                         cbMetodo.setEditable(false);
-                        
+
                     }
                 }
             }
         });
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -359,51 +364,43 @@ public class VntBolsa extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSegSocialMousePressed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if (txtIDBolsa.getText() != null && !txtIDBolsa.getText().isEmpty()) {
-        int idBolsa = Integer.parseInt(txtIDBolsa.getText());
-        Bolsa bolsa = new BolsaDAO().obtenBolsaPorID(idBolsa);
+        if (txtIDBolsa.getText() != null && !txtIDBolsa.getText().isEmpty())
+        {
+            int idBolsa = Integer.parseInt(txtIDBolsa.getText());
+            Bolsa bolsa = new BolsaDAO().obtenBolsaPorID(idBolsa);
 
-        if (bolsa != null) {
-            // Update the selected method in the entity Bolsa
-            String selectedMetodo = (String) cbMetodo.getSelectedItem();
-            boolean isBeca = selectedMetodo.equals("Beca");
-            boolean isTrabajador = selectedMetodo.equals("Trabajador");
-            
-            bolsa.setBeca(isBeca);
-            bolsa.setBolsa(isTrabajador);
+            if (bolsa != null)
+            {
+                // Update the selected method in the entity Bolsa
+                String selectedMetodo = (String) cbMetodo.getSelectedItem();
+                boolean isBeca = selectedMetodo.equals("Beca");
+                boolean isTrabajador = selectedMetodo.equals("Trabajador");
 
-            // Update the entity Bolsa in the database
-            new BolsaDAO().actualizaBolsa(bolsa);
+                bolsa.setBeca(isBeca);
+                bolsa.setBolsa(isTrabajador);
 
-            cargaTabla();
-        } else {
-            JOptionPane.showMessageDialog(this, "No se encontró la Bolsa con ID: " + idBolsa, "Error", JOptionPane.ERROR_MESSAGE);
+                // Update the entity Bolsa in the database
+                new BolsaDAO().actualizaBolsa(bolsa);
+
+                cargaTabla();
+            } else
+            {
+                JOptionPane.showMessageDialog(this, "No se encontró la Bolsa con ID: " + idBolsa, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else
+        {
+            JOptionPane.showMessageDialog(this, "Selecciona una Bolsa para actualizar", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } else {
-        JOptionPane.showMessageDialog(this, "Selecciona una Bolsa para actualizar", "Error", JOptionPane.ERROR_MESSAGE);
-    }
 
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-       if (txtIDBolsa.getText() != null && !txtIDBolsa.getText().isEmpty()) {
-        int idBolsa = Integer.parseInt(txtIDBolsa.getText());
-        Bolsa bolsa = new BolsaDAO().obtenBolsaPorID(idBolsa);
-
-        if (bolsa != null) {
-            // Establecer el idBolsa a su valor negativo
-            bolsa.setIdBolsa(-Math.abs(idBolsa));
-
-            // Actualizar la entidad Bolsa en la base de datos
-            new BolsaDAO().actualizaBolsa(bolsa);
-
+       if (txtIDBolsa.getText() != null) {
+            new BolsaDAO().eliminaBolsa(txtIDBolsa.getText());
             cargaTabla();
         } else {
-            JOptionPane.showMessageDialog(this, "No se encontró la Bolsa con ID: " + idBolsa, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(txtDNIAlumno, "Seleciona un Alumno de la Bolsa", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } else {
-        JOptionPane.showMessageDialog(this, "Selecciona una Bolsa para borrar", "Error", JOptionPane.ERROR_MESSAGE);
-    }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void txtIDBolsaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDBolsaMousePressed
@@ -432,12 +429,15 @@ public class VntBolsa extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private String evaluaMetodo(Boolean beca, Boolean bolsa) {
-    if (beca != null && beca) {
-        return "Beca";
-    } else if (bolsa != null && bolsa) {
-        return "Trabajador";
-    } else {
-        return "Sin método";
+        if (beca != null && beca)
+        {
+            return "Beca";
+        } else if (bolsa != null && bolsa)
+        {
+            return "Trabajador";
+        } else
+        {
+            return "Sin método";
+        }
     }
-}
 }
