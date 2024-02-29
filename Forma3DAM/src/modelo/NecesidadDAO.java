@@ -1,32 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 import controlador.HibernateUtil;
-import java.awt.Component;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.Empresas;
 import pojos.Necesidad;
+import raven.toast.Notifications;
 
-/**
- *
- * @author Usuario
- */
 public class NecesidadDAO {
 
     private Session sesion;
     private Transaction tx;
-    Component parentComponent = null;
 
     private void iniciaOperacion() {
         Logger.getLogger("org.hibernate").setLevel(Level.OFF);
@@ -68,8 +57,8 @@ public class NecesidadDAO {
         {
             manejaExcepcion(he);
             throw he;
-        } finally
-        {
+        } finally {
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Necesidad Actualizada");
             sesion.close();
         }
     }
@@ -81,12 +70,10 @@ public class NecesidadDAO {
             iniciaOperacion();
             String hql = "UPDATE Necesidad SET idNecesidad = -1 WHERE empresas = :empresas";
             int valor = sesion.createQuery(hql).setParameter("empresas", empresas).executeUpdate();
-            if (valor == 1)
-            {
-                JOptionPane.showMessageDialog(parentComponent, "Necesidad Marcada como Borrada", "Info", JOptionPane.INFORMATION_MESSAGE);
-            } else
-            {
-                JOptionPane.showMessageDialog(parentComponent, "Necesidad No Marcada como Borrada", "Error", JOptionPane.ERROR_MESSAGE);
+            if (valor == 1) {
+                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Necesidad Marcada como Borrada");
+            } else {
+                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Necesidad No Marcada como Borrada");
             }
             tx.commit();
         } catch (HibernateException he)
@@ -117,11 +104,9 @@ public class NecesidadDAO {
 
     public Necesidad obtenerNecesidadPorId(int id) {
         Necesidad n = null;
-        Query query;
-        try
-        {
+        try {
             iniciaOperacion();
-            query = sesion.createQuery("FROM Necesidad where idNecesidad = :necesidad").setParameter("necesidad", id);
+            Query query = sesion.createQuery("FROM Necesidad where idNecesidad = :necesidad").setParameter("necesidad", id);
             n = (Necesidad) query.uniqueResult();
         } catch (HibernateException he)
         {

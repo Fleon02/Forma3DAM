@@ -1,11 +1,9 @@
 package modelo;
 
 import controlador.HibernateUtil;
-import java.awt.Component;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -16,7 +14,6 @@ public class PracticasDAO {
 
     private Session sesion;
     private Transaction tx;
-    Component parentComponent = null;
 
     private void iniciaOperacion() {
         Logger.getLogger("org.hibernate").setLevel(Level.OFF);
@@ -39,6 +36,7 @@ public class PracticasDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Practica Insertada");
             sesion.close();
         }
         return id;
@@ -49,11 +47,11 @@ public class PracticasDAO {
             iniciaOperacion();
             sesion.update(a);
             tx.commit();
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Alumno Actualizado con exito");
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
         } finally {
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Practica Actualizada");
             sesion.close();
         }
     }
@@ -64,9 +62,9 @@ public class PracticasDAO {
             String hql = "UPDATE Practicas SET idPractica = -1 WHERE dniAlumno = :dniAlumno";
             int valor = sesion.createQuery(hql).setParameter("dniAlumno", dniAlumno).executeUpdate();
             if (valor == 1) {
-                JOptionPane.showMessageDialog(parentComponent, "Alumno Marcado como Borrado", "Info", JOptionPane.INFORMATION_MESSAGE);
+                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Practica Marcada como Borrada");
             } else {
-                JOptionPane.showMessageDialog(parentComponent, "Alumno No Marcado como Borrado", "Error", JOptionPane.ERROR_MESSAGE);
+                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Practica No Marcada como Borrada");
             }
             tx.commit();
         } catch (HibernateException he) {

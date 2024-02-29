@@ -36,7 +36,7 @@ public class LoginDAO {
             listaUsuarios = sesion.createQuery("from Login").list();
         } catch (HibernateException he) {
             manejaExcepcion(he);
-            throw he; 
+            throw he;
         } finally {
             sesion.close();
         }
@@ -47,9 +47,7 @@ public class LoginDAO {
         Login usuario = null;
         try {
             iniciaOperacion();
-            // Modificar la consulta HQL para unir la tabla Login con la tabla Beep y filtrar por la contraseña
-            String hql = "FROM Login l JOIN FETCH l.beep b WHERE l.correoUsuario = :correoUsuario";
-            Query query = sesion.createQuery(hql);
+            Query query = sesion.createQuery("FROM Login l JOIN FETCH l.beep b WHERE l.correoUsuario = :correoUsuario");
             query.setParameter("correoUsuario", correoUsuario);
             usuario = (Login) query.uniqueResult();
         } catch (HibernateException he) {
@@ -66,32 +64,21 @@ public class LoginDAO {
     public Boolean registrarUsuario(Login usuario, String hashcontrasena, String salt) {
         boolean registroExitoso;
         try {
-            // Iniciamos la transacción
             iniciaOperacion();
-
-            // Creamos el objeto Beep con la contraseña y lo guardamos
             Beep beep = new Beep();
             beep.setHashContrasena(hashcontrasena);
             beep.setSalt(salt);
             beep.setLogin(usuario);
             sesion.save(beep);
-
-            // Asociamos el Beep al usuario y lo guardamos
             usuario.setBeep(beep);
             sesion.save(usuario);
-
-            // Confirmamos la transacción
             tx.commit();
-
-            // Mostramos un mensaje de éxito
             JOptionPane.showMessageDialog(null, "Usuario registrado correctamente", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
             registroExitoso = true;
         } catch (HibernateException he) {
-            // En caso de error, revertimos la transacción
             if (tx != null) {
                 tx.rollback();
             }
-            // Mostramos un mensaje de error
             JOptionPane.showMessageDialog(null, "Error al registrar usuario", "Error de Registro", JOptionPane.ERROR_MESSAGE);
             registroExitoso = false;
             he.printStackTrace();
@@ -108,7 +95,7 @@ public class LoginDAO {
             iniciaOperacion();
             sesion.update(l);
             tx.commit();
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Usuario Actualizado con exito");
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Usuario Actualizado");
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
@@ -120,21 +107,16 @@ public class LoginDAO {
     public void eliminarUsuario(Login usuario) {
         try {
             iniciaOperacion();
-
-            // Buscamos el Login en la base de datos para obtener su identificador y luego obtener su Beep asociado
             Login loginEnDB = (Login) sesion.get(Login.class, usuario.getIdUsuario());
             if (loginEnDB != null) {
                 Beep beep = loginEnDB.getBeep();
                 if (beep != null) {
-                    // Eliminamos el Beep asociado al Login
                     sesion.delete(beep);
                 }
-                // Eliminamos el Login
                 sesion.delete(loginEnDB);
             }
-
             tx.commit();
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Usuario eliminado con éxito");
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Usuario Borrado");
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
@@ -142,5 +124,4 @@ public class LoginDAO {
             sesion.close();
         }
     }
-
 }
