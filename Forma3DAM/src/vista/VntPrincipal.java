@@ -74,20 +74,17 @@ public class VntPrincipal extends javax.swing.JFrame {
                     }
                 }else if (indexMenu == 5) {
                     if (indexSubMenu == 0) {
-                        main.showForm(new VntInsertaPractica());
+                        //main.showForm(new VntInsertaBolsa());
                     } else if (indexSubMenu == 1) {
                         main.showForm(new VntPracticas());
                     }
-                } else if (indexMenu == 8) {
+                } else if (indexMenu == 6) {
                     if (indexSubMenu == 0) {
-                        main.showForm(new VntConfiguracion());
-                    }
-                } else if (indexMenu == 3) {
-                    if (indexSubMenu == 1) {
-                        main.showForm(new vntConvenios(vntPrincipal));
-                    } else if (indexSubMenu == 0) {
-                        main.showForm(new VntInsertaConvenio());
-                    }
+                        main.showForm(new VntInsertaBolsa());
+                    } else if (indexSubMenu == 1) {
+                        main.showForm(new VntBolsa());
+                    }               
+                
                 } else if (indexMenu == 7) {
                     if (indexSubMenu == 1) {
                         main.showForm(new VntAnexos(vntPrincipal));
@@ -95,6 +92,10 @@ public class VntPrincipal extends javax.swing.JFrame {
                         main.showForm(new VntInsertaAnexo());
                     }
 
+                }else if (indexMenu == 8) {
+                    if (indexSubMenu == 0) {
+                        main.showForm(new VntConfiguracion());
+                    }
                 }
             }
         });
@@ -169,11 +170,11 @@ public class VntPrincipal extends javax.swing.JFrame {
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1082, Short.MAX_VALUE)
+            .addGap(0, 1406, Short.MAX_VALUE)
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 521, Short.MAX_VALUE)
+            .addGap(0, 783, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
