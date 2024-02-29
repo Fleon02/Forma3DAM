@@ -433,7 +433,7 @@ public class VntEmpresas extends javax.swing.JPanel {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if (txtCIFEmpresa.getText() != null && txtNombreEmpresa.getText() != null && txtDireccion.getText() != null && txtTelefono.getText() != null
                 && txtOwner.getText() != null && txtTutorPracticas.getText() != null && txtResponsableContratacion.getText() != null) {
-            Empresas e = new Empresas(txtCIFEmpresa.getText(), txtNombreEmpresa.getText(), txtDireccion.getText(), txtTelefono.getText(),
+            Empresas e = new Empresas(txtNombreEmpresa.getText(), txtCIFEmpresa.getText(), txtDireccion.getText(), txtTelefono.getText(),
                     txtOwner.getText(), txtTutorPracticas.getText(), txtResponsableContratacion.getText());
             e.setIdEmpresa(Integer.parseInt(txtIDEmpresa.getText()));
             new EmpresasDAO().actualizaEmpresas(e);

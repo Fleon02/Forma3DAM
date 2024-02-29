@@ -102,7 +102,23 @@ public class AlumnosDAO {
         try
         {
             iniciaOperacion();
-            sesion.update(a);
+
+            if (a.getCv() == null || a.getCv().length == 0) {
+                Alumnos alumnoExistente = (Alumnos) sesion.load(Alumnos.class, a.getIdAlumno());
+
+                alumnoExistente.setDniAlumno(a.getDniAlumno());
+                alumnoExistente.setNombreAlumno(a.getNombreAlumno());
+                alumnoExistente.setYearCurso(a.getYearCurso());
+                alumnoExistente.setSegSocialAlumno(a.getSegSocialAlumno());
+                alumnoExistente.setValidez(a.getValidez());
+                alumnoExistente.setCicloAlumno(a.getCicloAlumno());
+
+                sesion.update(alumnoExistente);
+
+            } else {
+                sesion.update(a);
+            }
+
             tx.commit();
             Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Alumno Actualizado con exito");
         } catch (HibernateException he)

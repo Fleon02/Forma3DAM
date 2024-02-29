@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.AlumnosDAO;
 import pojos.Alumnos;
 
@@ -264,7 +265,6 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
                         Integer.parseInt(txtNSSAlumno.getText()), Boolean.FALSE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
                 new AlumnosDAO().guardaAlumnos(a);
             }
-            new VntAlumnos().cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtDNIAlumno, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -272,9 +272,21 @@ public class VntInsertaAlumno extends javax.swing.JPanel {
 
     private void btnSubirCVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVActionPerformed
         JFileChooser fileChooser = new JFileChooser();
+
+        // Filtro para archivos .pdf
+        FileNameExtensionFilter pdfFilter = new FileNameExtensionFilter("Archivos PDF", "pdf");
+
+        // Añadir el filtro de archivos .pdf al file chooser
+        fileChooser.addChoosableFileFilter(pdfFilter);
+        fileChooser.setFileFilter(pdfFilter);
+
         int resultado = fileChooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivo = fileChooser.getSelectedFile();
+            if (!archivo.getName().toLowerCase().endsWith(".pdf")) {
+                JOptionPane.showMessageDialog(this, "Solo se permiten archivos PDF", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si el archivo no es .pdf
+            }
             try {
                 byte[] bytesArchivo = convertirArchivoABytes(archivo);
                 bytesCV = bytesArchivo;

@@ -75,7 +75,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="fechaFin" min="-2" pref="228" max="-2" attributes="0"/>
-                                          <Component id="cmbNecesidad" pref="236" max="32767" attributes="0"/>
+                                          <Component id="cmbNecesidad" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
