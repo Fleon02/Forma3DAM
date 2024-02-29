@@ -62,6 +62,7 @@ public class VntBolsa extends javax.swing.JPanel {
         for (Bolsa bolsa : listaBolsa)
         {
             if (bolsa.getIdBolsa() != null && bolsa.getIdBolsa() > 0)
+
             {
 
                 Alumnos alumno = new AlumnosDAO().obtenAlumnosPorID(bolsa.getAlumnos().getIdAlumno());
@@ -401,6 +402,7 @@ public class VntBolsa extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(txtDNIAlumno, "Seleciona un Alumno de la Bolsa", "Error", JOptionPane.ERROR_MESSAGE);
         }
+       cargaTabla();
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void txtIDBolsaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDBolsaMousePressed

@@ -160,7 +160,7 @@ public class AlumnosDAO {
         try
         {
             iniciaOperacion();
-            listaAlumnos = sesion.createQuery("from Alumnos").list();
+            listaAlumnos = sesion.createQuery("from Alumnos where idAlumno > 0").list();
         } catch (HibernateException he)
         {
             manejaExcepcion(he);
