@@ -10,29 +10,20 @@ public class PasswordEncoder {
     private static final String ALGORITHM = "SHA-256";
     private static final int SALT_LENGTH = 16;
 
-    public static String encodePassword(String password, String salt ) {
+    public static String encodePassword(String password, String salt) {
         String encodedPassword = null;
-        
         if (salt == null) {
-        	salt = generateSalt();
-		}
-      
-
+            salt = generateSalt();
+        }
         try {
             MessageDigest md = MessageDigest.getInstance(ALGORITHM);
-
-            // Combina la contraseña y el salt antes de aplicar el hash
             String combined = password + salt;
             md.update(combined.getBytes());
-
-            // Obtiene el hash y lo convierte a formato Base64
             byte[] hashedBytes = md.digest();
             encodedPassword = Base64.getEncoder().encodeToString(hashedBytes);
-            
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
         return encodedPassword;
     }
 

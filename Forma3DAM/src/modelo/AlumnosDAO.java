@@ -1,11 +1,9 @@
 package modelo;
 
 import controlador.HibernateUtil;
-import java.awt.Component;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -16,7 +14,6 @@ public class AlumnosDAO {
 
     private Session sesion;
     private Transaction tx;
-    Component parentComponent = null;
 
     private void iniciaOperacion() {
         Logger.getLogger("org.hibernate").setLevel(Level.OFF);
@@ -39,37 +36,10 @@ public class AlumnosDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Alumno Insertado");
             sesion.close();
         }
         return id;
-    }
-
-    public void guardaAlumno(String dniAlumno, String nombreAlumno, String yearCurso, String segSocialAlumno, int validez, String cicloAlumno, byte[] cv) {
-        try {
-            iniciaOperacion();
-            String hql = "INSERT INTO alumnos(dniAlumno, nombreAlumno, yearCurso, segSocialAlumno, validez, cicloAlumno, CV)"
-                    + " VALUES (:dniAlumno,:nombreAlumno,:yearCurso,:segSocialAlumno,:validez,:cicloAlumno,:cv)";
-            int valor = sesion.createSQLQuery(hql)
-                    .setParameter("dniAlumno", dniAlumno)
-                    .setParameter("nombreAlumno", nombreAlumno)
-                    .setParameter("yearCurso", yearCurso)
-                    .setParameter("segSocialAlumno", segSocialAlumno)
-                    .setParameter("validez", validez)
-                    .setParameter("cicloAlumno", cicloAlumno)
-                    .setParameter("cv", cv)
-                    .executeUpdate();
-            if (valor == 1) {
-                JOptionPane.showMessageDialog(parentComponent, "Alumno Insertado", "Info", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(parentComponent, "Alumno No Insertado", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            tx.commit();
-        } catch (HibernateException he) {
-            manejaExcepcion(he);
-            throw he;
-        } finally {
-            sesion.close();
-        }
     }
 
     public Alumnos obtenAlumnos(int id) {
@@ -91,11 +61,11 @@ public class AlumnosDAO {
             iniciaOperacion();
             sesion.update(a);
             tx.commit();
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Alumno Actualizado con exito");
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
         } finally {
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Alumno Actualizado");
             sesion.close();
         }
     }
@@ -106,9 +76,9 @@ public class AlumnosDAO {
             String hql = "UPDATE Alumnos SET idAlumno = -idAlumno WHERE dniAlumno = :dniAlumno";
             int valor = sesion.createQuery(hql).setParameter("dniAlumno", dniAlumno).executeUpdate();
             if (valor == 1) {
-                JOptionPane.showMessageDialog(parentComponent, "Alumno Marcado como Borrado", "Info", JOptionPane.INFORMATION_MESSAGE);
+                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Alumno Marcado como Borrado");
             } else {
-                JOptionPane.showMessageDialog(parentComponent, "Alumno No Marcado como Borrado", "Error", JOptionPane.ERROR_MESSAGE);
+                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Alumno No Marcado como Borrado");
             }
             tx.commit();
         } catch (HibernateException he) {

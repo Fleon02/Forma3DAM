@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -77,6 +76,7 @@ public class AnexosDAO {
             return false;
         } finally {
             if (sesion != null) {
+                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Anexo Insertado");
                 sesion.close();
             }
         }
@@ -92,13 +92,11 @@ public class AnexosDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
-            // Cerrar la sesión aquí solo si no se produce una excepción
             if (sesion != null && sesion.isOpen()) {
                 sesion.close();
             }
         }
         return listaNecesidad;
-
     }
 
     public void guardaAnexo(Anexos a) {
@@ -110,6 +108,7 @@ public class AnexosDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Anexo Insertado");
             sesion.close();
         }
     }
@@ -117,22 +116,18 @@ public class AnexosDAO {
     public void eliminaAnexo(Anexos a, JFrame jframe) {
         try {
             iniciaOperacion();
-
-            // Obtener el idConvenio y convertirlo a negativo
             int idAnexo = a.getIdAnexo();
             int idAnexoNegativo = -idAnexo;
-
             Query query = sesion.createQuery("UPDATE Anexos SET idAnexo = :idNegativo WHERE idAnexo = :id");
             query.setParameter("idNegativo", idAnexoNegativo);
             query.setParameter("id", idAnexo);
             int result = query.executeUpdate();
             tx.commit();
-
             if (result > 0) {
                 Notifications.getInstance().setJFrame(jframe);
-                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Anexo marcado como borrado");
+                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Anexo Marcado como Borrado");
             } else {
-                JOptionPane.showMessageDialog(jframe, "El Anexo no se encontró", "Error", JOptionPane.ERROR_MESSAGE);
+                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Anexo No Marcado como Borrado");
             }
         } catch (HibernateException he) {
             manejaExcepcion(he);
@@ -163,10 +158,7 @@ public class AnexosDAO {
         Anexos a = null;
         try {
             iniciaOperacion();
-            // Consulta para obtener el nombre de la empresa dado un CIF
-            a = (Anexos) sesion.createQuery("from Anexos where idAnexo = :cifEmpresa")
-                    .setParameter("cifEmpresa", idAnexo)
-                    .uniqueResult();
+            a = (Anexos) sesion.createQuery("from Anexos where idAnexo = :cifEmpresa").setParameter("cifEmpresa", idAnexo).uniqueResult();
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
@@ -176,5 +168,4 @@ public class AnexosDAO {
         }
         return a;
     }
-
 }

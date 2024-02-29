@@ -1,7 +1,6 @@
 package modelo;
 
 import controlador.HibernateUtil;
-import java.awt.Component;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,7 +8,6 @@ import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pojos.Convenio;
 import pojos.Empresas;
 import raven.toast.Notifications;
 
@@ -17,7 +15,6 @@ public class EmpresasDAO {
 
     private Session sesion;
     private Transaction tx;
-    Component parentComponent = null;
 
     private void iniciaOperacion() {
         Logger.getLogger("org.hibernate").setLevel(Level.OFF);
@@ -30,7 +27,7 @@ public class EmpresasDAO {
         throw new HibernateException("Error en la capa de acceso a datos", he);
     }
 
-    public void guardaEmpresa(Empresas p) {
+    public void guardaEmpresas(Empresas p) {
         try {
             iniciaOperacion();
             sesion.save(p);
@@ -41,21 +38,6 @@ public class EmpresasDAO {
         } finally {
             sesion.close();
         }
-    }
-
-    public int guardaEmpresas(Empresas p) {
-        int id;
-        try {
-            iniciaOperacion();
-            id = (int) sesion.save(p);
-            tx.commit();
-        } catch (HibernateException he) {
-            manejaExcepcion(he);
-            throw he;
-        } finally {
-            sesion.close();
-        }
-        return id;
     }
 
     public Empresas obtenEmpresas(int id) {
@@ -77,11 +59,11 @@ public class EmpresasDAO {
             iniciaOperacion();
             sesion.update(a);
             tx.commit();
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Empresa Actualizado con exito");
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
         } finally {
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Empresa Actualizada");
             sesion.close();
         }
     }
@@ -92,9 +74,9 @@ public class EmpresasDAO {
             String hql = "UPDATE Empresas SET idEmpresa = -1 WHERE cifEmpresa = :cifEmpresa";
             int valor = sesion.createQuery(hql).setParameter("cifEmpresa", cifEmpresa).executeUpdate();
             if (valor == 1) {
-                JOptionPane.showMessageDialog(parentComponent, "Empresa Marcado como Borrado", "Info", JOptionPane.INFORMATION_MESSAGE);
+                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Empresa Marcada como Borrada");
             } else {
-                JOptionPane.showMessageDialog(parentComponent, "Empresa No Marcado como Borrado", "Error", JOptionPane.ERROR_MESSAGE);
+                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Empresa Marcada como Borrada");
             }
             tx.commit();
         } catch (HibernateException he) {
@@ -226,6 +208,5 @@ public class EmpresasDAO {
         }
         return e;
     }
-
 
 }
