@@ -59,7 +59,18 @@ public class PracticasDAO {
     public void actualizaPracticas(Practicas a) {
         try {
             iniciaOperacion();
-            sesion.update(a);
+            if (a.getInformeSeguimiento() == null || a.getInformeSeguimiento().length == 0
+                    || a.getInformeFinal() == null || a.getInformeFinal().length == 0) {
+                Practicas pExistente = (Practicas) sesion.load(Practicas.class, a.getIdPractica());
+                pExistente.setAlumnos(a.getAlumnos());
+                pExistente.setEmpresas(a.getEmpresas());
+                pExistente.setAnexos(a.getAnexos());
+                pExistente.setInformeSeguimiento(a.getInformeSeguimiento());
+                pExistente.setInformeFinal(a.getInformeFinal());
+                sesion.update(pExistente);
+            } else {
+                sesion.update(a);
+            }
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);

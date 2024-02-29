@@ -49,10 +49,10 @@ public class VntPracticas extends javax.swing.JPanel {
         initComponents();
         TablaPracticas.setDefaultEditor(Object.class, null);
         cargaTabla();
+        cargaPracticas();
         cargarDNIAlumno();
         cargarTutorPracticasEmpresas();
-        cargarCalendariosAnexos();
-        cargaPracticas();
+        //cargarCalendariosAnexos();
         TablaPracticas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -161,15 +161,7 @@ public class VntPracticas extends javax.swing.JPanel {
                                 break;
                             }
                         }
-                        Anexos an = new AnexosDAO().obtenAnexoPorCalendario(TablaPracticas.getValueAt(filas, 4) + "");
-                        int idAnexo = an.getIdAnexo();
-                        for (int k = 1; k < cbCalendario.getItemCount(); k++) {
-                            Anexos anexos = (Anexos) cbCalendario.getItemAt(k);
-                            if (anexos != null && anexos.getIdAnexo() == idAnexo) {
-                                cbCalendario.setSelectedIndex(k);
-                                break;
-                            }
-                        }
+                        cbCalendario.setSelectedItem(TablaPracticas.getValueAt(filas, 4) + "");
                         txtHorarioEntrada.setText(TablaPracticas.getValueAt(filas, 7) + "");
                         txtHorarioSalida.setText(TablaPracticas.getValueAt(filas, 8) + "");
                         cbDNIAlumno.setEnabled(true);
@@ -249,7 +241,7 @@ public class VntPracticas extends javax.swing.JPanel {
         }
     }
 
-    private void cargarCalendariosAnexos() {
+    /*private void cargarCalendariosAnexos() {
         List<Anexos> listaAnexos = new AnexosDAO().obtenerAnexos();
         DefaultComboBoxModel<Anexos> model = new DefaultComboBoxModel<>();
         model.addElement(new Anexos());
@@ -279,8 +271,7 @@ public class VntPracticas extends javax.swing.JPanel {
             }
             return this;
         }
-    }
-
+    }*/
     private void descargarArchivo(int fila, int columna) {
         int idPractica = (int) TablaPracticas.getValueAt(fila, 0);
         Practicas practica = new PracticasDAO().obtenPracticas(idPractica);
@@ -345,7 +336,6 @@ public class VntPracticas extends javax.swing.JPanel {
         userLabel1 = new javax.swing.JLabel();
         cbTutorPracticas = new javax.swing.JComboBox<>();
         userLabel2 = new javax.swing.JLabel();
-        cbCalendario = new javax.swing.JComboBox<>();
         btnSubirCVIS = new javax.swing.JButton();
         nombreArchivoIS = new javax.swing.JLabel();
         userLabel7 = new javax.swing.JLabel();
@@ -356,6 +346,7 @@ public class VntPracticas extends javax.swing.JPanel {
         txtHorarioEntrada = new javax.swing.JTextField();
         userLabel9 = new javax.swing.JLabel();
         txtHorarioSalida = new javax.swing.JTextField();
+        cbCalendario = new javax.swing.JComboBox<>();
 
         jTableAlumnos.setModel(dtm);
         jScrollPane1.setViewportView(jTableAlumnos);
@@ -431,11 +422,6 @@ public class VntPracticas extends javax.swing.JPanel {
         userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel2.setText("Calendario");
 
-        cbCalendario.setBackground(new java.awt.Color(0, 0, 0));
-        cbCalendario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        cbCalendario.setForeground(new java.awt.Color(255, 255, 255));
-        cbCalendario.setEnabled(false);
-
         btnSubirCVIS.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCVIS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIS.setForeground(new java.awt.Color(255, 255, 255));
@@ -495,6 +481,11 @@ public class VntPracticas extends javax.swing.JPanel {
                 txtHorarioSalidaMousePressed(evt);
             }
         });
+
+        cbCalendario.setBackground(new java.awt.Color(0, 0, 0));
+        cbCalendario.setForeground(new java.awt.Color(255, 255, 255));
+        cbCalendario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Calendario", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "septiembre", "octubre", "noviembre", "diciembre" }));
+        cbCalendario.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -563,7 +554,7 @@ public class VntPracticas extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+                .addContainerGap(78, Short.MAX_VALUE)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -607,7 +598,7 @@ public class VntPracticas extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -637,13 +628,10 @@ public class VntPracticas extends javax.swing.JPanel {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if (txtIDPractica.getText() != null && cbDNIAlumno.getSelectedIndex() != 0 && cbDNIAlumno.getSelectedIndex() != 0
                 && cbDNIAlumno.getSelectedIndex() != 0) {
-            Alumnos a = new Alumnos();
-            a.setDniAlumno(cbDNIAlumno.getSelectedItem().toString());
-            Anexos an = new Anexos();
-            an.setCalendario(cbCalendario.getSelectedItem().toString());
-            Empresas e = new Empresas();
-            e.setTutorPracticas(cbTutorPracticas.getSelectedItem().toString());
-            Practicas p = new Practicas(a, an, e, bytesIS, bytesIF, txtHorarioEntrada.getText(), txtHorarioSalida.getText());
+            Alumnos al = (Alumnos) cbDNIAlumno.getSelectedItem();
+            Anexos an = (Anexos) cbCalendario.getSelectedItem();
+            Empresas e = (Empresas) cbTutorPracticas.getSelectedItem();
+            Practicas p = new Practicas(al, an, e, bytesIS, bytesIF, txtHorarioEntrada.getText(), txtHorarioSalida.getText());
             p.setIdPractica(Integer.parseInt(txtIDPractica.getText()));
             new PracticasDAO().actualizaPracticas(p);
             cargaTabla();
@@ -727,7 +715,7 @@ public class VntPracticas extends javax.swing.JPanel {
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnSubirCVIF;
     private javax.swing.JButton btnSubirCVIS;
-    private javax.swing.JComboBox<Anexos> cbCalendario;
+    private javax.swing.JComboBox<String> cbCalendario;
     private javax.swing.JComboBox<Alumnos> cbDNIAlumno;
     private javax.swing.JComboBox<Empresas
     > cbTutorPracticas;
