@@ -1,17 +1,25 @@
 package vista;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import modelo.AnexosDAO;
 import modelo.ConvenioDAO;
 import modelo.EmpresasDAO;
+import pojos.Anexos;
 import pojos.Convenio;
 import pojos.Empresas;
 
@@ -36,6 +44,30 @@ public class vntConvenios extends javax.swing.JPanel {
         cargaTabla();
         cargaConvenios();
         frame = vntPrincipal;
+
+        TablaConvenio.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    int fila = TablaConvenio.rowAtPoint(e.getPoint());
+                    int columna = TablaConvenio.columnAtPoint(e.getPoint());
+
+                    // Verificar si se ha hecho clic en una celda de anexo
+                    if ((columna == 6)
+                            && "Subido".equals(TablaConvenio.getValueAt(fila, columna))) {
+                        int opcion = JOptionPane.showConfirmDialog(frame,
+                                "¿Desea descargar el archivo?",
+                                "Descargar Archivo",
+                                JOptionPane.YES_NO_OPTION);
+                        if (opcion == JOptionPane.YES_OPTION) {
+                            descargarArchivo(fila, columna);
+                            System.out.println("Pruebaaaaaaaa");
+                        }
+                    }
+                }
+            }
+        }
+        );
     }
 
     public void cargaTabla() {
@@ -381,7 +413,6 @@ public class vntConvenios extends javax.swing.JPanel {
         String nombreEmpresa = txtNombreEmpresa.getText();
         String cifEmpresa = txtIDEmpresa.getText();
         String responsableFirma = txtResponsableFirma1.getText();
-        
 
         Empresas e = new Empresas();
 
@@ -421,7 +452,7 @@ public class vntConvenios extends javax.swing.JPanel {
         // Obtener la empresa asociada al convenio
         EmpresasDAO ed = new EmpresasDAO();
         Empresas e = ed.obtenerEmpresaPorNombre(nombreEmpresa);
-        
+
         int cantAnexos = cd.obtenerCantidadPracticasPorEmpresa(e);
 
         // Crear el objeto Convenio con los datos del formulario
@@ -435,6 +466,17 @@ public class vntConvenios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnSubirAnexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirAnexActionPerformed
+
+        JFileChooser fileChooser = new JFileChooser();
+
+        // Filtro para archivos .docx
+        FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos DOCX", "docx");
+
+        // Añadir el filtro de archivos .docx al file chooser
+        fileChooser.addChoosableFileFilter(docxFilter);
+
+        fileChooser.setDialogTitle("Sube el anexo 1 (DOCX)");
+
         // Obtener el índice de la fila seleccionada en la tabla
         int filaSeleccionada = TablaConvenio.getSelectedRow();
 
@@ -447,10 +489,13 @@ public class vntConvenios extends javax.swing.JPanel {
             // Verificar la opción seleccionada por el usuario
             if (opcion == JOptionPane.YES_OPTION) {
                 // El usuario ha confirmado la sobrescritura, procede a subir el nuevo archivo
-                JFileChooser fileChooser = new JFileChooser();
                 int resultado = fileChooser.showOpenDialog(this);
                 if (resultado == JFileChooser.APPROVE_OPTION) {
                     File archivo = fileChooser.getSelectedFile();
+                    if (!archivo.getName().toLowerCase().endsWith(".docx")) {
+                        JOptionPane.showMessageDialog(this, "Solo se permiten archivos DOCX", "Error", JOptionPane.ERROR_MESSAGE);
+                        return; // Salir del método si el archivo no es .docx
+                    }
                     try {
                         byte[] bytesArchivo = convertirArchivoABytes(archivo);
                         bytesCV = bytesArchivo;
@@ -466,10 +511,13 @@ public class vntConvenios extends javax.swing.JPanel {
                 return;
             }
         } else {
-            JFileChooser fileChooser = new JFileChooser();
             int resultado = fileChooser.showOpenDialog(this);
             if (resultado == JFileChooser.APPROVE_OPTION) {
                 File archivo = fileChooser.getSelectedFile();
+                if (!archivo.getName().toLowerCase().endsWith(".docx")) {
+                    JOptionPane.showMessageDialog(this, "Solo se permiten archivos DOCX", "Error", JOptionPane.ERROR_MESSAGE);
+                    return; // Salir del método si el archivo no es .docx
+                }
                 try {
                     byte[] bytesArchivo = convertirArchivoABytes(archivo);
                     bytesCV = bytesArchivo;
@@ -481,6 +529,10 @@ public class vntConvenios extends javax.swing.JPanel {
                 }
             }
         }
+
+        nombreArchivo.setText("Archivo");
+        bytesCV = null;
+
     }//GEN-LAST:event_btnSubirAnexActionPerformed
 
     private void txtIDEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDEmpresaActionPerformed
@@ -498,6 +550,62 @@ public class vntConvenios extends javax.swing.JPanel {
         fis.close();
         return bytesArray;
     }
+
+    private void descargarArchivo(int fila, int columna) {
+        ConvenioDAO cd = new ConvenioDAO();
+        int idConvenio = (int) TablaConvenio.getValueAt(fila, 0);
+        Convenio convenio = cd.obtenConvenioPorID(idConvenio);
+        byte[] archivo = null;
+
+        archivo = convenio.getAnexoUnoConvenio();
+
+        // Guardar el archivo en disco
+        if (archivo != null) {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar archivo");
+
+            // Filtro para archivos .docx
+            FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos DOCX", "docx");
+
+            // Añadir el filtro de archivos .docx al file chooser
+            fileChooser.addChoosableFileFilter(docxFilter);
+
+            fileChooser.setFileFilter(docxFilter);
+
+            int seleccion = fileChooser.showSaveDialog(frame);
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                String nombreArchivo = selectedFile.getName();
+
+                // Obtener el filtro seleccionado por el usuario como un FileFilter
+                FileFilter filtroSeleccionado = fileChooser.getFileFilter();
+
+                // Obtener la descripción del filtro seleccionado
+                String descripcionFiltro = filtroSeleccionado.getDescription();
+
+                // Obtener la extensión del archivo a partir de la descripción del filtro seleccionado
+                String extensionFiltro = "docx";
+
+                // Verificar si el nombre del archivo termina con la extensión correcta
+                if (!nombreArchivo.toLowerCase().endsWith("." + extensionFiltro)) {
+                    // Agregar la extensión correcta al nombre del archivo
+                    nombreArchivo += "." + extensionFiltro;
+                    selectedFile = new File(selectedFile.getParent(), nombreArchivo);
+                }
+
+                try (FileOutputStream fos = new FileOutputStream(selectedFile)) {
+                    fos.write(archivo);
+                    JOptionPane.showMessageDialog(frame, "Archivo descargado exitosamente", "Descarga Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(frame, "Error al guardar el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(frame, "No se ha encontrado el archivo asociado", "Archivo no encontrado", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaConvenio;
     private javax.swing.JButton btnActualizar;

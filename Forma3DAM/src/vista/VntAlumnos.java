@@ -4,8 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.JFileChooser;
@@ -13,8 +16,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import modelo.AlumnosDAO;
 import modelo.AsignaturasDAO;
@@ -24,6 +30,7 @@ import pojos.Asignaturas;
 public class VntAlumnos extends javax.swing.JPanel {
 
     private byte[] bytesCV;
+    private JFrame frame;
 
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
         "ID",
@@ -36,7 +43,8 @@ public class VntAlumnos extends javax.swing.JPanel {
         "Validez"
     }, 0);
 
-    public VntAlumnos() {
+    public VntAlumnos(JFrame vntPrincipal) {
+        frame = vntPrincipal;
         initComponents();
         txtAnioAlumno.addKeyListener(new KeyAdapter() {
             @Override
@@ -59,6 +67,31 @@ public class VntAlumnos extends javax.swing.JPanel {
         TablaAlumnos.setDefaultEditor(Object.class, null);
         cargaTabla();
         cargaAlumno();
+
+        TablaAlumnos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    int fila = TablaAlumnos.rowAtPoint(e.getPoint());
+                    int columna = TablaAlumnos.columnAtPoint(e.getPoint());
+
+                    // Verificar si se ha hecho clic en una celda de anexo
+                    if ((columna == 6)
+                            && "Subido".equals(TablaAlumnos.getValueAt(fila, columna))) {
+                        int opcion = JOptionPane.showConfirmDialog(frame,
+                                "¿Desea descargar el archivo?",
+                                "Descargar Archivo",
+                                JOptionPane.YES_NO_OPTION);
+                        if (opcion == JOptionPane.YES_OPTION) {
+                            descargarArchivo(fila, columna);
+                            System.out.println("Pruebaaaaaaaa");
+                        }
+                    }
+                }
+
+            }
+        }
+        );
     }
 
     public void cargaTabla() {
@@ -480,9 +513,21 @@ public class VntAlumnos extends javax.swing.JPanel {
 
     private void btnSubirCVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVActionPerformed
         JFileChooser fileChooser = new JFileChooser();
+
+        // Filtro para archivos .pdf
+        FileNameExtensionFilter pdfFilter = new FileNameExtensionFilter("Archivos PDF", "pdf");
+
+        // Añadir el filtro de archivos .pdf al file chooser
+        fileChooser.addChoosableFileFilter(pdfFilter);
+        fileChooser.setFileFilter(pdfFilter);
+
         int resultado = fileChooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivo = fileChooser.getSelectedFile();
+            if (!archivo.getName().toLowerCase().endsWith(".pdf")) {
+                JOptionPane.showMessageDialog(this, "Solo se permiten archivos PDF", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si el archivo no es .pdf
+            }
             try {
                 byte[] bytesArchivo = convertirArchivoABytes(archivo);
                 bytesCV = bytesArchivo;
@@ -525,6 +570,62 @@ public class VntAlumnos extends javax.swing.JPanel {
         fis.close();
         return bytesArray;
     }
+
+    private void descargarArchivo(int fila, int columna) {
+        AlumnosDAO ad = new AlumnosDAO();
+        int idAlumno = (int) TablaAlumnos.getValueAt(fila, 0);
+        Alumnos alumno = ad.obtenAlumnos(idAlumno);
+        byte[] archivo = null;
+
+        archivo = alumno.getCv();
+
+        // Guardar el archivo en disco
+        if (archivo != null) {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar archivo");
+
+            // Filtro para archivos .docx
+            FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos PDF", "pdf");
+
+            // Añadir el filtro de archivos .docx al file chooser
+            fileChooser.addChoosableFileFilter(docxFilter);
+
+            fileChooser.setFileFilter(docxFilter);
+
+            int seleccion = fileChooser.showSaveDialog(frame);
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                String nombreArchivo = selectedFile.getName();
+
+                // Obtener el filtro seleccionado por el usuario como un FileFilter
+                FileFilter filtroSeleccionado = fileChooser.getFileFilter();
+
+                // Obtener la descripción del filtro seleccionado
+                String descripcionFiltro = filtroSeleccionado.getDescription();
+
+                // Obtener la extensión del archivo a partir de la descripción del filtro seleccionado
+                String extensionFiltro = "pdf";
+
+                // Verificar si el nombre del archivo termina con la extensión correcta
+                if (!nombreArchivo.toLowerCase().endsWith("." + extensionFiltro)) {
+                    // Agregar la extensión correcta al nombre del archivo
+                    nombreArchivo += "." + extensionFiltro;
+                    selectedFile = new File(selectedFile.getParent(), nombreArchivo);
+                }
+
+                try (FileOutputStream fos = new FileOutputStream(selectedFile)) {
+                    fos.write(archivo);
+                    JOptionPane.showMessageDialog(frame, "Archivo descargado exitosamente", "Descarga Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(frame, "Error al guardar el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(frame, "No se ha encontrado el archivo asociado", "Archivo no encontrado", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaAlumnos;
     private javax.swing.JButton btnActualizar;
