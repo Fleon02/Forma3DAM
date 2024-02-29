@@ -31,25 +31,30 @@ public class NecesidadDAO {
     public List<Necesidad> obtenListaNecesidad() {
         List<Necesidad> listaNecesidades = null;
         Query query;
-        try {
+        try
+        {
             iniciaOperacion();
             query = sesion.createQuery("FROM Necesidad n LEFT JOIN FETCH n.empresas");
             listaNecesidades = query.list();
-        } catch (HibernateException he) {
+        } catch (HibernateException he)
+        {
             manejaExcepcion(he);
             throw he;
-        } finally {
+        } finally
+        {
             sesion.close();
         }
         return listaNecesidades;
     }
 
     public void actualizarNecesidad(Necesidad n) {
-        try {
+        try
+        {
             iniciaOperacion();
             sesion.update(n);
             tx.commit();
-        } catch (HibernateException he) {
+        } catch (HibernateException he)
+        {
             manejaExcepcion(he);
             throw he;
         } finally {
@@ -60,7 +65,8 @@ public class NecesidadDAO {
 
     public void eliminaNecesidad(String cifempresa) {
         Empresas empresas = new Empresas(cifempresa);
-        try {
+        try
+        {
             iniciaOperacion();
             String hql = "UPDATE Necesidad SET idNecesidad = -1 WHERE empresas = :empresas";
             int valor = sesion.createQuery(hql).setParameter("empresas", empresas).executeUpdate();
@@ -70,23 +76,28 @@ public class NecesidadDAO {
                 Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Necesidad No Marcada como Borrada");
             }
             tx.commit();
-        } catch (HibernateException he) {
+        } catch (HibernateException he)
+        {
             manejaExcepcion(he);
             throw he;
-        } finally {
+        } finally
+        {
             sesion.close();
         }
     }
 
     public void guardaNecesidad(Necesidad n) {
-        try {
+        try
+        {
             iniciaOperacion();
             sesion.save(n);
             tx.commit();
-        } catch (HibernateException he) {
+        } catch (HibernateException he)
+        {
             manejaExcepcion(he);
             throw he;
-        } finally {
+        } finally
+        {
             sesion.close();
         }
     }
@@ -97,14 +108,47 @@ public class NecesidadDAO {
             iniciaOperacion();
             Query query = sesion.createQuery("FROM Necesidad where idNecesidad = :necesidad").setParameter("necesidad", id);
             n = (Necesidad) query.uniqueResult();
-        } catch (HibernateException he) {
+        } catch (HibernateException he)
+        {
             manejaExcepcion(he);
             throw he;
-        } finally {
-            if (sesion != null && sesion.isOpen()) {
+        } finally
+        {
+            if (sesion != null && sesion.isOpen())
+            {
                 sesion.close();
             }
         }
         return n;
     }
-}
+
+    public List<Object[]> obtenNecesidadesDeEmpresa(Empresas empresa) {
+        List<Object[]> listaNecesidades = null;
+        Query query;
+        int idEmpresa = empresa.getIdEmpresa();
+        try{
+            iniciaOperacion();
+            String hql = "SELECT n.dam, n.daw, n.asir, n.mark, n.fin FROM Necesidad n WHERE n.empresas.idEmpresa = :idEmpresa";
+            query = sesion.createQuery(hql);
+            query.setParameter("idEmpresa", idEmpresa);
+
+            List<Object[]> necesidads = query.list();
+            for (Object[] necesidad : listaNecesidades)
+            {
+                Integer dam = (Integer) necesidad[0];
+                Integer daw = (Integer) necesidad[1];
+                Integer asir = (Integer) necesidad[2];
+                Integer mark = (Integer) necesidad[3];
+                Integer fin = (Integer) necesidad[4];
+            }
+            }catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        }finally {
+            sesion.close();
+        }
+            return listaNecesidades;
+
+        }
+
+    }

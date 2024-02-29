@@ -22,6 +22,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.AlumnosDAO;
 import modelo.AnexosDAO;
 import modelo.ConvenioDAO;
@@ -383,17 +384,17 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
         String calendario = formatoMes.format(fechaDate); // Obtener el nombre del mes
 
         boolean contratacion = ckbContratacion.isSelected();
-        
+
         Empresas e = new Empresas();
-        
-        e = (Empresas)cmbEmpresa.getSelectedItem();
-        
+
+        e = (Empresas) cmbEmpresa.getSelectedItem();
+
         Necesidad n = new Necesidad();
-        
+
         n = (Necesidad) cmbNecesidad.getSelectedItem();
-        
+
         Anexos a = new Anexos();
-        
+
         a.setEmpresas(e);
         a.setNecesidad(n);
         a.setFechaInicio(fechaFormateada);
@@ -407,9 +408,22 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
         a.setAnexoOcho(anexoOchoConvenio);
 
         System.out.println("Objeto Anexos creado: " + a.toString());
-        
+
         ad.guardaAnexo(a);
 
+        // Reiniciar los campos de bytes después de la actualización
+        bytes2_1 = null;
+        bytes2_2 = null;
+        bytes3 = null;
+        bytes4 = null;
+        bytes8 = null;
+
+        // Limpiar los nombres de archivo en la interfaz gráfica
+        nombreArchivo2_1.setText("Archivo ");
+        nombreArchivo2_2.setText("Archivo ");
+        nombreArchivo3.setText("Archivo ");
+        nombreArchivo4.setText("Archivo ");
+        nombreArchivo8.setText("Archivo ");
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnSubirA2_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA2_1ActionPerformed
@@ -438,9 +452,31 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
 
     private void subirArchivo(String tipoAnexo) {
         JFileChooser fileChooser = new JFileChooser();
+
+        // Filtro para archivos .docx
+        FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos DOCX", "docx");
+
+        // Añadir el filtro de archivos .docx al file chooser
+        fileChooser.addChoosableFileFilter(docxFilter);
+
+        // Establecer el filtro por defecto como el de archivos .docx
+        fileChooser.setFileFilter(docxFilter);
+
+        // Establecer el título del diálogo de selección de archivos
+        fileChooser.setDialogTitle("Elige un archivo DOCX");
+
         int resultado = fileChooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivo = fileChooser.getSelectedFile();
+            String nombreArchivo = archivo.getName();
+            String extension = nombreArchivo.substring(nombreArchivo.lastIndexOf(".") + 1).toLowerCase();
+
+            // Verificar si la extensión del archivo es .docx
+            if (!extension.equals("docx")) {
+                JOptionPane.showMessageDialog(this, "Solo se permiten archivos DOCX", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si el archivo no es .docx
+            }
+
             try {
                 byte[] bytesArchivo = convertirArchivoABytes(archivo);
                 // Asignar los bytes al campo correspondiente según el tipo de anexo
@@ -464,7 +500,7 @@ public class VntInsertaAnexo extends javax.swing.JPanel {
                         break;
                 }
                 // Actualizar el nombre del archivo en la interfaz gráfica
-                actualizarNombreArchivo(tipoAnexo, archivo.getName());
+                actualizarNombreArchivo(tipoAnexo, nombreArchivo);
             } catch (IOException ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error al leer el archivo", "Error", JOptionPane.ERROR_MESSAGE);

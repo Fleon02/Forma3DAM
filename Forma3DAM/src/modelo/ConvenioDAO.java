@@ -121,4 +121,23 @@ public class ConvenioDAO {
             sesion.close();
         }
     }
+
+    public Convenio obtenConvenioPorID(int idConvenio) {
+        Convenio c = null;
+        try {
+            iniciaOperacion();
+            // Consulta para obtener el nombre de la empresa dado un CIF
+            c = (Convenio) sesion.createQuery("from Convenio where idConvenio = :cifEmpresa")
+                    .setParameter("cifEmpresa", idConvenio)
+                    .uniqueResult();
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return c;
+    }
+
 }
