@@ -40,8 +40,8 @@ public class VntPracticas extends javax.swing.JPanel {
         "Tutor Practicas",
         "ID Anexo",
         "Calendario",
-        "Informe Seguimiento",
-        "Informe Final",
+        "I. S.",
+        "I. F.",
         "Entrada",
         "Salida"
     }, 0);
@@ -60,7 +60,7 @@ public class VntPracticas extends javax.swing.JPanel {
                 if (SwingUtilities.isRightMouseButton(e)) {
                     int fila = TablaPracticas.rowAtPoint(e.getPoint());
                     int columna = TablaPracticas.columnAtPoint(e.getPoint());
-                    if ((columna == 6 || columna == 7)
+                    if ((columna == 5 || columna == 6)
                             && "Subido".equals(TablaPracticas.getValueAt(fila, columna))) {
                         int opcion = JOptionPane.showConfirmDialog(null,
                                 "¿Desea descargar el archivo?",
@@ -166,8 +166,8 @@ public class VntPracticas extends javax.swing.JPanel {
                                 break;
                             }
                         }
-                        txtHorarioEntrada.setText(TablaPracticas.getValueAt(filas, 8) + "");
-                        txtHorarioSalida.setText(TablaPracticas.getValueAt(filas, 9) + "");
+                        txtHorarioEntrada.setText(TablaPracticas.getValueAt(filas, 7) + "");
+                        txtHorarioSalida.setText(TablaPracticas.getValueAt(filas, 8) + "");
                         cbDNIAlumno.setEnabled(true);
                         cbTutorPracticas.setEnabled(true);
                         cbCalendarioA.setEnabled(true);
