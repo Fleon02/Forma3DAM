@@ -143,6 +143,8 @@ public class VntPracticas extends javax.swing.JPanel {
                     int filas = TablaPracticas.getSelectedRow();
                     if (filas != -1) {
                         txtIDPractica.setText(TablaPracticas.getValueAt(filas, 0) + "");
+                        txtHorarioEntrada.setText(TablaPracticas.getValueAt(filas, 7) + "");
+                        txtHorarioSalida.setText(TablaPracticas.getValueAt(filas, 8) + "");
                         Alumnos a = new AlumnosDAO().obtenAlumnosPorDNI(TablaPracticas.getValueAt(filas, 1) + "");
                         int idAlumno = a.getIdAlumno();
                         for (int i = 1; i < cbDNIAlumno.getItemCount(); i++) {
@@ -163,15 +165,13 @@ public class VntPracticas extends javax.swing.JPanel {
                         }
                         Anexos an = new AnexosDAO().obtenAnexoPorCalendario(TablaPracticas.getValueAt(filas, 4) + "");
                         int idAnexo = an.getIdAnexo();
-                        for (int j = 1; j < cbCalendario.getItemCount(); j++) {
-                            Anexos anexos = (Anexos) cbCalendario.getItemAt(j);
+                        for (int k = 1; k < cbCalendario.getItemCount(); k++) {
+                            Anexos anexos = (Anexos) cbCalendario.getItemAt(k);
                             if (anexos != null && anexos.getIdAnexo() == idAnexo) {
-                                cbCalendario.setSelectedIndex(j);
+                                cbCalendario.setSelectedIndex(k);
                                 break;
                             }
                         }
-                        txtHorarioEntrada.setText(TablaPracticas.getValueAt(filas, 7) + "");
-                        txtHorarioSalida.setText(TablaPracticas.getValueAt(filas, 8) + "");
                         cbDNIAlumno.setEnabled(true);
                         cbTutorPracticas.setEnabled(true);
                         cbCalendario.setEnabled(true);
