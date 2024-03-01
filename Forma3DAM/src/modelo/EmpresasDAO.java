@@ -37,6 +37,7 @@ public class EmpresasDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Empresa Insertada");
             sesion.close();
         }
     }
@@ -209,7 +210,7 @@ public class EmpresasDAO {
         }
         return e;
     }
-    
+
     public List<Empresas> obtenListaEmpresasEnNecesidad() {
         List<Empresas> listaEmpresas = null;
         Query query;
@@ -226,7 +227,7 @@ public class EmpresasDAO {
         }
         return listaEmpresas;
     }
-    
+
     private boolean empresaNecesitaAlumnoDelCiclo(Empresas empresa, String ciclo) {
         String cicloLowerCase = ciclo.toLowerCase();
         Empresas empresaConNecesidades = new EmpresasDAO().obtenEmpresaPorID(String.valueOf(empresa.getIdEmpresa()));
@@ -234,40 +235,40 @@ public class EmpresasDAO {
         if (empresaConNecesidades != null) {
             List<Object[]> listaNecesidades = new NecesidadDAO().obtenNecesidadesDeEmpresa(empresaConNecesidades);
 
-        for (Object[] necesidad : listaNecesidades) {            
-            switch (cicloLowerCase) {
-                case "dam":
-                    if ((Integer) necesidad[1] > 0) {
-                        return true; 
-                    }
-                    break;
-                case "daw":
-                    if ((Integer) necesidad[2] > 0) {
-                        return true; 
-                    }
-                    break;
-                case "asir":
-                    if ((Integer) necesidad[3] > 0) {
-                        return true;
-                    }
-                    break;
-                case "mark":
-                    if ((Integer) necesidad[4] > 0) {
-                        return true;
-                    }
-                    break;
-                case "fin":
-                    if ((Integer) necesidad[5] > 0) {
-                        return true; 
-                    }
-                    break;
-                
+            for (Object[] necesidad : listaNecesidades) {
+                switch (cicloLowerCase) {
+                    case "dam":
+                        if ((Integer) necesidad[1] > 0) {
+                            return true;
+                        }
+                        break;
+                    case "daw":
+                        if ((Integer) necesidad[2] > 0) {
+                            return true;
+                        }
+                        break;
+                    case "asir":
+                        if ((Integer) necesidad[3] > 0) {
+                            return true;
+                        }
+                        break;
+                    case "mark":
+                        if ((Integer) necesidad[4] > 0) {
+                            return true;
+                        }
+                        break;
+                    case "fin":
+                        if ((Integer) necesidad[5] > 0) {
+                            return true;
+                        }
+                        break;
+
+                }
             }
         }
-    }
 
-    return false;
-   
-}
+        return false;
+
+    }
 
 }
