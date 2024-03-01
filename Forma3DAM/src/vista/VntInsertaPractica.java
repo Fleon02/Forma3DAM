@@ -372,9 +372,19 @@ public class VntInsertaPractica extends javax.swing.JPanel {
 
     private void btnSubirCVIFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVIFActionPerformed
         JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos DOCX", "docx");
+        fileChooser.addChoosableFileFilter(docxFilter);
+        fileChooser.setFileFilter(docxFilter);
+        fileChooser.setDialogTitle("Elige un archivo DOCX");
         int resultado = fileChooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivo = fileChooser.getSelectedFile();
+            String nombreArchivo = archivo.getName();
+            String extension = nombreArchivo.substring(nombreArchivo.lastIndexOf(".") + 1).toLowerCase();
+            if (!extension.equals("docx")) {
+                JOptionPane.showMessageDialog(this, "Solo se permiten archivos DOCX", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             try {
                 byte[] bytesArchivo = convertirArchivoABytes(archivo);
                 bytesIF = bytesArchivo;
