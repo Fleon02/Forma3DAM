@@ -209,7 +209,7 @@ public class AnexosDAO {
         Anexos a = null;
         try {
             iniciaOperacion();
-            a = (Anexos) sesion.createQuery("from Anexos where calendario=:calendario").setParameter("calendario", calendario).uniqueResult();
+            a = (Anexos) sesion.createQuery("from Anexos where calendario=:calendario").setParameter("calendario", calendario).list();
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
