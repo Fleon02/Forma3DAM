@@ -206,20 +206,16 @@ public class AnexosDAO {
     }
 
     public Anexos obtenAnexoPorCalendario(String calendario) {
-        Anexos a;
-        Query query;
+        Anexos a = null;
         try {
             iniciaOperacion();
-            String hql = "from Anexos where calendario=:calendario";
-            query = sesion.createQuery(hql).setParameter("calendario", calendario);
-            a = (Anexos) query.uniqueResult();
+            a = (Anexos) sesion.createQuery("from Anexos where calendario=:calendario").setParameter("calendario", calendario).uniqueResult();
+            tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
         } finally {
-            if (sesion != null && sesion.isOpen()) {
-                sesion.close();
-            }
+            sesion.close();
         }
         return a;
     }
