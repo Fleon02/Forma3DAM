@@ -54,7 +54,6 @@ public class ConvenioDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Convenio Insertado");
             sesion.close();
         }
     }
@@ -71,9 +70,9 @@ public class ConvenioDAO {
             tx.commit();
             if (result > 0) {
                 Notifications.getInstance().setJFrame(jframe);
-                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Convenio Marcado como Borrado");
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, 2500, "Convenio Marcado como Borrado");
             } else {
-                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Convenio No Marcado como Borrado");
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, 2500, "Convenio No Marcado como Borrado");
             }
         } catch (HibernateException he) {
             manejaExcepcion(he);
@@ -98,7 +97,7 @@ public class ConvenioDAO {
             }
             tx.commit();
             Notifications.getInstance().setJFrame(jframe);
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Convenio Actualizado");
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, 2500, "Convenio Actualizado");
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;

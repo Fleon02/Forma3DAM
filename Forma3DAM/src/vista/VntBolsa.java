@@ -9,6 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -28,8 +29,7 @@ import pojos.Empresas;
  */
 public class VntBolsa extends javax.swing.JPanel {
 
-    DefaultTableModel dtm = new DefaultTableModel(new Object[]
-    {
+    DefaultTableModel dtm = new DefaultTableModel(new Object[]{
         "ID_BOLSA",
         "ID_ALUMNO",
         "NOMBRE",
@@ -38,15 +38,19 @@ public class VntBolsa extends javax.swing.JPanel {
         "METODO"
     }, 0);
 
+    private JFrame frame;
+
     /**
      * Creates new form VntBolsa
      */
-    public VntBolsa() {
+    public VntBolsa(JFrame vntPrincipal) {
         initComponents();
         cargaTabla();
         cargaBolsa();
         cargarMetodos();
         
+        frame = vntPrincipal;
+
         txtDNIAlumno.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -98,16 +102,12 @@ public class VntBolsa extends javax.swing.JPanel {
     public void cargaTabla() {
         dtm.setRowCount(0);
         List<Bolsa> listaBolsa = new BolsaDAO().obtenListaBolsa();
-        for (Bolsa bolsa : listaBolsa)
-        {
-            if (bolsa.getIdBolsa() != null && bolsa.getIdBolsa() > 0)
-
-            {
+        for (Bolsa bolsa : listaBolsa) {
+            if (bolsa.getIdBolsa() != null && bolsa.getIdBolsa() > 0) {
 
                 Alumnos alumno = new AlumnosDAO().obtenAlumnosPorID(bolsa.getAlumnos().getIdAlumno());
 
-                if (alumno != null && alumno.getIdAlumno() > 0)
-                {
+                if (alumno != null && alumno.getIdAlumno() > 0) {
                     int iD_bolsa = bolsa.getIdBolsa();
                     int idAl = alumno.getIdAlumno();
                     String nombre = alumno.getNombreAlumno();
@@ -115,8 +115,7 @@ public class VntBolsa extends javax.swing.JPanel {
                     int ss = alumno.getSegSocialAlumno();
                     String metodo = evaluaMetodo(bolsa.getBeca(), bolsa.getBolsa());
 
-                    dtm.addRow(new Object[]
-                    {
+                    dtm.addRow(new Object[]{
                         iD_bolsa,
                         idAl,
                         nombre,
@@ -133,11 +132,9 @@ public class VntBolsa extends javax.swing.JPanel {
         TablaBolsa.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting())
-                {
+                if (!e.getValueIsAdjusting()) {
                     int filas = TablaBolsa.getSelectedRow();
-                    if (filas != -1)
-                    {
+                    if (filas != -1) {
                         txtIDBolsa.setText(TablaBolsa.getValueAt(filas, 0) + "");
                         txtIDAl.setText(TablaBolsa.getValueAt(filas, 1) + "");
                         txtNombreAlumno.setText(TablaBolsa.getValueAt(filas, 2) + "");
@@ -152,8 +149,7 @@ public class VntBolsa extends javax.swing.JPanel {
                         cbMetodo.setEditable(true);
                         btnActualizar.setEnabled(true);
                         btnBorrar.setEnabled(true);
-                    } else
-                    {
+                    } else {
                         txtNombreAlumno.setEditable(false);
                         txtDNIAlumno.setEditable(false);
                         txtIDAl.setEditable(false);
@@ -404,13 +400,11 @@ public class VntBolsa extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSegSocialMousePressed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if (txtIDBolsa.getText() != null && !txtIDBolsa.getText().isEmpty())
-        {
+        if (txtIDBolsa.getText() != null && !txtIDBolsa.getText().isEmpty()) {
             int idBolsa = Integer.parseInt(txtIDBolsa.getText());
             Bolsa bolsa = new BolsaDAO().obtenBolsaPorID(idBolsa);
 
-            if (bolsa != null)
-            {
+            if (bolsa != null) {
                 // Update the selected method in the entity Bolsa
                 String selectedMetodo = (String) cbMetodo.getSelectedItem();
                 boolean isBeca = selectedMetodo.equals("Beca");
@@ -420,28 +414,26 @@ public class VntBolsa extends javax.swing.JPanel {
                 bolsa.setBolsa(isTrabajador);
 
                 // Update the entity Bolsa in the database
-                new BolsaDAO().actualizaBolsa(bolsa);
+                new BolsaDAO().actualizaBolsa(bolsa, frame);
 
                 cargaTabla();
-            } else
-            {
+            } else {
                 JOptionPane.showMessageDialog(this, "No se encontró la Bolsa con ID: " + idBolsa, "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "Selecciona una Bolsa para actualizar", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-       if (txtIDBolsa.getText() != null) {
-            new BolsaDAO().eliminaBolsa(txtIDBolsa.getText());
+        if (txtIDBolsa.getText() != null) {
+            new BolsaDAO().eliminaBolsa(txtIDBolsa.getText(), frame);
             cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtDNIAlumno, "Seleciona un Alumno de la Bolsa", "Error", JOptionPane.ERROR_MESSAGE);
         }
-       cargaTabla();
+        cargaTabla();
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void txtIDBolsaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDBolsaMousePressed
@@ -470,14 +462,11 @@ public class VntBolsa extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private String evaluaMetodo(Boolean beca, Boolean bolsa) {
-        if (beca != null && beca)
-        {
+        if (beca != null && beca) {
             return "Beca";
-        } else if (bolsa != null && bolsa)
-        {
+        } else if (bolsa != null && bolsa) {
             return "Trabajador";
-        } else
-        {
+        } else {
             return "Sin método";
         }
     }
