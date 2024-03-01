@@ -143,11 +143,11 @@ public class VntInsertaBolsa extends javax.swing.JPanel {
         String modalidadSeleccionada = (String) cbMetodo.getSelectedItem();
         
         if (alumnoSeleccionado != null && !"beca".equals(modalidadSeleccionada.toLowerCase())){
-            Bolsa b = new Bolsa(alumnoSeleccionado, false, true);
+            Bolsa b = new Bolsa(alumnoSeleccionado, true, false);
             BolsaDAO bDAO = new BolsaDAO();
             bDAO.guardaEnBolsa(b);
         }else if(alumnoSeleccionado != null && !"trabajador".equals(modalidadSeleccionada.toLowerCase())){
-            Bolsa b = new Bolsa(alumnoSeleccionado, true, false);
+            Bolsa b = new Bolsa(alumnoSeleccionado, false, true);
             BolsaDAO bDAO = new BolsaDAO();
             bDAO.guardaEnBolsa(b);
         }else if(alumnoSeleccionado != null && !"seleccione un método".equals(modalidadSeleccionada.toLowerCase())){
