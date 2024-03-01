@@ -82,7 +82,7 @@ public class VntPrincipal extends javax.swing.JFrame {
                     if (indexSubMenu == 0) {
                         main.showForm(new VntInsertaBolsa());
                     } else if (indexSubMenu == 1) {
-                        main.showForm(new VntBolsa(vntPrincipal));
+                        main.showForm(new VntBolsa());
                     }               
                 
                 } else if (indexMenu == 7) {
