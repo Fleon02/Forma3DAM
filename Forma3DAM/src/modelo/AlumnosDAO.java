@@ -4,6 +4,8 @@ import controlador.HibernateUtil;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -37,7 +39,7 @@ public class AlumnosDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Alumno Insertado");
+            JOptionPane.showMessageDialog(null, "Alumno Insertado", "Alumno Insertado", JOptionPane.INFORMATION_MESSAGE);
             sesion.close();
         }
         return id;
@@ -57,7 +59,7 @@ public class AlumnosDAO {
         return p;
     }
 
-    public void actualizaAlumnos(Alumnos a) {
+    public void actualizaAlumnos(Alumnos a, JFrame jframe) {
         try {
             iniciaOperacion();
             if (a.getCv() == null || a.getCv().length == 0) {
@@ -77,19 +79,22 @@ public class AlumnosDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
+            Notifications.getInstance().setJFrame(jframe);
             Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Alumno Actualizado");
             sesion.close();
         }
     }
 
-    public void eliminaAlumnos(String dniAlumno) {
+    public void eliminaAlumnos(String dniAlumno, JFrame jframe) {
         try {
             iniciaOperacion();
             String hql = "UPDATE Alumnos SET idAlumno = -idAlumno WHERE dniAlumno = :dniAlumno";
             int valor = sesion.createQuery(hql).setParameter("dniAlumno", dniAlumno).executeUpdate();
             if (valor == 1) {
+                Notifications.getInstance().setJFrame(jframe);
                 Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Alumno Marcado como Borrado");
             } else {
+                Notifications.getInstance().setJFrame(jframe);
                 Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Alumno No Marcado como Borrado");
             }
             tx.commit();

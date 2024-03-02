@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -32,7 +33,7 @@ public class VntPracticas extends javax.swing.JPanel {
 
     private byte[] bytesIS;
     private byte[] bytesIF;
-
+    private JFrame frame;
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
         "ID",
         "DNI Alumno",
@@ -46,8 +47,9 @@ public class VntPracticas extends javax.swing.JPanel {
         "Salida"
     }, 0);
 
-    public VntPracticas() {
+    public VntPracticas(JFrame vntPrincipal) {
         initComponents();
+        frame = vntPrincipal;
         TablaPracticas.setDefaultEditor(Object.class, null);
         cargaTabla();
         cargaPracticas();
@@ -60,12 +62,8 @@ public class VntPracticas extends javax.swing.JPanel {
                 if (SwingUtilities.isRightMouseButton(e)) {
                     int fila = TablaPracticas.rowAtPoint(e.getPoint());
                     int columna = TablaPracticas.columnAtPoint(e.getPoint());
-                    if ((columna == 6 || columna == 7)
-                            && "Subido".equals(TablaPracticas.getValueAt(fila, columna))) {
-                        int opcion = JOptionPane.showConfirmDialog(null,
-                                "¿Desea descargar el archivo?",
-                                "Descargar Archivo",
-                                JOptionPane.YES_NO_OPTION);
+                    if (columna == 6 || columna == 7 && "Subido".equals(TablaPracticas.getValueAt(fila, columna))) {
+                        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea descargar el archivo?", "Descargar Archivo", JOptionPane.YES_NO_OPTION);
                         if (opcion == JOptionPane.YES_OPTION) {
                             descargarArchivo(fila, columna);
                         }
@@ -628,7 +626,7 @@ public class VntPracticas extends javax.swing.JPanel {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         if (txtIDPractica.getText() != null) {
-            new PracticasDAO().eliminaPracticas(txtIDPractica.getText());
+            new PracticasDAO().eliminaPracticas(txtIDPractica.getText(), frame);
             cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtIDPractica, "Seleciona un Alumno", "Error", JOptionPane.ERROR_MESSAGE);
@@ -647,7 +645,7 @@ public class VntPracticas extends javax.swing.JPanel {
             Empresas e = (Empresas) cbTutorPracticas.getSelectedItem();
             Practicas p = new Practicas(al, an, e, bytesIS, bytesIF, txtHorarioEntrada.getText(), txtHorarioSalida.getText());
             p.setIdPractica(Integer.parseInt(txtIDPractica.getText()));
-            new PracticasDAO().actualizaPracticas(p);
+            new PracticasDAO().actualizaPracticas(p, frame);
             cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtIDPractica, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);

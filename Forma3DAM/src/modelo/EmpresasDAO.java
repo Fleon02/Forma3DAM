@@ -4,6 +4,8 @@ import controlador.HibernateUtil;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -36,7 +38,7 @@ public class EmpresasDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Empresa Insertada");
+            JOptionPane.showMessageDialog(null, "Empresa Insertada", "Empresa Insertada", JOptionPane.INFORMATION_MESSAGE);
             sesion.close();
         }
     }
@@ -55,7 +57,7 @@ public class EmpresasDAO {
         return p;
     }
 
-    public void actualizaEmpresas(Empresas a) {
+    public void actualizaEmpresas(Empresas a, JFrame jframe) {
         try {
             iniciaOperacion();
             sesion.update(a);
@@ -64,19 +66,22 @@ public class EmpresasDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
+            Notifications.getInstance().setJFrame(jframe);
             Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Empresa Actualizada");
             sesion.close();
         }
     }
 
-    public void eliminaEmpresas(String cifEmpresa) {
+    public void eliminaEmpresas(String cifEmpresa, JFrame jframe) {
         try {
             iniciaOperacion();
             String hql = "UPDATE Empresas SET idEmpresa = -1 WHERE cifEmpresa = :cifEmpresa";
             int valor = sesion.createQuery(hql).setParameter("cifEmpresa", cifEmpresa).executeUpdate();
             if (valor == 1) {
+                Notifications.getInstance().setJFrame(jframe);
                 Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Empresa Marcada como Borrada");
             } else {
+                Notifications.getInstance().setJFrame(jframe);
                 Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Empresa Marcada como Borrada");
             }
             tx.commit();

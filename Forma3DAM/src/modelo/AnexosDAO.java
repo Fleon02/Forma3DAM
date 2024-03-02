@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -108,7 +109,7 @@ public class AnexosDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Anexo Insertado");
+            JOptionPane.showMessageDialog(null, "Anexo Insertado", "Anexo Insertado", JOptionPane.INFORMATION_MESSAGE);
             sesion.close();
         }
     }
@@ -127,6 +128,7 @@ public class AnexosDAO {
                 Notifications.getInstance().setJFrame(jframe);
                 Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Anexo Marcado como Borrado");
             } else {
+                Notifications.getInstance().setJFrame(jframe);
                 Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Anexo No Marcado como Borrado");
             }
         } catch (HibernateException he) {
@@ -142,23 +144,18 @@ public class AnexosDAO {
             iniciaOperacion();
             Anexos anexoExistente = (Anexos) sesion.load(Anexos.class, anexo.getIdAnexo());
             if (anexo.getAnexoDosUno() == null || anexo.getAnexoDosUno().length == 0) {
-                System.out.println("nulo");
                 anexo.setAnexoDosUno(anexoExistente.getAnexoDosUno());
             }
             if (anexo.getAnexoDosDos() == null || anexo.getAnexoDosDos().length == 0) {
-                System.out.println("nulo");
                 anexo.setAnexoDosDos(anexoExistente.getAnexoDosDos());
             }
             if (anexo.getAnexoTres() == null || anexo.getAnexoTres().length == 0) {
-                System.out.println("nulo");
                 anexo.setAnexoTres(anexoExistente.getAnexoTres());
             }
             if (anexo.getAnexoCuatro() == null || anexo.getAnexoCuatro().length == 0) {
-                System.out.println("nulo");
                 anexo.setAnexoCuatro(anexoExistente.getAnexoCuatro());
             }
             if (anexo.getAnexoOcho() == null || anexo.getAnexoOcho().length == 0) {
-                System.out.println("nulo");
                 anexo.setAnexoOcho(anexoExistente.getAnexoOcho());
             }
             sesion.merge(anexo);
