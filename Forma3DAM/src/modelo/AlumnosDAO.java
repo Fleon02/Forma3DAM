@@ -139,7 +139,7 @@ public class AlumnosDAO {
         Query query;
         try {
             iniciaOperacion();
-            String hql = "from Alumnos where dniAlumno = :dniAlumno AND idAlumno > 0";
+            String hql = "from Alumnos where dniAlumno = :dniAlumno and idAlumno > 0";
             query = sesion.createQuery(hql).setParameter("dniAlumno", dniAlumno);
             a = (Alumnos) query.uniqueResult();
         } catch (HibernateException he) {

@@ -47,7 +47,7 @@ public class AnexosDAO {
         List<Anexos> listaAnexos = null;
         try {
             iniciaOperacion();
-            Query query = sesion.createQuery("FROM Anexos");
+            Query query = sesion.createQuery("FROM Anexos where idAnexo >0");
             listaAnexos = query.list();
         } catch (HibernateException he) {
             manejaExcepcion(he);
