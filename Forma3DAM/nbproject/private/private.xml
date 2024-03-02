@@ -2,15 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< Updated upstream
         <group>
-            <file>file:/C:/Users/david.corredor/Documents/GitHub/Forma3DAM/Forma3DAM/src/vista/VntInsertaPractica.java</file>
-            <file>file:/C:/Users/david.corredor/Documents/GitHub/Forma3DAM/Forma3DAM/src/vista/VntPracticas.java</file>
-            <file>file:/C:/Users/david.corredor/Documents/GitHub/Forma3DAM/Forma3DAM/src/modelo/PracticasDAO.java</file>
-            <file>file:/C:/Users/david.corredor/Documents/GitHub/Forma3DAM/Forma3DAM/src/controlador/Principal.java</file>
+            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/modelo/AlumnosDAO.java</file>
+            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/vista/VntPracticas.java</file>
+            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/modelo/AnexosDAO.java</file>
+            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/modelo/BolsaDAO.java</file>
+            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/vista/VntPrincipal.java</file>
+            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/modelo/PracticasDAO.java</file>
+            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/controlador/Principal.java</file>
+            <file>file:/C:/Users/guapi/OneDrive/Documents/GitHub/Forma3DAM/Forma3DAM/src/vista/VntBolsa.java</file>
         </group>
-=======
-        <group/>
->>>>>>> Stashed changes
     </open-files>
 </project-private>
