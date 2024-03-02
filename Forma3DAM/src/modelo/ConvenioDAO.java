@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -54,7 +55,7 @@ public class ConvenioDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Convenio Insertado");
+            JOptionPane.showMessageDialog(null, "Convenio Insertado", "Convenio Insertado", JOptionPane.INFORMATION_MESSAGE);
             sesion.close();
         }
     }
@@ -73,6 +74,7 @@ public class ConvenioDAO {
                 Notifications.getInstance().setJFrame(jframe);
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, 2500, "Convenio Marcado como Borrado");
             } else {
+                Notifications.getInstance().setJFrame(jframe);
                 Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, 2500, "Convenio No Marcado como Borrado");
             }
         } catch (HibernateException he) {

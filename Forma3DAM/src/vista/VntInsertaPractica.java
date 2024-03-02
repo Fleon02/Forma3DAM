@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -364,7 +365,7 @@ public class VntInsertaPractica extends javax.swing.JPanel {
             Empresas e = (Empresas) cbTutorPracticas.getSelectedItem();
             Practicas p = new Practicas(al, an, e, bytesIS, bytesIF, txtHorarioEntrada.getText(), txtHorarioSalida.getText());
             new PracticasDAO().guardaPracticas(p);
-            new VntPracticas().cargaTabla();
+            new VntPracticas(new JFrame()).cargaTabla();
         } else {
             JOptionPane.showMessageDialog(cbDNIAlumno, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }

@@ -1,5 +1,6 @@
 package vista;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.EmpresasDAO;
 import pojos.Empresas;
@@ -252,7 +253,7 @@ public class VntInsertaEmpresa extends javax.swing.JPanel {
             Empresas e = new Empresas(txtNombreEmpresa.getText(), txtCIFEmpresa.getText(), txtDireccion.getText(), txtTelefono.getText(),
                     txtOwner.getText(), txtTutorPracticas.getText(), txtResponsableContratacion.getText());
             new EmpresasDAO().guardaEmpresas(e);
-            new VntEmpresas().cargaTabla();
+            new VntEmpresas(new JFrame()).cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtNombreEmpresa, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }

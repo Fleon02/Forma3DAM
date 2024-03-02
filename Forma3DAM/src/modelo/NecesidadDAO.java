@@ -4,6 +4,8 @@ import controlador.HibernateUtil;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -31,73 +33,66 @@ public class NecesidadDAO {
     public List<Necesidad> obtenListaNecesidad() {
         List<Necesidad> listaNecesidades = null;
         Query query;
-        try
-        {
+        try {
             iniciaOperacion();
             query = sesion.createQuery("FROM Necesidad n LEFT JOIN FETCH n.empresas");
             listaNecesidades = query.list();
-        } catch (HibernateException he)
-        {
+        } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
-        } finally
-        {
+        } finally {
             sesion.close();
         }
         return listaNecesidades;
     }
 
-    public void actualizarNecesidad(Necesidad n) {
-        try
-        {
+    public void actualizarNecesidad(Necesidad n, JFrame jframe) {
+        try {
             iniciaOperacion();
             sesion.update(n);
             tx.commit();
-        } catch (HibernateException he)
-        {
+        } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
         } finally {
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Necesidad Actualizada");
+            Notifications.getInstance().setJFrame(jframe);
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, 2500, "Necesidad Actualizada");
             sesion.close();
         }
     }
 
-    public void eliminaNecesidad(String cifempresa) {
+    public void eliminaNecesidad(String cifempresa, JFrame jframe) {
         Empresas empresas = new Empresas(cifempresa);
-        try
-        {
+        try {
             iniciaOperacion();
             String hql = "UPDATE Necesidad SET idNecesidad = -1 WHERE empresas = :empresas";
             int valor = sesion.createQuery(hql).setParameter("empresas", empresas).executeUpdate();
             if (valor == 1) {
-                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Necesidad Marcada como Borrada");
+                Notifications.getInstance().setJFrame(jframe);
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, 2500, "Necesidad Marcada como Borrada");
             } else {
-                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Necesidad No Marcada como Borrada");
+                Notifications.getInstance().setJFrame(jframe);
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, 2500, "Necesidad No Marcada como Borrada");
             }
             tx.commit();
-        } catch (HibernateException he)
-        {
+        } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
-        } finally
-        {
+        } finally {
             sesion.close();
         }
     }
 
     public void guardaNecesidad(Necesidad n) {
-        try
-        {
+        try {
             iniciaOperacion();
             sesion.save(n);
             tx.commit();
-        } catch (HibernateException he)
-        {
+        } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
-        } finally
-        {
+        } finally {
+            JOptionPane.showMessageDialog(null, "Necesidad Insertada", "Necesidad Insertada", JOptionPane.INFORMATION_MESSAGE);
             sesion.close();
         }
     }
@@ -108,14 +103,11 @@ public class NecesidadDAO {
             iniciaOperacion();
             Query query = sesion.createQuery("FROM Necesidad where idNecesidad = :necesidad").setParameter("necesidad", id);
             n = (Necesidad) query.uniqueResult();
-        } catch (HibernateException he)
-        {
+        } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
-        } finally
-        {
-            if (sesion != null && sesion.isOpen())
-            {
+        } finally {
+            if (sesion != null && sesion.isOpen()) {
                 sesion.close();
             }
         }
@@ -126,29 +118,26 @@ public class NecesidadDAO {
         List<Object[]> listaNecesidades = null;
         Query query;
         int idEmpresa = empresa.getIdEmpresa();
-        try{
+        try {
             iniciaOperacion();
             String hql = "SELECT n.dam, n.daw, n.asir, n.mark, n.fin FROM Necesidad n WHERE n.empresas.idEmpresa = :idEmpresa";
             query = sesion.createQuery(hql);
             query.setParameter("idEmpresa", idEmpresa);
-
             List<Object[]> necesidads = query.list();
-            for (Object[] necesidad : listaNecesidades)
-            {
+            for (Object[] necesidad : listaNecesidades) {
                 Integer dam = (Integer) necesidad[0];
                 Integer daw = (Integer) necesidad[1];
                 Integer asir = (Integer) necesidad[2];
                 Integer mark = (Integer) necesidad[3];
                 Integer fin = (Integer) necesidad[4];
             }
-            }catch (HibernateException he) {
+        } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
-        }finally {
+        } finally {
             sesion.close();
         }
-            return listaNecesidades;
-
-        }
-
+        return listaNecesidades;
     }
+
+}

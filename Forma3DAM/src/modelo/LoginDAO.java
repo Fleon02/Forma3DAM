@@ -4,6 +4,7 @@ import controlador.HibernateUtil;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -90,21 +91,22 @@ public class LoginDAO {
         return registroExitoso;
     }
 
-    public void actualizaUsuario(Login l) {
+    public void actualizaUsuario(Login l, JFrame jframe) {
         try {
             iniciaOperacion();
             sesion.update(l);
             tx.commit();
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Usuario Actualizado");
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
         } finally {
+            Notifications.getInstance().setJFrame(jframe);
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, 2500, "Usuario Actualizado");
             sesion.close();
         }
     }
 
-    public void eliminarUsuario(Login usuario) {
+    public void eliminarUsuario(Login usuario, JFrame jframe) {
         try {
             iniciaOperacion();
             Login loginEnDB = (Login) sesion.get(Login.class, usuario.getIdUsuario());
@@ -116,11 +118,12 @@ public class LoginDAO {
                 sesion.delete(loginEnDB);
             }
             tx.commit();
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Usuario Borrado");
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
         } finally {
+            Notifications.getInstance().setJFrame(jframe);
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, 2500, "Usuario Borrado");
             sesion.close();
         }
     }

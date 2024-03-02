@@ -4,6 +4,8 @@ import controlador.HibernateUtil;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -36,7 +38,7 @@ public class PracticasDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Practica Insertada");
+            JOptionPane.showMessageDialog(null, "Practica Insertada", "Practica Insertada", JOptionPane.INFORMATION_MESSAGE);
             sesion.close();
         }
         return id;
@@ -56,7 +58,7 @@ public class PracticasDAO {
         return p;
     }
 
-    public void actualizaPracticas(Practicas a) {
+    public void actualizaPracticas(Practicas a, JFrame jframe) {
         try {
             iniciaOperacion();
             if (a.getInformeSeguimiento() == null || a.getInformeSeguimiento().length == 0
@@ -76,20 +78,23 @@ public class PracticasDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Practica Actualizada");
+            Notifications.getInstance().setJFrame(jframe);
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, 2500, "Practica Actualizada");
             sesion.close();
         }
     }
 
-    public void eliminaPracticas(String dniAlumno) {
+    public void eliminaPracticas(String dniAlumno, JFrame jframe) {
         try {
             iniciaOperacion();
             String hql = "UPDATE Practicas SET idPractica = -1 WHERE dniAlumno = :dniAlumno";
             int valor = sesion.createQuery(hql).setParameter("dniAlumno", dniAlumno).executeUpdate();
             if (valor == 1) {
-                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Practica Marcada como Borrada");
+                Notifications.getInstance().setJFrame(jframe);
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, 2500, "Practica Marcada como Borrada");
             } else {
-                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Practica No Marcada como Borrada");
+                Notifications.getInstance().setJFrame(jframe);
+                Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, 2500, "Practica No Marcada como Borrada");
             }
             tx.commit();
         } catch (HibernateException he) {
