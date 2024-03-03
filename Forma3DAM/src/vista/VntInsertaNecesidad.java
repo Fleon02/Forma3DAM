@@ -8,13 +8,18 @@ package vista;
 import java.awt.Component;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import modelo.AlumnosDAO;
 import modelo.EmpresasDAO;
 import modelo.NecesidadDAO;
+import pojos.Alumnos;
+import pojos.Anexos;
 import pojos.Empresas;
 import pojos.Necesidad;
 
@@ -351,10 +356,10 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
         if (cbIDEmpresa.getSelectedItem() != null && !txtDAM.getText().isEmpty()
                 && !txtDAW.getText().isEmpty() && !txtASIR.getText().isEmpty() && !txtMARK.getText().isEmpty()
-                && !txtFIN.getText().isEmpty() && cbIDEmpresa.getSelectedIndex() != 0)
+                && !txtFIN.getText().isEmpty())
         {
-            Empresas empresa = (Empresas) cbIDEmpresa.getSelectedItem(); 
-            Necesidad n = new Necesidad(empresa, String.valueOf(cbIDEmpresa.getSelectedItem()), Integer.parseInt(txtDAM.getText()),
+            Empresas empresa = (Empresas) cbIDEmpresa.getSelectedItem(); // Assuming the items in the combo box are of type Empresas
+            Necesidad n = new Necesidad(empresa, String.valueOf(cbCiclo1.getSelectedItem()), Integer.parseInt(txtDAM.getText()),
                     Integer.parseInt(txtDAW.getText()), Integer.parseInt(txtASIR.getText()),
                     Integer.parseInt(txtMARK.getText()), Integer.parseInt(txtFIN.getText()));
             new NecesidadDAO().guardaNecesidad(n);
