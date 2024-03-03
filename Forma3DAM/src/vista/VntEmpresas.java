@@ -1,11 +1,7 @@
 package vista;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -16,7 +12,7 @@ import pojos.Empresas;
 public class VntEmpresas extends javax.swing.JPanel {
 
     private byte[] bytesCV;
-
+    private JFrame frame;
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
         "ID",
         "Empresa",
@@ -28,17 +24,9 @@ public class VntEmpresas extends javax.swing.JPanel {
         "Responsable Contratacion"
     }, 0);
 
-    public VntEmpresas() {
+    public VntEmpresas(JFrame vntPrincipal) {
         initComponents();
-        /*txtTelefono.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
-                    e.consume(); // No permite la entrada de caracteres que no sean números
-                }
-            }
-        });*/
+        frame = vntPrincipal;
         TablaEmpresas.setDefaultEditor(Object.class, null);
         cargaTabla();
         cargaEmpresa();
@@ -403,7 +391,7 @@ public class VntEmpresas extends javax.swing.JPanel {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         if (txtCIFEmpresa.getText() != null) {
-            new EmpresasDAO().eliminaEmpresas(txtCIFEmpresa.getText());
+            new EmpresasDAO().eliminaEmpresas(txtCIFEmpresa.getText(), frame);
             cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtCIFEmpresa, "Seleciona un Empresa", "Error", JOptionPane.ERROR_MESSAGE);
@@ -436,7 +424,7 @@ public class VntEmpresas extends javax.swing.JPanel {
             Empresas e = new Empresas(txtNombreEmpresa.getText(), txtCIFEmpresa.getText(), txtDireccion.getText(), txtTelefono.getText(),
                     txtOwner.getText(), txtTutorPracticas.getText(), txtResponsableContratacion.getText());
             e.setIdEmpresa(Integer.parseInt(txtIDEmpresa.getText()));
-            new EmpresasDAO().actualizaEmpresas(e);
+            new EmpresasDAO().actualizaEmpresas(e, frame);
             cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtCIFEmpresa, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);

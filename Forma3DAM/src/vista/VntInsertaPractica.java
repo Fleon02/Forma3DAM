@@ -14,8 +14,10 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.AlumnosDAO;
 import modelo.AnexosDAO;
 import modelo.EmpresasDAO;
@@ -133,7 +135,7 @@ public class VntInsertaPractica extends javax.swing.JPanel {
                     setText("Seleccione Calendario");
                 } else {
                     if (anexos.getIdAnexo() > 0) {
-                        setText(anexos.getIdAnexo() + " - " + anexos.getCalendario());
+                        setText(anexos.getCalendario() + " (" + anexos.getFechaInicio() + ")");
                     } else {
                         setText("");
                     }
@@ -363,7 +365,7 @@ public class VntInsertaPractica extends javax.swing.JPanel {
             Empresas e = (Empresas) cbTutorPracticas.getSelectedItem();
             Practicas p = new Practicas(al, an, e, bytesIS, bytesIF, txtHorarioEntrada.getText(), txtHorarioSalida.getText());
             new PracticasDAO().guardaPracticas(p);
-            new VntPracticas().cargaTabla();
+            new VntPracticas(new JFrame()).cargaTabla();
         } else {
             JOptionPane.showMessageDialog(cbDNIAlumno, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -371,9 +373,19 @@ public class VntInsertaPractica extends javax.swing.JPanel {
 
     private void btnSubirCVIFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVIFActionPerformed
         JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos DOCX", "docx");
+        fileChooser.addChoosableFileFilter(docxFilter);
+        fileChooser.setFileFilter(docxFilter);
+        fileChooser.setDialogTitle("Elige un archivo DOCX");
         int resultado = fileChooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivo = fileChooser.getSelectedFile();
+            String nombreArchivo = archivo.getName();
+            String extension = nombreArchivo.substring(nombreArchivo.lastIndexOf(".") + 1).toLowerCase();
+            if (!extension.equals("docx")) {
+                JOptionPane.showMessageDialog(this, "Solo se permiten archivos DOCX", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             try {
                 byte[] bytesArchivo = convertirArchivoABytes(archivo);
                 bytesIF = bytesArchivo;
@@ -388,9 +400,19 @@ public class VntInsertaPractica extends javax.swing.JPanel {
 
     private void btnSubirCVISActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVISActionPerformed
         JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos DOCX", "docx");
+        fileChooser.addChoosableFileFilter(docxFilter);
+        fileChooser.setFileFilter(docxFilter);
+        fileChooser.setDialogTitle("Elige un archivo DOCX");
         int resultado = fileChooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivo = fileChooser.getSelectedFile();
+            String nombreArchivo = archivo.getName();
+            String extension = nombreArchivo.substring(nombreArchivo.lastIndexOf(".") + 1).toLowerCase();
+            if (!extension.equals("docx")) {
+                JOptionPane.showMessageDialog(this, "Solo se permiten archivos DOCX", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             try {
                 byte[] bytesArchivo = convertirArchivoABytes(archivo);
                 bytesIS = bytesArchivo;

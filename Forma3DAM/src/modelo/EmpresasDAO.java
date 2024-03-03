@@ -4,6 +4,7 @@ import controlador.HibernateUtil;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -37,6 +38,7 @@ public class EmpresasDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
+            JOptionPane.showMessageDialog(null, "Empresa Insertada", "Empresa Insertada", JOptionPane.INFORMATION_MESSAGE);
             sesion.close();
         }
     }
@@ -55,7 +57,7 @@ public class EmpresasDAO {
         return p;
     }
 
-    public void actualizaEmpresas(Empresas a) {
+    public void actualizaEmpresas(Empresas a, JFrame jframe) {
         try {
             iniciaOperacion();
             sesion.update(a);
@@ -64,19 +66,22 @@ public class EmpresasDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
+            Notifications.getInstance().setJFrame(jframe);
             Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Empresa Actualizada");
             sesion.close();
         }
     }
 
-    public void eliminaEmpresas(String cifEmpresa) {
+    public void eliminaEmpresas(String cifEmpresa, JFrame jframe) {
         try {
             iniciaOperacion();
-            String hql = "UPDATE Empresas SET idEmpresa = -1 WHERE cifEmpresa = :cifEmpresa";
+            String hql = "UPDATE Empresas SET idEmpresa = -idEmpresa WHERE cifEmpresa = :cifEmpresa";
             int valor = sesion.createQuery(hql).setParameter("cifEmpresa", cifEmpresa).executeUpdate();
             if (valor == 1) {
+                Notifications.getInstance().setJFrame(jframe);
                 Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Empresa Marcada como Borrada");
             } else {
+                Notifications.getInstance().setJFrame(jframe);
                 Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, 2500, "Empresa Marcada como Borrada");
             }
             tx.commit();
@@ -209,7 +214,7 @@ public class EmpresasDAO {
         }
         return e;
     }
-    
+
     public List<Empresas> obtenListaEmpresasEnNecesidad() {
         List<Empresas> listaEmpresas = null;
         Query query;
@@ -226,48 +231,42 @@ public class EmpresasDAO {
         }
         return listaEmpresas;
     }
-    
+
     private boolean empresaNecesitaAlumnoDelCiclo(Empresas empresa, String ciclo) {
         String cicloLowerCase = ciclo.toLowerCase();
         Empresas empresaConNecesidades = new EmpresasDAO().obtenEmpresaPorID(String.valueOf(empresa.getIdEmpresa()));
-
         if (empresaConNecesidades != null) {
             List<Object[]> listaNecesidades = new NecesidadDAO().obtenNecesidadesDeEmpresa(empresaConNecesidades);
-
-        for (Object[] necesidad : listaNecesidades) {            
-            switch (cicloLowerCase) {
-                case "dam":
-                    if ((Integer) necesidad[1] > 0) {
-                        return true; 
-                    }
-                    break;
-                case "daw":
-                    if ((Integer) necesidad[2] > 0) {
-                        return true; 
-                    }
-                    break;
-                case "asir":
-                    if ((Integer) necesidad[3] > 0) {
-                        return true;
-                    }
-                    break;
-                case "mark":
-                    if ((Integer) necesidad[4] > 0) {
-                        return true;
-                    }
-                    break;
-                case "fin":
-                    if ((Integer) necesidad[5] > 0) {
-                        return true; 
-                    }
-                    break;
-                
+            for (Object[] necesidad : listaNecesidades) {
+                switch (cicloLowerCase) {
+                    case "dam":
+                        if ((Integer) necesidad[1] > 0) {
+                            return true;
+                        }
+                        break;
+                    case "daw":
+                        if ((Integer) necesidad[2] > 0) {
+                            return true;
+                        }
+                        break;
+                    case "asir":
+                        if ((Integer) necesidad[3] > 0) {
+                            return true;
+                        }
+                        break;
+                    case "mark":
+                        if ((Integer) necesidad[4] > 0) {
+                            return true;
+                        }
+                        break;
+                    case "fin":
+                        if ((Integer) necesidad[5] > 0) {
+                            return true;
+                        }
+                        break;
+                }
             }
         }
+        return false;
     }
-
-    return false;
-   
-}
-
 }

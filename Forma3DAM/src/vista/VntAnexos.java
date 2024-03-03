@@ -39,19 +39,18 @@ public class VntAnexos extends javax.swing.JPanel {
     private byte[] bytes4;
     private byte[] bytes8;
     private JFrame frame;
-
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
         "ID",
-        "FechaInicio",
-        "FechaFin",
-        "IDNecesidad",
+        "Fecha Inicio",
+        "Fecha Fin",
+        "ID Necesidad",
         "Tutor",
         "Contratacion",
-        "Anexo2.1",
-        "Anexo2.2",
-        "Anexo3",
-        "Anexo4",
-        "Anexo8",}, 0);
+        "Anexo 2.1",
+        "Anexo 2.2",
+        "Anexo 3",
+        "Anexo 4",
+        "Anexo 8",}, 0);
 
     public VntAnexos(JFrame vntPrincipal) {
         initComponents();
@@ -61,24 +60,17 @@ public class VntAnexos extends javax.swing.JPanel {
         cargarCIFEmpresas();
         cargarIDNecesidad();
         cargaAnexos();
-
         TablaAnexos.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (SwingUtilities.isRightMouseButton(e)) { // Verificar si se ha hecho clic derecho
+                if (SwingUtilities.isRightMouseButton(e)) {
                     int fila = TablaAnexos.rowAtPoint(e.getPoint());
                     int columna = TablaAnexos.columnAtPoint(e.getPoint());
-
-                    // Verificar si se ha hecho clic en una celda de anexo
                     if ((columna == 6 || columna == 7 || columna == 8 || columna == 9 || columna == 10)
                             && "Subido".equals(TablaAnexos.getValueAt(fila, columna))) {
-                        int opcion = JOptionPane.showConfirmDialog(frame,
-                                "¿Desea descargar el archivo?",
-                                "Descargar Archivo",
-                                JOptionPane.YES_NO_OPTION);
+                        int opcion = JOptionPane.showConfirmDialog(frame, "¿Desea descargar el archivo?", "Descargar Archivo", JOptionPane.YES_NO_OPTION);
                         if (opcion == JOptionPane.YES_OPTION) {
                             descargarArchivo(fila, columna);
-                            System.out.println("Pruebaaaaaaaa");
                         }
                     }
                 }
@@ -110,7 +102,6 @@ public class VntAnexos extends javax.swing.JPanel {
                     estadoAnexo4,
                     estadoAnexo8,});
             }
-
         }
     }
 
@@ -121,27 +112,15 @@ public class VntAnexos extends javax.swing.JPanel {
                 if (!e.getValueIsAdjusting()) {
                     int filas = TablaAnexos.getSelectedRow();
                     if (filas != -1) {
-                        EmpresasDAO ed = new EmpresasDAO();
-                        NecesidadDAO ned = new NecesidadDAO();
                         String fechaInicioS = TablaAnexos.getValueAt(filas, 1) + "";
                         String fechaFinS = TablaAnexos.getValueAt(filas, 2) + "";
                         String idNecesidad = TablaAnexos.getValueAt(filas, 3) + "";
                         String tutor = TablaAnexos.getValueAt(filas, 4) + "";
                         String contratacion = TablaAnexos.getValueAt(filas, 5) + "";
-
                         Date fechaInicioTransformada = transformarFecha(fechaInicioS);
                         Date fechaFinTransformada = transformarFecha(fechaFinS);
-
-                        Empresas em = new Empresas();
-                        Necesidad n = new Necesidad();
-
-                        em = ed.obtenEmpresaPorTutor(tutor);
-
-                        n = ned.obtenerNecesidadPorId(Integer.parseInt(idNecesidad));
-                        System.out.println(em.toString());
+                        Empresas em = new EmpresasDAO().obtenEmpresaPorTutor(tutor);
                         int idEmpresa = em.getIdEmpresa();
-                        int idNece = n.getIdNecesidad();
-
                         for (int i = 1; i < cmbEmpresa.getItemCount(); i++) {
                             Empresas empresa = (Empresas) cmbEmpresa.getItemAt(i);
                             if (empresa != null && empresa.getIdEmpresa() == idEmpresa) {
@@ -149,7 +128,8 @@ public class VntAnexos extends javax.swing.JPanel {
                                 break;
                             }
                         }
-
+                        Necesidad n = new NecesidadDAO().obtenerNecesidadPorId(Integer.parseInt(idNecesidad));
+                        int idNece = n.getIdNecesidad();
                         for (int i = 1; i < cmbNecesidad.getItemCount(); i++) {
                             Necesidad necesidad = (Necesidad) cmbNecesidad.getItemAt(i);
                             if (necesidad != null && necesidad.getIdNecesidad() == idNece) {
@@ -157,19 +137,15 @@ public class VntAnexos extends javax.swing.JPanel {
                                 break;
                             }
                         }
-
                         fechaInicio.setDate(fechaInicioTransformada);
                         fechaFin.setDate(fechaFinTransformada);
-
                         if (contratacion.equalsIgnoreCase("true")) {
                             ckbContratacion.setSelected(true);
                         } else {
                             ckbContratacion.setSelected(false);
                         }
-
                         btnActualizar.setEnabled(true);
                         btnBorrar.setEnabled(true);
-
                     } else {
                         btnActualizar.setEnabled(false);
                         btnBorrar.setEnabled(false);
@@ -180,7 +156,6 @@ public class VntAnexos extends javax.swing.JPanel {
 
     }
 
-    // Clase EmpresasComboBoxRenderer como clase interna estática
     private static class EmpresasComboBoxRenderer extends DefaultListCellRenderer {
 
         @Override
@@ -198,7 +173,6 @@ public class VntAnexos extends javax.swing.JPanel {
         }
     }
 
-    // Clase EmpresasComboBoxRenderer como clase interna estática
     private static class NecesidadComboBoxRenderer extends DefaultListCellRenderer {
 
         @Override
@@ -569,48 +543,26 @@ public class VntAnexos extends javax.swing.JPanel {
         AnexosDAO ad = new AnexosDAO();
         int filas = TablaAnexos.getSelectedRow();
         String idAnexo = TablaAnexos.getValueAt(filas, 0) + "";
-
-        Anexos a = new Anexos();
-
-        a = ad.obtenAnexoPorID(Integer.parseInt(idAnexo));
-
+        Anexos a = ad.obtenAnexoPorID(Integer.parseInt(idAnexo));
         ad.eliminaAnexo(a, frame);
-
         TablaAnexos.clearSelection();
         cargaTabla();
-
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        AnexosDAO ad = new AnexosDAO();
-        EmpresasDAO ed = new EmpresasDAO();
-
         int filas = TablaAnexos.getSelectedRow();
-
         Integer id = Integer.parseInt(TablaAnexos.getValueAt(filas, 0) + "");
-        System.out.println(id);
-
         Date fInicio = fechaInicio.getDate();
         Date fFin = fechaFin.getDate();
-
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd MMMM yyyy");
-
         String fechaFormateada = formatoFecha.format(fInicio);
         String fechaFinFormateada = formatoFecha.format(fFin);
         SimpleDateFormat formatoMes = new SimpleDateFormat("MMMM", new Locale("es", "ES"));
-
-        String calendario = formatoMes.format(fInicio); // Obtener el nombre del mes
-
-        Empresas e = new Empresas();
-        Necesidad n = new Necesidad();
-
-        e = (Empresas) cmbEmpresa.getSelectedItem();
-        n = (Necesidad) cmbNecesidad.getSelectedItem();
-
+        String calendario = formatoMes.format(fInicio);
+        Empresas e = (Empresas) cmbEmpresa.getSelectedItem();
+        Necesidad n = (Necesidad) cmbNecesidad.getSelectedItem();
         Boolean contratacion = ckbContratacion.isSelected();
-
         Anexos a = new Anexos();
-
         a.setEmpresas(e);
         a.setNecesidad(n);
         a.setFechaInicio(fechaFormateada);
@@ -623,18 +575,13 @@ public class VntAnexos extends javax.swing.JPanel {
         a.setAnexoCuatro(bytes4);
         a.setAnexoOcho(bytes8);
         a.setIdAnexo(id);
-
-        ad.actualizarAnexos(a, frame);
+        new AnexosDAO().actualizarAnexos(a, frame);
         cargaTabla();
-
-        // Reiniciar los campos de bytes después de la actualización
         bytes2_1 = null;
         bytes2_2 = null;
         bytes3 = null;
         bytes4 = null;
         bytes8 = null;
-
-        // Limpiar los nombres de archivo en la interfaz gráfica
         nombreArchivo2_1.setText("Archivo ");
         nombreArchivo2_2.setText("Archivo ");
         nombreArchivo3.setText("Archivo ");
@@ -645,101 +592,73 @@ public class VntAnexos extends javax.swing.JPanel {
     private void btnSubirA3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA3ActionPerformed
         int filaSeleccionada = TablaAnexos.getSelectedRow();
         if (filaSeleccionada != -1 && TablaAnexos.getValueAt(filaSeleccionada, 8).equals("Subido")) {
-            // Mostrar un JOptionPane para confirmar la sobrescritura del archivo
-            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo3 subido. ¿Desea sobreescribirlo?",
-                    "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
-
-            // Verificar la opción seleccionada por el usuario
+            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo3 subido. ¿Desea sobreescribirlo?", "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
             if (opcion == JOptionPane.YES_OPTION) {
                 subirArchivo("anexo3");
             } else {
-                // El usuario ha seleccionado no sobrescribir, salir del método
                 return;
             }
         } else {
             subirArchivo("anexo3");
         }
-
     }//GEN-LAST:event_btnSubirA3ActionPerformed
 
     private void btnSubirA4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA4ActionPerformed
         int filaSeleccionada = TablaAnexos.getSelectedRow();
         if (filaSeleccionada != -1 && TablaAnexos.getValueAt(filaSeleccionada, 9).equals("Subido")) {
             // Mostrar un JOptionPane para confirmar la sobrescritura del archivo
-            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo4 subido. ¿Desea sobreescribirlo?",
-                    "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
-
-            // Verificar la opción seleccionada por el usuario
+            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo4 subido. ¿Desea sobreescribirlo?", "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
             if (opcion == JOptionPane.YES_OPTION) {
                 subirArchivo("anexo4");
             } else {
-                // El usuario ha seleccionado no sobrescribir, salir del método
                 return;
             }
         } else {
             subirArchivo("anexo4");
         }
-
     }//GEN-LAST:event_btnSubirA4ActionPerformed
 
     private void btnSubirA2_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA2_2ActionPerformed
         int filaSeleccionada = TablaAnexos.getSelectedRow();
         if (filaSeleccionada != -1 && TablaAnexos.getValueAt(filaSeleccionada, 7).equals("Subido")) {
-            // Mostrar un JOptionPane para confirmar la sobrescritura del archivo
-            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo2_2 subido. ¿Desea sobreescribirlo?",
-                    "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
-
-            // Verificar la opción seleccionada por el usuario
+            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo2_2 subido. ¿Desea sobreescribirlo?", "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
             if (opcion == JOptionPane.YES_OPTION) {
                 subirArchivo("anexo2_2");
             } else {
-                // El usuario ha seleccionado no sobrescribir, salir del método
                 return;
             }
         } else {
             subirArchivo("anexo2_2");
         }
-
     }//GEN-LAST:event_btnSubirA2_2ActionPerformed
 
     private void btnSubirA2_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA2_1ActionPerformed
         int filaSeleccionada = TablaAnexos.getSelectedRow();
         if (filaSeleccionada != -1 && TablaAnexos.getValueAt(filaSeleccionada, 6).equals("Subido")) {
             // Mostrar un JOptionPane para confirmar la sobrescritura del archivo
-            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo2_1 subido. ¿Desea sobreescribirlo?",
-                    "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
-
-            // Verificar la opción seleccionada por el usuario
+            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo2_1 subido. ¿Desea sobreescribirlo?", "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
             if (opcion == JOptionPane.YES_OPTION) {
                 subirArchivo("anexo2_1");
             } else {
-                // El usuario ha seleccionado no sobrescribir, salir del método
                 return;
             }
         } else {
             subirArchivo("anexo2_1");
         }
-
     }//GEN-LAST:event_btnSubirA2_1ActionPerformed
 
     private void btnSubirA8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirA8ActionPerformed
         int filaSeleccionada = TablaAnexos.getSelectedRow();
         if (filaSeleccionada != -1 && TablaAnexos.getValueAt(filaSeleccionada, 10).equals("Subido")) {
-            // Mostrar un JOptionPane para confirmar la sobrescritura del archivo
-            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo 8 subido. ¿Desea sobreescribirlo?",
-                    "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
-
-            // Verificar la opción seleccionada por el usuario
+            int opcion = JOptionPane.showConfirmDialog(this, "Ya hay un anexo 8 subido. ¿Desea sobreescribirlo?", "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
             if (opcion == JOptionPane.YES_OPTION) {
                 subirArchivo("anexo8");
             } else {
-                // El usuario ha seleccionado no sobrescribir, salir del método
                 return;
             }
         } else {
             subirArchivo("anexo8");
         }
-
     }//GEN-LAST:event_btnSubirA8ActionPerformed
 
     private void ckbContratacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbContratacionActionPerformed
@@ -748,34 +667,21 @@ public class VntAnexos extends javax.swing.JPanel {
 
     private void subirArchivo(String tipoAnexo) {
         JFileChooser fileChooser = new JFileChooser();
-
-        // Filtro para archivos .docx
         FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos DOCX", "docx");
-
-        // Añadir el filtro de archivos .docx al file chooser
         fileChooser.addChoosableFileFilter(docxFilter);
-
-        // Establecer el filtro por defecto como el de archivos .docx
         fileChooser.setFileFilter(docxFilter);
-
-        // Establecer el título del diálogo de selección de archivos
         fileChooser.setDialogTitle("Elige un archivo DOCX");
-
         int resultado = fileChooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivo = fileChooser.getSelectedFile();
             String nombreArchivo = archivo.getName();
             String extension = nombreArchivo.substring(nombreArchivo.lastIndexOf(".") + 1).toLowerCase();
-
-            // Verificar si la extensión del archivo es .docx
             if (!extension.equals("docx")) {
                 JOptionPane.showMessageDialog(this, "Solo se permiten archivos DOCX", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Salir del método si el archivo no es .docx
+                return;
             }
-
             try {
                 byte[] bytesArchivo = convertirArchivoABytes(archivo);
-                // Asignar los bytes al campo correspondiente según el tipo de anexo
                 switch (tipoAnexo) {
                     case "anexo2_1":
                         bytes2_1 = bytesArchivo;
@@ -795,7 +701,6 @@ public class VntAnexos extends javax.swing.JPanel {
                     default:
                         break;
                 }
-                // Actualizar el nombre del archivo en la interfaz gráfica
                 actualizarNombreArchivo(tipoAnexo, nombreArchivo);
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -849,7 +754,7 @@ public class VntAnexos extends javax.swing.JPanel {
         EmpresasDAO empresasDAO = new EmpresasDAO();
         List<Empresas> listaEmpresas = empresasDAO.obtenListaEmpresas();
         DefaultComboBoxModel<Empresas> model = new DefaultComboBoxModel<>();
-        model.addElement(new Empresas(null)); // Opción por defecto
+        model.addElement(new Empresas(null));
         for (Empresas empresa : listaEmpresas) {
             model.addElement(empresa);
         }
@@ -861,7 +766,7 @@ public class VntAnexos extends javax.swing.JPanel {
         AnexosDAO ad = new AnexosDAO();
         List<Necesidad> listaNecesidad = ad.obtenListaNecesidad();
         DefaultComboBoxModel<Necesidad> model = new DefaultComboBoxModel<>();
-        model.addElement(new Necesidad(null)); // Opción por defecto
+        model.addElement(new Necesidad(null));
         for (Necesidad n : listaNecesidad) {
             model.addElement(n);
         }
@@ -874,8 +779,6 @@ public class VntAnexos extends javax.swing.JPanel {
         int idAnexo = (int) TablaAnexos.getValueAt(fila, 0);
         Anexos anexo = anexosDAO.obtenAnexoPorID(idAnexo);
         byte[] archivo = null;
-
-        // Obtener el archivo correspondiente según la columna seleccionada
         switch (columna) {
             case 6:
                 archivo = anexo.getAnexoDosUno();
@@ -895,41 +798,23 @@ public class VntAnexos extends javax.swing.JPanel {
             default:
                 break;
         }
-
-        // Guardar el archivo en disco
         if (archivo != null) {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Guardar archivo");
-
-            // Filtro para archivos .docx
             FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos DOCX", "docx");
-
-            // Añadir el filtro de archivos .docx al file chooser
             fileChooser.addChoosableFileFilter(docxFilter);
-
             fileChooser.setFileFilter(docxFilter);
-
             int seleccion = fileChooser.showSaveDialog(frame);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
                 String nombreArchivo = selectedFile.getName();
-
-                // Obtener el filtro seleccionado por el usuario como un FileFilter
                 FileFilter filtroSeleccionado = fileChooser.getFileFilter();
-
-                // Obtener la descripción del filtro seleccionado
                 String descripcionFiltro = filtroSeleccionado.getDescription();
-
-                // Obtener la extensión del archivo a partir de la descripción del filtro seleccionado
                 String extensionFiltro = "docx";
-
-                // Verificar si el nombre del archivo termina con la extensión correcta
                 if (!nombreArchivo.toLowerCase().endsWith("." + extensionFiltro)) {
-                    // Agregar la extensión correcta al nombre del archivo
                     nombreArchivo += "." + extensionFiltro;
                     selectedFile = new File(selectedFile.getParent(), nombreArchivo);
                 }
-
                 try (FileOutputStream fos = new FileOutputStream(selectedFile)) {
                     fos.write(archivo);
                     JOptionPane.showMessageDialog(frame, "Archivo descargado exitosamente", "Descarga Exitosa", JOptionPane.INFORMATION_MESSAGE);

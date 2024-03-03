@@ -58,7 +58,7 @@ public class VntPrincipal extends javax.swing.JFrame {
                     if (indexSubMenu == 0) {
                         main.showForm(new VntInsertaEmpresa());
                     } else if (indexSubMenu == 1) {
-                        main.showForm(new VntEmpresas());
+                        main.showForm(new VntEmpresas(vntPrincipal));
                     }
                 } else if (indexMenu == 3) {
                     if (indexSubMenu == 0) {
@@ -70,31 +70,29 @@ public class VntPrincipal extends javax.swing.JFrame {
                     if (indexSubMenu == 0) {
                         main.showForm(new VntInsertaNecesidad());
                     } else if (indexSubMenu == 1) {
-                        main.showForm(new VntNecesidad());
+                        main.showForm(new VntNecesidad(vntPrincipal));
                     }
-                }else if (indexMenu == 5) {
+                } else if (indexMenu == 5) {
                     if (indexSubMenu == 0) {
                         main.showForm(new VntInsertaPractica());
                     } else if (indexSubMenu == 1) {
-                        main.showForm(new VntPracticas());
+                        main.showForm(new VntPracticas(vntPrincipal));
                     }
                 } else if (indexMenu == 6) {
                     if (indexSubMenu == 0) {
                         main.showForm(new VntInsertaBolsa());
                     } else if (indexSubMenu == 1) {
-                        main.showForm(new VntBolsa());
-                    }               
-                
+                        main.showForm(new VntBolsa(vntPrincipal));
+                    }
                 } else if (indexMenu == 7) {
                     if (indexSubMenu == 1) {
                         main.showForm(new VntAnexos(vntPrincipal));
                     } else if (indexSubMenu == 0) {
                         main.showForm(new VntInsertaAnexo());
                     }
-
-                }else if (indexMenu == 8) {
+                } else if (indexMenu == 8) {
                     if (indexSubMenu == 0) {
-                        main.showForm(new VntConfiguracion());
+                        main.showForm(new VntConfiguracion(vntPrincipal));
                     }
                 }
             }
@@ -116,7 +114,6 @@ public class VntPrincipal extends javax.swing.JFrame {
         bg.add(header, "h 50!, wrap");
         bg.add(main, "w 100%, h 100%");
         TimingTarget target = new TimingTargetAdapter() {
-
             @Override
             public void timingEvent(float fraction) {
                 double width;

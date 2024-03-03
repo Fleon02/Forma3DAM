@@ -2,34 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntInsertaEmpresa.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/modelo/AlumnosDAO.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/controlador/ControlaForm.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/controlador/Principal.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntRegistro.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntEmpresas.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/pojos/Bolsa.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntPrincipal.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntInsertaAlumno.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntLogin.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/modelo/EmpresasDAO.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntInsertaBolsa.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntAlumnos.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntNecesidad.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntAnexos.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/pojos/Practicas.hbm.xml</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntInsertaNecesidad.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntInsertaAnexo.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/modelo/BolsaDAO.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntInsertaConvenio.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/modelo/NecesidadDAO.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntBolsa.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/pojos/Empresas.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntInsertaPractica.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/VntPracticas.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/pojos/Practicas.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/Forma3DAM/Forma3DAM/src/vista/vntConvenios.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -1,17 +1,24 @@
 package vista;
 
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import modelo.AlumnosDAO;
 import modelo.AnexosDAO;
@@ -26,25 +33,44 @@ public class VntPracticas extends javax.swing.JPanel {
 
     private byte[] bytesIS;
     private byte[] bytesIF;
-
+    private JFrame frame;
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
         "ID",
         "DNI Alumno",
         "CIF Empresa",
         "Tutor Practicas",
+        "ID Anexo",
         "Calendario",
-        "Informe Seguimiento",
-        "Informe Final"
+        "I. S.",
+        "I. F.",
+        "Entrada",
+        "Salida"
     }, 0);
 
-    public VntPracticas() {
+    public VntPracticas(JFrame vntPrincipal) {
         initComponents();
+        frame = vntPrincipal;
         TablaPracticas.setDefaultEditor(Object.class, null);
         cargaTabla();
         cargaPracticas();
         cargarDNIAlumno();
         cargarTutorPracticasEmpresas();
         cargarCalendariosAnexos();
+        TablaPracticas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    int fila = TablaPracticas.rowAtPoint(e.getPoint());
+                    int columna = TablaPracticas.columnAtPoint(e.getPoint());
+                    if (columna == 6 || columna == 7 && "Subido".equals(TablaPracticas.getValueAt(fila, columna))) {
+                        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea descargar el archivo?", "Descargar Archivo", JOptionPane.YES_NO_OPTION);
+                        if (opcion == JOptionPane.YES_OPTION) {
+                            descargarArchivo(fila, columna);
+                        }
+                    }
+                }
+            }
+        });
     }
 
     public void cargaTabla() {
@@ -62,18 +88,24 @@ public class VntPracticas extends javax.swing.JPanel {
                             al.getDniAlumno(),
                             e.getCifEmpresa(),
                             e.getTutorPracticas(),
+                            a.getAnexos().getIdAnexo(),
                             an.getCalendario(),
                             "Subido",
-                            "Subido",});
+                            "Subido",
+                            a.getHorarioEntrada(),
+                            a.getHorarioSalida(),});
                     } else {
                         dtm.addRow(new Object[]{
                             a.getIdPractica(),
                             al.getDniAlumno(),
                             e.getCifEmpresa(),
                             e.getTutorPracticas(),
+                            a.getAnexos().getIdAnexo(),
                             an.getCalendario(),
                             "Subido",
-                            "No Subido",});
+                            "No Subido",
+                            a.getHorarioEntrada(),
+                            a.getHorarioSalida(),});
                     }
                 } else {
                     if (a.getInformeFinal() != null) {
@@ -82,18 +114,24 @@ public class VntPracticas extends javax.swing.JPanel {
                             al.getDniAlumno(),
                             e.getCifEmpresa(),
                             e.getTutorPracticas(),
+                            a.getAnexos().getIdAnexo(),
                             an.getCalendario(),
                             "No Subido",
-                            "Subido",});
+                            "Subido",
+                            a.getHorarioEntrada(),
+                            a.getHorarioSalida(),});
                     } else {
                         dtm.addRow(new Object[]{
                             a.getIdPractica(),
                             al.getDniAlumno(),
                             e.getCifEmpresa(),
                             e.getTutorPracticas(),
+                            a.getAnexos().getIdAnexo(),
                             an.getCalendario(),
                             "No Subido",
-                            "No Subido",});
+                            "No Subido",
+                            a.getHorarioEntrada(),
+                            a.getHorarioSalida(),});
                     }
                 }
             }
@@ -108,9 +146,35 @@ public class VntPracticas extends javax.swing.JPanel {
                     int filas = TablaPracticas.getSelectedRow();
                     if (filas != -1) {
                         txtIDPractica.setText(TablaPracticas.getValueAt(filas, 0) + "");
-                        cbDNIAlumno.setSelectedItem(TablaPracticas.getValueAt(filas, 1) + "");
-                        cbTutorPracticas.setSelectedItem(TablaPracticas.getValueAt(filas, 2) + "");
-                        cbCalendario.setSelectedItem(TablaPracticas.getValueAt(filas, 3) + "");
+                        Alumnos a = new AlumnosDAO().obtenAlumnosPorDNI(TablaPracticas.getValueAt(filas, 1) + "");
+                        int idAlumno = a.getIdAlumno();
+                        for (int i = 1; i < cbDNIAlumno.getItemCount(); i++) {
+                            Alumnos alumnos = (Alumnos) cbDNIAlumno.getItemAt(i);
+                            if (alumnos != null && alumnos.getIdAlumno() == idAlumno) {
+                                cbDNIAlumno.setSelectedIndex(i);
+                                break;
+                            }
+                        }
+                        Empresas em = new EmpresasDAO().obtenEmpresaPorTutor(TablaPracticas.getValueAt(filas, 3) + "");
+                        int idEmpresa = em.getIdEmpresa();
+                        for (int j = 1; j < cbTutorPracticas.getItemCount(); j++) {
+                            Empresas empresa = (Empresas) cbTutorPracticas.getItemAt(j);
+                            if (empresa != null && empresa.getIdEmpresa() == idEmpresa) {
+                                cbTutorPracticas.setSelectedIndex(j);
+                                break;
+                            }
+                        }
+                        Anexos ane = new AnexosDAO().obtenAnexoPorID(Integer.parseInt(TablaPracticas.getValueAt(filas, 4) + ""));
+                        int idAnexo = ane.getIdAnexo();
+                        for (int i = 1; i < cbCalendario.getItemCount(); i++) {
+                            Anexos anexo = (Anexos) cbCalendario.getItemAt(i);
+                            if (anexo != null && anexo.getIdAnexo() == idAnexo) {
+                                cbCalendario.setSelectedIndex(i);
+                                break;
+                            }
+                        }
+                        txtHorarioEntrada.setText(TablaPracticas.getValueAt(filas, 8) + "");
+                        txtHorarioSalida.setText(TablaPracticas.getValueAt(filas, 9) + "");
                         cbDNIAlumno.setEnabled(true);
                         cbTutorPracticas.setEnabled(true);
                         cbCalendario.setEnabled(true);
@@ -210,13 +274,57 @@ public class VntPracticas extends javax.swing.JPanel {
                     setText("Seleccione Calendario");
                 } else {
                     if (anexos.getIdAnexo() > 0) {
-                        setText(anexos.getIdAnexo() + " - " + anexos.getCalendario());
+                        setText(anexos.getCalendario() + " (" + anexos.getFechaInicio() + ")");
                     } else {
                         setText("");
                     }
                 }
             }
             return this;
+        }
+    }
+
+    private void descargarArchivo(int fila, int columna) {
+        int idPractica = (int) TablaPracticas.getValueAt(fila, 0);
+        Practicas practica = new PracticasDAO().obtenPracticas(idPractica);
+        byte[] archivo = null;
+        switch (columna) {
+            case 5:
+                archivo = practica.getInformeSeguimiento();
+                break;
+            case 6:
+                archivo = practica.getInformeFinal();
+                break;
+            default:
+                break;
+        }
+        if (archivo != null) {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar archivo");
+            FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos DOCX", "docx");
+            fileChooser.addChoosableFileFilter(docxFilter);
+            fileChooser.setFileFilter(docxFilter);
+            int seleccion = fileChooser.showSaveDialog(null);
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                String nombreArchivo = selectedFile.getName();
+                FileFilter filtroSeleccionado = fileChooser.getFileFilter();
+                String descripcionFiltro = filtroSeleccionado.getDescription();
+                String extensionFiltro = "docx";
+                if (!nombreArchivo.toLowerCase().endsWith("." + extensionFiltro)) {
+                    nombreArchivo += "." + extensionFiltro;
+                    selectedFile = new File(selectedFile.getParent(), nombreArchivo);
+                }
+                try (FileOutputStream fos = new FileOutputStream(selectedFile)) {
+                    fos.write(archivo);
+                    JOptionPane.showMessageDialog(null, "Archivo descargado exitosamente", "Descarga Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error al guardar el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha encontrado el archivo asociado", "Archivo no encontrado", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -240,13 +348,17 @@ public class VntPracticas extends javax.swing.JPanel {
         userLabel1 = new javax.swing.JLabel();
         cbTutorPracticas = new javax.swing.JComboBox<>();
         userLabel2 = new javax.swing.JLabel();
-        cbCalendario = new javax.swing.JComboBox<>();
         btnSubirCVIS = new javax.swing.JButton();
         nombreArchivoIS = new javax.swing.JLabel();
         userLabel7 = new javax.swing.JLabel();
         userLabel5 = new javax.swing.JLabel();
         btnSubirCVIF = new javax.swing.JButton();
         nombreArchivoIF = new javax.swing.JLabel();
+        userLabel8 = new javax.swing.JLabel();
+        txtHorarioEntrada = new javax.swing.JTextField();
+        userLabel9 = new javax.swing.JLabel();
+        txtHorarioSalida = new javax.swing.JTextField();
+        cbCalendario = new javax.swing.JComboBox<>();
 
         jTableAlumnos.setModel(dtm);
         jScrollPane1.setViewportView(jTableAlumnos);
@@ -322,11 +434,6 @@ public class VntPracticas extends javax.swing.JPanel {
         userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel2.setText("Calendario");
 
-        cbCalendario.setBackground(new java.awt.Color(0, 0, 0));
-        cbCalendario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        cbCalendario.setForeground(new java.awt.Color(255, 255, 255));
-        cbCalendario.setEnabled(false);
-
         btnSubirCVIS.setBackground(new java.awt.Color(18, 30, 49));
         btnSubirCVIS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSubirCVIS.setForeground(new java.awt.Color(255, 255, 255));
@@ -361,52 +468,92 @@ public class VntPracticas extends javax.swing.JPanel {
         nombreArchivoIF.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         nombreArchivoIF.setText("Archivo");
 
+        userLabel8.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel8.setText("Horario Entrada");
+
+        txtHorarioEntrada.setBackground(new java.awt.Color(0, 0, 0));
+        txtHorarioEntrada.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtHorarioEntrada.setForeground(new java.awt.Color(255, 255, 255));
+        txtHorarioEntrada.setBorder(null);
+        txtHorarioEntrada.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtHorarioEntradaMousePressed(evt);
+            }
+        });
+
+        userLabel9.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel9.setText("Horario Salida");
+
+        txtHorarioSalida.setBackground(new java.awt.Color(0, 0, 0));
+        txtHorarioSalida.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtHorarioSalida.setForeground(new java.awt.Color(255, 255, 255));
+        txtHorarioSalida.setBorder(null);
+        txtHorarioSalida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtHorarioSalidaMousePressed(evt);
+            }
+        });
+
+        cbCalendario.setBackground(new java.awt.Color(0, 0, 0));
+        cbCalendario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cbCalendario.setForeground(new java.awt.Color(255, 255, 255));
+        cbCalendario.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(680, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(nombreArchivoIS, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnSubirCVIS))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(689, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(userLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(6, 6, 6)
+                        .addComponent(txtHorarioSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nombreArchivoIS, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(userLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(userLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbDNIAlumno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtIDPractica)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbTutorPracticas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbCalendario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(btnSubirCVIS))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(userLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(userLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                                    .addGap(6, 6, 6)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cbDNIAlumno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtIDPractica)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(6, 6, 6)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cbTutorPracticas, 0, 236, Short.MAX_VALUE)
+                                        .addComponent(cbCalendario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nombreArchivoIF, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSubirCVIF)))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(nombreArchivoIF, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnSubirCVIF))))
+                            .addComponent(txtHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 25, Short.MAX_VALUE)
+                    .addGap(0, 30, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(40, 40, 40)
@@ -414,14 +561,14 @@ public class VntPracticas extends javax.swing.JPanel {
                             .addGap(80, 80, 80)
                             .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 425, Short.MAX_VALUE)))
+                    .addGap(0, 429, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(62, Short.MAX_VALUE)
+                .addContainerGap(53, Short.MAX_VALUE)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtIDPractica, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -439,7 +586,7 @@ public class VntPracticas extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -451,11 +598,19 @@ public class VntPracticas extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnSubirCVIF, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(nombreArchivoIF, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(76, 76, 76)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHorarioSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -471,7 +626,7 @@ public class VntPracticas extends javax.swing.JPanel {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         if (txtIDPractica.getText() != null) {
-            new PracticasDAO().eliminaPracticas(txtIDPractica.getText());
+            new PracticasDAO().eliminaPracticas(txtIDPractica.getText(), frame);
             cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtIDPractica, "Seleciona un Alumno", "Error", JOptionPane.ERROR_MESSAGE);
@@ -485,9 +640,12 @@ public class VntPracticas extends javax.swing.JPanel {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if (txtIDPractica.getText() != null && cbDNIAlumno.getSelectedIndex() != 0 && cbDNIAlumno.getSelectedIndex() != 0
                 && cbDNIAlumno.getSelectedIndex() != 0) {
-            Practicas a = new Practicas();
-            a.setIdPractica(Integer.parseInt(txtIDPractica.getText()));
-            new PracticasDAO().actualizaPracticas(a);
+            Alumnos al = (Alumnos) cbDNIAlumno.getSelectedItem();
+            Anexos an = (Anexos) cbCalendario.getSelectedItem();
+            Empresas e = (Empresas) cbTutorPracticas.getSelectedItem();
+            Practicas p = new Practicas(al, an, e, bytesIS, bytesIF, txtHorarioEntrada.getText(), txtHorarioSalida.getText());
+            p.setIdPractica(Integer.parseInt(txtIDPractica.getText()));
+            new PracticasDAO().actualizaPracticas(p, frame);
             cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtIDPractica, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -496,9 +654,19 @@ public class VntPracticas extends javax.swing.JPanel {
 
     private void btnSubirCVISActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVISActionPerformed
         JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos DOCX", "docx");
+        fileChooser.addChoosableFileFilter(docxFilter);
+        fileChooser.setFileFilter(docxFilter);
+        fileChooser.setDialogTitle("Elige un archivo DOCX");
         int resultado = fileChooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivo = fileChooser.getSelectedFile();
+            String nombreArchivo = archivo.getName();
+            String extension = nombreArchivo.substring(nombreArchivo.lastIndexOf(".") + 1).toLowerCase();
+            if (!extension.equals("docx")) {
+                JOptionPane.showMessageDialog(this, "Solo se permiten archivos DOCX", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             try {
                 byte[] bytesArchivo = convertirArchivoABytes(archivo);
                 bytesIS = bytesArchivo;
@@ -513,9 +681,19 @@ public class VntPracticas extends javax.swing.JPanel {
 
     private void btnSubirCVIFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirCVIFActionPerformed
         JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter docxFilter = new FileNameExtensionFilter("Archivos DOCX", "docx");
+        fileChooser.addChoosableFileFilter(docxFilter);
+        fileChooser.setFileFilter(docxFilter);
+        fileChooser.setDialogTitle("Elige un archivo DOCX");
         int resultado = fileChooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivo = fileChooser.getSelectedFile();
+            String nombreArchivo = archivo.getName();
+            String extension = nombreArchivo.substring(nombreArchivo.lastIndexOf(".") + 1).toLowerCase();
+            if (!extension.equals("docx")) {
+                JOptionPane.showMessageDialog(this, "Solo se permiten archivos DOCX", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             try {
                 byte[] bytesArchivo = convertirArchivoABytes(archivo);
                 bytesIF = bytesArchivo;
@@ -527,6 +705,14 @@ public class VntPracticas extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnSubirCVIFActionPerformed
+
+    private void txtHorarioEntradaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtHorarioEntradaMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtHorarioEntradaMousePressed
+
+    private void txtHorarioSalidaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtHorarioSalidaMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtHorarioSalidaMousePressed
 
     private byte[] convertirArchivoABytes(File archivo) throws IOException {
         byte[] bytesArray = new byte[(int) archivo.length()];
@@ -541,7 +727,7 @@ public class VntPracticas extends javax.swing.JPanel {
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnSubirCVIF;
     private javax.swing.JButton btnSubirCVIS;
-    private javax.swing.JComboBox<Anexos> cbCalendario;
+    private javax.swing.JComboBox<Anexos > cbCalendario;
     private javax.swing.JComboBox<Alumnos> cbDNIAlumno;
     private javax.swing.JComboBox<Empresas
     > cbTutorPracticas;
@@ -553,6 +739,8 @@ public class VntPracticas extends javax.swing.JPanel {
     private javax.swing.JLabel nombreArchivoIS;
     private javax.swing.JLabel title;
     private javax.swing.JLabel title1;
+    private javax.swing.JTextField txtHorarioEntrada;
+    private javax.swing.JTextField txtHorarioSalida;
     private javax.swing.JTextField txtIDPractica;
     private javax.swing.JLabel userLabel;
     private javax.swing.JLabel userLabel1;
@@ -560,5 +748,7 @@ public class VntPracticas extends javax.swing.JPanel {
     private javax.swing.JLabel userLabel5;
     private javax.swing.JLabel userLabel6;
     private javax.swing.JLabel userLabel7;
+    private javax.swing.JLabel userLabel8;
+    private javax.swing.JLabel userLabel9;
     // End of variables declaration//GEN-END:variables
 }

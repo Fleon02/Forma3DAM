@@ -31,7 +31,6 @@ public class VntAlumnos extends javax.swing.JPanel {
 
     private byte[] bytesCV;
     private JFrame frame;
-
     DefaultTableModel dtm = new DefaultTableModel(new Object[]{
         "ID",
         "DNI",
@@ -67,24 +66,16 @@ public class VntAlumnos extends javax.swing.JPanel {
         TablaAlumnos.setDefaultEditor(Object.class, null);
         cargaTabla();
         cargaAlumno();
-
         TablaAlumnos.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e)) {
                     int fila = TablaAlumnos.rowAtPoint(e.getPoint());
                     int columna = TablaAlumnos.columnAtPoint(e.getPoint());
-
-                    // Verificar si se ha hecho clic en una celda de anexo
-                    if ((columna == 6)
-                            && "Subido".equals(TablaAlumnos.getValueAt(fila, columna))) {
-                        int opcion = JOptionPane.showConfirmDialog(frame,
-                                "¿Desea descargar el archivo?",
-                                "Descargar Archivo",
-                                JOptionPane.YES_NO_OPTION);
+                    if (columna == 6 && "Subido".equals(TablaAlumnos.getValueAt(fila, columna))) {
+                        int opcion = JOptionPane.showConfirmDialog(frame, "¿Desea descargar el archivo?", "Descargar Archivo", JOptionPane.YES_NO_OPTION);
                         if (opcion == JOptionPane.YES_OPTION) {
                             descargarArchivo(fila, columna);
-                            System.out.println("Pruebaaaaaaaa");
                         }
                     }
                 }
@@ -464,7 +455,7 @@ public class VntAlumnos extends javax.swing.JPanel {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         if (txtDNIAlumno.getText() != null) {
-            new AlumnosDAO().eliminaAlumnos(txtDNIAlumno.getText());
+            new AlumnosDAO().eliminaAlumnos(txtDNIAlumno.getText(), frame);
             cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtDNIAlumno, "Seleciona un Alumno", "Error", JOptionPane.ERROR_MESSAGE);
@@ -498,12 +489,12 @@ public class VntAlumnos extends javax.swing.JPanel {
                 Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
                         Integer.parseInt(txtNSSAlumno.getText()), Boolean.TRUE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
                 a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
-                new AlumnosDAO().actualizaAlumnos(a);
+                new AlumnosDAO().actualizaAlumnos(a, frame);
             } else {
                 Alumnos a = new Alumnos(txtDNIAlumno.getText(), txtNombreAlumno.getText(), Integer.parseInt(txtAnioAlumno.getText()),
                         Integer.parseInt(txtNSSAlumno.getText()), Boolean.FALSE, cbCicloAlumno.getSelectedItem().toString(), bytesCV);
                 a.setIdAlumno(Integer.parseInt(txtIDAlumno.getText()));
-                new AlumnosDAO().actualizaAlumnos(a);
+                new AlumnosDAO().actualizaAlumnos(a, frame);
             }
             cargaTabla();
         } else {
