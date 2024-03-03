@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
@@ -70,23 +71,27 @@ public class VntAlumnos extends javax.swing.JPanel {
         TablaAlumnos.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int fila = TablaAlumnos.rowAtPoint(e.getPoint());
-                int columna = TablaAlumnos.columnAtPoint(e.getPoint());
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    int fila = TablaAlumnos.rowAtPoint(e.getPoint());
+                    int columna = TablaAlumnos.columnAtPoint(e.getPoint());
 
-                // Verificar si se ha hecho clic en una celda de anexo
-                if ((columna == 6)
-                        && "Subido".equals(TablaAlumnos.getValueAt(fila, columna))) {
-                    int opcion = JOptionPane.showConfirmDialog(frame,
-                            "¿Desea descargar el archivo?",
-                            "Descargar Archivo",
-                            JOptionPane.YES_NO_OPTION);
-                    if (opcion == JOptionPane.YES_OPTION) {
-                        descargarArchivo(fila, columna);
-                        System.out.println("Pruebaaaaaaaa");
+                    // Verificar si se ha hecho clic en una celda de anexo
+                    if ((columna == 6)
+                            && "Subido".equals(TablaAlumnos.getValueAt(fila, columna))) {
+                        int opcion = JOptionPane.showConfirmDialog(frame,
+                                "¿Desea descargar el archivo?",
+                                "Descargar Archivo",
+                                JOptionPane.YES_NO_OPTION);
+                        if (opcion == JOptionPane.YES_OPTION) {
+                            descargarArchivo(fila, columna);
+                            System.out.println("Pruebaaaaaaaa");
+                        }
                     }
                 }
+
             }
-        });
+        }
+        );
     }
 
     public void cargaTabla() {
