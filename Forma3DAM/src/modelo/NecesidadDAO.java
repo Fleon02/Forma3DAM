@@ -65,7 +65,7 @@ public class NecesidadDAO {
         Empresas empresas = new Empresas(cifempresa);
         try {
             iniciaOperacion();
-            String hql = "UPDATE Necesidad SET idNecesidad = -1 WHERE empresas = :empresas";
+            String hql = "UPDATE Necesidad SET idNecesidad = -idNecesidad WHERE empresas = :empresas";
             int valor = sesion.createQuery(hql).setParameter("empresas", empresas).executeUpdate();
             if (valor == 1) {
                 Notifications.getInstance().setJFrame(jframe);

@@ -87,7 +87,7 @@ public class PracticasDAO {
     public void eliminaPracticas(String dniAlumno, JFrame jframe) {
         try {
             iniciaOperacion();
-            String hql = "UPDATE Practicas SET idPractica = -1 WHERE dniAlumno = :dniAlumno";
+            String hql = "UPDATE Practicas SET idPractica = -idPractica WHERE dniAlumno = :dniAlumno";
             int valor = sesion.createQuery(hql).setParameter("dniAlumno", dniAlumno).executeUpdate();
             if (valor == 1) {
                 Notifications.getInstance().setJFrame(jframe);

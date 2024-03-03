@@ -75,7 +75,7 @@ public class EmpresasDAO {
     public void eliminaEmpresas(String cifEmpresa, JFrame jframe) {
         try {
             iniciaOperacion();
-            String hql = "UPDATE Empresas SET idEmpresa = -1 WHERE cifEmpresa = :cifEmpresa";
+            String hql = "UPDATE Empresas SET idEmpresa = -idEmpresa WHERE cifEmpresa = :cifEmpresa";
             int valor = sesion.createQuery(hql).setParameter("cifEmpresa", cifEmpresa).executeUpdate();
             if (valor == 1) {
                 Notifications.getInstance().setJFrame(jframe);
@@ -235,10 +235,8 @@ public class EmpresasDAO {
     private boolean empresaNecesitaAlumnoDelCiclo(Empresas empresa, String ciclo) {
         String cicloLowerCase = ciclo.toLowerCase();
         Empresas empresaConNecesidades = new EmpresasDAO().obtenEmpresaPorID(String.valueOf(empresa.getIdEmpresa()));
-
         if (empresaConNecesidades != null) {
             List<Object[]> listaNecesidades = new NecesidadDAO().obtenNecesidadesDeEmpresa(empresaConNecesidades);
-
             for (Object[] necesidad : listaNecesidades) {
                 switch (cicloLowerCase) {
                     case "dam":
@@ -266,13 +264,9 @@ public class EmpresasDAO {
                             return true;
                         }
                         break;
-
                 }
             }
         }
-
         return false;
-
     }
-
 }
