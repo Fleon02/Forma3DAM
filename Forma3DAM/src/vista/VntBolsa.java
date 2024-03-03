@@ -125,7 +125,7 @@ public class VntBolsa extends javax.swing.JPanel {
 
                         txtNombreAlumno.setEditable(true);
                         txtDNIAlumno.setEditable(true);
-                        txtIDAl.setEditable(true);
+                        txtIDAl.setEditable(false);
                         txtSegSocial.setEditable(true);
                         cbMetodo.setEditable(true);
                         btnActualizar.setEnabled(true);

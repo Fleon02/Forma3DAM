@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +37,57 @@ public class VntNecesidad extends javax.swing.JPanel {
         TablaNecesidad.setDefaultEditor(Object.class, null);
         cargaTabla();
         cargaNecesidad();
+        txtDAM.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
+        txtDAW.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
+        txtASIR.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
+        txtMARK.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
+        txtFIN.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
+        
     }
 
     public void cargaTabla() {
@@ -44,9 +97,11 @@ public class VntNecesidad extends javax.swing.JPanel {
         for (Necesidad necesidad : listaNecesidades)
         {
 
+
             if (necesidad.getIdNecesidad() != null && necesidad.getIdNecesidad()>0)
             {
                 String nombre = (necesidad.getEmpresas() != null) ? necesidad.getEmpresas().getNombreEmpresa(): "";
+
                 dtm.addRow(new Object[]
                 {
                     necesidad.getIdNecesidad(),
@@ -80,7 +135,9 @@ public class VntNecesidad extends javax.swing.JPanel {
                         txtMARK.setText(TablaNecesidad.getValueAt(filas, 6) + "");
                         txtFIN.setText(TablaNecesidad.getValueAt(filas, 7) + "");
 
-                        txtNombreEmpresa.setEditable(true);
+
+                        txtNombreEmpresa.setEditable(false);
+
                         txtCicloNecesidad.setEditable(true);
                         txtDAM.setEditable(true);
                         txtDAW.setEditable(true);
@@ -436,10 +493,14 @@ public class VntNecesidad extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDAWMousePressed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        if (txtIDNecesidad.getText() != null) {
+
+        if (txtIDNecesidad.getText() != null)
+        {
+
             new NecesidadDAO().eliminaNecesidad(Integer.parseInt(txtIDNecesidad.getText()), frame);
             cargaTabla();
-        } else {
+        } else
+        {
             JOptionPane.showMessageDialog(this, "Seleciona una empresa", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
