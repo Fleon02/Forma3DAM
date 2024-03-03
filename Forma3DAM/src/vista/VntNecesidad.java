@@ -44,9 +44,9 @@ public class VntNecesidad extends javax.swing.JPanel {
         for (Necesidad necesidad : listaNecesidades)
         {
 
-            if (necesidad.getIdNecesidad() != null && necesidad.getIdNecesidad()>0)
+            if (necesidad.getIdNecesidad() != null && necesidad.getIdNecesidad() > 0)
             {
-                String nombre = (necesidad.getEmpresas() != null) ? necesidad.getEmpresas().getNombreEmpresa(): "";
+                String nombre = (necesidad.getEmpresas() != null) ? necesidad.getEmpresas().getNombreEmpresa() : "";
                 dtm.addRow(new Object[]
                 {
                     necesidad.getIdNecesidad(),
@@ -436,10 +436,12 @@ public class VntNecesidad extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDAWMousePressed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        if (txtIDNecesidad.getText() != null) {
+        if (txtIDNecesidad.getText() != null)
+        {
             new NecesidadDAO().eliminaNecesidad(Integer.parseInt(txtIDNecesidad.getText()), frame);
             cargaTabla();
-        } else {
+        } else
+        {
             JOptionPane.showMessageDialog(this, "Seleciona una empresa", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
