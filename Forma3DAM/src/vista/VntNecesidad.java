@@ -97,9 +97,11 @@ public class VntNecesidad extends javax.swing.JPanel {
         for (Necesidad necesidad : listaNecesidades)
         {
 
-            if (necesidad.getIdNecesidad() != null && necesidad.getIdNecesidad() > 0)
+
+            if (necesidad.getIdNecesidad() != null && necesidad.getIdNecesidad()>0)
             {
-                String nombre = (necesidad.getEmpresas() != null) ? necesidad.getEmpresas().getNombreEmpresa() : "";
+                String nombre = (necesidad.getEmpresas() != null) ? necesidad.getEmpresas().getNombreEmpresa(): "";
+
                 dtm.addRow(new Object[]
                 {
                     necesidad.getIdNecesidad(),
@@ -133,7 +135,9 @@ public class VntNecesidad extends javax.swing.JPanel {
                         txtMARK.setText(TablaNecesidad.getValueAt(filas, 6) + "");
                         txtFIN.setText(TablaNecesidad.getValueAt(filas, 7) + "");
 
+
                         txtNombreEmpresa.setEditable(false);
+
                         txtCicloNecesidad.setEditable(true);
                         txtDAM.setEditable(true);
                         txtDAW.setEditable(true);
@@ -489,8 +493,10 @@ public class VntNecesidad extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDAWMousePressed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+
         if (txtIDNecesidad.getText() != null)
         {
+
             new NecesidadDAO().eliminaNecesidad(Integer.parseInt(txtIDNecesidad.getText()), frame);
             cargaTabla();
         } else
