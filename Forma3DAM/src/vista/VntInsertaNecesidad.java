@@ -8,18 +8,13 @@ package vista;
 import java.awt.Component;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import modelo.AlumnosDAO;
 import modelo.EmpresasDAO;
 import modelo.NecesidadDAO;
-import pojos.Alumnos;
-import pojos.Anexos;
 import pojos.Empresas;
 import pojos.Necesidad;
 
