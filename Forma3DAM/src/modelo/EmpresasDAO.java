@@ -97,7 +97,21 @@ public class EmpresasDAO {
         List<Empresas> listaEmpresas = null;
         try {
             iniciaOperacion();
-            listaEmpresas = sesion.createQuery("from Empresas").list();
+            listaEmpresas = sesion.createQuery("from Empresas where idEmpresa > 0").list();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
+        return listaEmpresas;
+    }
+
+    public List<Empresas> obtenListaEmpresasConConvenio() {
+        List<Empresas> listaEmpresas = null;
+        try {
+            iniciaOperacion();
+            listaEmpresas = sesion.createQuery("SELECT DISTINCT e FROM Empresas e JOIN e.convenios c WHERE c.idConvenio IS NOT NULL and e.idEmpresa > 0").list();
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;

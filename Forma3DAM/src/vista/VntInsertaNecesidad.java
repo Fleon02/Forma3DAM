@@ -125,7 +125,7 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
     private void cargaCiclo() {
         String[] opciones =
         {
-            "Marzo", "Septiembre"
+            "marzo", "septiembre"
         };
         cbCiclo1.addItem(opciones[0]);
         cbCiclo1.addItem(opciones[1]);

@@ -82,7 +82,7 @@ public class VntInsertaPractica extends javax.swing.JPanel {
     }
 
     private void cargarTutorPracticasEmpresas() {
-        List<Empresas> listaEmpresas = new EmpresasDAO().obtenListaEmpresas();
+        List<Empresas> listaEmpresas = new EmpresasDAO().obtenListaEmpresasConConvenio();
         DefaultComboBoxModel<Empresas> model = new DefaultComboBoxModel<>();
         model.addElement(new Empresas());
         for (Empresas empresa : listaEmpresas) {
@@ -103,7 +103,7 @@ public class VntInsertaPractica extends javax.swing.JPanel {
                     setText("Seleccione Tutor/a");
                 } else {
                     if (empresa.getIdEmpresa() > 0) {
-                        setText(empresa.getIdEmpresa() + " - " + empresa.getTutorPracticas());
+                        setText(empresa.getIdEmpresa() + " - " + empresa.getTutorPracticas() + " - " + empresa.getNombreEmpresa());
                     } else {
                         setText("");
                     }
