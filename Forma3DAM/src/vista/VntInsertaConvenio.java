@@ -263,7 +263,6 @@ public class VntInsertaConvenio extends javax.swing.JPanel {
         convenio.setAnexoUnoConvenio(anexoUnoConvenio);
 
         convenioDAO.guardaConvenio(convenio);
-        JOptionPane.showMessageDialog(null, "Convenio Insertado", "Inserccion con Exitoso", JOptionPane.INFORMATION_MESSAGE);
 
         nombreArchivo.setText("Archivo");
         bytesCV = null;
