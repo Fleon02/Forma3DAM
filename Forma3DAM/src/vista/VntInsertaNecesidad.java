@@ -353,7 +353,7 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
                 && !txtDAW.getText().isEmpty() && !txtASIR.getText().isEmpty() && !txtMARK.getText().isEmpty()
                 && !txtFIN.getText().isEmpty())
         {
-            Empresas empresa = (Empresas) cbIDEmpresa.getSelectedItem(); // Assuming the items in the combo box are of type Empresas
+            Empresas empresa = (Empresas) cbIDEmpresa.getSelectedItem(); 
             Necesidad n = new Necesidad(empresa, String.valueOf(cbCiclo1.getSelectedItem()), Integer.parseInt(txtDAM.getText()),
                     Integer.parseInt(txtDAW.getText()), Integer.parseInt(txtASIR.getText()),
                     Integer.parseInt(txtMARK.getText()), Integer.parseInt(txtFIN.getText()));

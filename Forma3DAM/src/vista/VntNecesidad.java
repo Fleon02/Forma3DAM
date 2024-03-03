@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +37,57 @@ public class VntNecesidad extends javax.swing.JPanel {
         TablaNecesidad.setDefaultEditor(Object.class, null);
         cargaTabla();
         cargaNecesidad();
+        txtDAM.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
+        txtDAW.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
+        txtASIR.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
+        txtMARK.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
+        txtFIN.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
+                {
+                    e.consume(); // No permite la entrada de caracteres que no sean números
+                }
+            }
+        });
+        
     }
 
     public void cargaTabla() {
@@ -80,7 +133,7 @@ public class VntNecesidad extends javax.swing.JPanel {
                         txtMARK.setText(TablaNecesidad.getValueAt(filas, 6) + "");
                         txtFIN.setText(TablaNecesidad.getValueAt(filas, 7) + "");
 
-                        txtNombreEmpresa.setEditable(true);
+                        txtNombreEmpresa.setEditable(false);
                         txtCicloNecesidad.setEditable(true);
                         txtDAM.setEditable(true);
                         txtDAW.setEditable(true);
