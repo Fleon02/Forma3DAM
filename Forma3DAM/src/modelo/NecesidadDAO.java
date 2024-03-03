@@ -61,12 +61,12 @@ public class NecesidadDAO {
         }
     }
 
-    public void eliminaNecesidad(String cifempresa, JFrame jframe) {
-        Empresas empresas = new Empresas(cifempresa);
+    public void eliminaNecesidad(int idNecesidad, JFrame jframe) {
+        //Empresas empresas = new Empresas(cifempresa);
         try {
             iniciaOperacion();
-            String hql = "UPDATE Necesidad SET idNecesidad = -idNecesidad WHERE empresas = :empresas";
-            int valor = sesion.createQuery(hql).setParameter("empresas", empresas).executeUpdate();
+            String hql = "UPDATE Necesidad SET idNecesidad = -idNecesidad WHERE idNecesidad = :idNecesidad";
+            int valor = sesion.createQuery(hql).setParameter("idNecesidad", idNecesidad).executeUpdate();
             if (valor == 1) {
                 Notifications.getInstance().setJFrame(jframe);
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, 2500, "Necesidad Marcada como Borrada");
