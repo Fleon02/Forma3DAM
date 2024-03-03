@@ -5,13 +5,20 @@
  */
 package vista;
 
+import java.awt.Component;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import modelo.AlumnosDAO;
 import modelo.EmpresasDAO;
 import modelo.NecesidadDAO;
+import pojos.Alumnos;
 import pojos.Anexos;
 import pojos.Empresas;
 import pojos.Necesidad;
@@ -78,7 +85,41 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
             }
         });
         cargaCiclo();
+        cargarEmpresas();
 
+    }
+
+    private void cargarEmpresas() {
+        EmpresasDAO eDAO = new EmpresasDAO();
+        List<Empresas> listaEmpresas = eDAO.obtenListaEmpresas();
+        DefaultComboBoxModel<Empresas> model = new DefaultComboBoxModel<>();
+        model.addElement(new Empresas(null)); // Opción por defecto
+        for (Empresas empresa : listaEmpresas)
+        {
+            model.addElement(empresa);
+        }
+        cbIDEmpresa.setModel(model);
+        cbIDEmpresa.setRenderer(new VntInsertaNecesidad.EmpresasComboBoxRenderer());
+    }
+
+    private static class EmpresasComboBoxRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof Empresas)
+            {
+                Empresas empresa = (Empresas) value;
+                if (empresa.getIdEmpresa() == null)
+                {
+                    setText("Seleccione una empresa");
+                } else
+                {
+                    setText(String.format("%s - %s", empresa.getIdEmpresa(), empresa.getNombreEmpresa()));
+                }
+            }
+            return this;
+        }
     }
 
     private void cargaCiclo() {
@@ -86,8 +127,8 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
         {
             "Marzo", "Septiembre"
         };
-        cbCiclo.addItem(opciones[0]);
-        cbCiclo.addItem(opciones[1]);
+        cbCiclo1.addItem(opciones[0]);
+        cbCiclo1.addItem(opciones[1]);
     }
 
     /**
@@ -100,7 +141,6 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
     private void initComponents() {
 
         userLabel2 = new javax.swing.JLabel();
-        txtIDEmpresa = new javax.swing.JTextField();
         userLabel3 = new javax.swing.JLabel();
         txtASIR = new javax.swing.JTextField();
         userLabel4 = new javax.swing.JLabel();
@@ -108,27 +148,18 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
         btnInsertar = new javax.swing.JButton();
         userLabel1 = new javax.swing.JLabel();
         txtDAW = new javax.swing.JTextField();
-        cbCiclo = new javax.swing.JComboBox<>();
+        cbIDEmpresa = new javax.swing.JComboBox<>();
         userLabel5 = new javax.swing.JLabel();
         txtMARK = new javax.swing.JTextField();
         userLabel6 = new javax.swing.JLabel();
         txtDAM = new javax.swing.JTextField();
         userLabel7 = new javax.swing.JLabel();
         txtFIN = new javax.swing.JTextField();
+        cbCiclo1 = new javax.swing.JComboBox<>();
 
         userLabel2.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel2.setForeground(new java.awt.Color(0, 0, 0));
         userLabel2.setText("ID Empresa");
-
-        txtIDEmpresa.setBackground(new java.awt.Color(0, 0, 0));
-        txtIDEmpresa.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtIDEmpresa.setForeground(new java.awt.Color(255, 255, 255));
-        txtIDEmpresa.setBorder(null);
-        txtIDEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtIDEmpresaMousePressed(evt);
-            }
-        });
 
         userLabel3.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -175,9 +206,8 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
             }
         });
 
-        cbCiclo.setBackground(new java.awt.Color(0, 0, 0));
-        cbCiclo.setForeground(new java.awt.Color(255, 255, 255));
-        cbCiclo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Ciclo" }));
+        cbIDEmpresa.setBackground(new java.awt.Color(0, 0, 0));
+        cbIDEmpresa.setForeground(new java.awt.Color(255, 255, 255));
 
         userLabel5.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -222,6 +252,10 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
             }
         });
 
+        cbCiclo1.setBackground(new java.awt.Color(0, 0, 0));
+        cbCiclo1.setForeground(new java.awt.Color(255, 255, 255));
+        cbCiclo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Ciclo" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -240,15 +274,15 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtDAW, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(cbIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cbCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbCiclo1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -282,22 +316,22 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbCiclo1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(userLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDAM, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(userLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(userLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtASIR, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
+                        .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMARK, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -315,29 +349,25 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIDEmpresaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDEmpresaMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDEmpresaMousePressed
-
     private void txtASIRMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtASIRMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtASIRMousePressed
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        if (!txtIDEmpresa.getText().isEmpty() && !txtDAM.getText().isEmpty()
+        if (cbIDEmpresa.getSelectedItem() != null && !txtDAM.getText().isEmpty()
                 && !txtDAW.getText().isEmpty() && !txtASIR.getText().isEmpty() && !txtMARK.getText().isEmpty()
-                && !txtFIN.getText().isEmpty() && cbCiclo.getSelectedIndex() != 0)
+                && !txtFIN.getText().isEmpty() && cbIDEmpresa.getSelectedIndex() != 0)
         {
-            Empresas empresa = new EmpresasDAO().obtenEmpresaPorID(txtIDEmpresa.getText());
-            Necesidad n = new Necesidad(empresa, String.valueOf(cbCiclo.getSelectedItem()), Integer.parseInt(txtDAM.getText()),
+            Empresas empresa = (Empresas) cbIDEmpresa.getSelectedItem(); 
+            Necesidad n = new Necesidad(empresa, String.valueOf(cbIDEmpresa.getSelectedItem()), Integer.parseInt(txtDAM.getText()),
                     Integer.parseInt(txtDAW.getText()), Integer.parseInt(txtASIR.getText()),
                     Integer.parseInt(txtMARK.getText()), Integer.parseInt(txtFIN.getText()));
             new NecesidadDAO().guardaNecesidad(n);
-            JOptionPane.showMessageDialog(null, "Necesidad Insertada", "Inserccion con Exito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Necesidad Insertada", "Insercción con Éxito", JOptionPane.INFORMATION_MESSAGE);
             //cargaTabla();
         } else
         {
-            JOptionPane.showMessageDialog(txtIDEmpresa, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(cbIDEmpresa, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnInsertarActionPerformed
 
@@ -360,13 +390,13 @@ public class VntInsertaNecesidad extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInsertar;
-    private javax.swing.JComboBox<String> cbCiclo;
+    private javax.swing.JComboBox<String> cbCiclo1;
+    private javax.swing.JComboBox<Empresas> cbIDEmpresa;
     private javax.swing.JLabel favicon;
     private javax.swing.JTextField txtASIR;
     private javax.swing.JTextField txtDAM;
     private javax.swing.JTextField txtDAW;
     private javax.swing.JTextField txtFIN;
-    private javax.swing.JTextField txtIDEmpresa;
     private javax.swing.JTextField txtMARK;
     private javax.swing.JLabel userLabel1;
     private javax.swing.JLabel userLabel2;
