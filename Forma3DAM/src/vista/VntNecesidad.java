@@ -22,7 +22,7 @@ public class VntNecesidad extends javax.swing.JPanel {
     DefaultTableModel dtm = new DefaultTableModel(new Object[]
     {
         "IDNECESIDAD",
-        "CIF",
+        "ID_EMPRESA",
         "CICLO",
         "DAM",
         "DAW",
@@ -100,12 +100,12 @@ public class VntNecesidad extends javax.swing.JPanel {
 
             if (necesidad.getIdNecesidad() != null && necesidad.getIdNecesidad()>0)
             {
-                String nombre = (necesidad.getEmpresas() != null) ? necesidad.getEmpresas().getNombreEmpresa(): "";
+                int id = (necesidad.getEmpresas() != null) ? necesidad.getEmpresas().getIdEmpresa() : 0;
 
                 dtm.addRow(new Object[]
                 {
                     necesidad.getIdNecesidad(),
-                    nombre,
+                    id,
                     necesidad.getCicloNecesidad(),
                     necesidad.getDam(),
                     necesidad.getDaw(),
@@ -127,7 +127,7 @@ public class VntNecesidad extends javax.swing.JPanel {
                     if (filas != -1)
                     {
                         txtIDNecesidad.setText(TablaNecesidad.getValueAt(filas, 0) + "");
-                        txtNombreEmpresa.setText(TablaNecesidad.getValueAt(filas, 1) + "");
+                        txtIDEmpresa.setText(TablaNecesidad.getValueAt(filas, 1) + "");
                         txtCicloNecesidad.setText(TablaNecesidad.getValueAt(filas, 2) + "");
                         txtDAM.setText(TablaNecesidad.getValueAt(filas, 3) + "");
                         txtDAW.setText(TablaNecesidad.getValueAt(filas, 4) + "");
@@ -136,7 +136,7 @@ public class VntNecesidad extends javax.swing.JPanel {
                         txtFIN.setText(TablaNecesidad.getValueAt(filas, 7) + "");
 
 
-                        txtNombreEmpresa.setEditable(false);
+                        txtIDEmpresa.setEditable(false);
 
                         txtCicloNecesidad.setEditable(true);
                         txtDAM.setEditable(true);
@@ -148,7 +148,7 @@ public class VntNecesidad extends javax.swing.JPanel {
                         btnBorrar.setEnabled(true);
                     } else
                     {
-                        txtNombreEmpresa.setEditable(false);
+                        txtIDEmpresa.setEditable(false);
                         txtCicloNecesidad.setEditable(false);
                         txtDAM.setEditable(false);
                         txtDAW.setEditable(false);
@@ -174,7 +174,7 @@ public class VntNecesidad extends javax.swing.JPanel {
         favicon = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         userLabel = new javax.swing.JLabel();
-        txtNombreEmpresa = new javax.swing.JTextField();
+        txtIDEmpresa = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaNecesidad = new javax.swing.JTable();
         userLabel1 = new javax.swing.JLabel();
@@ -205,16 +205,16 @@ public class VntNecesidad extends javax.swing.JPanel {
         title.setText("Actualizar/Borrar");
 
         userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        userLabel.setText("Nombre Empresa");
+        userLabel.setText("ID Empresa");
 
-        txtNombreEmpresa.setEditable(false);
-        txtNombreEmpresa.setBackground(new java.awt.Color(0, 0, 0));
-        txtNombreEmpresa.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtNombreEmpresa.setForeground(new java.awt.Color(255, 255, 255));
-        txtNombreEmpresa.setBorder(null);
-        txtNombreEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtIDEmpresa.setEditable(false);
+        txtIDEmpresa.setBackground(new java.awt.Color(0, 0, 0));
+        txtIDEmpresa.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtIDEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        txtIDEmpresa.setBorder(null);
+        txtIDEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtNombreEmpresaMousePressed(evt);
+                txtIDEmpresaMousePressed(evt);
             }
         });
 
@@ -355,28 +355,29 @@ public class VntNecesidad extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(744, Short.MAX_VALUE)
+                .addContainerGap(741, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(userLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(userLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                             .addComponent(userLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(userLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(userLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                .addGap(25, 25, 25)
+                                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnBorrar))
-                            .addComponent(txtMARK, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDAW, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtASIR, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                            .addComponent(txtDAM, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                            .addComponent(txtFIN))
-                        .addGap(0, 52, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtASIR, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDAW, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtMARK, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtFIN, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(5, 5, 5))))
                     .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -386,10 +387,11 @@ public class VntNecesidad extends javax.swing.JPanel {
                         .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtIDNecesidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtCicloNecesidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                            .addComponent(txtCicloNecesidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDAM, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(45, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(40, 65, Short.MAX_VALUE)
@@ -413,29 +415,29 @@ public class VntNecesidad extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIDEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCicloNecesidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDAM, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDAW, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtASIR, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMARK, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtASIR, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMARK, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFIN, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
@@ -459,7 +461,7 @@ public class VntNecesidad extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -468,13 +470,13 @@ public class VntNecesidad extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreEmpresaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreEmpresaMousePressed
+    private void txtIDEmpresaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDEmpresaMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreEmpresaMousePressed
+    }//GEN-LAST:event_txtIDEmpresaMousePressed
 
     private void txtCicloNecesidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCicloNecesidadMousePressed
         // TODO add your handling code here:
@@ -506,12 +508,13 @@ public class VntNecesidad extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if (!txtNombreEmpresa.getText().isEmpty() && !txtDAM.getText().isEmpty()
+        if (!txtIDEmpresa.getText().isEmpty() && !txtDAM.getText().isEmpty()
                 && !txtDAW.getText().isEmpty() && !txtASIR.getText().isEmpty() && !txtMARK.getText().isEmpty()
                 && !txtFIN.getText().isEmpty() && !txtCicloNecesidad.getText().isEmpty())
         {
             //Set<Anexos> anexosSet = new HashSet<>();
-            Empresas empresa = new EmpresasDAO().obtenEmpresaPorID(txtNombreEmpresa.getText());
+            int idEmpresa = Integer.parseInt(txtIDEmpresa.getText());
+            Empresas empresa = new EmpresasDAO().obtenEmpresaPorID(txtIDEmpresa.getText());
             NecesidadDAO necesidadDAO = new NecesidadDAO();
             int idNecesidad = Integer.parseInt(txtIDNecesidad.getText());
             Necesidad n = necesidadDAO.obtenerNecesidadPorId(idNecesidad);
@@ -561,9 +564,9 @@ public class VntNecesidad extends javax.swing.JPanel {
     private javax.swing.JTextField txtDAM;
     private javax.swing.JTextField txtDAW;
     private javax.swing.JTextField txtFIN;
+    private javax.swing.JTextField txtIDEmpresa;
     private javax.swing.JTextField txtIDNecesidad;
     private javax.swing.JTextField txtMARK;
-    private javax.swing.JTextField txtNombreEmpresa;
     private javax.swing.JLabel userLabel;
     private javax.swing.JLabel userLabel1;
     private javax.swing.JLabel userLabel2;

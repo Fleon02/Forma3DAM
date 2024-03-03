@@ -17,7 +17,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
               <Component id="jPanel1" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -28,7 +28,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
               <Component id="jPanel1" max="-2" attributes="0"/>
-              <EmptySpace pref="91" max="32767" attributes="0"/>
+              <EmptySpace pref="88" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -43,10 +43,9 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="744" max="32767" attributes="0"/>
+                  <EmptySpace pref="741" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="userLabel7" max="32767" attributes="0"/>
                               <Component id="userLabel5" pref="118" max="32767" attributes="0"/>
@@ -54,20 +53,24 @@
                               <Component id="userLabel2" max="32767" attributes="0"/>
                               <Component id="userLabel4" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="32" pref="32" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="btnActualizar" pref="133" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="btnActualizar" min="-2" pref="133" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="btnBorrar" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="txtMARK" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtDAW" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtASIR" alignment="0" pref="230" max="32767" attributes="0"/>
-                              <Component id="txtDAM" alignment="0" pref="230" max="32767" attributes="0"/>
-                              <Component id="txtFIN" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtASIR" min="-2" pref="230" max="-2" attributes="0"/>
+                                      <Component id="txtDAW" min="-2" pref="230" max="-2" attributes="0"/>
+                                      <Component id="txtMARK" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                      <Component id="txtFIN" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="0" pref="52" max="32767" attributes="0"/>
                       </Group>
                       <Component id="title" alignment="0" min="-2" pref="396" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
@@ -79,14 +82,15 @@
                           <EmptySpace min="32" pref="32" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                  <Component id="txtNombreEmpresa" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                                  <Component id="txtIDEmpresa" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
                                   <Component id="txtIDNecesidad" alignment="1" min="-2" pref="230" max="-2" attributes="0"/>
                               </Group>
                               <Component id="txtCicloNecesidad" alignment="1" min="-2" pref="230" max="-2" attributes="0"/>
+                              <Component id="txtDAM" alignment="1" min="-2" pref="230" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="45" max="32767" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
@@ -116,7 +120,7 @@
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="userLabel" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="txtNombreEmpresa" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txtIDEmpresa" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -124,29 +128,29 @@
                       <Component id="txtCicloNecesidad" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="userLabel2" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="txtDAM" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="userLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txtDAM" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="userLabel3" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="txtDAW" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtASIR" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="userLabel4" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtMARK" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="userLabel5" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="userLabel3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txtDAW" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="userLabel7" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="txtFIN" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="userLabel4" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txtASIR" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="userLabel5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txtMARK" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="userLabel7" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txtFIN" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="34" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -196,10 +200,10 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Roboto Light" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nombre Empresa"/>
+            <Property name="text" type="java.lang.String" value="ID Empresa"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNombreEmpresa">
+        <Component class="javax.swing.JTextField" name="txtIDEmpresa">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -216,7 +220,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtNombreEmpresaMousePressed"/>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtIDEmpresaMousePressed"/>
           </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
