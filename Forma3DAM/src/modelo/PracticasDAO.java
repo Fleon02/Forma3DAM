@@ -69,6 +69,8 @@ public class PracticasDAO {
                 pExistente.setAnexos(a.getAnexos());
                 pExistente.setInformeSeguimiento(a.getInformeSeguimiento());
                 pExistente.setInformeFinal(a.getInformeFinal());
+                pExistente.setHorarioEntrada(a.getHorarioEntrada());
+                pExistente.setHorarioSalida(a.getHorarioSalida());
                 sesion.update(pExistente);
             } else {
                 sesion.update(a);
@@ -84,11 +86,11 @@ public class PracticasDAO {
         }
     }
 
-    public void eliminaPracticas(String dniAlumno, JFrame jframe) {
+    public void eliminaPracticas(int idPractica, JFrame jframe) {
         try {
             iniciaOperacion();
-            String hql = "UPDATE Practicas SET idPractica = -idPractica WHERE dniAlumno = :dniAlumno";
-            int valor = sesion.createQuery(hql).setParameter("dniAlumno", dniAlumno).executeUpdate();
+            String hql = "UPDATE Practicas SET idPractica = -idPractica WHERE idPractica = :idPractica";
+            int valor = sesion.createQuery(hql).setParameter("idPractica", idPractica).executeUpdate();
             if (valor == 1) {
                 Notifications.getInstance().setJFrame(jframe);
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, 2500, "Practica Marcada como Borrada");
