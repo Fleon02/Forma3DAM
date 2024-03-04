@@ -178,6 +178,8 @@ public class VntPracticas extends javax.swing.JPanel {
                         cbDNIAlumno.setEnabled(true);
                         cbTutorPracticas.setEnabled(true);
                         cbCalendario.setEnabled(true);
+                        txtHorarioEntrada.setEditable(true);
+                        txtHorarioSalida.setEditable(true);
                         btnActualizar.setEnabled(true);
                         btnBorrar.setEnabled(true);
                         btnSubirCVIS.setEnabled(true);
@@ -471,6 +473,7 @@ public class VntPracticas extends javax.swing.JPanel {
         userLabel8.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel8.setText("Horario Entrada");
 
+        txtHorarioEntrada.setEditable(false);
         txtHorarioEntrada.setBackground(new java.awt.Color(0, 0, 0));
         txtHorarioEntrada.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtHorarioEntrada.setForeground(new java.awt.Color(255, 255, 255));
@@ -484,6 +487,7 @@ public class VntPracticas extends javax.swing.JPanel {
         userLabel9.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel9.setText("Horario Salida");
 
+        txtHorarioSalida.setEditable(false);
         txtHorarioSalida.setBackground(new java.awt.Color(0, 0, 0));
         txtHorarioSalida.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtHorarioSalida.setForeground(new java.awt.Color(255, 255, 255));
