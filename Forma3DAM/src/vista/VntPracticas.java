@@ -630,7 +630,7 @@ public class VntPracticas extends javax.swing.JPanel {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         if (txtIDPractica.getText() != null) {
-            new PracticasDAO().eliminaPracticas(txtIDPractica.getText(), frame);
+            new PracticasDAO().eliminaPracticas(Integer.parseInt(txtIDPractica.getText()), frame);
             cargaTabla();
         } else {
             JOptionPane.showMessageDialog(txtIDPractica, "Seleciona un Alumno", "Error", JOptionPane.ERROR_MESSAGE);
@@ -642,8 +642,8 @@ public class VntPracticas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtIDPracticaMousePressed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if (txtIDPractica.getText() != null && cbDNIAlumno.getSelectedIndex() != 0 && cbDNIAlumno.getSelectedIndex() != 0
-                && cbDNIAlumno.getSelectedIndex() != 0) {
+        if (txtIDPractica.getText() != null && cbDNIAlumno.getSelectedIndex() != 0 && cbTutorPracticas.getSelectedIndex() != 0
+                && cbCalendario.getSelectedIndex() != 0) {
             Alumnos al = (Alumnos) cbDNIAlumno.getSelectedItem();
             Anexos an = (Anexos) cbCalendario.getSelectedItem();
             Empresas e = (Empresas) cbTutorPracticas.getSelectedItem();
