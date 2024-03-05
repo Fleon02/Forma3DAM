@@ -41,7 +41,7 @@
         <property name="anexoOcho" type="binary">
             <column name="anexoOcho" />
         </property>
-        <set name="practicases" table="practicas" inverse="true" lazy="true" fetch="select">
+        <set name="practicases" table="practicas" inverse="true" lazy="false" fetch="select" cascade="all">
             <key>
                 <column name="idAnexo" />
             </key>

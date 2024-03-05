@@ -223,7 +223,7 @@ public class VntPracticas extends javax.swing.JPanel {
     }
 
     private void cargarTutorPracticasEmpresas() {
-        List<Empresas> listaEmpresas = new EmpresasDAO().obtenListaEmpresas();
+        List<Empresas> listaEmpresas = new EmpresasDAO().obtenListaEmpresasConConvenio();
         DefaultComboBoxModel<Empresas> model = new DefaultComboBoxModel<>();
         model.addElement(new Empresas());
         for (Empresas empresa : listaEmpresas) {

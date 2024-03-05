@@ -530,9 +530,6 @@ public class vntConvenios extends javax.swing.JPanel {
             }
         }
 
-        nombreArchivo.setText("Archivo");
-        bytesCV = null;
-
     }//GEN-LAST:event_btnSubirAnexActionPerformed
 
     private void txtIDEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDEmpresaActionPerformed

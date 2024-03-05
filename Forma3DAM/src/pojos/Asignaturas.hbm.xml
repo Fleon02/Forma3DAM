@@ -17,7 +17,7 @@
         <property name="cicloFormativo" type="string">
             <column name="cicloFormativo" length="20" />
         </property>
-        <set name="alumnosAsignaturases" table="alumnos_asignaturas" inverse="true" lazy="true" fetch="select">
+        <set name="alumnosAsignaturases" table="alumnos_asignaturas" inverse="true" lazy="false" fetch="select" cascade="all">
             <key>
                 <column name="idAsignatura" />
             </key>

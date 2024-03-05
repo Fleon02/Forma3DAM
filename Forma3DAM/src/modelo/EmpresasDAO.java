@@ -111,7 +111,7 @@ public class EmpresasDAO {
         List<Empresas> listaEmpresas = null;
         try {
             iniciaOperacion();
-            listaEmpresas = sesion.createQuery("SELECT DISTINCT e FROM Empresas e JOIN e.convenios c WHERE c.idConvenio IS NOT NULL and e.idEmpresa > 0").list();
+            listaEmpresas = sesion.createQuery("SELECT DISTINCT e FROM Empresas e JOIN e.convenios c WHERE c.idConvenio IS NOT NULL and e.idEmpresa > 0 and c.idConvenio > 0").list();
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
@@ -154,7 +154,7 @@ public class EmpresasDAO {
         }
         return nombreEmpresa;
     }
-    
+
     public Empresas obtenerEmpresaPorCIF(String cif) {
         Empresas e = null;
         try {

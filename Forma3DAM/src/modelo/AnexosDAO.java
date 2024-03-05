@@ -103,6 +103,9 @@ public class AnexosDAO {
     public void guardaAnexo(Anexos a) {
         try {
             iniciaOperacion();
+            // Save any referenced entities first
+            sesion.saveOrUpdate(a.getNecesidad()); // Assuming getNecesidad() retrieves the Necesidad entity
+            // Now save the Anexos entity
             sesion.save(a);
             tx.commit();
         } catch (HibernateException he) {

@@ -29,25 +29,25 @@
         <property name="responsableContratacion" type="string">
             <column name="responsableContratacion" length="50" />
         </property>
-        <set name="practicases" table="practicas" inverse="true" lazy="true" fetch="select">
+        <set name="practicases" table="practicas" inverse="true" lazy="false" fetch="select" cascade="all">
             <key>
                 <column name="idEmpresa" />
             </key>
             <one-to-many class="pojos.Practicas" />
         </set>
-        <set name="necesidads" table="necesidad" inverse="true" lazy="true" fetch="select">
+        <set name="necesidads" table="necesidad" inverse="true" lazy="false" fetch="select" cascade="all">
             <key>
                 <column name="idEmpresa" unique="true" />
             </key>
             <one-to-many class="pojos.Necesidad" />
         </set>
-        <set name="anexoses" table="anexos" inverse="true" lazy="true" fetch="select">
+        <set name="anexoses" table="anexos" inverse="true" lazy="false" fetch="select" cascade="all">
             <key>
                 <column name="idEmpresa" not-null="true" />
             </key>
             <one-to-many class="pojos.Anexos" />
         </set>
-        <set name="convenios" table="convenio" inverse="true" lazy="true" fetch="select">
+        <set name="convenios" table="convenio" inverse="true" lazy="false" fetch="select" cascade="all">
             <key>
                 <column name="idEmpresa" not-null="true" />
             </key>
